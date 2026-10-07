@@ -47,3 +47,60 @@ print('boundary-ok')
     assert result.returncode==0,result.stderr
     assert result.stdout.strip()=='boundary-ok'
     assert json.loads((workspace/'memory.json').read_text())['route']==['door','kitchen']
+
+
+def test_code_mode_helper_is_mounted_readonly(tmp_path):
+    helper = tmp_path / "codex-code-mode-host"
+    cmd = sandbox_command("/bin/true", tmp_path, tmp_path, tmp_path, helpers=[helper])
+    i = cmd.index(str(helper))
+    assert cmd[i - 1:i + 2] == ["--ro-bind", str(helper), "/runtime/codex-code-mode-host"]
+    assert i < cmd.index("/runtime/codex-app-server", cmd.index("--chdir"))
+
+
+def test_explicit_direct_tool_mode_preserves_robot_tools(tmp_path, monkeypatch):
+    import io
+    from types import SimpleNamespace
+    from environment.runtime.isolated_codex import IsolatedCodex
+    class Output(io.BytesIO):
+        def close(self):
+            self.saved = self.getvalue()
+            super().close()
+    original = {'id': 1, 'method': 'thread/start', 'params': {
+        'config': {'features.code_mode': True, 'features.shell_tool': True},
+        'dynamicTools': [{'name': 'move_eef'}]}}
+    for disabled in (False, True):
+        monkeypatch.setenv('WORLD_CODEX_DISABLE_CODE_MODE', '1' if disabled else '0')
+        source = io.BytesIO((json.dumps(original) + '\n').encode())
+        output = Output()
+        runner = object.__new__(IsolatedCodex)
+        runner.docker_backend = None
+        runner.output = tmp_path
+        runner.connection = SimpleNamespace(makefile=lambda _: source)
+        runner.process = SimpleNamespace(stdin=output)
+        runner._to_agent()
+        sent = json.loads(output.saved)
+        assert sent['params']['dynamicTools'] == original['params']['dynamicTools']
+        assert sent['params']['config']['features.shell_tool'] is True
+        assert sent['params']['config']['features.code_mode'] is (not disabled)
+    assert json.loads((tmp_path/'runtime-tool-mode.json').read_text())['codex_code_mode'] is False
+
+
+def test_direct_mode_overrides_catalog_without_changing_source(tmp_path, monkeypatch):
+    from unittest.mock import patch
+    from environment.runtime.isolated_codex import IsolatedCodex
+    from environment.runtime.codex_session import CodexSession
+    from scripts.configure_api import configure
+    source = tmp_path/'catalog.json'
+    source.write_text(json.dumps({'models': [{'slug': 'custom-model', 'tool_mode': 'code_mode_only'}]}))
+    before = source.read_bytes()
+    auth = tmp_path/'auth'
+    configure(auth, 'https://example.invalid/v1', 'custom-model')
+    monkeypatch.setenv('WORLD_MODEL_API_KEY', 'private-test-value')
+    monkeypatch.setenv('WORLD_CODEX_DISABLE_CODE_MODE', '1')
+    out = tmp_path/'run'; out.mkdir()
+    with patch.object(CodexSession, 'verify_build', return_value={'binary': '/bin/true'}), \
+         patch('environment.runtime.isolated_codex.subprocess.run'):
+        with IsolatedCodex('unused', out, auth, source) as instance:
+            catalog = json.loads(instance.catalog.read_text())
+            assert catalog['models'][0] == {'slug': 'custom-model', 'tool_mode': 'direct'}
+            assert source.read_bytes() == before

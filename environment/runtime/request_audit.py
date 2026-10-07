@@ -44,7 +44,7 @@ def summarize(value):
 
 def violations(record, allowed_tools, image_bytes=None):
     errors = []
-    if (set(record["tools"]) != set(allowed_tools) or
+    if allowed_tools is not None and (set(record["tools"]) != set(allowed_tools) or
             len(record["tools"]) != len(allowed_tools) or record["unsupported_tool_types"]):
         errors.append("tool_allowlist_mismatch")
     if image_bytes is not None and hashlib.sha256(image_bytes).hexdigest() not in record["image_sha256"]:
@@ -60,15 +60,16 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 class RequestAudit:
     def __init__(self, config, output, allowed_tools, *, current_image=None, max_requests=110,
                  max_request_bytes=32 * 1024**2, max_retries=0,
-                 image_window=None):
+                 image_window=None, allow_view_image=False):
         if type(max_retries) is not int or not 0 <= max_retries <= 3:
             raise ValueError("Upstream retries must be between zero and three")
         self.provider = config["model_provider"]
         self.upstream = config["model_providers"][self.provider]["base_url"].rstrip("/")
         self.output = Path(output)
-        self.allowed_tools = set(allowed_tools)
+        self.allowed_tools = None if allowed_tools is None else set(allowed_tools)
         self.current_image = current_image
         self.image_window = image_window
+        self.allow_view_image = allow_view_image
         self.max_requests = max_requests
         self.max_request_bytes = max_request_bytes
         self.max_retries = max_retries
@@ -130,13 +131,13 @@ class RequestAudit:
                         self.send_error(422, "EEF request boundary rejected")
                         return
                     if audit.image_window:
-                        payload, selection = select_request_images(json.loads(body), audit.image_window())
+                        payload, selection = select_request_images(json.loads(body), audit.image_window(), allow_view_image=audit.allow_view_image)
                         body = json.dumps(payload, ensure_ascii=False, allow_nan=False).encode()
                         record["image_window"] = selection
                     outgoing = summarize(json.loads(body))
                     if audit.image_window:
                         errors = violations(outgoing, audit.allowed_tools, current)
-                        if outgoing["image_sha256"] != selection["image_sha256"] or outgoing["input_images"] != len(selection["image_sha256"]):
+                        if outgoing["image_sha256"] != selection["image_sha256"] + selection.get("auxiliary_image_sha256", []) or outgoing["input_images"] != selection["outgoing_images"]:
                             errors.append("outgoing_image_window_mismatch")
                         record["violations"].extend(errors)
                         if errors:

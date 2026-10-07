@@ -42,6 +42,10 @@ class AgentDocker:
                   (relay, '/model-relay/relay.sock', True)]
         for lib in ('libssl.so.1.1', 'libcrypto.so.1.1', 'libbz2.so.1'):
             mounts.append((Path('/lib64', lib).resolve(strict=True), '/runtime/lib/'+lib, True))
+        for helper in build.get('helpers', {}):
+            if Path(helper).name != 'codex-code-mode-host':
+                raise ValueError('Unsupported sandbox helper')
+            mounts.append((Path(helper).resolve(strict=True), '/runtime/codex-code-mode-host', True))
         if catalog:
             mounts.append((Path(catalog).resolve(strict=True), '/runtime/models.json', True))
         if model_config:

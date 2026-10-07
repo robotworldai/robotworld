@@ -1,5 +1,7 @@
 # RobotWorld
 
+**English** | [简体中文](README.zh-CN.md)
+
 **A benchmark for multimodal robot use across manipulation, locomotion, driving, and flight.**
 
 RobotWorld connects a source-built multimodal agent runtime to robot simulators through explicit observation and action interfaces. Agents can analyse observations, issue bounded robot commands, and use execution feedback to revise their actions. Task evaluators assess the resulting trajectories independently of the agent's completion claims.
@@ -10,7 +12,7 @@ This source snapshot registers **84 tasks across 20 benchmark integrations**. Re
 
 - **[Deployment guide](docs/DEPLOYMENT.md)** — host requirements, source restoration, assets, Docker images, runtime build, authentication, verification, and evaluation.
 - **[Assets](docs/ASSETS.md)** — pinned downloads, upstream asset sources, and restricted datasets.
-- **[Model configuration](docs/MODELS.md)** — API credentials and compatible model gateways.
+- **[Model configuration](docs/MODELS.md)** — API credentials and model configuration.
 - **[Evaluation guide](scripts/ROLLOUTS.md)** — per-task budgets, control modes, repeated trials, resume, and summaries.
 - **[Source and deployment limitations](docs/HANDOFF.md)** — what this snapshot can reproduce and which dependencies still need provisioning.
 
@@ -32,6 +34,9 @@ export WORLD_PYTHON="$PWD/.venv/bin/python"
 # Do this before restoring assets.
 bash scripts/setup_handoff.sh sources
 
+# Authenticate if the asset repository requires access.
+hf auth login
+
 # Download the pinned asset release, verify hashes, and restore paths.
 bash scripts/setup_handoff.sh assets --bench robocasa
 
@@ -45,16 +50,31 @@ bash scripts/setup_handoff.sh codex
 
 For all integrations, omit `--bench` from the asset and image commands after provisioning the required base images. BEHAVIOR assets are downloaded separately after the user accepts the upstream licence. The [full deployment guide](docs/DEPLOYMENT.md) covers these dependencies and verification steps.
 
+Use the [prebuilt image bundle](docs/PREBUILT_IMAGES.md) instead of the Docker build commands if the required tags are already available. Existing installations can be reused after checking the pinned source revisions, asset hashes, and image tags. Do not replace them with newer versions silently.
+
+### Direct-tool runtime option
+
+If `codex-code-mode-host` cannot be built (for example, an unavailable upstream V8 archive), use direct tool calling for the isolated agent runtime:
+
+```bash
+export WORLD_CODEX_DISABLE_CODE_MODE=1
+bash scripts/setup_handoff.sh codex
+```
+
+Keep this variable set when running the evaluation. The relay selects direct tool exposure in a private model catalogue without changing the model ID or Codex source, and records `runtime-tool-mode.json`. This was used for the RoboCasa API smoke test. It does **not** enable environment-side `code_control`; action tools, observations, budgets and scoring remain unchanged. Record this interaction setting when comparing results. Other runtime entry points require separate verification.
+
 ## Connect your model API
 
-After deploying the simulator and building the agent runtime, configure your model API:
+After deploying the simulator and building the agent runtime, configure your model API. The endpoint must accept streaming **Responses API** requests with images and function calls; a Chat Completions-only endpoint is not sufficient. The examples assume the endpoint is reachable from the runtime.
 
 ```bash
 python scripts/configure_api.py \
   --base-url https://YOUR_API_HOST/v1 \
   --model YOUR_MULTIMODAL_MODEL_ID
 export CODEX_AUTH_HOME="$PWD/var/auth/api"
-# Set WORLD_MODEL_API_KEY through your shell or secret manager.
+# Enter the key without echoing it or putting it in shell history.
+read -rsp "Model API key: " WORLD_MODEL_API_KEY; printf '\n'
+export WORLD_MODEL_API_KEY
 python scripts/check_api.py
 ```
 
@@ -149,6 +169,10 @@ A valid failure is `false`. Infrastructure errors and incomplete or indeterminat
 | `sources.lock.json` | Pinned source repositories and revisions. |
 | `Assets/` | Downloaded assets; created during installation. |
 | `var/`, `outputs/` | Local builds, authentication, caches, and run artifacts; excluded from source export. |
+
+## Release checks
+
+See [release review](docs/RELEASE_REVIEW.md) for the source/privacy scan and checks performed on this snapshot. The current full test suite is not entirely passing; API-backed simulator validation is pending.
 
 ## Validation and provenance
 

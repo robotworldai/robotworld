@@ -168,6 +168,8 @@ ls "var/build/codex/$RUNTIME_REV/debug/codex" \
 
 The builder uses `cargo build --locked`, writes outputs under `var/build/`, and requires a clean independent `codex/` checkout. Inspect `var/build/codex/<revision>/build.log` if it fails. A globally installed CLI is not used as the evaluation binary.
 
+When using Codex code mode, the build manifest must include `codex-code-mode-host` under `helpers`. Both supported agent sandboxes mount this verified helper read-only beside `codex-app-server`. This runtime helper executes Codex tool orchestration; it is separate from environment-side `CODE_CONTROL`. Disabling environment-side code control does not remove that helper requirement when Codex code mode is active. The explicit direct-tool option in the root README avoids the helper for the isolated runtime. When reusing a build, copy all manifest-listed helpers as well as the app-server.
+
 ## 7. Configure the API
 
 ```bash

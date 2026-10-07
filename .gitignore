@@ -22,7 +22,7 @@ __pycache__/
 /third_party/benchmarks/wheeledlab/assets/
 
 # Downloaded official resources and project-specific upstream runtime checkouts.
-/third_party/benchmarks/*/assets/
+/third_party/benchmarks/*/assets
 
 # Videos, model trajectories and generated controller code from repeated evaluations.
 /outputs/

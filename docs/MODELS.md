@@ -13,7 +13,14 @@ python scripts/configure_api.py \
 export CODEX_AUTH_HOME="$PWD/var/auth/api"
 ```
 
-Set `WORLD_MODEL_API_KEY` using your shell or secret manager. Never place its value in a tracked file or command-line argument. The generated private `config.toml` contains:
+Set `WORLD_MODEL_API_KEY` using your shell or secret manager. For an interactive Bash session:
+
+```bash
+read -rsp "Model API key: " WORLD_MODEL_API_KEY; printf '\n'
+export WORLD_MODEL_API_KEY
+```
+
+ Never place its value in a tracked file or command-line argument. The generated private `config.toml` contains:
 
 ```toml
 model = "YOUR_MULTIMODAL_MODEL_ID"
@@ -51,3 +58,9 @@ bash scripts/run_robocasa.sh run --tasks CloseDrawer --rollouts 1 --batch api-ch
 The batch runner reads the model from `config.toml`. An explicit `--model` or `MODEL` overrides it. Use a fresh batch name when changing model, task budget, control assistance, or simulator settings. Keep the same evaluation conditions when comparing providers.
 
 Credentials are resolved into a temporary private runtime configuration. Batch metadata records the model and provider names, not the credential value. Model conversations and videos can contain task content; review generated `outputs/` separately before sharing them.
+
+## Image history and runtime tool mode
+
+For a custom provider in the host-isolated runtime, RobotWorld applies the adapter's trusted image window before forwarding each Responses request. Previous image slots are replaced with explicit notices; the full original images remain in the run archive. The latest observation packet and up to four subsequent `view_image` images are retained within the 50-image cap. `request-images.json` records incoming and outgoing counts, hashes and transport outcomes without storing request headers or credential values. Tool definitions and calls are preserved.
+
+The optional `WORLD_CODEX_DISABLE_CODE_MODE=1` setting exposes tools directly through the isolated runtime. It does not change the model ID or the environment's `CODE_CONTROL` setting. Record this option alongside results; the runtime writes `runtime-tool-mode.json`. See the root README for the build fallback and its tested scope.

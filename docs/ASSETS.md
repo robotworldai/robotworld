@@ -12,6 +12,8 @@ bash scripts/setup_handoff.sh assets --local-source /path/to/upload-hf
 
 The downloader verifies each file's SHA-256 and restores runtime paths. Explicit `--repo-id` and `--revision` overrides are available; the asset manifest must still match the code. Restricted BEHAVIOR assets are excluded. Every upstream asset retains its own terms.
 
+Anonymous access to the pinned manifest returned HTTP 401 during the release check. Authenticate with `hf auth login` and obtain repository access if required before running the downloader. A model API key does not grant Hugging Face access.
+
 ## Layout and restoration
 
 Assets are stored under `Assets/<benchmark>/`. See [asset layout](../environment/datasets/ASSET_LAYOUT.md). Restore existing matching assets with:

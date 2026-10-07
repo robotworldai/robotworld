@@ -24,7 +24,7 @@ def external_sandbox_message(message):
     return message
 
 
-def sandbox_command(binary, workspace, observations, runtime_home, catalog=None):
+def sandbox_command(binary, workspace, observations, runtime_home, catalog=None, *, helpers=()):
     if not shutil.which('bwrap'):
         raise RuntimeError('bubblewrap is required; refusing an unisolated agent')
     cmd = ['bwrap', '--die-with-parent', '--new-session', '--unshare-user',
@@ -43,6 +43,10 @@ def sandbox_command(binary, workspace, observations, runtime_home, catalog=None)
             '--ro-bind', str(binary), '/runtime/codex-app-server', '--chdir', '/workspace']
     if catalog:
         cmd += ['--ro-bind', str(catalog), '/runtime/models.json']
+    for helper in helpers:
+        if Path(helper).name != 'codex-code-mode-host':
+            raise ValueError('Unsupported sandbox helper')
+        cmd += ['--ro-bind', str(helper), '/runtime/codex-code-mode-host']
     cmd += ['/runtime/codex-app-server', '--listen', 'stdio://']
     if catalog:
         cmd += ['-c', 'model_catalog_json="/runtime/models.json"']
@@ -60,6 +64,7 @@ class IsolatedCodex:
         self.connection = None
         self.error = None
         self.docker_backend = None
+        self.image_audit = None
 
     def __enter__(self):
         try:
@@ -71,6 +76,14 @@ class IsolatedCodex:
     def _enter(self):
         self.temporary = tempfile.TemporaryDirectory(prefix='world-agent-')
         self.control = Path(self.temporary.name)
+        if os.environ.get('WORLD_CODEX_DISABLE_CODE_MODE') == '1':
+            source = self.catalog or (Path(__file__).resolve().parents[2] /
+                'codex/codex-rs/models-manager/models.json')
+            model_catalog = json.loads(Path(source).read_text())
+            for entry in model_catalog.get('models', []):
+                entry['tool_mode'] = 'direct'
+            self.catalog = self.control / 'models-direct.json'
+            self.catalog.write_text(json.dumps(model_catalog))
         self.home = self.control / 'home'
         self.home.mkdir(mode=0o700)
         # Carry only model/provider credentials, never plugins, MCPs or filesystem grants.
@@ -104,8 +117,20 @@ class IsolatedCodex:
             self.docker_backend = AgentDocker(self.build, self.workspace, self.observations, self.catalog, model_path)
             self.command = self.docker_backend.command
         else:
+            config = tomllib.loads((self.home / 'config.toml').read_text())
+            provider = config.get('model_provider', 'openai')
+            if config.get('model_providers', {}).get(provider, {}).get('base_url'):
+                from .request_audit import RequestAudit
+                self.image_audit = RequestAudit(config, self.output/'request-images.json', None,
+                    max_requests=1000000, allow_view_image=True,
+                    image_window=lambda: json.loads((self.output/'image-window.json').read_text()))
+                self.image_audit.__enter__()
             self.command = sandbox_command(self.build['binary'], self.workspace,
-                                           self.observations, self.home, self.catalog)
+                                           self.observations, self.home, self.catalog,
+                                           helpers=self.build.get("helpers", {}))
+            if self.image_audit:
+                for override in self.image_audit.overrides:
+                    self.command += ['-c', override]
             executable = self.command.index('/runtime/codex-app-server', self.command.index('--chdir'))
             subprocess.run(self.command[:executable] + ['/bin/true'], check=True, timeout=10,
                            stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
@@ -142,16 +167,23 @@ class IsolatedCodex:
 
     def _to_agent(self):
         try:
-            if self.docker_backend:
-                with self.connection.makefile('rb') as stream:
-                    for line in stream:
-                        message = external_sandbox_message(json.loads(line))
-                        self.process.stdin.write((json.dumps(message)+'\n').encode())
-                        self.process.stdin.flush()
-                return
-            while data := self.connection.recv(65536):
-                self.process.stdin.write(data)
-                self.process.stdin.flush()
+            with self.connection.makefile('rb') as stream:
+                for line in stream:
+                    message = json.loads(line)
+                    if self.docker_backend:
+                        message = external_sandbox_message(message)
+                    if (message.get('method') == 'thread/start'
+                            and os.environ.get('WORLD_CODEX_DISABLE_CODE_MODE') == '1'):
+                        params = dict(message.get('params', {}))
+                        params['config'] = {**params.get('config', {}), 'features.code_mode': False}
+                        message = {**message, 'params': params}
+                        (self.output / 'runtime-tool-mode.json').write_text(json.dumps({
+                            'codex_code_mode': False,
+                            'reason': 'explicit WORLD_CODEX_DISABLE_CODE_MODE=1',
+                            'environment_code_control': 'unchanged',
+                        }, indent=2))
+                    self.process.stdin.write((json.dumps(message)+'\n').encode())
+                    self.process.stdin.flush()
         except (OSError, ValueError):
             pass
         finally:
@@ -180,5 +212,7 @@ class IsolatedCodex:
         finally:
             if hasattr(self, 'listener'):
                 self.listener.close()
+            if self.image_audit:
+                self.image_audit.__exit__(None, None, None)
             if hasattr(self, 'temporary'):
                 self.temporary.cleanup()

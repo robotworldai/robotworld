@@ -101,12 +101,15 @@ def test_missing_or_changed_packet_fails_closed(change):
         select_request_images(payload, history.snapshot())
 
 
-def test_actual_http_audit_trims_history_before_retry_without_changing_current(tmp_path, monkeypatch):
+@pytest.mark.parametrize("dynamic_tools", [False, True])
+def test_actual_http_audit_trims_history_before_retry_without_changing_current(tmp_path, monkeypatch, dynamic_tools):
     from environment.runtime import request_audit as module
     history, payload = ObservationHistory(), dict(model="gpt-6-astra-azure", tools=[dict(type="function", name="step")], input=[])
     for number in range(65):
         parts = history.append(number, number * 15, [image(str(number).encode())])
         payload["input"].append(dict(type="function_call_output", call_id=str(number), output=wire(parts)))
+    if dynamic_tools:
+        add_view_image(payload, "crop-current")
     seen = []
     class Response(io.BytesIO):
         status = 200
@@ -122,15 +125,15 @@ def test_actual_http_audit_trims_history_before_retry_without_changing_current(t
     original = module.open_with_retry
     monkeypatch.setattr(module, "open_with_retry", lambda *args, **kwargs: original(*args, **kwargs, sleep=lambda _: None))
     cfg = dict(model_provider="fixture", model_providers={"fixture": dict(base_url="http://invalid")})
-    with module.RequestAudit(cfg, tmp_path / "audit.json", {"step"}, current_image=lambda: b"64",
-                             max_retries=3, image_window=history.snapshot) as audit:
+    with module.RequestAudit(cfg, tmp_path / "audit.json", None if dynamic_tools else {"step"}, current_image=lambda: b"64",
+                             max_retries=3, image_window=history.snapshot, allow_view_image=dynamic_tools) as audit:
         req = urllib.request.Request(f"http://127.0.0.1:{audit.server.server_port}/v1/responses", data=json.dumps(payload).encode())
         with client.open(req) as response:
             response.read()
     assert audit.valid and len(seen) == 2 and seen[0] == seen[1]
-    assert summarize(json.loads(seen[0]))["input_images"] == 5
+    assert summarize(json.loads(seen[0]))["input_images"] == 5 + int(dynamic_tools)
     record = audit.records[0]
-    assert record["input_images"] > 50 and record["outgoing_input_images"] == 5
+    assert record["input_images"] > 50 and record["outgoing_input_images"] == 5 + int(dynamic_tools)
     assert record["image_window"]["rounds"][-1]["observation"] == 64
     assert record["retry_count"] == 1
 
