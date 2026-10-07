@@ -208,3 +208,48 @@ outputs/<benchmark>/summaries/<batch>-runs.csv
 CPU 测试可执行 `python -m pytest`。列出任务、检查启动计划、API 连接通过，分别只验证对应环节，不能替代真实 GPU rollout 或成功轨迹验证。历史任务报告不等于本发布版的新增实测结果。
 
 第三方源码与资产保留各自许可证和限制，BEHAVIOR 资产及解密密钥不分发。本快照尚无适用于 RobotWorld 自有代码的顶层许可证，维护者应在正式开源发布前选定。
+
+## 引用
+
+如果你的研究使用了 RobotWorld，请引用：
+
+```bibtex
+@misc{yang2026robotworld,
+  title  = {{RobotWorld}: Benchmarking Multimodal Agents for Robot Use Across Diverse Tasks and Embodiments},
+  author = {Yang, Zhiqin and
+            Li, Chenxin and
+            Hu, Xiaomeng and
+            Liu, Yibin and
+            Huang, Weidong and
+            Sun, Jiankai and
+            Li, Haitao and
+            Wu, Zijian and
+            Huang, Yuzhi and
+            Huang, Fanding and
+            Sun, Hanwen and
+            Liu, Jiashun and
+            Tong, Jingqi and
+            Huang, Mingxin and
+            Hu, Shaoli and
+            Huang, Shijue and
+            Bai, Tianyi and
+            Wang, Xinyuan and
+            Lin, Yunlong and
+            Tang, Zhengyang and
+            Zhang, Zhexin and
+            Chen, Zhuo and
+            Song, Xierui and
+            Dai, Juntao and
+            Chen, Boyuan and
+            Ji, Jiaming and
+            Zhan, Fangneng and
+            Hu, Mengkang and
+            Xue, Wei and
+            Zhang, Yonggang and
+            Hu, Han and
+            Ho, Tsung-Yi and
+            Guo, Yike},
+  year   = {2026},
+  url    = {https://github.com/robotworldai/robotworld}
+}
+```

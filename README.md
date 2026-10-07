@@ -181,3 +181,48 @@ The source for this release is `visitworld123/RoboWorld_Scaffold`, branch `main`
 Run the CPU tests with `python -m pytest`. Task-list and Docker-plan checks do not verify physical task feasibility. GPU simulation, model connectivity, and successful trajectories require separate checks. Experimental Isaac compatibility layers are identified in run metadata and should not be treated as proof of equivalence to the original simulator version.
 
 Third-party code and assets retain their respective licences and notices. BEHAVIOR assets and decryption keys are not redistributed. This snapshot has no top-level licence for RobotWorld-owned code; the maintainers need to select one before presenting it as a fully licensed open-source release.
+
+## Citation
+
+If you use RobotWorld in your research, please cite:
+
+```bibtex
+@misc{yang2026robotworld,
+  title  = {{RobotWorld}: Benchmarking Multimodal Agents for Robot Use Across Diverse Tasks and Embodiments},
+  author = {Yang, Zhiqin and
+            Li, Chenxin and
+            Hu, Xiaomeng and
+            Liu, Yibin and
+            Huang, Weidong and
+            Sun, Jiankai and
+            Li, Haitao and
+            Wu, Zijian and
+            Huang, Yuzhi and
+            Huang, Fanding and
+            Sun, Hanwen and
+            Liu, Jiashun and
+            Tong, Jingqi and
+            Huang, Mingxin and
+            Hu, Shaoli and
+            Huang, Shijue and
+            Bai, Tianyi and
+            Wang, Xinyuan and
+            Lin, Yunlong and
+            Tang, Zhengyang and
+            Zhang, Zhexin and
+            Chen, Zhuo and
+            Song, Xierui and
+            Dai, Juntao and
+            Chen, Boyuan and
+            Ji, Jiaming and
+            Zhan, Fangneng and
+            Hu, Mengkang and
+            Xue, Wei and
+            Zhang, Yonggang and
+            Hu, Han and
+            Ho, Tsung-Yi and
+            Guo, Yike},
+  year   = {2026},
+  url    = {https://github.com/robotworldai/robotworld}
+}
+```
