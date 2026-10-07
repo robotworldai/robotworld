@@ -1,0 +1,28 @@
+Metadata-Version: 2.4
+Name: robot_lab
+Version: 2.1
+Summary: RL Extension Library for Robots, Based on IsaacLab.
+Home-page: https://github.com/fan-ziqi/robot_lab.git
+Author: Ziqi Fan
+Maintainer: Ziqi Fan
+License: Apache License 2.0
+Keywords: extension,robot_lab,isaaclab
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Isaac Sim :: 2023.1.1
+Classifier: Isaac Sim :: 4.0.0
+Requires-Python: >=3.10
+Requires-Dist: psutil
+Requires-Dist: lxml
+Requires-Dist: transformations
+Requires-Dist: pybullet
+Requires-Dist: colorama
+Dynamic: author
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: maintainer
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

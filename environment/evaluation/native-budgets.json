@@ -1,0 +1,381 @@
+{
+  "description": "Pinned native numeric horizons; fallback when official task metadata/assets are absent. Not model performance.",
+  "tasks": {
+    "robodojo": {
+      "hang_mugs": {
+        "steps": 800,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/hang_mugs.py: self.step_lim"
+      },
+      "sweep_blocks": {
+        "steps": 1000,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/sweep_blocks.py: self.step_lim"
+      },
+      "pour_liquid_into_cup": {
+        "steps": 400,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/pour_liquid_into_cup.py: self.step_lim"
+      },
+      "make_toast": {
+        "steps": 1400,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/make_toast.py: self.step_lim"
+      },
+      "store_laptop_and_headphones": {
+        "steps": 800,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/store_laptop_and_headphones.py: self.step_lim"
+      },
+      "insert_tubes": {
+        "steps": 500,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/insert_tubes.py: self.step_lim"
+      },
+      "plug_in_charger": {
+        "steps": 400,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/plug_in_charger.py: self.step_lim"
+      },
+      "pour_balls_into_vase": {
+        "steps": 600,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/pour_balls_into_vase.py: self.step_lim"
+      },
+      "play_Xylophone": {
+        "steps": 500,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/play_Xylophone.py: self.step_lim"
+      },
+      "fill_pen_holder": {
+        "steps": 1100,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/fill_pen_holder.py: self.step_lim"
+      },
+      "fill_egg_holder": {
+        "steps": 700,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/fill_egg_holder.py: self.step_lim"
+      },
+      "make_kong": {
+        "steps": 600,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/make_kong.py: self.step_lim"
+      },
+      "pour_by_language": {
+        "steps": 800,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/pour_by_language.py: self.step_lim"
+      },
+      "match_and_pick_from_conveyor": {
+        "steps": 700,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/match_and_pick_from_conveyor.py: self.step_lim"
+      },
+      "deposit_coin": {
+        "steps": 300,
+        "source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/deposit_coin.py: self.step_lim"
+      }
+    },
+    "behavior_1k": {
+      "carrying_in_groceries": {
+        "steps": 21412,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      },
+      "clean_up_your_desk": {
+        "steps": 32126,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      },
+      "slicing_vegetables": {
+        "steps": 22267,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      },
+      "sorting_vegetables": {
+        "steps": 17855,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      },
+      "clean_boxing_gloves": {
+        "steps": 12353,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      },
+      "putting_up_Christmas_decorations_inside": {
+        "steps": 20578,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      },
+      "setting_the_table": {
+        "steps": 26712,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      },
+      "putting_dishes_away_after_cleaning": {
+        "steps": 16430,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      },
+      "can_meat": {
+        "steps": 17770,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      },
+      "freeze_pies": {
+        "steps": 18682,
+        "source": "OmniGibson/eval/evaluator.py: int(task human mean length * EVAL_TIMEOUT_MULTIPLIER=1.5)"
+      }
+    },
+    "robocasa": {
+      "CountertopCleanup": {
+        "steps": null,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      },
+      "SortingCleanup": {
+        "steps": 3000,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      },
+      "CoffeeSetupMug": {
+        "steps": 600,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      },
+      "CloseDrawer": {
+        "steps": 450,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      },
+      "NavigateKitchen": {
+        "steps": 450,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      },
+      "PackIdenticalLunches": {
+        "steps": 3900,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      },
+      "OrganizeMugsByHandle": {
+        "steps": 1350,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      },
+      "LoadDishwasher": {
+        "steps": 1800,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      },
+      "MicrowaveCorrectMeal": {
+        "steps": 1500,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      },
+      "ResetCabinetDoors": {
+        "steps": 3300,
+        "source": "third_party/benchmarks/robocasa/checkout/robocasa/utils/dataset_registry.py: get_task_horizon"
+      }
+    },
+    "robolab": {
+      "ToolOrganizationTask": {
+        "steps": 2700,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "NonHammerToolsInRightBinTask": {
+        "steps": 2700,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "FoodPacking2CansTask": {
+        "steps": 2700,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "RubiksCubeLeftOfBowlTask": {
+        "steps": 450,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "FruitsOnPlate3Task": {
+        "steps": 3000,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "PutTwoMugsOnShelfTask": {
+        "steps": 2700,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "BlockStackingSpecifiedOrderTask": {
+        "steps": 1350,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "ClutterPlasticTask": {
+        "steps": 2700,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "ReorientWhiteMugsTask": {
+        "steps": 900,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "WhiteMugInCenterOfTableTask": {
+        "steps": 450,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      }
+    },
+    "humanoid_soccer": {
+      "play-soccer": {
+        "steps": 300,
+        "source": "HumanoidSoccer/exp/mujoco_soccer/cli.py: sim_time=6s, control_dt=0.02s"
+      }
+    },
+    "ai_cps": {
+      "22": {
+        "steps": 300,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "23": {
+        "steps": 300,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "24": {
+        "steps": 300,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      }
+    },
+    "wheeledlab": {
+      "mushr-drift": {
+        "steps": 250,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "f1tenth-drift": {
+        "steps": 250,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "elevation": {
+        "steps": 200,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "visual": {
+        "steps": 50,
+        "source": "environment/evaluation/suites.json; pinned native task horizon"
+      },
+      "rw-courtyard": {
+        "steps": 2000,
+        "source": "versioned RobotWorld task protocol (not an upstream task)"
+      },
+      "rw-hairpins": {
+        "steps": 2000,
+        "source": "versioned RobotWorld task protocol (not an upstream task)"
+      },
+      "rw-gate-dock": {
+        "steps": 2000,
+        "source": "versioned RobotWorld task protocol (not an upstream task)"
+      },
+      "rw-drift-switch": {
+        "steps": 2000,
+        "source": "versioned RobotWorld task protocol (not an upstream task)"
+      },
+      "rw-twin-beam": {
+        "steps": 2000,
+        "source": "versioned RobotWorld task protocol (not an upstream task)"
+      },
+      "rw-reverse-bay": {
+        "steps": 2000,
+        "source": "versioned RobotWorld task protocol (not an upstream task)"
+      },
+      "rw-parallel-park": {
+        "steps": 2000,
+        "source": "versioned RobotWorld task protocol (not an upstream task)"
+      }
+    },
+    "bench2dex": {
+      "41": {
+        "steps": 681,
+        "source": "third_party/benchmarks/bench2dex/project.json: tasks.41.steps"
+      },
+      "42": {
+        "steps": 986,
+        "source": "third_party/benchmarks/bench2dex/project.json: tasks.42.steps"
+      },
+      "43": {
+        "steps": 1149,
+        "source": "third_party/benchmarks/bench2dex/project.json: tasks.43.steps"
+      },
+      "44": {
+        "steps": 1080,
+        "source": "third_party/benchmarks/bench2dex/project.json: tasks.44.steps"
+      },
+      "45": {
+        "steps": 964,
+        "source": "third_party/benchmarks/bench2dex/project.json: tasks.45.steps"
+      },
+      "46": {
+        "steps": 1061,
+        "source": "third_party/benchmarks/bench2dex/project.json: tasks.46.steps"
+      },
+      "47": {
+        "steps": 593,
+        "source": "third_party/benchmarks/bench2dex/project.json: tasks.47.steps"
+      },
+      "48": {
+        "steps": 1213,
+        "source": "third_party/benchmarks/bench2dex/project.json: tasks.48.steps"
+      },
+      "49": {
+        "steps": 1082,
+        "source": "third_party/benchmarks/bench2dex/project.json: tasks.49.steps"
+      }
+    },
+    "digit": {
+      "digit_walk_hand_tracking": {
+        "steps": 700,
+        "source": "third_party/benchmarks/digit/project.json: tasks.T13.steps"
+      }
+    },
+    "flamingo": {
+      "wheel_legged_jump_balance": {
+        "steps": 1000,
+        "source": "third_party/benchmarks/flamingo/project.json: tasks.T15.steps"
+      }
+    },
+    "go2_push": {
+      "quadruped_push_recovery": {
+        "steps": 1000,
+        "source": "third_party/benchmarks/go2_push/project.json: tasks.T10.steps"
+      }
+    },
+    "omnidrones": {
+      "drone_payload_hover": {
+        "steps": 500,
+        "source": "third_party/benchmarks/omnidrones/project.json: tasks.T16.steps"
+      },
+      "drone_inverted_pendulum_tracking": {
+        "steps": 600,
+        "source": "third_party/benchmarks/omnidrones/project.json: tasks.T17.steps"
+      }
+    },
+    "omniisaacgymenvs": {
+      "anymal_rough_terrain": {
+        "steps": 1000,
+        "source": "third_party/benchmarks/omniisaacgymenvs/project.json: tasks.T14.steps"
+      }
+    },
+    "reflexbench": {
+      "cup_ball_catching": {
+        "steps": 100,
+        "source": "third_party/benchmarks/reflexbench/project.json: tasks.T03.steps"
+      }
+    },
+    "robot_lab": {
+      "a1_front_leg_handstand": {
+        "steps": 500,
+        "source": "third_party/benchmarks/robot_lab/project.json: tasks.T11.steps"
+      }
+    },
+    "steadytray": {
+      "tray_balancing_walk": {
+        "steps": 1000,
+        "source": "third_party/benchmarks/steadytray/project.json: tasks.T01.steps"
+      }
+    },
+    "ttrl": {
+      "humanoid_table_tennis_return": {
+        "steps": 540,
+        "source": "third_party/benchmarks/ttrl/project.json: tasks.T02.steps"
+      }
+    },
+    "volleybots": {
+      "drone_volleyball_1v1": {
+        "steps": 1000,
+        "source": "third_party/benchmarks/volleybots/project.json: tasks.T05.steps"
+      },
+      "drone_volleyball_solo_juggle": {
+        "steps": 800,
+        "source": "third_party/benchmarks/volleybots/project.json: tasks.T05-single.steps"
+      }
+    },
+    "wheel_legged": {
+      "wheel_legged_upright_recovery": {
+        "steps": 2000,
+        "source": "third_party/benchmarks/wheel_legged/project.json: tasks.T07.steps"
+      },
+      "wheel_legged_rough_terrain": {
+        "steps": 2000,
+        "source": "third_party/benchmarks/wheel_legged/project.json: tasks.T08.steps"
+      }
+    },
+    "wheeled_quadruped": {
+      "rear_wheel_upright_balance": {
+        "steps": 1000,
+        "source": "third_party/benchmarks/wheeled_quadruped/project.json: tasks.T09.steps"
+      }
+    }
+  }
+}

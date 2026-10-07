@@ -1,0 +1,19 @@
+{
+  "id": "robolab",
+  "source": "third_party/benchmarks/robolab/checkout",
+  "commit": "ad45d4f974725d020f82c2b0d77d78533aeba2b3",
+  "standard_image": "world/robolab:0.3.1-isaac5.0",
+  "experimental_image": "world/robolab:0.3.1-isaac6.0.1-experimental",
+  "evaluator": "robolab.eval.runner.run_evaluation",
+  "policy": "environment.benchmarks.robolab.policy.CodexClient",
+  "robot": "DROID",
+  "control_modes": [
+    "joint_position",
+    "absolute_ik",
+    "relative_ik"
+  ],
+  "task_mapping": "third_party/benchmarks/robolab/robotworld-tasks.json",
+  "runtime_validation": "experimental_single_task_native_and_source_codex_smokes_passed",
+  "standard_runtime_validation": "startup_failed_on_local_driver",
+  "validated_task": "ToolOrganizationBothTask"
+}

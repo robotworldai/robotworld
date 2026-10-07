@@ -1,0 +1,71 @@
+defaults:
+  - model: dual_system            # [Optional]: dual_system(default), single_system, tri_system
+  - dataloader: robotwin          # [Optional]: robotwin(default), ebench, robocasa365, robocasa_gr1, robodojo, vlabench, libero
+  - _self_
+
+training:
+  # --- Debug ---
+  debug: false                    # Debug mode: max_steps=20, save@10, constant LR
+
+  # --- Optimizer ---
+  learning_rate: 1e-4             # Base learning rate for AdamW
+  adam_betas: [0.9, 0.95]         # AdamW (beta1, beta2)
+  weight_decay: 0.01              # AdamW weight decay
+  max_grad_norm: 1.0              # Gradient clipping max norm
+
+  # --- Schedule ---
+  num_epochs: 5                   # Total training epochs (null = step-only, driven solely by max_steps)
+  max_steps: null                 # Early stop after N steps (null = no limit; required when num_epochs is null)
+  batch_size: 16                   # Per-GPU batch size
+  gradient_accumulation_steps: 1  # Accumulate N micro-batches before optimizer step
+
+  # --- LR scheduler ---
+  lr_scheduler: cosine            # cosine with linear warmup; null = constant LR
+  warmup_ratio: 0.05              # Fraction of total steps for linear warmup
+  lr_min_ratio: 0.01              # Minimum LR as fraction of learning_rate
+
+  # --- Per-module LR (null = use base learning_rate) ---
+  action_lr: null                 # Override LR for action model parameters
+  video_lr: null                  # Override LR for video backbone parameters
+
+  # --- DeepSpeed / precision ---
+  mixed_precision: bf16           # bf16 / fp16 / no — training + deploy compute dtype
+  zero_stage: 2                   # DeepSpeed ZeRO stage: 1 or 2 (CLI override: training.zero_stage=1)
+
+  # --- Memory optimization ---
+  use_gradient_checkpointing: true       # Recompute activations in backward instead of storing them: saves memory
+                                         # costs ~1 extra forward (standard term; cf. PyTorch/HF)
+  use_gradient_checkpointing_offload: false  # Offload checkpointed activations to CPU
+  initialize_model_on_cpu: false         # Load model on CPU, let DeepSpeed move to GPU
+  offload_optimizer_device: none         # DeepSpeed ZeRO optimizer-state offload: none / cpu
+
+  # --- Loss weights ---
+  lambda_video: 1.0               # Video flow-matching loss weight
+  lambda_action: 1.0              # Action flow-matching loss weight
+
+  # --- Flow matching timestep range ---
+  max_timestep_boundary: 1.0      # Upper bound (fraction of total timesteps)
+  min_timestep_boundary: 0.0      # Lower bound (fraction of total timesteps)
+
+  # --- Checkpoint ---
+  output_path: outputs/openwam_checkpoints            # Base directory for checkpoint output (relative to the launch cwd)
+  save_steps: 2000                # Save checkpoint every N steps (0 or null = disable saving)
+  save_full_states_for_resume: false  # Also save resumable full state (optimizer/scheduler/RNG) at each save;
+                                      # required for training.resume_ckpt_path, costs extra disk per checkpoint
+  keep_last_k_ckpts: 1           # Rolling window: keep only the last K checkpoints
+
+  # --- Finetune / Resume (mutually exclusive; both point to a training output dir, latest step auto-selected) ---
+  finetune_ckpt_path: null   # non-null: warm-start from latest weights in this dir (step from 0, new output dir)
+  resume_ckpt_path: null     # non-null: resume full state from latest in this dir (output reuses this dir)
+
+  # --- Data loading ---
+  dataset_num_workers: 8          # DataLoader num_workers (0 = main process)
+
+project:
+  name: openwam
+  output_dir: outputs/${now:%Y-%m-%d_%H-%M-%S}
+  seed: 42
+  wandb:
+    project: openwam
+    run_name: null
+    entity: null

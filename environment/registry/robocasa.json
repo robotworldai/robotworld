@@ -1,0 +1,24 @@
+{
+  "benchmark": "robocasa365",
+  "source": "https://github.com/robocasa/robocasa",
+  "commit": "456174f62b89b8fca99eaaf33949c29fec9cfc2a",
+  "robosuite_commit": "5ce6643f3092639d08f7b0f90ed1c6a84f50552c",
+  "engine": "mujoco",
+  "engine_version": "3.3.1",
+  "image": "world/robocasa:1.0.1",
+  "image_id": "sha256:24b899dbe9f8793147324794b8355e944c05fc29ae0f79b4dd58435699f98e2f",
+  "robot": "PandaOmron",
+  "action_dim": 12,
+  "control": "unmodified HYBRID_MOBILE_BASE + OSC_POSE delta",
+  "evaluation": "official Gym reset/step, task horizon, info.success",
+  "source_modified": false,
+  "tasks": {
+    "CloseDrawer": 450,
+    "CoffeeSetupMug": 600,
+    "SortingCleanup": 3000,
+    "NavigateKitchen": 450,
+    "CountertopCleanup": null
+  },
+  "task_mapping": "environment/scenarios/robocasa/robotworld.json",
+  "full_suite_success_validated": false
+}

@@ -1,0 +1,21 @@
+{
+  "image": "world/ttrl:isaac6.0.1-experimental",
+  "entrypoint": ["python"],
+  "adapter": "environment.benchmarks.ttrl.project_isaac6",
+  "runtime": "Experimental Isaac Sim6.0.1 / original pinned IsaacLab2.1.0 / original t1_tt_eval; not official physical equivalence",
+  "environment": {"TORCHDYNAMO_DISABLE": "1"},
+  "python_paths": [".", "rsl_rl"],
+  "runtime_python_paths": [
+    "third_party/benchmarks/ttrl/isaaclab21_checkout/source/isaaclab",
+    "third_party/benchmarks/ttrl/isaaclab21_checkout/source/isaaclab_assets",
+    "third_party/benchmarks/ttrl/isaaclab21_checkout/source/isaaclab_tasks",
+    "third_party/benchmarks/ttrl/isaaclab21_checkout/source/isaaclab_rl"
+  ],
+  "build_dockerfile": "docker/Dockerfile.isaac6",
+  "build_context": "docker",
+  "runtime_source": {
+    "repository": "https://github.com/isaac-sim/IsaacLab.git",
+    "directory": "isaaclab21_checkout",
+    "commit": "21f7136325136ca3f6ca4e0a8125edffe5c24f7e"
+  }
+}

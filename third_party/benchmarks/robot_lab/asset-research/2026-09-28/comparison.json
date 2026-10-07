@@ -1,0 +1,37 @@
+[
+  {
+    "path": "meshes/calf.dae",
+    "same_as_pinned": false,
+    "sha256": "744798832678e7315ec90a3d419070f72f4049182ce1d36c627a7c53e0347729"
+  },
+  {
+    "path": "meshes/hip.dae",
+    "same_as_pinned": false,
+    "sha256": "601ad36dcb3a459338d91d4eb0aa15995a169ebd7f268f91b3d941f68ffd8a8d"
+  },
+  {
+    "path": "meshes/thigh.dae",
+    "same_as_pinned": false,
+    "sha256": "63a7c33a0c04549e7d001e8432f27e639b09393233ad1131c6035148aa0ac1a4"
+  },
+  {
+    "path": "meshes/thigh_mirror.dae",
+    "same_as_pinned": false,
+    "sha256": "73fc605150683746d709522ca7d84cee3c5504de77baae51f95ee757184bc8c2"
+  },
+  {
+    "path": "meshes/trunk.dae",
+    "same_as_pinned": false,
+    "sha256": "be2f4256cd8d2944881e4fcca6f0aaac0632cdb09ae73fa9040f75cb5e15a15c"
+  },
+  {
+    "path": "meshes/trunk_A1.png",
+    "same_as_pinned": true,
+    "sha256": "512e8cfa5ebedfc4199afe172590d3d486461e42244ab5d439020111f9fc7e78"
+  },
+  {
+    "path": "urdf/a1.urdf",
+    "same_as_pinned": false,
+    "sha256": "a189238b1e1282e7df9125d8406c5457f4365be7712f1fa8c05271f70b08cb60"
+  }
+]

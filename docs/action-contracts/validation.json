@@ -1,0 +1,50 @@
+{
+  "scope": "English system/tool action contract audit; no new model or physics rollouts",
+  "benchmarks": 20,
+  "selected_tasks": 85,
+  "regression_tests_passed": 127,
+  "regression_test_failures": 0,
+  "english_exports": 20,
+  "source_backed_runtime_metadata_examples": 12,
+  "robolab_modes": [
+    "joint_position",
+    "absolute_ik",
+    "relative_ik"
+  ],
+  "unchanged": [
+    "upstream checkouts",
+    "Codex source",
+    "action assembly formulas",
+    "physics",
+    "task success criteria",
+    "historical prompt snapshots"
+  ],
+  "additional_checks": [
+    "RoboCasa image source hashes match five audited local controller/model files",
+    "MuSHR/F1Tenth USD steering axes read in a CPU-only container",
+    "audit document links exist",
+    "adapter Python syntax valid",
+    "English exported contracts and model-facing driving labels contain no Chinese prose"
+  ],
+  "files_sha256": {
+    "environment/benchmarks/action_contracts.py": "ceebcafee89d1e5e55d2e871da1e712ef85b299dd4f16d03635fdac04be08c24",
+    "environment/benchmarks/ai_cps/control.py": "125eac86ee6c31b75ba41d02db15106497b95505916e648fd28e77830e7a7b2d",
+    "environment/benchmarks/ai_cps/policy.py": "5b7092932a99eba7e82c0762f2ae98a9a92cead77db56b86c5a008dc94882602",
+    "environment/benchmarks/behavior_1k/control.py": "1a60740ecebb5bf2c30213ad5f021d8a91ca81b9be0d03592b38b61e6d494300",
+    "environment/benchmarks/behavior_1k/policy.py": "7ff59b1632ef57d3f5e35db79087c9187826393f0b971d4dbe905b31ea5d971d",
+    "environment/benchmarks/humanoid_soccer/control.py": "ce4a827ef92a8027fbaf2f7eddb8c1a1965784b6606f6ac2fa8a073d1a52891d",
+    "environment/benchmarks/humanoid_soccer/policy.py": "8fcd41c143d80d9073c3ab12721015a02b7a63bd984cd8700b52c491f2ba9bbc",
+    "environment/benchmarks/native_project/action_prompt.py": "961fab10bcce5bf06d9aac04bf78fcf49acdd105a0d7ffc41b27c267744cae11",
+    "environment/benchmarks/native_project/control.py": "2035a1b96ae78030d6beeb6533f23d0a6118de57dfd43cb3598db97c599f4902",
+    "environment/benchmarks/native_project/policy.py": "cec629a9adb84bef334f296b4e6b9716920928aa9ad4173e9c2228fb0adfb4bc",
+    "environment/benchmarks/robocasa/control.py": "0e64ca62d8969b89b78836c47f9a8002bd0ef59c907f48393fb99265e280013f",
+    "environment/benchmarks/robocasa/policy.py": "b93613079deff58db17dd39b2a8cc5d7031de10dd8bac1485bff015130c3b4ae",
+    "environment/benchmarks/robodojo/adapter.py": "697021f3748a115122e3e03e2004dac45e13a57403e015fa363989e210d6006e",
+    "environment/benchmarks/robolab/control.py": "0ac50ceaed59f642ee1ef40cdbbe9c3fdcefc7fb2999c00f05f1041e64105c94",
+    "environment/benchmarks/robolab/policy.py": "5108237f4f2ae981c67fb5068f7ad5c46c5114c1c988a5d5a5b3e058d55141f2",
+    "environment/benchmarks/wheeledlab/catalog.py": "babe886d9a5a33e26e1b4420a83c739f2ed1c81778ac5d525331f7956c83de7c",
+    "environment/benchmarks/wheeledlab/control.py": "fae4d024713868306bd61179c94fee626e1997c9bdafeddb0d0a0d73afb6629b",
+    "environment/benchmarks/wheeledlab/policy.py": "bff913ad8b18b2bec28c4f9903735937f0e2e21f213bb2bf65f63961f329c016",
+    "environment/integrations/behavior_eval.py": "9ac4f482cf133424d5256d0d8cd93dbac92fd005b0f5465364f91a9752d45677"
+  }
+}

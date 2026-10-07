@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find robot_description)/robot/parts/rear_wheel/rear_wheel.gazebo"/>
+  
+  <xacro:macro name="rear_wheel" params="prefix parent *joint_origin *joint_axis">
+	<joint name="${prefix}_wheel_joint" type="continuous">
+	  <xacro:insert_block name="joint_origin"/>
+	  <parent link="${parent}"/>
+	  <child link="${prefix}_wheel_link"/>
+          <limit effort="100" velocity="100"/>
+	  <xacro:insert_block name="joint_axis"/>
+	</joint>
+
+	<link name="${prefix}_wheel_link">
+	  <visual>
+		  <geometry>
+		    <mesh filename="package://robot_description/meshes/DAE/wheel/wheel.dae"/>
+		  </geometry>
+	  </visual>
+	  <collision>
+		  <geometry>
+		    <mesh filename="package://robot_description/meshes/STL/wheel/wheel.stl"/>
+		  </geometry>
+	  </collision>
+	  <inertial>
+		  <origin xyz="0.0 0.01 0.0"/>
+		  <mass value="0.64"/>
+		  <inertia ixx="0.001647" ixy="0" ixz="0" iyy="0.00325" iyz="0" izz="0.001647"/>
+	  </inertial>
+          <surface>
+            <friction>
+              <ode>
+                <mu1>1.2</mu1>
+                <mu2>1.2</mu2>
+                <kp>1e15</kp>
+                <kd>1e13</kd>
+              </ode>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0.01</restitution_coefficient>
+              <threshold>0</threshold>
+            </bounce>
+            <contact>
+              <ode>
+                <max_vel>10</max_vel>
+              </ode>
+            </contact>
+          </surface>
+	</link>
+  </xacro:macro>
+  
+</robot>

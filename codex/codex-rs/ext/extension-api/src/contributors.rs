@@ -1,0 +1,432 @@
+use std::future::Future;
+use std::pin::Pin;
+use std::sync::Arc;
+
+use codex_context_fragments::ContextualUserFragment;
+use codex_protocol::items::TurnItem;
+use codex_protocol::protocol::TokenUsageInfo;
+use codex_tools::ToolCall;
+use codex_tools::ToolExecutor;
+
+use crate::ExtensionData;
+use crate::ExtensionMetrics;
+
+mod approval_review;
+mod context;
+mod mcp;
+mod prompt;
+mod skill_invocation;
+mod thread_lifecycle;
+mod tool_lifecycle;
+mod turn_input;
+mod turn_lifecycle;
+mod world_state;
+
+pub use approval_review::ApprovalDecision;
+pub use approval_review::ApprovalDecisionInput;
+pub use approval_review::GuardianV2Enabled;
+pub use approval_review::SynchronousApprovalReviewer;
+pub use context::TurnContextContributionInput;
+pub use mcp::McpServerContribution;
+pub use mcp::McpServerContributionContext;
+pub use mcp::SelectedPlugin;
+pub use mcp::SelectedPluginContribution;
+pub use mcp::SelectedPluginIdentity;
+pub use mcp::SelectedPluginSnapshot;
+pub use prompt::PromptFragment;
+pub use prompt::PromptSlot;
+pub use skill_invocation::SkillInvocationInput;
+pub use skill_invocation::SkillInvocationKind;
+pub use thread_lifecycle::ThreadIdleCause;
+pub use thread_lifecycle::ThreadIdleInput;
+pub use thread_lifecycle::ThreadOriginator;
+pub use thread_lifecycle::ThreadReadyInput;
+pub use thread_lifecycle::ThreadResumeInput;
+pub use thread_lifecycle::ThreadStartInput;
+pub use thread_lifecycle::ThreadStopInput;
+pub use tool_lifecycle::CommandStartInput;
+pub use tool_lifecycle::McpToolContext;
+pub use tool_lifecycle::McpToolResultInput;
+pub use tool_lifecycle::McpToolSource;
+pub use tool_lifecycle::ToolCallOutcome;
+pub use tool_lifecycle::ToolFinishInput;
+pub use tool_lifecycle::ToolLifecycleFuture;
+pub use tool_lifecycle::ToolStartInput;
+pub use tool_lifecycle::ToolTimingBoundary;
+pub use tool_lifecycle::ToolTimingInput;
+pub use turn_input::TurnInputContext;
+pub use turn_input::TurnInputEnvironment;
+pub use turn_lifecycle::TurnAbortInput;
+pub use turn_lifecycle::TurnErrorInput;
+pub use turn_lifecycle::TurnStartInput;
+pub use turn_lifecycle::TurnStartPhase;
+pub use turn_lifecycle::TurnStopInput;
+pub use world_state::PreviousWorldStateSection;
+pub use world_state::RenderedWorldStateFragment;
+pub use world_state::WorldStateContributionInput;
+pub use world_state::WorldStateSectionContribution;
+
+/// Boxed, sendable future returned by asynchronous extension contributors.
+pub type ExtensionFuture<'a, T> = Pin<Box<dyn Future<Output = T> + Send + 'a>>;
+
+/// Extension contribution that resolves runtime MCP servers from host config.
+///
+/// Contributors run in registration order. Later ordinary server contributions for the same
+/// name replace earlier ones. Implementations must contribute only names they
+/// own and must apply any source-specific policy before returning a server.
+/// Thread-scoped resolution exposes the host-seeded thread inputs; global
+/// resolution exposes none and must not imply a local fallback. Thread inputs
+/// are frozen for the runtime and do not include lifecycle-contributor state.
+/// Auto-discovered plugin servers are resolved by the plugin manager. Declare
+/// executor plugins separately so the host attributes their MCP servers
+/// and connectors to the same identity as their other capabilities.
+pub trait McpServerContributor<C: Sync>: Send + Sync {
+    /// Stable identity used for registration provenance and conflict diagnostics.
+    fn id(&self) -> &'static str;
+
+    fn contribute<'a>(
+        &'a self,
+        context: McpServerContributionContext<'a, C>,
+    ) -> ExtensionFuture<'a, Vec<McpServerContribution>>;
+
+    /// Declares executor plugins, including those without MCP servers or connectors. Each
+    /// declaration identifies the plugin once; its deferred MCP data cannot change that identity.
+    /// Return plugins in precedence order: across contributors in registration order, the first
+    /// plugin wins if several provide the same server.
+    fn selected_plugins<'a>(
+        &'a self,
+        _context: McpServerContributionContext<'a, C>,
+    ) -> ExtensionFuture<'a, Vec<SelectedPlugin<'a>>> {
+        Box::pin(async { Vec::new() })
+    }
+}
+
+/// Extension contribution that adds prompt fragments during prompt assembly.
+///
+/// Implementations should use the method matching the scope needed by the
+/// fragment: thread/session context for stable inputs, and turn context for
+/// fragments that depend on turn-local host state.
+pub trait ContextContributor: Send + Sync {
+    /// Returns thread-scoped context using the supplied extension state.
+    fn contribute_thread_context<'a>(
+        &'a self,
+        session_store: &'a ExtensionData,
+        thread_store: &'a ExtensionData,
+    ) -> ExtensionFuture<'a, Vec<PromptFragment>> {
+        Box::pin(async move {
+            let _self = self;
+            let _session_store = session_store;
+            let _thread_store = thread_store;
+            Vec::new()
+        })
+    }
+
+    fn contribute_turn_context<'a>(
+        &'a self,
+        input: TurnContextContributionInput<'a>,
+    ) -> ExtensionFuture<'a, Vec<PromptFragment>> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+            Vec::new()
+        })
+    }
+
+    fn contribute_world_state<'a>(
+        &'a self,
+        input: WorldStateContributionInput<'a>,
+    ) -> ExtensionFuture<'a, Vec<WorldStateSectionContribution>> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+            Vec::new()
+        })
+    }
+}
+
+/// Contributor for host-owned thread lifecycle gates.
+///
+/// Implementations should use these callbacks to seed, rehydrate, or flush
+/// extension-private thread state and retain any session capabilities supplied
+/// by the host. Other heavy dependencies belong on the extension value.
+pub trait ThreadLifecycleContributor<C: Sync>: Send + Sync {
+    /// Called after host startup has initialized the thread-scoped store.
+    fn on_thread_start<'a>(&'a self, input: ThreadStartInput<'a, C>) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+        })
+    }
+
+    /// Called after the initialized thread is registered with its host.
+    fn on_thread_ready<'a>(&'a self, input: ThreadReadyInput<'a, C>) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+        })
+    }
+
+    /// Called after the host constructs a runtime from persisted history.
+    fn on_thread_resume<'a>(&'a self, input: ThreadResumeInput<'a>) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+        })
+    }
+
+    /// Called after the host has drained immediately pending thread work.
+    ///
+    /// Implementations may use host capabilities captured by the extension to
+    /// submit follow-up input. The host remains responsible for deciding
+    /// whether that input starts a turn, is queued, or is ignored.
+    fn on_thread_idle<'a>(&'a self, input: ThreadIdleInput<'a>) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+        })
+    }
+
+    /// Called during runtime teardown, before the host closes persistent history.
+    /// Contributors must cancel and join their background work before returning.
+    fn on_thread_stop<'a>(&'a self, input: ThreadStopInput<'a>) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+        })
+    }
+}
+
+/// Contributor for host-owned turn lifecycle gates.
+///
+/// Implementations should use these callbacks to seed, observe, or clear
+/// extension-private turn state. The host exposes stable identifiers and
+/// extension stores instead of core runtime objects.
+pub trait TurnLifecycleContributor: Send + Sync {
+    /// Selects the start phase using the current thread policy. Disabled callbacks
+    /// may retain the default phase and return without doing any work.
+    fn turn_start_phase(&self, _thread_store: &ExtensionData) -> TurnStartPhase {
+        TurnStartPhase::BeforeTaskRegistration
+    }
+
+    /// Whether regular-task startup must reconcile MCP before this callback runs.
+    /// Ignored before task registration; contributors unrelated to MCP keep the default.
+    fn requires_mcp_runtime(&self, _thread_store: &ExtensionData) -> bool {
+        false
+    }
+
+    /// Called once in the selected phase, before task-specific work begins.
+    /// Regular-task preparation may be cancelled before this callback completes;
+    /// stop and abort callbacks must tolerate missing or partial initialization.
+    fn on_turn_start<'a>(&'a self, input: TurnStartInput<'a>) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+        })
+    }
+
+    /// Observes a completed item without changing it or delaying streamed deltas.
+    fn on_item_completed<'a>(
+        &'a self,
+        _thread_store: &'a ExtensionData,
+        _turn_store: &'a ExtensionData,
+        _item: &'a TurnItem,
+    ) -> ExtensionFuture<'a, ()> {
+        Box::pin(std::future::ready(()))
+    }
+
+    /// Called before the host drops the completed turn runtime and turn store.
+    fn on_turn_stop<'a>(&'a self, input: TurnStopInput<'a>) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+        })
+    }
+
+    /// Called after the host aborts a running turn.
+    fn on_turn_abort<'a>(&'a self, input: TurnAbortInput<'a>) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+        })
+    }
+
+    /// Called when the host observes an error for a running turn.
+    fn on_turn_error<'a>(&'a self, input: TurnErrorInput<'a>) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = input;
+        })
+    }
+}
+
+/// Extension contribution that can add turn-local model input.
+///
+/// Implementations should resolve only the model-visible input they own and
+/// must preserve authority boundaries for external resources. Expensive or
+/// host-specific dependencies belong on the extension value installed by the
+/// host, not in this input.
+pub trait TurnInputContributor: Send + Sync {
+    /// Returns additional contextual fragments for one submitted turn. The optional metrics
+    /// capability is bound to the effective model for that turn.
+    fn contribute<'a>(
+        &'a self,
+        input: TurnInputContext<'a>,
+        extension_metrics: Option<Arc<dyn ExtensionMetrics>>,
+        session_store: &'a ExtensionData,
+        thread_store: &'a ExtensionData,
+        turn_store: &'a ExtensionData,
+    ) -> ExtensionFuture<'a, Vec<Box<dyn ContextualUserFragment + Send>>>;
+}
+
+/// Contributor for host-owned configuration changes.
+///
+/// Implementations should treat the supplied values as immutable before/after
+/// snapshots of the effective thread configuration.
+pub trait ConfigContributor<C>: Send + Sync {
+    /// Called after the host commits a changed thread configuration.
+    fn on_config_changed(
+        &self,
+        _session_store: &ExtensionData,
+        _thread_store: &ExtensionData,
+        _previous_config: &C,
+        _new_config: &C,
+    ) {
+    }
+}
+
+/// Contributor for token usage checkpoints reported by the model provider.
+///
+/// Implementations should keep this callback cheap. The host calls it after
+/// updating cached token usage and before emitting the corresponding client
+/// token-count notification.
+pub trait TokenUsageContributor: Send + Sync {
+    /// Called each time the host records token usage from a model response.
+    fn on_token_usage<'a>(
+        &'a self,
+        _session_store: &'a ExtensionData,
+        _thread_store: &'a ExtensionData,
+        _turn_store: &'a ExtensionData,
+        _token_usage: &'a TokenUsageInfo,
+    ) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _inputs = (_session_store, _thread_store, _turn_store, _token_usage);
+        })
+    }
+}
+
+/// Contributor for skill invocations observed by the host or an owning extension.
+///
+/// Implementations should treat the skill resource as an opaque identity and keep this callback
+/// cheap because it runs inline with skill loading or command dispatch.
+pub trait SkillInvocationContributor: Send + Sync {
+    /// Whether this contributor needs a snapshot of host-owned skills.
+    ///
+    /// The default preserves legacy discovery for contributors that do not explicitly opt out.
+    fn requires_host_skill_discovery(&self) -> bool {
+        true
+    }
+
+    /// Called after one explicit skill load or deduplicated implicit skill invocation is observed.
+    fn on_skill_invocation<'a>(
+        &'a self,
+        _input: SkillInvocationInput<'a>,
+    ) -> ExtensionFuture<'a, ()> {
+        Box::pin(async move {
+            let _self = self;
+            let _input = _input;
+        })
+    }
+}
+
+/// Extension contribution that exposes native tools owned by a feature.
+pub trait ToolContributor: Send + Sync {
+    /// Returns native tools bound to the supplied extension state.
+    fn tools(
+        &self,
+        session_store: &ExtensionData,
+        thread_store: &ExtensionData,
+    ) -> Vec<Arc<dyn for<'call> ToolExecutor<ToolCall<'call>>>>;
+
+    /// Returns native tools bound to one sampling step.
+    fn tools_for_step(
+        &self,
+        session_store: &ExtensionData,
+        thread_store: &ExtensionData,
+        _step_store: &ExtensionData,
+    ) -> Vec<Arc<dyn for<'call> ToolExecutor<ToolCall<'call>>>> {
+        self.tools(session_store, thread_store)
+    }
+}
+
+/// Contributor for host-owned tool lifecycle gates.
+///
+/// Implementations can observe tool execution and process MCP responses without
+/// rewriting the invocation. Use `ToolContributor` for owning a tool implementation
+/// and hooks for policy that changes tool payloads.
+pub trait ToolLifecycleContributor: Send + Sync {
+    /// Observe direct calls before readiness, dispatch waiting, and hooks, including blocked calls.
+    /// Excludes nested code-mode calls. Observers must return promptly.
+    fn on_tool_dispatch(&self, _input: ToolDispatchInput<'_>) {}
+
+    /// Called after pre-tool hooks finalize an invocation and before execution.
+    ///
+    /// Calls blocked by hooks, or whose hook-provided input cannot be applied,
+    /// do not reach this callback.
+    fn on_tool_start<'a>(&'a self, _input: ToolStartInput<'a>) -> ToolLifecycleFuture<'a> {
+        Box::pin(std::future::ready(()))
+    }
+
+    /// Called for a resolved builtin command before attribution and execution.
+    ///
+    /// This includes commands issued by code mode. It does not imply that
+    /// subsequent approval or process creation will succeed.
+    fn on_command_start<'a>(&'a self, _input: CommandStartInput<'a>) -> ToolLifecycleFuture<'a> {
+        Box::pin(std::future::ready(()))
+    }
+
+    /// Runs before the MCP result is sent to the client and model.
+    fn on_mcp_tool_result<'a>(&'a self, _input: McpToolResultInput<'a>) -> ToolLifecycleFuture<'a> {
+        Box::pin(std::future::ready(()))
+    }
+
+    /// Called after the tool call returns, is blocked, fails, or is cancelled.
+    ///
+    /// A matching start callback does not exist when execution is blocked,
+    /// hook-provided input cannot be applied, or cancellation wins first.
+    fn on_tool_finish<'a>(&'a self, _input: ToolFinishInput<'a>) -> ToolLifecycleFuture<'a> {
+        Box::pin(std::future::ready(()))
+    }
+
+    /// Observe handler or remote host duration as defined by `ToolTimingBoundary`.
+    /// Handler timing includes cancellation. Observers must return promptly.
+    fn on_tool_timing(&self, _input: ToolTimingInput<'_>) {}
+}
+
+/// Owns the complete approval decision, including whether to consult a reviewer.
+/// Returning `None` leaves the request to the next contributor.
+pub trait ApprovalReviewContributor: Send + Sync {
+    /// Claims one request, including a handoff to the user.
+    fn decide<'a>(
+        &'a self,
+        _input: &'a ApprovalDecisionInput<'_>,
+    ) -> ExtensionFuture<'a, Option<ApprovalDecision>> {
+        Box::pin(std::future::ready(None))
+    }
+}
+
+/// Ordered post-processing contribution for one parsed turn item.
+///
+/// Implementations may mutate the item before it is emitted and may use the
+/// explicitly exposed thread- and turn-lifetime stores when they need durable
+/// extension-private state.
+pub trait TurnItemContributor: Send + Sync {
+    fn contribute<'a>(
+        &'a self,
+        thread_store: &'a ExtensionData,
+        turn_store: &'a ExtensionData,
+        item: &'a mut TurnItem,
+    ) -> ExtensionFuture<'a, Result<(), String>>;
+}
+
+pub use tool_lifecycle::ToolDispatchInput;

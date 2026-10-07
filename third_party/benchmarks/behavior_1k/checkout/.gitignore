@@ -1,0 +1,11 @@
+gha-creds-*.json
+/site
+.vscode
+.DS_Store
+
+# training
+outputs/
+/*.ipynb
+
+__pycache__/
+.codex

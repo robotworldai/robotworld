@@ -1,0 +1,110 @@
+{
+  "41": {
+    "id": "79_bimanual_piano_melody",
+    "title": "Both hands play the piano key sequence C-C-G-G-A-A-G together, left hand plays the bass notes, right hand plays the treble notes.",
+    "steps": 681,
+    "upstream_task_id": 79,
+    "expert_time_step": 1362,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "observation": "Native RGB cameras and active joint positions; evaluator object states excluded.",
+    "action": "Absolute active joint positions (radians), expanded by native mimic rules.",
+    "scoring": "Original YAML MetricTracker stable success, stages and safety; no replacement predicates."
+  },
+  "42": {
+    "id": "76_soup_serving",
+    "title": "Hold the bowl beside the pot with the left hand, use the right hand to ladle two scoops of soup from the pot into the bowl, carry the bowl with the left hand to the front-right area, and return the ladle with the right hand.",
+    "steps": 986,
+    "upstream_task_id": 76,
+    "expert_time_step": 1972,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "observation": "Native RGB cameras and active joint positions; evaluator object states excluded.",
+    "action": "Absolute active joint positions (radians), expanded by native mimic rules.",
+    "scoring": "Original YAML MetricTracker stable success, stages and safety; no replacement predicates."
+  },
+  "43": {
+    "id": "12_screwdriver_box_and_hammer",
+    "title": "Use the right hand to place the right screwdriver into the box and move the box to the left, use the left hand to place the left screwdriver into the box, then pick up the hammer, strike the wooden block once, and place the hammer into the box.",
+    "steps": 1149,
+    "upstream_task_id": 12,
+    "expert_time_step": 2297,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "observation": "Native RGB cameras and active joint positions; evaluator object states excluded.",
+    "action": "Absolute active joint positions (radians), expanded by native mimic rules.",
+    "scoring": "Original YAML MetricTracker stable success, stages and safety; no replacement predicates."
+  },
+  "44": {
+    "id": "34_fridge_wine_interhand_pour",
+    "title": "Use the left hand to open the refrigerator and take out the wine bottle, hand it to the right hand in the air to pour a glass of wine, hand it back to the left hand to return it to the refrigerator, then close the door with the left hand.",
+    "steps": 1080,
+    "upstream_task_id": 34,
+    "expert_time_step": 2160,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "observation": "Native RGB cameras and active joint positions; evaluator object states excluded.",
+    "action": "Absolute active joint positions (radians), expanded by native mimic rules.",
+    "scoring": "Original YAML MetricTracker stable success, stages and safety; no replacement predicates."
+  },
+  "45": {
+    "id": "67_faucet_cup_water_fill",
+    "title": "Use the left hand to first place the spoon into the mug, use the right hand to place the mug under the faucet, use the left hand to open the faucet to fill the mug and then close it, and use the right hand to place the mug onto the tray.",
+    "steps": 964,
+    "upstream_task_id": 67,
+    "expert_time_step": 1928,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "observation": "Native RGB cameras and active joint positions; evaluator object states excluded.",
+    "action": "Absolute active joint positions (radians), expanded by native mimic rules.",
+    "scoring": "Original YAML MetricTracker stable success, stages and safety; no replacement predicates."
+  },
+  "46": {
+    "id": "44_microwave_bowl_loading",
+    "title": "Open microwave door with left hand, bring bowl to microwave with right hand, place baguette into bowl with left hand, place bowl into microwave with right hand, close microwave door with left hand.",
+    "steps": 1061,
+    "upstream_task_id": 44,
+    "expert_time_step": 2122,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "observation": "Native RGB cameras and active joint positions; evaluator object states excluded.",
+    "action": "Absolute active joint positions (radians), expanded by native mimic rules.",
+    "scoring": "Original YAML MetricTracker stable success, stages and safety; no replacement predicates."
+  },
+  "47": {
+    "id": "80_gaming_desk_setup",
+    "title": "Straighten the monitor screen forward with both hands, press the ESC key with the left index finger, move the mouse back to the left side of the keyboard with the right hand, and click the left mouse button with the index finger.",
+    "steps": 593,
+    "upstream_task_id": 80,
+    "expert_time_step": 1185,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "observation": "Native RGB cameras and active joint positions; evaluator object states excluded.",
+    "action": "Absolute active joint positions (radians), expanded by native mimic rules.",
+    "scoring": "Original YAML MetricTracker stable success, stages and safety; no replacement predicates."
+  },
+  "48": {
+    "id": "73_jigsaw_puzzle_assembly",
+    "title": "Right hand and left hand in turn assemble the green, red, blue, yellow puzzle pieces onto the fixed white puzzle piece in the center of the table, forming a rectangle.",
+    "steps": 1213,
+    "upstream_task_id": 73,
+    "expert_time_step": 2426,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "observation": "Native RGB cameras and active joint positions; evaluator object states excluded.",
+    "action": "Absolute active joint positions (radians), expanded by native mimic rules.",
+    "scoring": "Original YAML MetricTracker stable success, stages and safety; no replacement predicates."
+  },
+  "49": {
+    "id": "03_wine_glass_plate_balance",
+    "title": "Carry three filled wine glasses to the plates of three diners without spilling or knocking over any objects.",
+    "steps": 1082,
+    "upstream_task_id": 3,
+    "expert_time_step": 2164,
+    "physics_dt": 0.016666666666666666,
+    "decimation": 3,
+    "observation": "Native RGB cameras and active joint positions; evaluator object states excluded.",
+    "action": "Absolute active joint positions (radians), expanded by native mimic rules.",
+    "scoring": "Original YAML MetricTracker stable success, stages and safety; no replacement predicates."
+  }
+}

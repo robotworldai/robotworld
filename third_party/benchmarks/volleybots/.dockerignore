@@ -1,0 +1,5 @@
+checkout/.git
+checkout/**/.git
+opponents
+assets
+*.log

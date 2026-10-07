@@ -1,0 +1,23 @@
+env_config: environments/configs/template_train.yaml
+policy_config: baselines/configs/rl_rpo_train.yaml
+
+seed: 2025
+
+training:
+  max_iterations: 300
+  rollouts: auto
+  batch_size: 512
+  learning_epochs: 4
+  mini_batches: auto
+  random_timesteps: 0
+  learning_starts: 0
+  rpo_alpha: 0.5
+  write_interval: 10
+  checkpoint_interval: null
+  wandb: true
+  wandb_kwargs:
+    project: aerial_balance_bench
+
+logging:
+  root_dir: logs/rl_train
+  run_name: rpo_target_position_legacy8_train

@@ -1,0 +1,50 @@
+{
+  "source": "user screenshot",
+  "expected_count": 7,
+  "visible_count": 6,
+  "missing_seventh": "awaiting user task name",
+  "split": "pretrain",
+  "seed": 7,
+  "num_trials": 50,
+  "task_set": "all_tasks",
+  "tasks": [
+    {
+      "id": 8,
+      "title": "清洁厨房台面并确认完成",
+      "task": "CountertopCleanup",
+      "status": "class_exists_but_missing_official_horizon",
+      "note": "Sanitize Surface 是活动类别；官方任务是收纳餐具、容器和食物，不是擦拭动作。当前 registry 未给 horizon，标准评测先不纳入。"
+    },
+    {
+      "id": 9,
+      "title": "餐具分类、清洗与归位",
+      "task": "SortingCleanup",
+      "note": "严格执行官方指令：杯子放水槽、碗放橱柜并关门；不增加未定义的清洗要求。"
+    },
+    {
+      "id": 10,
+      "title": "咖啡杯对准出液口并保持终态",
+      "task": "CoffeeSetupMug",
+      "note": "官方判分：杯子位置满足出液条件且夹爪远离；不追加保持时长。"
+    },
+    {
+      "id": 14,
+      "title": "抽屉未完全关闭时重新推入",
+      "task": "CloseDrawer",
+      "note": "标准 CloseDrawer；不人为制造未关严或指定恢复初始状态。"
+    },
+    {
+      "id": 17,
+      "title": "导航到设施后根据设施状态选择操作",
+      "task": "NavigateKitchen",
+      "note": "官方任务只评测导航到目标设施；不添加到达后的操作判分。"
+    },
+    {
+      "id": 28,
+      "title": "目标杯与出液口的微小偏差修正",
+      "task": "CoffeeSetupMug",
+      "alias_of": 10,
+      "note": "与 ID10 同一官方任务，另作分析视角，不重复计入 benchmark 成功率；不人为偏移物体。"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+--- OmniGibson/omnigibson/utils/asset_conversion_utils.py
++++ OmniGibson/omnigibson/utils/asset_conversion_utils.py
+@@ -294,7 +294,7 @@
+             mtl_name="OmniGibsonVRayMtl",
+             mtl_created_list=mtl_created_list,
+         )
+-        vray_mat = lazy.omni.isaac.core.utils.prims.get_prim_at_path(mtl_created_list[0])
++        vray_mat = lazy.isaacsim.core.utils.prims.get_prim_at_path(mtl_created_list[0])
+ 
+         # Apply all rendering channels for this material
+         for mat_type, mat_file in mtl_info.items():

@@ -1,0 +1,56 @@
+Metadata-Version: 2.4
+Name: isaaclab_rl
+Version: 0.2.3
+Summary: Extension containing reinforcement learning related utilities.
+Home-page: https://github.com/isaac-sim/IsaacLab
+Author: Isaac Lab Project Developers
+Maintainer: Isaac Lab Project Developers
+Keywords: robotics,rl,wrappers,learning
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Isaac Sim :: 4.5.0
+Classifier: Isaac Sim :: 5.0.0
+Requires-Python: >=3.10
+Requires-Dist: numpy<2
+Requires-Dist: torch>=2.7
+Requires-Dist: torchvision>=0.14.1
+Requires-Dist: protobuf!=5.26.0,>=4.25.8
+Requires-Dist: hydra-core
+Requires-Dist: h5py
+Requires-Dist: tensorboard
+Requires-Dist: moviepy
+Requires-Dist: pillow==11.2.1
+Provides-Extra: sb3
+Requires-Dist: stable-baselines3>=2.6; extra == "sb3"
+Requires-Dist: tqdm; extra == "sb3"
+Requires-Dist: rich; extra == "sb3"
+Provides-Extra: skrl
+Requires-Dist: skrl>=1.4.3; extra == "skrl"
+Provides-Extra: rl-games
+Requires-Dist: rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11 ; extra == "rl-games"
+Requires-Dist: gym; extra == "rl-games"
+Provides-Extra: rsl-rl
+Requires-Dist: rsl-rl-lib==2.3.3; extra == "rsl-rl"
+Provides-Extra: rl-games
+Requires-Dist: rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11 ; extra == "rl-games"
+Requires-Dist: gym; extra == "rl-games"
+Provides-Extra: rsl-rl
+Requires-Dist: rsl-rl-lib==2.3.3; extra == "rsl-rl"
+Provides-Extra: all
+Requires-Dist: tqdm; extra == "all"
+Requires-Dist: stable-baselines3>=2.6; extra == "all"
+Requires-Dist: skrl>=1.4.3; extra == "all"
+Requires-Dist: rsl-rl-lib==2.3.3; extra == "all"
+Requires-Dist: rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11 ; extra == "all"
+Requires-Dist: rich; extra == "all"
+Requires-Dist: gym; extra == "all"
+Dynamic: author
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: maintainer
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

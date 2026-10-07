@@ -1,0 +1,26 @@
+name: Forest
+
+defaults:
+  # see https://hydra.cc/docs/advanced/overriding_packages/
+  - /base/env_base@_here_
+  - /base/sim_base@_here_
+
+env:
+  num_envs: 128
+  max_episode_length: 800
+
+# ../viewer:
+#   eye: [0., 8., 6.]
+
+drone_model:
+  name: Hummingbird
+  controller: LeePositionController
+
+time_encoding: true
+
+lidar_range: 4.
+lidar_vfov: [-10., 20.]
+
+action_transform: null
+
+reward_effort_weight: 0.1

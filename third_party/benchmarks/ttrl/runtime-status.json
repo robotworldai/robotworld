@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-28",
+  "image": "world/ttrl:isaac4.5.0",
+  "image_built": true,
+  "image_config_digest": "sha256:6454befb178d80d8a556d4a8fa9a1f7f1efe93a82d94a50a8e8d1210b687d161",
+  "hardware": "NVIDIA GeForce RTX 5090 / sm_120 / driver 595.80",
+  "torch": "2.5.1+cu118",
+  "torch_cuda": "11.8",
+  "probe": "actual CUDA tensor kernel",
+  "status": "blocked_original_runtime_hardware_incompatibility",
+  "error": "CUDA error: no kernel image is available for execution on the device",
+  "evidence": "var/runs/docker/native17/builds/ttrl-isaac45-cuda-kernel.log",
+  "environment_episode_executed": false,
+  "gpt_episode_executed": false,
+  "evaluation_result": null,
+  "scope": "This records this host only; no claim that the original benchmark is broken on supported GPUs.",
+  "original_runtime_migrated": false
+}

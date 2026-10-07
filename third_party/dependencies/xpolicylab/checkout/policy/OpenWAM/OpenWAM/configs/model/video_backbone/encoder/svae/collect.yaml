@@ -1,0 +1,11 @@
+# @package _global_
+# S-VAE offline feature collection. Inherits the full training chain (model +
+# dataloader + training) via /train so traversal/transforms/seeding match training
+# exactly; iterates the dataset once. Entry: scripts/svae_train/collect_svae_features.py.
+
+defaults:
+  - /train
+  - _self_
+
+svae_collect:
+  output_dir: outputs/openwam_svae  # script writes <encoder_name>_<timestamp>/ with feature shards + stats.pt

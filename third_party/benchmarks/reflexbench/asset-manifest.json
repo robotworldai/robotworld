@@ -1,0 +1,134 @@
+[
+  {
+    "path": "Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png",
+    "bytes": 436257,
+    "sha256": "deab39088eaf39ed7be951966c5e6bd5e58b90ab64743b0cdc8e5579fd5a99d9"
+  },
+  {
+    "path": "Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png",
+    "bytes": 1474958,
+    "sha256": "44fc0e82007bb0bd94631cd7ec45986a71ed74b9413899fbffac13efe151be4b"
+  },
+  {
+    "path": "Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png",
+    "bytes": 111895,
+    "sha256": "940b96ee8c8e53bd1acbc770d4ca0ac98bed9c96439ab386d1b27dbc9790cc4e"
+  },
+  {
+    "path": "Isaac/Environments/Grid/default_environment.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/default_environment.usd",
+    "bytes": 7892,
+    "sha256": "394fa87bda9096bc80090e0a67bff8f5c283ff270332f6037391a5d64204fc60"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Materials/Materials.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Materials/Materials.usd",
+    "bytes": 4696,
+    "sha256": "163ad21137370dfa8f8fda6337fa5a84aab3b7dbcdd134c91792239272c33691"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/instanceable_collision_meshes.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/instanceable_collision_meshes.usd",
+    "bytes": 117851,
+    "sha256": "e2d053fdd789ea000f04c243d2323167038a4aa0883a9e418c92d936c771417e"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_hand.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_hand.usd",
+    "bytes": 686170,
+    "sha256": "9bead1ccc72d702d333074ae30e5352f4328290e7e64dbf072696f052ba12a90"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_leftfinger.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_leftfinger.usd",
+    "bytes": 67826,
+    "sha256": "53725ac396c13d8f90960780626c00ef05acdf1d1a6043f7bd7bd879750e6270"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link0.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link0.usd",
+    "bytes": 2153139,
+    "sha256": "4b46e614cf37f745ef5f8212137ac6af06aaef34b3858ae02f2f67d2f2c988a7"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link1.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link1.usd",
+    "bytes": 500792,
+    "sha256": "9f3f8b7d980865d2023ead815fd2faed9727af533959077b5700e28f6242187b"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link2.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link2.usd",
+    "bytes": 500827,
+    "sha256": "f05fd2f8ce2533f06bb6b5bf916a0e8e8b151e5d1f58e270ce5617507590b27e"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link3.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link3.usd",
+    "bytes": 866703,
+    "sha256": "bf5b30913f51811cd7f772651d25ead0f48ed37d994a25c9fbccb38c8479dbf8"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link4.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link4.usd",
+    "bytes": 866704,
+    "sha256": "9dc792ca5a4fc5506cec8b7be83332d121727c0f32e3b133ad5a8478ab6a10e0"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link5.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link5.usd",
+    "bytes": 778056,
+    "sha256": "4b67be8b886c6705455b389ce6be7d710c75187397a8607381f1515c7b1e626c"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link6.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link6.usd",
+    "bytes": 2271655,
+    "sha256": "ca05c47f20b3711dea3a36aa27c70d9047ce8fbdf5945eb2fbdb4069cd76308c"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link7.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_link7.usd",
+    "bytes": 1253697,
+    "sha256": "2f18324e59305650cf650d24d37e5bbe04e8f7e781da6e309105f6ec99840e0f"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_rightfinger.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/Props/panda_rightfinger.usd",
+    "bytes": 67865,
+    "sha256": "c156a8aa36191c5debacb1048fd17a0d6d1939403d936db2235c8fd4ebcec926"
+  },
+  {
+    "path": "Isaac/IsaacLab/Robots/FrankaEmika/panda_instanceable.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/FrankaEmika/panda_instanceable.usd",
+    "bytes": 8038,
+    "sha256": "7f5a0c0aa6760cfbd348e08bc464d4b94341f027f51c2d9e42406ceefcc7787f"
+  },
+  {
+    "path": "Isaac/Props/Mugs/SM_Mug_A2.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/Mugs/SM_Mug_A2.usd",
+    "bytes": 314998,
+    "sha256": "ab120170a97be15024b186123e999137d51eb2a76bd70fd5ea65ff2bc6daebca"
+  },
+  {
+    "path": "Isaac/Props/Mugs/texture/T_Mug_A2_Albedo.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/Mugs/texture/T_Mug_A2_Albedo.png",
+    "bytes": 2439128,
+    "sha256": "8664521a99d7e130f373c6acbd184c9d9c3a03b38c32e2e084d99c249fd6f1ef"
+  },
+  {
+    "path": "Isaac/Props/Mugs/texture/T_Mug_A2_Normal.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/Mugs/texture/T_Mug_A2_Normal.png",
+    "bytes": 1899700,
+    "sha256": "1c06535f6a04aaef5fb670459c75380d7d1eea913241fc5830841a6547354eef"
+  },
+  {
+    "path": "Isaac/Props/Mugs/texture/T_Mug_A2_ORM.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/Mugs/texture/T_Mug_A2_ORM.png",
+    "bytes": 4150897,
+    "sha256": "1ada159eed9fc7d4361b3ddfdf1335b30bcb031edd9d84232b2da165b79a0e11"
+  }
+]

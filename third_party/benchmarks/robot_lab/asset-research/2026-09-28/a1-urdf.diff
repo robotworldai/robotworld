@@ -1,0 +1,265 @@
+--- pinned-agilex/a1.urdf
++++ fan-ziqi/a1.urdf
+@@ -31,7 +31,7 @@
+   <material name="silver">
+     <color rgba="0.913725490196 0.913725490196 0.847058823529 1.0"/>
+   </material>
+-  <material name="grey">
++  <material name="orange">
+     <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+   </material>
+   <material name="brown">
+@@ -321,7 +321,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/trunk.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+@@ -365,7 +365,6 @@
+     <parent link="trunk"/>
+     <child link="FR_hip"/>
+     <axis xyz="1 0 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-0.802851455917" upper="0.802851455917" velocity="21"/>
+   </joint>
+   <link name="FR_hip">
+@@ -374,7 +373,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/hip.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+@@ -407,7 +406,6 @@
+     <parent link="FR_hip"/>
+     <child link="FR_thigh"/>
+     <axis xyz="0 1 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-1.0471975512" upper="4.18879020479" velocity="21"/>
+   </joint>
+   <link name="FR_thigh">
+@@ -416,7 +414,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/thigh_mirror.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 1.57079632679 0" xyz="0 0 -0.1"/>
+@@ -435,7 +433,6 @@
+     <parent link="FR_thigh"/>
+     <child link="FR_calf"/>
+     <axis xyz="0 1 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-2.69653369433" upper="-0.916297857297" velocity="21"/>
+   </joint>
+   <link name="FR_calf">
+@@ -444,7 +441,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/calf.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 1.57079632679 0" xyz="0 0 -0.1"/>
+@@ -469,7 +466,7 @@
+       <geometry>
+         <sphere radius="0.01"/>
+       </geometry>
+-      <material name="black"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+@@ -517,7 +514,6 @@
+     <parent link="trunk"/>
+     <child link="FL_hip"/>
+     <axis xyz="1 0 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-0.802851455917" upper="0.802851455917" velocity="21"/>
+   </joint>
+   <link name="FL_hip">
+@@ -526,7 +522,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/hip.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+@@ -559,7 +555,6 @@
+     <parent link="FL_hip"/>
+     <child link="FL_thigh"/>
+     <axis xyz="0 1 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-1.0471975512" upper="4.18879020479" velocity="21"/>
+   </joint>
+   <link name="FL_thigh">
+@@ -568,7 +563,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/thigh.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 1.57079632679 0" xyz="0 0 -0.1"/>
+@@ -587,7 +582,6 @@
+     <parent link="FL_thigh"/>
+     <child link="FL_calf"/>
+     <axis xyz="0 1 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-2.69653369433" upper="-0.916297857297" velocity="21"/>
+   </joint>
+   <link name="FL_calf">
+@@ -596,7 +590,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/calf.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 1.57079632679 0" xyz="0 0 -0.1"/>
+@@ -621,7 +615,7 @@
+       <geometry>
+         <sphere radius="0.01"/>
+       </geometry>
+-      <material name="black"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+@@ -669,7 +663,6 @@
+     <parent link="trunk"/>
+     <child link="RR_hip"/>
+     <axis xyz="1 0 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-0.802851455917" upper="0.802851455917" velocity="21"/>
+   </joint>
+   <link name="RR_hip">
+@@ -678,7 +671,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/hip.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+@@ -711,7 +704,6 @@
+     <parent link="RR_hip"/>
+     <child link="RR_thigh"/>
+     <axis xyz="0 1 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-1.0471975512" upper="4.18879020479" velocity="21"/>
+   </joint>
+   <link name="RR_thigh">
+@@ -720,7 +712,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/thigh_mirror.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 1.57079632679 0" xyz="0 0 -0.1"/>
+@@ -739,7 +731,6 @@
+     <parent link="RR_thigh"/>
+     <child link="RR_calf"/>
+     <axis xyz="0 1 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-2.69653369433" upper="-0.916297857297" velocity="21"/>
+   </joint>
+   <link name="RR_calf">
+@@ -748,7 +739,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/calf.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 1.57079632679 0" xyz="0 0 -0.1"/>
+@@ -773,7 +764,7 @@
+       <geometry>
+         <sphere radius="0.01"/>
+       </geometry>
+-      <material name="black"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+@@ -821,7 +812,6 @@
+     <parent link="trunk"/>
+     <child link="RL_hip"/>
+     <axis xyz="1 0 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-0.802851455917" upper="0.802851455917" velocity="21"/>
+   </joint>
+   <link name="RL_hip">
+@@ -830,7 +820,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/hip.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+@@ -863,7 +853,6 @@
+     <parent link="RL_hip"/>
+     <child link="RL_thigh"/>
+     <axis xyz="0 1 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-1.0471975512" upper="4.18879020479" velocity="21"/>
+   </joint>
+   <link name="RL_thigh">
+@@ -872,7 +861,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/thigh.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 1.57079632679 0" xyz="0 0 -0.1"/>
+@@ -891,7 +880,6 @@
+     <parent link="RL_thigh"/>
+     <child link="RL_calf"/>
+     <axis xyz="0 1 0"/>
+-    <dynamics damping="0.01" friction="0.2"/>
+     <limit effort="33.5" lower="-2.69653369433" upper="-0.916297857297" velocity="21"/>
+   </joint>
+   <link name="RL_calf">
+@@ -900,7 +888,7 @@
+       <geometry>
+         <mesh filename="package://a1_description/meshes/calf.dae" scale="1 1 1"/>
+       </geometry>
+-      <material name="grey"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 1.57079632679 0" xyz="0 0 -0.1"/>
+@@ -925,7 +913,7 @@
+       <geometry>
+         <sphere radius="0.01"/>
+       </geometry>
+-      <material name="black"/>
++      <material name="orange"/>
+     </visual>
+     <collision>
+       <origin rpy="0 0 0" xyz="0 0 0"/>
+@@ -970,3 +958,4 @@
+   </transmission>
+   <!-- <xacro:stairs stairs="15" xpos="0" ypos="2.0" zpos="0" /> -->
+ </robot>
++

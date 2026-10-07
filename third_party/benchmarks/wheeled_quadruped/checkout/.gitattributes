@@ -1,0 +1,11 @@
+# Normalize line endings: store text with LF, check out native.
+* text=auto eol=lf
+
+# Binary assets (never normalize or diff as text).
+*.png  binary
+*.jpg  binary
+*.stl  binary
+*.dae  binary
+*.usd  binary
+*.usdc binary
+*.pt   binary

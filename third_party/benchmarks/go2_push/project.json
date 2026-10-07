@@ -1,0 +1,34 @@
+{
+  "key": "go2_push",
+  "repository": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion.git",
+  "commit": "22c0dc900a9a9f38349cc959979e820e41021785",
+  "image": "world/go2-push:isaac6.0.1-experimental",
+  "python_paths": [
+    "src"
+  ],
+  "adapter": "environment.benchmarks.go2_push.project",
+  "runtime": "IsaacSim6.0.1/IsaacLab2.2 experimental, not upstream equivalent",
+  "tasks": {
+    "T10": {
+      "id": "Isaac-Velocity-Flat-Unitree-Go2-PushRecovery-v0",
+      "title": "四足机器人行走时抵抗随机外力脉冲",
+      "steps": 1000,
+      "control_dt": 0.02,
+      "physics_dt": 0.005,
+      "upstream_runtime": "Isaac Sim4.5.0 / IsaacLab2.1.1",
+      "native_success_available": false,
+      "observation": "Original IsaacLabv2.1.1 noisy48D actor including sampled commands; no height scan or critic.",
+      "action": "12native joint-position residuals(scale.25rad+default); actual resolved joint order from runtime metadata, no configured input clip.",
+      "scoring": "Native tracking/fall metrics and actual random force trigger counts/strength; initial30N curriculum state, not scheduled120N; success=null."
+    }
+  },
+  "dependencies": [
+    {
+      "path": "isaaclab211",
+      "repository": "https://github.com/isaac-sim/IsaacLab.git",
+      "tag": "v2.1.1",
+      "commit": "90b79bb2d44feb8d833f260f2bf37da3487180ba",
+      "purpose": "Original inherited task and asset definitions; runtime core still experimental2.2"
+    }
+  ]
+}

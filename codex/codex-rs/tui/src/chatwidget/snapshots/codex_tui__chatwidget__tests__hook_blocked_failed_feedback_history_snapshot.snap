@@ -1,0 +1,9 @@
+---
+source: tui/src/chatwidget/tests/status_and_layout.rs
+expression: rendered
+---
+• Blocked by hook
+  └ run tests before touching the fixture
+
+• Hook failed
+  └ hook exited with code 7

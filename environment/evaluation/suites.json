@@ -1,0 +1,609 @@
+{
+  "robodojo": {
+    "image": "world/robodojo:isaac6.0.1-local",
+    "cases": [
+      {
+        "id": "hang_mugs",
+        "task": "hang_mugs",
+        "title": "hang_mugs",
+        "seed": 0,
+        "layout": 0,
+        "asset": "hang_mugs_0",
+        "asset_path": "Assets/robodojo/scenes/hang_mugs/Assets"
+      },
+      {
+        "id": "sweep_blocks",
+        "task": "sweep_blocks",
+        "title": "sweep_blocks",
+        "seed": 0,
+        "layout": 0,
+        "asset": "sweep_blocks_0",
+        "asset_path": "Assets/robodojo/scenes/sweep_blocks/Assets"
+      },
+      {
+        "id": "pour_liquid_into_cup",
+        "task": "pour_liquid_into_cup",
+        "title": "pour_liquid_into_cup",
+        "seed": 0,
+        "layout": 0,
+        "asset": "pour_liquid_into_cup_0",
+        "asset_path": "Assets/robodojo/scenes/pour_liquid_into_cup/Assets"
+      },
+      {
+        "id": "make_toast",
+        "task": "make_toast",
+        "title": "make_toast",
+        "seed": 0,
+        "layout": 0,
+        "asset": "make_toast_0",
+        "asset_path": "Assets/robodojo/scenes/make_toast/Assets"
+      },
+      {
+        "id": "store_laptop_and_headphones",
+        "task": "store_laptop_and_headphones",
+        "title": "store_laptop_and_headphones",
+        "seed": 0,
+        "layout": 0,
+        "asset": "store_laptop_and_headphones_0",
+        "asset_path": "Assets/robodojo/scenes/store_laptop_and_headphones/Assets"
+      },
+      {
+        "id": "insert_tubes",
+        "task": "insert_tubes",
+        "title": "insert_tubes",
+        "seed": 0,
+        "layout": 0,
+        "asset": "insert_tubes_0",
+        "asset_path": "Assets/robodojo/scenes/insert_tubes/Assets"
+      },
+      {
+        "id": "plug_in_charger",
+        "task": "plug_in_charger",
+        "title": "plug_in_charger",
+        "seed": 0,
+        "layout": 0,
+        "asset": "plug_in_charger_0",
+        "asset_path": "Assets/robodojo/scenes/plug_in_charger/Assets"
+      },
+      {
+        "id": "pour_balls_into_vase",
+        "task": "pour_balls_into_vase",
+        "title": "pour_balls_into_vase",
+        "seed": 0,
+        "layout": 0,
+        "asset": "pour_balls_into_vase_0",
+        "asset_path": "Assets/robodojo/scenes/pour_balls_into_vase/Assets"
+      },
+      {
+        "id": "play_Xylophone",
+        "task": "play_Xylophone",
+        "title": "play_Xylophone",
+        "seed": 0,
+        "layout": 0,
+        "asset": "play_Xylophone_0",
+        "asset_path": "Assets/robodojo/scenes/play_Xylophone/Assets"
+      },
+      {
+        "id": "fill_pen_holder",
+        "task": "fill_pen_holder",
+        "title": "fill_pen_holder",
+        "seed": 0,
+        "layout": 0,
+        "asset": "fill_pen_holder_0",
+        "asset_path": "Assets/robodojo/scenes/fill_pen_holder/Assets"
+      },
+      {
+        "id": "fill_egg_holder",
+        "task": "fill_egg_holder",
+        "title": "fill_egg_holder",
+        "seed": 0,
+        "layout": 0,
+        "asset": "fill_egg_holder_0",
+        "asset_path": "Assets/robodojo/scenes/fill_egg_holder/Assets"
+      },
+      {
+        "id": "make_kong",
+        "task": "make_kong",
+        "title": "make_kong",
+        "seed": 0,
+        "layout": 0,
+        "asset": "make_kong_0",
+        "asset_path": "Assets/robodojo/scenes/make_kong/Assets"
+      },
+      {
+        "id": "pour_by_language",
+        "task": "pour_by_language",
+        "title": "pour_by_language",
+        "seed": 0,
+        "layout": 0,
+        "asset": "pour_by_language_0",
+        "asset_path": "Assets/robodojo/scenes/pour_by_language/Assets"
+      },
+      {
+        "id": "conveyor",
+        "task": "match_and_pick_from_conveyor",
+        "title": "传送带匹配抓取",
+        "seed": 0,
+        "layout": 0,
+        "asset": "match_and_pick_from_conveyor_0",
+        "asset_path": "Assets/robodojo/scenes/match_and_pick_from_conveyor/Assets"
+      },
+      {
+        "id": "coin",
+        "task": "deposit_coin",
+        "title": "硬币投放",
+        "seed": 0,
+        "layout": 0,
+        "asset": "deposit_coin_0",
+        "asset_path": "Assets/robodojo/scenes/deposit_coin/Assets"
+      }
+    ],
+    "legacy_cases": []
+  },
+  "behavior_1k": {
+    "image": "stanfordvl/behavior:3.9.3",
+    "experimental_image": "world/behavior:isaac6.0.1-experimental",
+    "cases": [
+      {
+        "id": "groceries",
+        "task": "carrying_in_groceries",
+        "title": "杂货搬运",
+        "instance_index": 10,
+        "instance_id": 311
+      },
+      {
+        "id": "desk",
+        "task": "clean_up_your_desk",
+        "title": "书桌整理",
+        "instance_index": 10,
+        "instance_id": 311
+      },
+      {
+        "id": "slicing_vegetables",
+        "task": "slicing_vegetables",
+        "title": "切菜",
+        "instance_index": 10,
+        "instance_id": 311
+      },
+      {
+        "id": "sorting_vegetables",
+        "task": "sorting_vegetables",
+        "title": "蔬菜分拣",
+        "instance_index": 10,
+        "instance_id": 311
+      },
+      {
+        "id": "clean_boxing_gloves",
+        "task": "clean_boxing_gloves",
+        "title": "清洗拳击手套",
+        "instance_index": 10,
+        "instance_id": 311
+      },
+      {
+        "id": "putting_up_Christmas_decorations_inside",
+        "task": "putting_up_Christmas_decorations_inside",
+        "title": "室内圣诞装饰",
+        "instance_index": 10,
+        "instance_id": 311
+      },
+      {
+        "id": "setting_the_table",
+        "task": "setting_the_table",
+        "title": "双人餐桌布置",
+        "instance_index": 10,
+        "instance_id": 311
+      },
+      {
+        "id": "putting_dishes_away_after_cleaning",
+        "task": "putting_dishes_away_after_cleaning",
+        "title": "餐具集中入柜并关柜门",
+        "instance_index": 10,
+        "instance_id": 311
+      },
+      {
+        "id": "can_meat",
+        "task": "can_meat",
+        "title": "肉肠分装封罐",
+        "instance_index": 10,
+        "instance_id": 311
+      },
+      {
+        "id": "freeze_pies",
+        "task": "freeze_pies",
+        "title": "苹果派分盒冷冻",
+        "instance_index": 10,
+        "instance_id": 311
+      }
+    ],
+    "legacy_cases": []
+  },
+  "robocasa": {
+    "image": "world/robocasa:1.0.1",
+    "cases": [
+      {
+        "id": "8",
+        "task": "CountertopCleanup",
+        "title": "台面物品分类归位",
+        "requires_step_override": true
+      },
+      {
+        "id": "9",
+        "task": "SortingCleanup",
+        "title": "杯碗分流归位并关柜"
+      },
+      {
+        "id": "10",
+        "task": "CoffeeSetupMug",
+        "title": "咖啡杯对准出液口"
+      },
+      {
+        "id": "14",
+        "task": "CloseDrawer",
+        "title": "关闭指定抽屉"
+      },
+      {
+        "id": "17",
+        "task": "NavigateKitchen",
+        "title": "导航到指定厨房设施"
+      },
+      {
+        "id": "PackIdenticalLunches",
+        "task": "PackIdenticalLunches",
+        "title": "按数量分装两份相同午餐"
+      },
+      {
+        "id": "OrganizeMugsByHandle",
+        "task": "OrganizeMugsByHandle",
+        "title": "杯柄朝右放入柜中"
+      },
+      {
+        "id": "LoadDishwasher",
+        "task": "LoadDishwasher",
+        "title": "装载洗碗机并关门"
+      },
+      {
+        "id": "MicrowaveCorrectMeal",
+        "task": "MicrowaveCorrectMeal",
+        "title": "按食物选碗并启动微波炉"
+      },
+      {
+        "id": "ResetCabinetDoors",
+        "task": "ResetCabinetDoors",
+        "title": "关闭所有开着的柜门"
+      }
+    ],
+    "legacy_cases": [
+      {
+        "id": "28",
+        "task": "CoffeeSetupMug",
+        "title": "目标杯与出液口的微小偏差修正",
+        "alias_of": "10"
+      }
+    ]
+  },
+  "robolab": {
+    "image": "world/robolab:0.3.1-isaac5.0",
+    "experimental_image": "world/robolab:0.3.1-isaac6.0.1-experimental",
+    "cases": [
+      {
+        "id": "ToolOrganizationTask",
+        "task": "ToolOrganizationTask",
+        "title": "红黑两把锤子放入左侧箱",
+        "episode_seconds": 180,
+        "steps": 2700,
+        "scene": "tools_container.usda"
+      },
+      {
+        "id": "other-tools",
+        "task": "NonHammerToolsInRightBinTask",
+        "title": "非锤工具放入右侧箱",
+        "steps": 2700,
+        "scene": "tools_container.usda",
+        "episode_seconds": 180
+      },
+      {
+        "id": "cans",
+        "task": "FoodPacking2CansTask",
+        "title": "两件罐装食品入箱",
+        "steps": 2700,
+        "scene": "foodpacking_1bin_2box_2can.usda",
+        "episode_seconds": 180
+      },
+      {
+        "id": "cube-left",
+        "task": "RubiksCubeLeftOfBowlTask",
+        "title": "魔方放到碗左侧",
+        "steps": 450,
+        "scene": "rubiks_cube_banana_bowl.usda",
+        "episode_seconds": 30
+      },
+      {
+        "id": "FruitsOnPlate3Task",
+        "task": "FruitsOnPlate3Task",
+        "title": "选取恰好三颗水果放到盘子上",
+        "episode_seconds": 200,
+        "steps": 3000,
+        "scene": "fruits_out_of_basket.usda"
+      },
+      {
+        "id": "mugs",
+        "task": "PutTwoMugsOnShelfTask",
+        "title": "选两只杯子放上置物架",
+        "steps": 2700,
+        "scene": "wire_shelf_mugs_plate_spatula.usda",
+        "episode_seconds": 180
+      },
+      {
+        "id": "BlockStackingSpecifiedOrderTask",
+        "task": "BlockStackingSpecifiedOrderTask",
+        "title": "按红蓝绿黄从下到上堆叠",
+        "episode_seconds": 90,
+        "steps": 1350,
+        "scene": "colored_blocks.usda"
+      },
+      {
+        "id": "ClutterPlasticTask",
+        "task": "ClutterPlasticTask",
+        "title": "从杂物中找出全部塑料瓶入箱",
+        "episode_seconds": 180,
+        "steps": 2700,
+        "scene": "clutter_fruit_bottle_bluebin.usda"
+      },
+      {
+        "id": "ReorientWhiteMugsTask",
+        "task": "ReorientWhiteMugsTask",
+        "title": "将所有白色杯子扶正",
+        "episode_seconds": 60,
+        "steps": 900,
+        "scene": "mugs4_measuringcup_drill_bowl_v2.usda"
+      },
+      {
+        "id": "WhiteMugInCenterOfTableTask",
+        "task": "WhiteMugInCenterOfTableTask",
+        "title": "白色杯子放到桌面中央",
+        "episode_seconds": 30,
+        "steps": 450,
+        "scene": "objects_around_table.usda"
+      }
+    ],
+    "legacy_cases": [
+      {
+        "id": "cube-front",
+        "task": "RubiksCubeInFrontOfBowlTask",
+        "title": "魔方放到碗前方",
+        "steps": 450,
+        "scene": "rubiks_cube_banana_bowl.usda"
+      },
+      {
+        "id": "hammers",
+        "task": "ToolOrganizationBothTask",
+        "title": "锤子整理",
+        "steps": 2700,
+        "scene": "tools_container.usda"
+      }
+    ]
+  },
+  "humanoid_soccer": {
+    "image": "world/humanoid-soccer:mujoco3.3.1",
+    "cases": [
+      {
+        "id": "play-soccer",
+        "task": "official_mujoco_soccer",
+        "title": "固定球场：代码控制 G1 行走与踢球",
+        "mode": "direct",
+        "steps": 1000,
+        "seed": 2,
+        "scenery": "training-pitch",
+        "balance_assist": "ankle-com",
+        "controller_notes": "third_party/benchmarks/humanoid_soccer/profiles/play-soccer-v1.txt",
+        "fixed_protocol": true,
+        "protocol_version": "play-soccer-v1",
+        "evaluation_kind": "informed custom-controller diagnostic",
+        "default": true
+      },
+      {
+        "id": "baseline",
+        "task": "official_mujoco_soccer",
+        "title": "原版 PAiD 基线",
+        "mode": "baseline",
+        "steps": 300,
+        "default": false
+      },
+      {
+        "id": "hybrid",
+        "task": "official_mujoco_soccer",
+        "title": "GPT-6 审核或修正原版 action",
+        "mode": "hybrid",
+        "steps": 300,
+        "default": false
+      },
+      {
+        "id": "direct",
+        "task": "official_mujoco_soccer",
+        "title": "GPT-6 直接控制全身关节",
+        "mode": "direct",
+        "steps": 300,
+        "default": false
+      }
+    ]
+  },
+  "ai_cps": {
+    "image": "world/ai-cps:isaac6.0.1-experimental",
+    "cases": [
+      {
+        "id": "22",
+        "task": "FrankaBallCatching",
+        "title": "运动小球接取",
+        "steps": 300,
+        "evaluation_kind": "upstream STL on experimental runtime"
+      },
+      {
+        "id": "23",
+        "task": "FrankaBallBalancing",
+        "title": "托盘小球平衡",
+        "steps": 300,
+        "evaluation_kind": "upstream STL on experimental runtime"
+      },
+      {
+        "id": "24",
+        "task": "FrankaPegInHole",
+        "title": "Peg-in-hole 插入",
+        "steps": 300,
+        "evaluation_kind": "upstream STL on experimental runtime"
+      }
+    ]
+  },
+  "wheeledlab": {
+    "image": "world/wheeledlab:isaac6.0.1-experimental",
+    "cases": [
+      {
+        "id": "mushr-drift",
+        "title": "小车在随机扰动下连续漂移过弯（MuSHR）",
+        "task": "Isaac-MushrDriftRL-v0",
+        "steps": 250
+      },
+      {
+        "id": "f1tenth-drift",
+        "title": "F1TENTH 漂移",
+        "task": "Isaac-F1TenthDriftRL-v0",
+        "steps": 250
+      },
+      {
+        "id": "elevation",
+        "title": "地形导航",
+        "task": "Isaac-MushrElevationRL-v0",
+        "steps": 200
+      },
+      {
+        "id": "visual",
+        "title": "视觉导航",
+        "task": "Isaac-MushrVisualRL-v0",
+        "steps": 50
+      },
+      {
+        "id": "rw-courtyard",
+        "title": "园区配送：绕箱、缓坡、定向停车",
+        "task": "RobotWorld-rw-courtyard-v1",
+        "steps": 2000,
+        "default": false,
+        "protocol": "robotworld-wheeled-v1",
+        "difficulty": "baseline_target"
+      },
+      {
+        "id": "rw-hairpins",
+        "title": "高架山路：窄桥与连续回头弯",
+        "task": "RobotWorld-rw-hairpins-v1",
+        "steps": 2000,
+        "default": false,
+        "protocol": "robotworld-wheeled-v1",
+        "difficulty": "hard_target"
+      },
+      {
+        "id": "rw-gate-dock",
+        "title": "动态闸门：停车让行、限速窄口与精准停靠",
+        "task": "RobotWorld-rw-gate-dock-v1",
+        "steps": 2000,
+        "default": false,
+        "protocol": "robotworld-wheeled-v1",
+        "difficulty": "hard_target"
+      },
+      {
+        "id": "rw-drift-switch",
+        "title": "变摩擦赛道：受扰连续漂移与闭环恢复",
+        "task": "RobotWorld-rw-drift-switch-v1",
+        "steps": 2000,
+        "default": false,
+        "protocol": "robotworld-wheeled-v1",
+        "difficulty": "hard_target"
+      },
+      {
+        "id": "rw-twin-beam",
+        "title": "精密双窄梁桥：对准轮迹、上桥与定向停车",
+        "task": "RobotWorld-rw-twin-beam-v1",
+        "steps": 2000,
+        "default": false,
+        "protocol": "robotworld-driving-precision-v2",
+        "difficulty": "hard_target"
+      },
+      {
+        "id": "rw-reverse-bay",
+        "title": "狭窄倒车入库：夹车通道、倒入与厘米级停正",
+        "task": "RobotWorld-rw-reverse-bay-v1",
+        "steps": 2000,
+        "default": false,
+        "protocol": "robotworld-driving-precision-v2",
+        "difficulty": "hard_target"
+      },
+      {
+        "id": "rw-parallel-park",
+        "title": "夹车侧方停车：多次进退与平行精确停靠",
+        "task": "RobotWorld-rw-parallel-park-v1",
+        "steps": 2000,
+        "default": false,
+        "protocol": "robotworld-driving-precision-v2",
+        "difficulty": "hard_target"
+      }
+    ]
+  },
+  "bench2dex": {
+    "image": "world/bench2dex:isaac6.0.1-experimental",
+    "runtime": "isaac6.0.1-experimental",
+    "profile": "original none with official origin episode000000 anchors",
+    "cases": [
+      {
+        "id": "41",
+        "task": "79_bimanual_piano_melody",
+        "title": "双手弹琴",
+        "steps": 681
+      },
+      {
+        "id": "42",
+        "task": "76_soup_serving",
+        "title": "双手舀汤并送餐",
+        "steps": 986
+      },
+      {
+        "id": "43",
+        "task": "12_screwdriver_box_and_hammer",
+        "title": "工具收纳与锤击",
+        "steps": 1149
+      },
+      {
+        "id": "44",
+        "task": "34_fridge_wine_interhand_pour",
+        "title": "冰箱取酒、双手交接与倒酒",
+        "steps": 1080
+      },
+      {
+        "id": "45",
+        "task": "67_faucet_cup_water_fill",
+        "title": "杯中放勺、操作水龙头并送杯",
+        "steps": 964
+      },
+      {
+        "id": "46",
+        "task": "44_microwave_bowl_loading",
+        "title": "微波炉装碗与关门",
+        "steps": 1061
+      },
+      {
+        "id": "47",
+        "task": "80_gaming_desk_setup",
+        "title": "显示器调整与键鼠操作",
+        "steps": 593
+      },
+      {
+        "id": "48",
+        "task": "73_jigsaw_puzzle_assembly",
+        "title": "双手拼图",
+        "steps": 1213
+      },
+      {
+        "id": "49",
+        "task": "03_wine_glass_plate_balance",
+        "title": "酒杯稳定搬运",
+        "steps": 1082
+      }
+    ]
+  }
+}

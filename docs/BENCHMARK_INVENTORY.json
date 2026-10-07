@@ -1,0 +1,525 @@
+{
+  "date": "2026-09-28",
+  "scope": "World registered cases only, not all upstream benchmark tasks; support does not mean success or official-equivalent runtime",
+  "projects": 20,
+  "entry_count": 50,
+  "deduplicated_task_protocol_count": 46,
+  "known_blocked_native17_tasks": [
+    "T04",
+    "T05",
+    "T15"
+  ],
+  "counts": {
+    "aerial_balance": 1,
+    "ai_cps": 4,
+    "behavior_1k": 2,
+    "digit": 1,
+    "flamingo": 1,
+    "go2_push": 1,
+    "humanoid_soccer": 1,
+    "omnidrones": 2,
+    "omniisaacgymenvs": 1,
+    "reflexbench": 1,
+    "robocasa": 5,
+    "robodojo": 2,
+    "robolab": 6,
+    "robot_lab": 1,
+    "steadytray": 1,
+    "ttrl": 1,
+    "volleybots": 1,
+    "wheel_legged": 2,
+    "wheeled_quadruped": 1,
+    "wheeledlab": 11
+  },
+  "entries": [
+    {
+      "project": "robodojo",
+      "id": "conveyor",
+      "canonical_key": "robodojo:conveyor",
+      "title": "传送带匹配抓取",
+      "native_task": "match_and_pick_from_conveyor",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robodojo",
+      "id": "coin",
+      "canonical_key": "robodojo:coin",
+      "title": "硬币投放",
+      "native_task": "deposit_coin",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "behavior_1k",
+      "id": "groceries",
+      "canonical_key": "behavior_1k:groceries",
+      "title": "跨房间杂货搬运与冰箱收尾",
+      "native_task": "carrying_in_groceries",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "behavior_1k",
+      "id": "desk",
+      "canonical_key": "behavior_1k:desk",
+      "title": "儿童房书桌整理",
+      "native_task": "clean_up_your_desk",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robocasa",
+      "id": "8",
+      "canonical_key": "robocasa:8",
+      "title": "清洁厨房台面并确认完成",
+      "native_task": "CountertopCleanup",
+      "kind": "native_task",
+      "notes": "需要显式指定步数；官方 horizon 未核实"
+    },
+    {
+      "project": "robocasa",
+      "id": "9",
+      "canonical_key": "robocasa:9",
+      "title": "餐具分类、清洗与归位",
+      "native_task": "SortingCleanup",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robocasa",
+      "id": "10",
+      "canonical_key": "robocasa:10",
+      "title": "咖啡杯对准出液口并保持终态",
+      "native_task": "CoffeeSetupMug",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robocasa",
+      "id": "14",
+      "canonical_key": "robocasa:14",
+      "title": "抽屉未完全关闭时重新推入",
+      "native_task": "CloseDrawer",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robocasa",
+      "id": "17",
+      "canonical_key": "robocasa:17",
+      "title": "导航到设施后根据设施状态选择操作",
+      "native_task": "NavigateKitchen",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robocasa",
+      "id": "28",
+      "canonical_key": "robocasa:10",
+      "title": "目标杯与出液口的微小偏差修正",
+      "native_task": "CoffeeSetupMug",
+      "kind": "alias",
+      "notes": "与 ID10 同一官方任务"
+    },
+    {
+      "project": "robolab",
+      "id": "cube-left",
+      "canonical_key": "robolab:cube-left",
+      "title": "魔方放到碗左侧",
+      "native_task": "RubiksCubeLeftOfBowlTask",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robolab",
+      "id": "cube-front",
+      "canonical_key": "robolab:cube-front",
+      "title": "魔方放到碗前方",
+      "native_task": "RubiksCubeInFrontOfBowlTask",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robolab",
+      "id": "hammers",
+      "canonical_key": "robolab:hammers",
+      "title": "锤子整理",
+      "native_task": "ToolOrganizationBothTask",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robolab",
+      "id": "other-tools",
+      "canonical_key": "robolab:other-tools",
+      "title": "非锤工具整理",
+      "native_task": "NonHammerToolsInRightBinTask",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robolab",
+      "id": "cans",
+      "canonical_key": "robolab:cans",
+      "title": "罐头装箱",
+      "native_task": "FoodPacking2CansTask",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "robolab",
+      "id": "mugs",
+      "canonical_key": "robolab:mugs",
+      "title": "两个杯子上架",
+      "native_task": "PutTwoMugsOnShelfTask",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "humanoid_soccer",
+      "id": "play-soccer",
+      "canonical_key": "humanoid_soccer:soccer",
+      "title": "固定球场：代码控制 G1 行走与踢球",
+      "native_task": "official_mujoco_soccer",
+      "kind": "custom_protocol",
+      "notes": ""
+    },
+    {
+      "project": "humanoid_soccer",
+      "id": "baseline",
+      "canonical_key": "humanoid_soccer:soccer",
+      "title": "原版 PAiD 基线",
+      "native_task": "official_mujoco_soccer",
+      "kind": "control_variant",
+      "notes": ""
+    },
+    {
+      "project": "humanoid_soccer",
+      "id": "hybrid",
+      "canonical_key": "humanoid_soccer:soccer",
+      "title": "GPT-6 审核或修正原版 action",
+      "native_task": "official_mujoco_soccer",
+      "kind": "control_variant",
+      "notes": ""
+    },
+    {
+      "project": "humanoid_soccer",
+      "id": "direct",
+      "canonical_key": "humanoid_soccer:soccer",
+      "title": "GPT-6 直接控制全身关节",
+      "native_task": "official_mujoco_soccer",
+      "kind": "control_variant",
+      "notes": ""
+    },
+    {
+      "project": "ai_cps",
+      "id": "22",
+      "canonical_key": "ai_cps:22",
+      "title": "运动小球接取",
+      "native_task": "FrankaBallCatching",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "ai_cps",
+      "id": "23",
+      "canonical_key": "ai_cps:23",
+      "title": "托盘小球平衡",
+      "native_task": "FrankaBallBalancing",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "ai_cps",
+      "id": "24",
+      "canonical_key": "ai_cps:24",
+      "title": "Peg-in-hole 插入",
+      "native_task": "FrankaPegInHole",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "ai_cps",
+      "id": "34",
+      "canonical_key": "ai_cps:34",
+      "title": "真实接触异常后的取消与降级控制",
+      "native_task": "FrankaPegInHole",
+      "kind": "custom_protocol",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "mushr-drift",
+      "canonical_key": "wheeledlab:mushr-drift",
+      "title": "小车在随机扰动下连续漂移过弯（MuSHR）",
+      "native_task": "Isaac-MushrDriftRL-v0",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "f1tenth-drift",
+      "canonical_key": "wheeledlab:f1tenth-drift",
+      "title": "F1TENTH 漂移",
+      "native_task": "Isaac-F1TenthDriftRL-v0",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "elevation",
+      "canonical_key": "wheeledlab:elevation",
+      "title": "地形导航",
+      "native_task": "Isaac-MushrElevationRL-v0",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "visual",
+      "canonical_key": "wheeledlab:visual",
+      "title": "视觉导航",
+      "native_task": "Isaac-MushrVisualRL-v0",
+      "kind": "native_task",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "rw-courtyard",
+      "canonical_key": "wheeledlab:rw-courtyard",
+      "title": "园区配送：绕箱、缓坡、定向停车",
+      "native_task": "RobotWorld-rw-courtyard-v1",
+      "kind": "custom_protocol",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "rw-hairpins",
+      "canonical_key": "wheeledlab:rw-hairpins",
+      "title": "高架山路：窄桥与连续回头弯",
+      "native_task": "RobotWorld-rw-hairpins-v1",
+      "kind": "custom_protocol",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "rw-gate-dock",
+      "canonical_key": "wheeledlab:rw-gate-dock",
+      "title": "动态闸门：停车让行、限速窄口与精准停靠",
+      "native_task": "RobotWorld-rw-gate-dock-v1",
+      "kind": "custom_protocol",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "rw-drift-switch",
+      "canonical_key": "wheeledlab:rw-drift-switch",
+      "title": "变摩擦赛道：受扰连续漂移与闭环恢复",
+      "native_task": "RobotWorld-rw-drift-switch-v1",
+      "kind": "custom_protocol",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "rw-twin-beam",
+      "canonical_key": "wheeledlab:rw-twin-beam",
+      "title": "精密双窄梁桥：对准轮迹、上桥与定向停车",
+      "native_task": "RobotWorld-rw-twin-beam-v1",
+      "kind": "custom_protocol",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "rw-reverse-bay",
+      "canonical_key": "wheeledlab:rw-reverse-bay",
+      "title": "狭窄倒车入库：夹车通道、倒入与厘米级停正",
+      "native_task": "RobotWorld-rw-reverse-bay-v1",
+      "kind": "custom_protocol",
+      "notes": ""
+    },
+    {
+      "project": "wheeledlab",
+      "id": "rw-parallel-park",
+      "canonical_key": "wheeledlab:rw-parallel-park",
+      "title": "夹车侧方停车：多次进退与平行精确停靠",
+      "native_task": "RobotWorld-rw-parallel-park-v1",
+      "kind": "custom_protocol",
+      "notes": ""
+    },
+    {
+      "project": "steadytray",
+      "id": "T01",
+      "canonical_key": "steadytray:T01",
+      "title": "端托盘行走，同时抵抗物体与身体推扰",
+      "native_task": "G1-Steady-Object",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "ttrl",
+      "id": "T02",
+      "canonical_key": "ttrl:T02",
+      "title": "人形机器人连续接回随机乒乓来球",
+      "native_task": "t1_tt_eval",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "reflexbench",
+      "id": "T03",
+      "canonical_key": "reflexbench:T03",
+      "title": "机械臂持杯接住随机发射的球",
+      "native_task": "BallCatching-Franka-IK-Abs-v0",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "aerial_balance",
+      "id": "T04",
+      "canonical_key": "aerial_balance:T04",
+      "title": "绳牵横梁上的小球抗扰定位",
+      "native_task": "template_eval_disturbance.yaml",
+      "kind": "native_task",
+      "state": "blocked",
+      "notes": "缺作者四个 payload 资产"
+    },
+    {
+      "project": "volleybots",
+      "id": "T05",
+      "canonical_key": "volleybots:T05",
+      "title": "无人机一对一排球对抗",
+      "native_task": "Volleyball1v1",
+      "kind": "native_task",
+      "state": "blocked",
+      "notes": "旧 GPU 栈不支持当前硬件，且缺目标1v1完整对手"
+    },
+    {
+      "project": "wheel_legged",
+      "id": "T07",
+      "canonical_key": "wheel_legged:T07",
+      "title": "轮足机器人从近跌倒状态恢复直立",
+      "native_task": "Wheel-Legged-Recovery-Flat-v0",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "wheel_legged",
+      "id": "T08",
+      "canonical_key": "wheel_legged:T08",
+      "title": "轮足机器人在起伏与台阶地形中抗扰行进",
+      "native_task": "Wheel-Legged-Terrain-Reactive-v0",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "wheeled_quadruped",
+      "id": "T09",
+      "canonical_key": "wheeled_quadruped:T09",
+      "title": "四足机器人以后两轮直立并抵抗随机推扰",
+      "native_task": "Wheeled-Quadruped-Balance-v0",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "go2_push",
+      "id": "T10",
+      "canonical_key": "go2_push:T10",
+      "title": "四足机器人行走时抵抗随机外力脉冲",
+      "native_task": "Isaac-Velocity-Flat-Unitree-Go2-PushRecovery-v0",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "robot_lab",
+      "id": "T11",
+      "canonical_key": "robot_lab:T11",
+      "title": "A1 抬起后腿、以前腿支撑并抗扰",
+      "native_task": "RobotLab-Isaac-Velocity-Flat-HandStand-Unitree-A1-v0",
+      "kind": "native_task",
+      "state": "repaired_pending_fresh_model_run",
+      "notes": "摩擦修复已回归，旧模型动作已重放；修复后新闭环尚未测"
+    },
+    {
+      "project": "digit",
+      "id": "T13",
+      "canonical_key": "digit:T13",
+      "title": "Digit 行走时同时跟踪双手目标",
+      "native_task": "Isaac-Tracking-LocoManip-Digit-v0",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "omniisaacgymenvs",
+      "id": "T14",
+      "canonical_key": "omniisaacgymenvs:T14",
+      "title": "四足崎岖地形行走并抵抗推扰",
+      "native_task": "AnymalTerrain",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "flamingo",
+      "id": "T15",
+      "canonical_key": "flamingo:T15",
+      "title": "双轮足机器人按指令跳起、落地并继续平衡",
+      "native_task": "Isaac-TrackJUMP-Flat-Flamingo-v1-ppo",
+      "kind": "native_task",
+      "state": "blocked",
+      "notes": "原配置移除 height_scanner 但 critic 仍引用"
+    },
+    {
+      "project": "omnidrones",
+      "id": "T16",
+      "canonical_key": "omnidrones:T16",
+      "title": "无人机吊载悬停并抑制受扰摆动",
+      "native_task": "Payload/PayloadHover",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    },
+    {
+      "project": "omnidrones",
+      "id": "T17",
+      "canonical_key": "omnidrones:T17",
+      "title": "无人机托举倒立摆并跟踪轨迹",
+      "native_task": "InvPendulum/InvPendulumTrack",
+      "kind": "native_task",
+      "state": "model_episode_recorded_experimental",
+      "notes": "有实验兼容模型回合；不等于任务成功"
+    }
+  ],
+  "overlaps": {
+    "T06": "wheeledlab:mushr-drift",
+    "T12": "existing HumanoidSoccer is MuJoCo sim2sim; exact handoff Isaac task is not verified/integrated as equivalent"
+  },
+  "addenda": [
+    {
+      "date": "2026-09-29",
+      "project": "bench2dex",
+      "ids": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ],
+      "tasks_file": "third_party/benchmarks/bench2dex/tasks.json",
+      "status_file": "third_party/benchmarks/bench2dex/README.md",
+      "included_in_snapshot_totals": false
+    }
+  ]
+}

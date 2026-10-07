@@ -1,0 +1,16 @@
+{
+  "image": "world/omnidrones:isaac4.1.0",
+  "image_id": "sha256:a36454e91c81e6244ce79e880136278df062fd122a68b814585b5abf1f97d817",
+  "image_build": "passed",
+  "cpu_imports": "passed",
+  "gpu": "NVIDIA GeForce RTX5090 sm_120",
+  "native_torch": "2.2.2+cu118",
+  "cuda_tiny_kernel": "failed: no kernel image is available for execution on the device",
+  "environment_steps": 0,
+  "model_called": false,
+  "upstream_modified": false,
+  "simulation_app": "segfault during empty stage Hydra viewport initialization before task construction",
+  "task_tested": "T16",
+  "task_shared_runtime_blocked": "T17",
+  "evidence": "World/var/runs/docker/native17/omnidrones-t16-probe02/launcher.log"
+}

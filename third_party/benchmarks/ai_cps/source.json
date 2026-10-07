@@ -1,0 +1,6 @@
+{
+  "id": "ai_cps",
+  "path": "third_party/benchmarks/ai_cps/checkout",
+  "url": "https://github.com/zhehuazhou/ai-cps-robotics-benchmark.git",
+  "commit": "e04cb9fef85b96620220caec54404b3887ba0aa2"
+}

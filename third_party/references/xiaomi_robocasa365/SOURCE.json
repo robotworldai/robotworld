@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/XiaomiRobotics/Xiaomi-Robotics-1",
+  "commit": "0dd7aef8dc87296246aae812a1f59ccb708e5546",
+  "files": [
+    "eval_robocasa365/README.md",
+    "eval_robocasa365/entry.py",
+    "eval_robocasa365/dynamic_eval.py"
+  ],
+  "usage": "evaluation protocol reference only; Xiaomi model client not used"
+}

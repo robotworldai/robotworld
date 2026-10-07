@@ -1,0 +1,44 @@
+[
+  {
+    "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+    "bytes": 2000,
+    "sha256": "7f326c41515d7676550d323ab4b495d216571f8efe7e6e1f5019384c8db6f4cd"
+  },
+  {
+    "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_COL_8K.jpg",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_COL_8K.jpg",
+    "bytes": 935107,
+    "sha256": "38b53f7e407016bad8ebb2c90f6d532bda14156f762f311c3b270c3faf7a0ef1"
+  },
+  {
+    "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_GLOSS_8K.jpg",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_GLOSS_8K.jpg",
+    "bytes": 653707,
+    "sha256": "9cf6eb03faa9719699c8d25c6acf96c1a22728233e5a011fe928f3af71af851d"
+  },
+  {
+    "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_NRM_8K.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_NRM_8K.png",
+    "bytes": 3842435,
+    "sha256": "f8726eb8ec7145cbe2e111343f91a22332de42d64d37e5661634fcc7ed925f0e"
+  },
+  {
+    "path": "Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+    "bytes": 18429221,
+    "sha256": "1f92cbf17e46659ff37c9770d065280da226896b0f56091c4c1fca071da7fbeb"
+  },
+  {
+    "path": "Isaac/Props/UIElements/arrow_x.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Props/UIElements/arrow_x.usd",
+    "bytes": 5377,
+    "sha256": "d321116a8fecfef657ac95a5392115b2bfbe7d5eeae2a74556a7037f15259132"
+  },
+  {
+    "path": "Isaac/Props/UIElements/frame_prim.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Props/UIElements/frame_prim.usd",
+    "bytes": 4662,
+    "sha256": "d1299a3164458df37f636eefa5963f2ba60dcbf435cac69f61c6a4af39e0449b"
+  }
+]

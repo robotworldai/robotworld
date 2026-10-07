@@ -1,0 +1,6 @@
+{
+  "id": "wheeledlab",
+  "path": "third_party/benchmarks/wheeledlab/checkout",
+  "url": "https://github.com/UWRobotLearning/WheeledLab.git",
+  "commit": "a5017ce0696032805190448b2addb8077e458387"
+}

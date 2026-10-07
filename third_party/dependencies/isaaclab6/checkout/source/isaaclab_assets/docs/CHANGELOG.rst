@@ -1,0 +1,125 @@
+Changelog
+---------
+
+0.3.4 (2026-05-12)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Added :class:`~isaaclab_assets.robots.unitree.G129_CFG_WITH_DEX3_BASE_FIX` robot configuration
+  for the Unitree G1 29-DOF with Dex3 hands.
+
+
+0.3.3 (2026-04-29)
+~~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Added configuration for Flexiv Rizon 4s with Grav parallel gripper for manipulation tasks.
+
+
+0.3.2 (2026-04-13)
+~~~~~~~~~~~~~~~~~~~
+
+Fixed
+^^^^^
+
+* Fixed Cassie failing to load on Newton by enabling
+  :attr:`~isaaclab.sim.schemas.JointDrivePropertiesCfg.ensure_drives_exist`
+  in :data:`~isaaclab_assets.robots.cassie.CASSIE_CFG`.
+
+
+0.3.1 (2026-02-17)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Configuration for Flexiv Rizon 4s robot used for manipulation tasks.
+
+0.3.0 (2026-01-30)
+~~~~~~~~~~~~~~~~~~~
+
+Changed
+^^^^^^^
+
+* Changed the quaternion ordering to match warp, PhysX, and Newton native XYZW quaternion ordering.
+
+0.2.4 (2025-11-26)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Configuration for OpenArm robots used for manipulation tasks.
+
+0.2.3 (2025-08-11)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Configuration for G1 robot used for locomanipulation tasks.
+
+0.2.2 (2025-03-10)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Added configuration for the Fourier GR1T2 robot.
+
+0.2.1 (2025-01-14)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Added configuration for the Humanoid-28 robot.
+
+
+0.2.0 (2024-12-27)
+~~~~~~~~~~~~~~~~~~
+
+Changed
+^^^^^^^
+
+* Restructured the assets directory into ``robots`` and ``sensors`` subdirectories.
+
+
+0.1.4 (2024-08-21)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Added configuration for the Inverted Double Pendulum on a Cart robot.
+
+
+0.1.2 (2024-04-03)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Added configurations for different arms from Kinova Robotics and Rethink Robotics.
+
+
+0.1.1 (2024-03-11)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Added configurations for allegro and shadow hand assets.
+
+
+0.1.0 (2023-12-20)
+~~~~~~~~~~~~~~~~~~
+
+Added
+^^^^^
+
+* Moved all assets' configuration from ``isaaclab`` to ``isaaclab_assets`` extension.

@@ -1,0 +1,28 @@
+name: PlatformHover
+
+defaults:
+  # see https://hydra.cc/docs/advanced/overriding_packages/
+  - /base/env_base@_here_
+  - /base/sim_base@_here_
+  # - /base/randomization_base@_here_
+
+env:
+  num_envs: 2
+
+drone_model:
+  name: Hummingbird
+  controller: LeePositionController
+
+num_drones: 4
+time_encoding: true
+
+reward_effort_weight: 0.25
+reward_action_smoothness_weight: 0.
+reward_distance_scale: 1.2
+arm_length: 0.85
+joint_damping: 0.002
+
+ravel_obs: true
+ravel_obs_central: true
+
+action_transform: null

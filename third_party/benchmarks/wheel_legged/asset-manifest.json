@@ -1,0 +1,79 @@
+{
+  "repository": "https://github.com/zyicome/Wheel-Legged-Lab.git",
+  "commit": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+  "bundled_asset_files": [
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/ASSET_LICENSE.md",
+      "bytes": 1398,
+      "sha256": "7c3843f9c9b73a0ccacf1cbb231063e4efc32174b0337ad325410e94826bd6e2"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/LICENSE-BSD-3-Clause",
+      "bytes": 1730,
+      "sha256": "d5b70bfeae0eb84295cff9dd7daf71e28a809eae4a1953762d491cb256dafeb6"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/base_link.STL",
+      "bytes": 4328684,
+      "sha256": "22adea286fb7ed81ae8d1a483e17f5a42a346c1cda5855f2ffcc99d5144ae9dc"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/l_wheel_Link.STL",
+      "bytes": 203284,
+      "sha256": "bf59940cab4f2dfad01f541b3e52630c79f6ec414ffb5b7028c9c7d7c4430677"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/lf0_Link.STL",
+      "bytes": 108084,
+      "sha256": "b3dc6feaebab710691cb6c9cd8bd363f6e14097c243d6ee0b26681b1d8686a0f"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/lf1_Link.STL",
+      "bytes": 207684,
+      "sha256": "e1cbbe61c0fe199adf3a4014a5fec2809dbf0c659728f97bf65392840ac5d56c"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/r_wheel_Link.STL",
+      "bytes": 203284,
+      "sha256": "3a88700a6bee720dcd360a5ed39ebe35b96221e5086dcbcf6bff3ad070f38f22"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/rf0_Link.STL",
+      "bytes": 108084,
+      "sha256": "fd8d289ff704765d9cca7cb3e658390229b0dccc6cf7040436d5a370e5310c9e"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/rf1_Link.STL",
+      "bytes": 207684,
+      "sha256": "9e8480e927ac4256a1e74b23c81a8b9afcbbafb41bf9a7bbcf5217d83a9084a3"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/package.xml",
+      "bytes": 621,
+      "sha256": "4172818fe757324c6c7af235d096cddab8134695e1396005d79bc9f61a6f1552"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/urdf/wl.urdf",
+      "bytes": 8383,
+      "sha256": "cfc5c4987efcab0360b9e17e026987e503a1ca9d8406a67f8bd9e58f1e1ffd65"
+    },
+    {
+      "path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/urdf/wl_dealed.urdf",
+      "bytes": 8278,
+      "sha256": "3192700793660127338947c8495a3b47af6ff871b53f7148c7bc5e5f07df224a"
+    }
+  ],
+  "robot_license": "BSD-3-Clause; see bundled ASSET_LICENSE.md and LICENSE-BSD-3-Clause",
+  "terrain": "Native procedural plane or native mixed terrain generator; no custom replacement",
+  "shared_ground_asset": {
+    "path": "/opt/robotworld/World/third_party/benchmarks/wheeledlab/assets/Isaac/Environments/Grid/default_environment.usd",
+    "present": true,
+    "sha256": "394fa87bda9096bc80090e0a67bff8f5c283ff270332f6037391a5d64204fc60"
+  },
+  "native_hdr": {
+    "path": "assets/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+    "sha256": "1f92cbf17e46659ff37c9770d065280da226896b0f56091c4c1fca071da7fbeb",
+    "bytes": 18429221
+  }
+}

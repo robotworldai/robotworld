@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/MickyasTA/wheeled_quadruped_robot.git",
+  "commit": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+  "files": [
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/assets/quadruped_robot.usd",
+      "bytes": 18298310,
+      "sha256": "205bd17dc2dd899c30a4e24ee4575fcd18d068b0139cfa5f563e19719b3f0e36"
+    }
+  ],
+  "upstream_modified": false
+}

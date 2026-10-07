@@ -1,0 +1,26 @@
+{
+  "key": "omniisaacgymenvs",
+  "engine": "custom",
+  "commit": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+  "image": "world/omniisaacgymenvs:isaac4.0.0",
+  "runtime": "Isaac Sim4.0.0 original runtime; GPU unverified",
+  "python_paths": [
+    "."
+  ],
+  "entrypoint": [
+    "/isaac-sim/python.sh"
+  ],
+  "adapter": "environment.benchmarks.omniisaacgymenvs.project",
+  "repository": "https://github.com/isaac-sim/OmniIsaacGymEnvs.git",
+  "tasks": {
+    "T14": {
+      "id": "AnymalTerrain",
+      "title": "四足崎岖地形行走并抵抗推扰",
+      "steps": 1000,
+      "native_success_available": false,
+      "action": "Native12joint position offsets+PD; no gait policy; unbounded finite action",
+      "observation": "Original policy measurements only, state-based; review camera excluded",
+      "scoring": "Original rewards/termination; binary success=null"
+    }
+  }
+}

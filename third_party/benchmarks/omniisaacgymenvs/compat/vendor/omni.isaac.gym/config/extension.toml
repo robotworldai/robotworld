@@ -1,0 +1,41 @@
+[gym]
+reloadable = true
+order = 0
+
+[deprecation]
+warning = "Extension deprecated since Isaac Sim 4.0.0. Replaced by IsaacLab."
+
+[package]
+version = "0.11.3"
+category = "Simulation"
+title = "Isaac Sim Gym"
+description = "Gym for RL"
+authors = ["NVIDIA"]
+repository = ""
+keywords = ["isaac"]
+changelog = "docs/CHANGELOG.md"
+readme = "docs/README.md"
+icon = "data/icon.png"
+preview_image = "data/preview.png"
+writeTarget.kit = true
+
+[dependencies]
+"omni.kit.pipapi" = {}
+"omni.isaac.core" = {}
+"omni.isaac.cloner" = {}
+"omni.isaac.ml_archive" = {} # torch
+
+[[python.module]]
+name = "omni.isaac.gym"
+
+[[test]]
+timeout = 250000
+args = ["--/physics/cudaDevice=0"]
+dependencies = [
+    "omni.isaac.core",
+    "omni.isaac.kit",
+    "omni.isaac.ui",
+    "omni.isaac.cloner",
+    "omni.isaac.app.setup",
+    "omni.isaac.nucleus" # test only
+]

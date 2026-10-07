@@ -1,0 +1,133 @@
+[
+    {
+        "Id": "sha256:c880c64af096948ebcf8c3866a7388f9d91d182d178453913de546e808379df1",
+        "RepoTags": [
+            "world/robolab:0.3.1-isaac5.0"
+        ],
+        "RepoDigests": [
+            "world/robolab@sha256:c880c64af096948ebcf8c3866a7388f9d91d182d178453913de546e808379df1"
+        ],
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-09-27T12:16:14.184323784+08:00",
+        "Config": {
+            "User": "root",
+            "ExposedPorts": {
+                "47998/udp": {},
+                "49100/tcp": {}
+            },
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NVIDIA_VISIBLE_DEVICES=all",
+                "NVIDIA_DRIVER_CAPABILITIES=all",
+                "VK_DRIVER_FILES=/etc/vulkan/icd.d/nvidia_icd.json",
+                "OMNI_SERVER=https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.0",
+                "MIN_DRIVER_VERSION=535.129.03",
+                "ISAACSIM_VERSION=",
+                "ISAACSIM_ROOT_PATH=/isaac-sim",
+                "ISAACLAB_PATH=/workspace/isaaclab",
+                "DOCKER_USER_HOME=/root",
+                "LANG=C.UTF-8",
+                "DEBIAN_FRONTEND=noninteractive",
+                "ACCEPT_EULA=Y",
+                "OMNI_KIT_ACCEPT_EULA=YES",
+                "PYTHONDONTWRITEBYTECODE=1"
+            ],
+            "Entrypoint": [
+                "/bin/sh",
+                "-c",
+                "/isaac-sim/runheadless.sh"
+            ],
+            "WorkingDir": "/world",
+            "Labels": {
+                "com.nvidia.omniverse.build.branch": "release-5.0",
+                "com.nvidia.omniverse.build.build": "184afb15",
+                "com.nvidia.omniverse.build.build_tool_version": "1.3.0",
+                "com.nvidia.omniverse.build.compliant": "0",
+                "com.nvidia.omniverse.build.family": "gl",
+                "com.nvidia.omniverse.build.release": "5.0.0-rc.45",
+                "com.nvidia.omniverse.service": "isaac-sim",
+                "description": "Dockerfile for building and running the Isaac Lab framework inside Isaac Sim container image.",
+                "org.opencontainers.image.ref.name": "ubuntu",
+                "org.opencontainers.image.version": "22.04",
+                "version": "2.1.1"
+            },
+            "Shell": [
+                "/bin/bash",
+                "-c"
+            ]
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 26608891003,
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:2573e0d8158209ed54ab25c87bcdcb00bd3d2539246960a3d592a1c599d70465",
+                "sha256:d3c6fc0a28e03ab83beb2d9abf511b694d77bc71884d68a07126e4ddae15bb5c",
+                "sha256:2f9ff7cf775d9c376eff46de908d188ff33bd48a7a287cd4f3a5d8435b881254",
+                "sha256:08aa54648516486b63e4d9ef174af328bad0c129197c1f18b59166d5b2e34681",
+                "sha256:3d3a5f5f9aafd3434fa97f95118d31652983ff73c30ae0fcb035419255df8ba9",
+                "sha256:096f6f63b94f0a489f84540cdc1b3e9f954736a8d219cd6f3e2ecd7e3ef0573f",
+                "sha256:01e975918a567fae489332b6bdcdeca6520f46d72b63f7283fc72e9726e0b5e9",
+                "sha256:d488baead4570d2121e0444108c83d429dc2769a0e1c75e21f817d8161427bac",
+                "sha256:47d38af91a3a5a2fdcb7d595443371f4e951823215210fcadf830df03fd4271f",
+                "sha256:2a2fb41b2e2454b0c532f1d5abf87b287c4c956182fffe35bda57da9a497bfb7",
+                "sha256:a1ad6178256fb419ed957ea7b3f20148372548dbf675de10a9d76fecf846ab5c",
+                "sha256:886706f55bf0851c8e66a044dc90a9f1cc3bb261991dd3e40dd5452a10781f2d",
+                "sha256:e1312a53d638d7fcc0cad4d4410e4518b74ccbf492d1a0cc1b3d0fef98f6aabf",
+                "sha256:b28ed941be50aaf7ed88218a2522bf4323f6224e4cbbe2a02762746b5693c401",
+                "sha256:96cb48cf5d32a47c7c4c54dd84db4ea2e19c67e19a191a698156b4688dce6026",
+                "sha256:e7f2adc76dee54bf91dcb242361e9f7217d5022c9e171cca2e001d63e73fbde3",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:8d24ebbcce4c70cbb32bafbae05507581f15dbd4609cbb86d7335409e44f5190",
+                "sha256:984d3b3e7f3798e7a86e0f6afc08752ec339d370f589d85f62a6eb0ffdcaac90",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:07940d24432a1fed385ed1b1bfa326b09079de7fcace11057fd1b68a917ba1ed",
+                "sha256:da8ea3df0bd28c68b022693ee718a8074f1f9e5a8300f3e8a9198f7b8ce5ca06",
+                "sha256:aea0d35a52cd9a8d84efd08b3ffbb690a6aafa54efeb18e91856381b38a2a49b",
+                "sha256:159a8a89c6cc5e50d661d235e6cea4d7e40464162e68b050d80a70f900481e82",
+                "sha256:954169cec0fcac23eb41fe7edbfe7d4981aa8f8d33867b23917bc8f05d3d766b",
+                "sha256:040ec92f4ed7f3c12c231a01a868b99f610932008590611c445f21b52ac8af2e",
+                "sha256:b4b8f8e121d90a66a7ad35e28a16130a4c1a1743d82ef4c5f17173d17a5acbaa",
+                "sha256:87df125e8a2aea43bd60c48f5b0828fb03c2dced0d5e29b75d0092c8c51b8180",
+                "sha256:c021d706cfae4c16b5e60f9d531ba70c54b003f0c75866933b6c7e8c43495051",
+                "sha256:11c82c78c0bf38c84f4e1d97a43a9a0debd189f4c029c3d685caaf497a412bf1",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:8a55a367e4cacea2c6d1a8ac926ea7de5cd856362028cf91d1740a80dce96e99",
+                "sha256:65a1b03d629f66522856d55f76fb0e3de63627343fedc12365be065a4f1f2e26",
+                "sha256:9d465a901613c799be230fde5ccad723b498e88e57c80dd54f6e0d3ca5d51936",
+                "sha256:c1c1b7e5444546e4c85e256f2c6a99eedc2a0d653202489c276b805180b6ccf2",
+                "sha256:1b8ed0267fcdfc15d3cd051cd3ec64191d21c506aa1fcda87e4b635bcaff1808",
+                "sha256:e39eff1b4e19113b9f7d319ccbb92fad6ec811a3105fc59ebcdd4ed3c65fe2ff",
+                "sha256:66114f148db59626a5854eddfeec6eb5922300166411749e80efc738d7384856",
+                "sha256:cd7c2b0c5a4b75eccfad38d9383710ec61c81832fd492872d017d42555969f98",
+                "sha256:84f9fd8d4638ca8a16be1b6ffa742d9fa7e2bf528a08d69f7f6039e7276b6fa6",
+                "sha256:5b970971f436364fd46bf1d7e42d3c51b1a5a221e0910c8beba5a2565ad17423",
+                "sha256:8d0ac14c2db58672a39b68d9c593309406c40749eff75ccfd681d6c882925523",
+                "sha256:2aa12a1eb07919e8c69294a9b5459d0abd722a306a47da2413cb7e8884a6e649",
+                "sha256:9fb71bb2fc9a5aeb1c073d8ff7ec055ec7ab84b11596ce39dee0229813306efd",
+                "sha256:b29db68b0afec12940c04f33ec5af298b4250993b41529a485cfde4d689cc9f9",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:69013a847c6d398ce19b297f693db0b02382f50496bf9de45af195e4a35b08f8",
+                "sha256:ef3c66676234f7f747adf82bf2dd11fe70423f49addfefdded5273ffda8079d7",
+                "sha256:671d60179c3e009d9c6890be56c992585226f999584c889804e46a9ef040b18b"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-09-27T04:16:14.618112337Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.oci.image.index.v1+json",
+            "digest": "sha256:c880c64af096948ebcf8c3866a7388f9d91d182d178453913de546e808379df1",
+            "size": 856
+        },
+        "Identity": {
+            "Build": [
+                {
+                    "Ref": "9cgfxffo0az2vt1z628kk3ejo",
+                    "CreatedAt": "2026-09-27T12:16:14.826818663+08:00"
+                }
+            ]
+        }
+    }
+]

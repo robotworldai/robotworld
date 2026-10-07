@@ -1,0 +1,28 @@
+policy_name: cpid
+
+angle_pid:
+  kp: 0.5
+  ti: 1.5
+  td: 0.6
+  max_theta_change: 0.001745329252
+
+velocity_pid:
+  kp: 10.0
+  ti: 1000.0
+  td: 0.0
+  max_acc: 0.5
+
+state_predictor:
+  enabled: true
+  delay_step: 15
+  solver: rk4
+  step_dt: auto
+  max_acc: auto
+  max_velocity: auto
+  plank_length: auto
+  rope_length: auto
+  gravity: auto
+  ball_mass: 0.0005
+  ball_radius: auto
+  ball_inertia_ratio: 0.4
+  epsilon: 1.0e-9

@@ -1,0 +1,19 @@
+{
+  "image": "world/volleybots:isaac6.0.1-experimental",
+  "entrypoint": [
+    "python"
+  ],
+  "adapter": "environment.benchmarks.volleybots.duel_isaac6",
+  "runtime": "Isaac Sim6.0.1 experimental; native Volleyball1v1 rules; World-authored scripted opponent, not official trained baseline",
+  "runtime_python_paths": [
+    "/opt/isaaclab22/source/isaaclab"
+  ],
+  "python_paths": [
+    "."
+  ],
+  "environment": {
+    "WORLD_OMNIDRONES_ALLOW_FIXED_PATCH_FRICTION": "1"
+  },
+  "build_dockerfile": "docker/Dockerfile.isaac6",
+  "build_context": "."
+}

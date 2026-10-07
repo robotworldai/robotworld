@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use ReflexBench, please cite this paper."
+title: "ReflexBench"
+type: software
+authors:
+  - family-names: Chen
+    given-names: Yuxuan
+  - family-names: Zhang
+    given-names: Wanruo
+  - family-names: Li
+    given-names: Xiao
+repository-code: "https://github.com/LxRoboticsLab/ReflexBench"
+url: "https://reflexvla.github.io"
+license: BSD-3-Clause
+version: 0.1.0
+date-released: 2026-08-14
+preferred-citation:
+  type: article
+  title: "Reflex: Enabling Fast and Predictive Vision-Language-Action Models for Reaction-Critical Manipulation"
+  authors:
+    - family-names: Chen
+      given-names: Yuxuan
+    - family-names: Zhang
+      given-names: Wanruo
+    - family-names: Li
+      given-names: Xiao
+  year: 2026
+  url: "https://arxiv.org/abs/2608.14379"

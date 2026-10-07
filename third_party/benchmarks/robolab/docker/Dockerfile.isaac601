@@ -1,0 +1,14 @@
+# Experimental local compatibility runtime, separate from upstream standard image.
+FROM world/robolab:0.3.1-isaac5.0 AS official_lab
+FROM world/robodojo:isaac6.0.1-local
+COPY requirements-world.txt /opt/world-robolab/requirements-world.txt
+RUN python -m pip install --no-cache-dir -r /opt/world-robolab/requirements-world.txt
+ENV ACCEPT_EULA=Y OMNI_KIT_ACCEPT_EULA=YES
+WORKDIR /world
+
+# Keep official RoboLab controller/config quaternion conventions.
+COPY --from=official_lab /workspace/isaaclab/source /opt/isaaclab22/source
+COPY --from=official_lab /workspace/isaaclab/apps /opt/isaaclab22/apps
+RUN python -m pip install --no-cache-dir hidapi
+# Original 2.2 render presets are looked up next to the selected Core experience.
+RUN python -c "import pathlib,shutil,isaacsim; shutil.copytree('/opt/isaaclab22/apps/rendering_modes', pathlib.Path(isaacsim.__file__).parent/'apps/rendering_modes', dirs_exist_ok=True)"

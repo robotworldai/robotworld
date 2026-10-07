@@ -1,0 +1,16 @@
+{
+  "source": "RoboProbe",
+  "license": "Apache-2.0",
+  "sha256": {
+    "policy/RoboDojo_Agent_L3_Inspect_EEF/policy.py": "2a9369fcf2b0ee70e27c74566ed250f4eb67c330b18512cead7d790ec56817ce",
+    "policy/RoboDojo_Agent_L3_Inspect_EEF/pose.py": "e9c8248bb4a6170557a2588be7202ba1afde440c45b0c539829c6ccaf17f3df1",
+    "policy/RoboDojo_Agent_L3_Inspect_EEF/docs.py": "f0ccb7a1a0072936877f81542a2d8a245d177584b663e05ac8fc6cdc76746a43",
+    "policy/RoboDojo_Agent_L3_Inspect/policy.py": "bafbf55593591e0e620db554f955130688721ad14f23406764b38fff55b0684e",
+    "policy/RoboDojo_Agent_L3_Inspect/types.py": "04ced75138f90a9200bec9de2a0bed9f79de119648db55cccd793b890aff26f4",
+    "policy/RoboDojo_Agent_L3_Inspect/embodiment_docs.py": "412e160a42123985e3e825a130119a36f0839e6df1e5fe51a467e86c5588a60e"
+  },
+  "changes": "Extract pure executor; remove Agent/HTTP inheritance; perturbations disabled; local imports; infrastructure failures use RuntimeError.",
+  "commit": "9ffacc54f372beef6479d61711bf4945e31ae4ce",
+  "edge_case_fix": "A stationary arm plan plus a gripper target uses one arm hold sample before the gripper phase; prevents reference empty-path IndexError.",
+  "prompt_alignment": "Copy EefAgentPolicy._system_message verbatim; preserve move_eef semantics; omit optional give_up per user decision on 2026-10-01. Append explicit history labels, no-give_up notice and Codex transport constraints. Reference differential tests cover system and move_eef."
+}

@@ -1,0 +1,11 @@
+{
+  "version": "robotworld-wheeled-v1",
+  "note": "Initial calibration protocol; scores must retain their exact per-run source snapshots. One baseline-target and three hard-target tasks, not a guaranteed outcome split.",
+  "files": {
+    "geometry.py": "58677393ccf4e55eb2ee39184220a9eb6138122cec3aa7efb95c127b7300112a",
+    "environment.py": "6a1155ff85b11b177b968f299a11d7d4af1d4cee6f33fbfbcae04b13e7efe5e0",
+    "replay_score.py": "d9b01e9239fd7d4e3b0323d04a83cda5967244169be5f10e74c208d3911d1886",
+    "scoring.py": "153b7784f24620c45163ecf81f3e69fbbb55fa26c1527a7bf03db265ebc70d59",
+    "specs.py": "8d2dfad330ac1ca31495d4b2f6a2a858b890bc1f4ca5eb68f73a77a7c88352de"
+  }
+}

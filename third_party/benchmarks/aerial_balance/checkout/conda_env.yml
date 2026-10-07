@@ -1,0 +1,29 @@
+name: aerial_balance_bench
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      # Core benchmark/runtime dependencies.
+      - torch==2.8.0
+      - numpy==1.26.4
+      - gymnasium==0.29.0
+      - PyYAML==6.0.2
+      - matplotlib==3.9.2
+      - tqdm==4.66.5
+
+      # NMPC baseline dependencies.
+      - casadi==3.7.0
+      - do-mpc==5.0.1
+
+      # RL/RPO baseline and logging dependencies.
+      - skrl==1.4.1
+      - wandb==0.12.21
+      - tensorboard==2.11.0
+      - tensorboardX==2.6.2.2
+
+      # Optional video recording support for Gymnasium RecordVideo.
+      - moviepy==1.0.3
+      - imageio-ffmpeg==0.5.1

@@ -1,0 +1,32 @@
+[
+  {
+    "path": "volley_bots/robots/assets/usd/iris.usd",
+    "bytes": 37673021,
+    "sha256": "e96833fe3d768c4bd449b02e473dcfe692e46198eaa9f3b91b10a8963a2d1b77"
+  },
+  {
+    "path": "volley_bots/robots/assets/usd/iris.yaml",
+    "bytes": 807,
+    "sha256": "ae8ce112895ac9ba41abf01eb00bcec8e4cd8ba2a1314391cf5c9b5afa38c9dd"
+  },
+  {
+    "path": "volley_bots/envs/assets/default_environment.usd",
+    "bytes": 8957,
+    "sha256": "eda6d371d55c73f515556eec85ee1d427bb8d1d6b8b2a5c4c28703539208f3dc"
+  },
+  {
+    "path": "volley_bots/envs/assets/Materials/Textures/WireframeBlur_basecolor.png",
+    "bytes": 436257,
+    "sha256": "deab39088eaf39ed7be951966c5e6bd5e58b90ab64743b0cdc8e5579fd5a99d9"
+  },
+  {
+    "path": "volley_bots/envs/assets/Materials/Textures/WireframeBlur_blue.png",
+    "bytes": 1474958,
+    "sha256": "44fc0e82007bb0bd94631cd7ec45986a71ed74b9413899fbffac13efe151be4b"
+  },
+  {
+    "path": "volley_bots/envs/assets/Materials/Textures/Wireframe_blue.png",
+    "bytes": 111895,
+    "sha256": "940b96ee8c8e53bd1acbc770d4ca0ac98bed9c96439ab386d1b27dbc9790cc4e"
+  }
+]

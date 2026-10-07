@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-28",
+  "image": "world/digit:isaac6.0.1-experimental",
+  "runtime_condition": "Isaac Sim6.0.1 experimental compatibility with pinned IsaacLab2.3.2",
+  "probe": "var/runs/docker/native17/probes-root05/digit/T13",
+  "probe_control_steps": 4,
+  "gpt_run": "var/runs/docker/native17/gpt11/digit/T13",
+  "model": "gpt-6-astra",
+  "policy_runtime": "locally built World/codex app-server",
+  "environment_runtime": "local Docker",
+  "seed": 7,
+  "requested_steps": 700,
+  "executed_steps": 77,
+  "simulated_seconds": 1.54,
+  "stop_reason": "native_termination",
+  "termination_term": "base_orientation",
+  "native_binary_success": null,
+  "native_horizon_completed": false,
+  "tools": {"apply_action": 1, "coding_control": 4},
+  "review_video": {"frames": 78, "fps": 50, "duration": 1.56, "resolution": [640, 480], "first_and_last_frames_visually_checked": true},
+  "upstream_source_modified": false
+}

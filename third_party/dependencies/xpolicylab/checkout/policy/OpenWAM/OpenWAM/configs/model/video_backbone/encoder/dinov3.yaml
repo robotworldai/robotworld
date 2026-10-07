@@ -1,0 +1,13 @@
+# DINOv3 ViT external video encoder. Activate via:
+#   model.video_backbone.from_scratch=true model.video_backbone.shift_video=12.0 model/video_backbone/encoder=dinov3
+# from_scratch=true is REQUIRED (the DiT patch embedding is rebuilt for the DINOv3 hidden size).
+# Structural fields (z_dim/spatial_compression/...) are read from the HF config.json, not yaml.
+# SECURITY: loading passes trust_remote_code=True — only point model_path at trusted directories.
+
+name: dinov3
+model_path: /path/to/DINOv3  # [Required] HF snapshot dir (config.json + modeling_*.py + safetensors); deploy host must read it too
+
+# Optional frozen S-VAE feature reducer (raw embed_dim -> svae_target_dim, e.g. 48
+# to match the Wan VAE z_dim); train via scripts/svae_train/. Leave both null for the raw path.
+svae_path: null         # trained svae.pt (weights travel in the main checkpoint)
+svae_target_dim: null   # optional cross-check vs the S-VAE latent_dim

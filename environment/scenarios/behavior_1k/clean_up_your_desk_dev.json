@@ -1,0 +1,31 @@
+{
+  "task_name": "clean_up_your_desk",
+  "display_name_zh": "儿童房书桌整理与物品归位",
+  "scene_model": "house_single_floor",
+  "instance_index": 10,
+  "official_instance_id": 311,
+  "num_rollouts": 1,
+  "mode": "public_test",
+  "role": "development",
+  "max_steps_override": 5000,
+  "standard_step_budget": false,
+  "assets": "var/datasets/behavior_1k",
+  "asset_recipe": "environment/datasets/behavior_1k/prepare_scene.py --task-name clean_up_your_desk --instance-id 311",
+  "asset_manifest_directory": "var/datasets/behavior_1k/subsets/clean_up_your_desk/311",
+  "renderer": "upstream",
+  "runtime": "behavior_isaac601",
+  "robot_profile": "World R1Pro absolute IK",
+  "agent_isolation": "host bubblewrap, simulator in Docker",
+  "tools": [
+    "move_base",
+    "move_arms",
+    "set_grippers",
+    "move_torso"
+  ],
+  "simulation_validated": true,
+  "full_task_success": false,
+  "baseline": "Original scene, initial state, assets, physics, rendering and task rules; external Isaac compatibility and World robot control profile",
+  "validation_run": "var/runs/docker/behavior_1k/desk-codex-5000steps-02",
+  "validation_scope": "Persistent isolated source Codex used 5001 active control steps and 254 valid actions; no early stop/hold; official evaluator ended the episode",
+  "q_score": 0.09090909090909091
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="shin_gazebo_v0" params="prefix">
+    <gazebo reference="${prefix}_shin_link">
+      <selfCollide>false</selfCollide>
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+      <minDepth>0.02</minDepth>
+      <kp  value="1000000.0"/>
+      <kd  value="100.0"/>
+    </gazebo>
+  </xacro:macro>
+</robot>
+

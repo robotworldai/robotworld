@@ -1,0 +1,8 @@
+# FLUX.2-dev image VAE (diffusers AutoencoderKLFlux2) as external video encoder:
+# a 2D per-frame VAE + parameter-free causal mean pool over time. Activate via:
+#   model.video_backbone.from_scratch=true model/video_backbone/encoder=flux2_vae
+# from_scratch=true is REQUIRED (FLUX.2 emits z_dim=128 vs the native 48).
+# Structural fields (z_dim/spatial_compression/...) are read from the diffusers config.json, not yaml.
+
+name: flux2_vae
+model_path: /path/to/FLUX.2-dev_VAE  # [Required] diffusers snapshot dir; deploy host must read it too

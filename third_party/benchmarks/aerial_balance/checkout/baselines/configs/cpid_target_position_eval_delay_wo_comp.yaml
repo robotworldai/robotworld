@@ -1,0 +1,12 @@
+env_config: environments/configs/template_eval_delay_15.yaml
+policy_config: baselines/configs/cpid.yaml
+
+runner:
+  target_episodes: 500
+  max_steps: null
+  render: false
+  save_rollout: true
+
+logging:
+  root_dir: logs/cpid_500
+  run_name: cpid_target_position_velocity_delay_wo_compensation

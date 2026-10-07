@@ -1,0 +1,59 @@
+{
+  "upstream_pr": "https://github.com/StanfordVL/BEHAVIOR-1K/pull/2313",
+  "head": "850e5ea16cf85d25d4cd26b8910bf33d77fc8fb0",
+  "base": "6cbf70b075816096e9be53958780769f3264d25d",
+  "modules": {
+    "omnigibson.envs.lerobot_data_wrapper": {
+      "path": "OmniGibson/omnigibson/envs/lerobot_data_wrapper.py",
+      "sha256_before": "c3604b1c3b3f1914b5c5a7ef2e2be8f0f145d77d8969c3d675651d774a8c3d3c",
+      "sha256_after": "0199eb1673e431e9cff907edff386c7d904033b576756621bc3134ddba66b468",
+      "patch": "omnigibson.envs.lerobot_data_wrapper.patch"
+    },
+    "omnigibson.prims.material_prim": {
+      "path": "OmniGibson/omnigibson/prims/material_prim.py",
+      "sha256_before": "d5f5871de485349cc9e78de1a70b027425e0140e4a91af5c7e2de2db1e92629f",
+      "sha256_after": "cf7497fab0e1025d0388239bc281e8588b42a681a565f4153da2bf7d93419321",
+      "patch": "omnigibson.prims.material_prim.patch"
+    },
+    "omnigibson.sensors.vision_sensor": {
+      "path": "OmniGibson/omnigibson/sensors/vision_sensor.py",
+      "sha256_before": "329229d31461cca5992ca085f92d7bd3ec683845bc8a4f63b67cc84d873a7633",
+      "sha256_after": "46815f42551459de1e94d22504a6619be61f86528b5ab8fe944f9d068045db2a",
+      "patch": "omnigibson.sensors.vision_sensor.patch"
+    },
+    "omnigibson.simulator": {
+      "path": "OmniGibson/omnigibson/simulator.py",
+      "sha256_before": "2f6b659e896b416387ffc50a5c1940b0ba6202743f0d2db0d7147f4d96868e80",
+      "sha256_after": "e42781dbbe5bd4e19b2a60beecb06cf7615e0ff8b6282dbcdce223b1ad0a7ac9",
+      "patch": "omnigibson.simulator.patch"
+    },
+    "omnigibson.utils.asset_conversion_utils": {
+      "path": "OmniGibson/omnigibson/utils/asset_conversion_utils.py",
+      "sha256_before": "deec34798e88f102b7652c9aeee00aa8be7061aa1f83def02b146dd2b4c1f3dd",
+      "sha256_after": "572ff2b19253c86eab0e40e7475c02032bee92ea28c750a8635f7393e00353c9",
+      "patch": "omnigibson.utils.asset_conversion_utils.patch"
+    },
+    "omnigibson.utils.deprecated_utils": {
+      "path": "OmniGibson/omnigibson/utils/deprecated_utils.py",
+      "sha256_before": "2d3afd69c7db0657ddbaf85d56ef51e8c521ebe04988c74a656235ca6ff80bd4",
+      "sha256_after": "7925a9821606fe03ceec779f4aac1b262e8b866e471d8f18ffbdb144232b68b5",
+      "patch": "omnigibson.utils.deprecated_utils.patch"
+    },
+    "omnigibson.utils.urdfpy_utils": {
+      "path": "OmniGibson/omnigibson/utils/urdfpy_utils.py",
+      "sha256_before": "9c21b8507035d3c4d3946b7abba8dbe6d6a05ded9ff8ed2c757febd5d983c3c7",
+      "sha256_after": "074b38831127e0b686089499bd00424a2dbeeb4feb94ba04d61ced060b448238",
+      "patch": "omnigibson.utils.urdfpy_utils.patch"
+    },
+    "omnigibson.utils.vision_utils": {
+      "path": "OmniGibson/omnigibson/utils/vision_utils.py",
+      "sha256_before": "2d3b85417a41cb5ba25dcea6bd10fede778f4b3c22394d0e5d90e9fa20b77c4d",
+      "sha256_after": "cec15f0388d0657f2465ce7ef316e7476bc0752653b108fb5b3db27882e98ae7",
+      "patch": "omnigibson.utils.vision_utils.patch"
+    }
+  },
+  "kit_files": {
+    "omnigibson_6_0_0.kit": "fd7cd354b7e2fb5fb1951dfdd3d2dbf06675ed410dec703eea884ca1aa3baa93",
+    "omnigibson_6_0_0_vr.kit": "dd96f00fa55532810c1793c446a8d6ac14057e4839beb57f4e0c1065d2763fdb"
+  }
+}

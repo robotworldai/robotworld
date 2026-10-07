@@ -1,0 +1,13 @@
+# Experiment and logging outputs
+wandb/
+logs/
+
+# Local editor and agent metadata
+.vscode/
+.codex/
+.agents/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class

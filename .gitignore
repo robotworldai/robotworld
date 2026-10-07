@@ -1,0 +1,34 @@
+# Local artifacts; keep only the directory guide.
+/var/**
+!/var/README.md
+# Optional local upstream clones, never vendor by accident.
+/environment/configs/local/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Centralized simulation data: kept outside the code release.
+/Assets/
+/upload-github/
+/upload-hf/
+
+# Local upstream dependencies and legacy checkout.
+/third_party/benchmarks/ai_cps/assets/
+
+/third_party/benchmarks/wheeledlab/assets/
+
+# Downloaded official resources and project-specific upstream runtime checkouts.
+/third_party/benchmarks/*/assets/
+
+# Videos, model trajectories and generated controller code from repeated evaluations.
+/outputs/
+
+# Credentials, packaging output, and generated reports.
+*.egg-info/
+/reports/
+/auth.json
+/credentials.json

@@ -1,0 +1,37 @@
+{
+  "key": "volleybots",
+  "engine": "custom",
+  "commit": "10e3701e480b518041c8be6a40efee7bdcb69283",
+  "image": "world/volleybots:isaac2023.1.0-hotfix1",
+  "runtime": "Isaac Sim2023.1.0-hotfix.1 + pinnedOrbit; image built, CPU imports pass, original torch2.0.1cu118 CUDA fails on RTX5090; scene unverified",
+  "python_paths": [
+    "."
+  ],
+  "entrypoint": [
+    "/isaac-sim/python.sh"
+  ],
+  "adapter": "environment.benchmarks.volleybots.project",
+  "repository": "https://github.com/thu-uav/VolleyBots.git",
+  "tasks": {
+    "T05": {
+      "id": "Volleyball1v1",
+      "title": "无人机一对一排球对抗",
+      "steps": 1000,
+      "native_success_available": true,
+      "action": "Native raw4rotors player0, nulltransform; independently frozen player1 opponent",
+      "observation": "Original policy measurements only, state-based; review camera excluded",
+      "scoring": "Original win/lose/draw; opponent version disclosed"
+    },
+    "T05-single": {
+      "id": "SingleJuggleVolleyball",
+      "title": "无人机官方单机颠球（独立于 T05 1v1）",
+      "steps": 800,
+      "native_success_available": false,
+      "action": "Four raw Iris rotor commands; no pretrained controller",
+      "observation": "Original 32D state actor, no motor-throttle observation; review images excluded",
+      "scoring": "Original hit count, height rewards, misbehaviour termination; no invented binary SR",
+      "required_runtime_profile": "isaac6"
+    }
+  },
+  "build_context": "."
+}

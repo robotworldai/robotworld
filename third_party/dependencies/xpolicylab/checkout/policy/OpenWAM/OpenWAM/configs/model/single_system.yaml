@@ -1,0 +1,34 @@
+# Single-System WAM: action tokens concatenated into the video DiT sequence.
+#   vanilla: plain shared DiT.
+#   moe:     + expert FFN on action tokens.
+
+defaults:
+  - video_backbone: wan22_ti2v_5b # wan22_ti2v_5b | wan21_vace_1_3b | wan21_i2v_14b_480p | cosmos_predict25_2b | cosmos3_edge
+  - action_backbone: shared_action_backbone
+  - _self_
+
+# Pretrained components kept frozen; entries missing on the active backbone are skipped.
+freeze:
+  - video_backbone.text_encoder
+  - video_backbone.reason1
+  - video_backbone.vae
+  - video_backbone.image_encoder
+  - video_backbone.video_encoder
+
+architecture:
+  framework: single_system
+  variant: vanilla   # vanilla | moe
+
+  action_dim: 80             # 80 = unified action space (unify_action=true); raw width otherwise (e.g. robotwin eef=20, joint=14)
+  use_proprioception: true   # true = dataloader must provide sample["proprio"], encoded as one state token: [video][action][state]
+  state_dim: 80              # proprio width; required when use_proprioception=true
+
+  # Video<->action visibility (the state token is a read-only tail: all attend to it, it attends only to itself):
+  #   mutual | action_sees_video | video_sees_action | isolated
+  attention_mask_mode: mutual
+  # Video<->video visibility: first_frame_causal | per_frame_causal | bidirectional
+  video_attention_mask_mode: first_frame_causal
+
+  # moe only: which video layers apply the expert FFN — explicit list, or null + bridge_interval (1 = every layer, 2 = every other).
+  bridge_layers: null
+  bridge_interval: 1

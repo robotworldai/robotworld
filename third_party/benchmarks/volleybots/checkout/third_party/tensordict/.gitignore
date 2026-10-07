@@ -1,0 +1,18 @@
+# Python artifacts
+__pycache__/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+tensordict/version.py
+tensordict/_tensordict.so
+
+# docs build
+docs/_data
+docs/source/gen_modules
+docs/source/reference/generated
+docs/source/tutorials
+docs/src
+
+# Pycharm
+.idea

@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "resources/robots/hummingbird_controller_params_pos.yaml",
+      "bytes": 129,
+      "sha256": "08dd12bc77e265ee6703844ee09a85b739d9cbe1772e3f7ab027d2009f9db366"
+    },
+    {
+      "path": "resources/robots/hummingbird.yaml",
+      "bytes": 674,
+      "sha256": "2204fd9d61199521d1721bf17156855dff0d321a2696c29656116e3b25ee4a0f"
+    },
+    {
+      "path": "resources/robots/hummingbird_controller_params_vel.yaml",
+      "bytes": 122,
+      "sha256": "546733c2a3b9966e74999a03b3249b1f3b0eefd1195b31a28d6606e139f3ba9b"
+    },
+    {
+      "path": "resources/robots/hummingbird_controller_params_attitude.yaml",
+      "bytes": 133,
+      "sha256": "69a3595489edf75e7cc145c8df09206c6a16b7a5a049600137f283373f10464b"
+    },
+    {
+      "path": "resources/asserts/drone_rope_plank_horizontal_slide_block.usd",
+      "bytes": 70944,
+      "sha256": "6f7daa5c66867bcf2de8de3211632e9dab7df6c5438a9029e06c18911e37fd18"
+    }
+  ],
+  "source": "original checkout resources; no substitute assets",
+  "runtime_load_verified": false,
+  "closure_complete": false,
+  "missing_author_payloads": [
+    "/home/wenminggong/projects/human_robot_collaborative_transportation/HumanDroneCT/resources/holder.usd",
+    "/home/wenminggong/projects/human_robot_collaborative_transportation/HumanDroneCT/resources/rigid_rope.usd",
+    "/home/wenminggong/projects/human_robot_collaborative_transportation/HumanDroneCT/resources/hummingbird.usd",
+    "/home/wenminggong/projects/human_robot_collaborative_transportation/Human_Drone_Balance/resources/asserts/plank_block.usd"
+  ],
+  "external_official_payload": "http://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.2/Isaac/Environments/Grid/default_environment.usd"
+}

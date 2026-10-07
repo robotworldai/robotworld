@@ -1,0 +1,8 @@
+---
+source: tui/src/chatwidget/tests/status_and_layout.rs
+expression: history
+---
+• Blocked by hook
+  └ command blocked by policy
+
+• The hook feedback was applied.

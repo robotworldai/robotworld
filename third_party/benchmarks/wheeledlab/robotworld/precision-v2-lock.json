@@ -1,0 +1,12 @@
+{
+  "protocol": "robotworld-driving-precision-v2",
+  "change": "Painted line overlap uses ground projection regardless of root height; dimensions, steps and success thresholds unchanged",
+  "files": {
+    "precision_specs.py": "8406cda9dce3076bfd380d4cbb51cc3bc2fc40572c602725f4cb71dc8bbb7b64",
+    "precision_geometry.py": "8350d247d69cbfd3e829d06a99e127fb241862133fdf146c11da22db3355fa6a",
+    "precision_environment.py": "6ab50edc5cec07442df685d1f068fe26baaa0a1290952832d57f4c24413524c0",
+    "precision_scoring.py": "6c0d331652a5629a845394f3f4abafc7c51d372b9c9a833f18fdaf30a36488c4",
+    "precision_prompt.py": "1beabbf9e000951f4a5d139a613494b3a0547ea847cd14832bb426f7dd590e1f",
+    "scoring.py": "21cd05cf168ac85a899b755a38a510d8da5f64005c45db07a1d0c9f002cf22bc"
+  }
+}

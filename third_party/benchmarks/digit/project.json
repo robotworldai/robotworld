@@ -1,0 +1,28 @@
+{
+  "key": "digit",
+  "repository": "https://github.com/isaac-sim/IsaacLab.git",
+  "commit": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+  "image": "world/digit:isaac6.0.1-experimental",
+  "runtime": "Isaac Sim 6.0.1 experimental with exact project-specific IsaacLab source, not official runtime equivalence",
+  "python_paths": [],
+  "runtime_python_paths": [
+    "third_party/benchmarks/digit/checkout/source/isaaclab",
+    "third_party/benchmarks/digit/checkout/source/isaaclab_assets",
+    "third_party/benchmarks/digit/checkout/source/isaaclab_tasks",
+    "third_party/benchmarks/digit/checkout/source/isaaclab_rl",
+    "third_party/benchmarks/digit/checkout/source/isaaclab_contrib"
+  ],
+  "tasks": {
+    "T13": {
+      "id": "Isaac-Tracking-LocoManip-Digit-v0",
+      "title": "Digit 行走时同时跟踪双手目标",
+      "steps": 700,
+      "upstream_runtime": "IsaacLab 2.3.2 pinned; supports Isaac Sim 4.5/5.0/5.1 upstream",
+      "observation": "Original noisy policy state: base velocity/gravity, velocity and hand pose commands, joint positions/velocities, previous action. Not RGB-only.",
+      "action": "Original full body leg+arm joint position action, scale 0.5 plus default offsets, no pretrained walking controller.",
+      "scoring": "Native reward components, native command tracking errors and termination; no invented binary success metric. No carried box/object.",
+      "physics_dt": 0.005,
+      "decimation": 4
+    }
+  }
+}

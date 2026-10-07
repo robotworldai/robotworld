@@ -1,0 +1,317 @@
+{
+  "stages": [
+    {
+      "name": "flat",
+      "task": "Wheel-Legged-Flat-v0",
+      "experiment": "wheel_legged_flat",
+      "max_iterations": 2600,
+      "min_iterations": 600,
+      "window": 20,
+      "consecutive": 3,
+      "rules": {
+        "cmd_vx_limit": {
+          "min": 0.99
+        },
+        "cmd_wz_limit": {
+          "min": 1.99
+        },
+        "curriculum_score": {
+          "min": 0.85
+        },
+        "curriculum_angular_score": {
+          "min": 0.79
+        },
+        "joint_margin_min": {
+          "min": 0.1
+        },
+        "torque_saturation": {
+          "max": 0.05
+        }
+      }
+    },
+    {
+      "name": "recovery",
+      "task": "Wheel-Legged-Recovery-Flat-v0",
+      "experiment": "wheel_legged_recovery_flat",
+      "max_iterations": 1800,
+      "min_iterations": 300,
+      "window": 20,
+      "consecutive": 3,
+      "rules": {
+        "recovery_success_rate": {
+          "min": 0.7
+        },
+        "recovery_failure_rate": {
+          "max": 0.3
+        },
+        "vx_tracking_gain": {
+          "min": 0.55
+        },
+        "joint_margin_min": {
+          "min": 0.07
+        },
+        "torque_saturation": {
+          "max": 0.1
+        }
+      }
+    },
+    {
+      "name": "terrain_reactive",
+      "task": "Wheel-Legged-Terrain-Reactive-v0",
+      "experiment": "wheel_legged_terrain_reactive",
+      "max_iterations": 2800,
+      "min_iterations": 500,
+      "window": 20,
+      "consecutive": 3,
+      "convert_to_jump": true,
+      "rules": {
+        "recovery_success_rate": {
+          "min": 0.68
+        },
+        "recovery_failure_rate": {
+          "max": 0.32
+        },
+        "terrain_tracking_ratio": {
+          "min": 0.65
+        },
+        "vx_tracking_gain": {
+          "min": 0.55
+        },
+        "tilt_angle": {
+          "max": 0.35
+        },
+        "joint_margin_min": {
+          "min": 0.06
+        },
+        "torque_saturation": {
+          "max": 0.1
+        }
+      }
+    },
+    {
+      "name": "jump_flat",
+      "task": "Wheel-Legged-Jump-Flat-v0",
+      "experiment": "wheel_legged_jump_flat",
+      "max_iterations": 2600,
+      "min_iterations": 500,
+      "window": 20,
+      "consecutive": 3,
+      "rules": {
+        "jump_takeoff_vz": {
+          "min": 0.45
+        },
+        "jump_apex_rise": {
+          "min": 0.055
+        },
+        "jump_air_time": {
+          "min": 0.125
+        },
+        "jump_success_rate": {
+          "min": 0.62
+        },
+        "jump_fail_recovery_rate": {
+          "max": 0.08
+        },
+        "torque_saturation": {
+          "max": 0.05
+        }
+      }
+    },
+    {
+      "name": "high_landing",
+      "task": "Wheel-Legged-Jump-High-Landing-Flat-v0",
+      "experiment": "wheel_legged_jump_high_landing_flat",
+      "max_iterations": 1800,
+      "min_iterations": 300,
+      "window": 20,
+      "consecutive": 3,
+      "rules": {
+        "jump_apex_rise": {
+          "min": 0.085
+        },
+        "jump_air_time": {
+          "min": 0.12
+        },
+        "jump_success_rate": {
+          "min": 0.42
+        },
+        "jump_soft_landing_rate": {
+          "min": 0.7
+        },
+        "jump_landing_vz": {
+          "abs_max": 1.0
+        },
+        "jump_fail_recovery_rate": {
+          "max": 0.04
+        },
+        "torque_saturation": {
+          "max": 0.05
+        }
+      }
+    },
+    {
+      "name": "clearance",
+      "task": "Wheel-Legged-Jump-Clearance-Flat-v0",
+      "experiment": "wheel_legged_jump_clearance_flat",
+      "max_iterations": 1800,
+      "min_iterations": 200,
+      "window": 20,
+      "consecutive": 3,
+      "rules": {
+        "jump_wheel_clearance": {
+          "min": 0.095
+        },
+        "jump_air_time": {
+          "min": 0.125
+        },
+        "jump_success_rate": {
+          "min": 0.6
+        },
+        "jump_soft_landing_rate": {
+          "min": 0.75
+        },
+        "jump_landing_vz": {
+          "abs_max": 0.95
+        },
+        "jump_fail_recovery_rate": {
+          "max": 0.04
+        },
+        "torque_saturation": {
+          "max": 0.05
+        }
+      }
+    },
+    {
+      "name": "moving_curriculum",
+      "task": "Wheel-Legged-Jump-Moving-Curriculum-Flat-v0",
+      "experiment": "wheel_legged_jump_moving_curriculum_flat",
+      "max_iterations": 4500,
+      "min_iterations": 600,
+      "window": 20,
+      "consecutive": 3,
+      "rules": {
+        "moving_jump_curriculum_level": {
+          "min": 4.0
+        },
+        "curriculum_score": {
+          "min": 0.75
+        },
+        "moving_jump_curriculum_success": {
+          "min": 0.7
+        },
+        "moving_jump_curriculum_soft": {
+          "min": 0.75
+        },
+        "moving_jump_curriculum_heading": {
+          "min": 0.76
+        },
+        "jump_wheel_clearance": {
+          "min": 0.095
+        },
+        "torque_saturation": {
+          "max": 0.05
+        }
+      }
+    },
+    {
+      "name": "target_landing",
+      "task": "Wheel-Legged-Jump-Target-Landing-Flat-v0",
+      "experiment": "wheel_legged_jump_target_landing_flat",
+      "max_iterations": 2400,
+      "min_iterations": 350,
+      "window": 20,
+      "consecutive": 3,
+      "rules": {
+        "jump_success_rate": {
+          "min": 0.5
+        },
+        "jump_target_landing_rate": {
+          "min": 0.68
+        },
+        "jump_landing_position_error": {
+          "max": 0.045
+        },
+        "jump_soft_landing_rate": {
+          "min": 0.65
+        },
+        "jump_fail_recovery_rate": {
+          "max": 0.05
+        },
+        "torque_saturation": {
+          "max": 0.05
+        }
+      }
+    },
+    {
+      "name": "obstacle_oracle",
+      "task": "Wheel-Legged-Jump-Obstacle-Oracle-Flat-v0",
+      "experiment": "wheel_legged_jump_obstacle_oracle_flat",
+      "max_iterations": 3000,
+      "min_iterations": 500,
+      "window": 20,
+      "consecutive": 3,
+      "rules": {
+        "obstacle_curriculum_level": {
+          "min": 6.0
+        },
+        "obstacle_curriculum_success": {
+          "min": 0.45
+        },
+        "obstacle_curriculum_clear": {
+          "min": 0.75
+        },
+        "obstacle_curriculum_collision": {
+          "max": 0.28
+        },
+        "obstacle_success_rate": {
+          "min": 0.4
+        },
+        "obstacle_clear_rate": {
+          "min": 0.7
+        },
+        "obstacle_collision_rate": {
+          "max": 0.3
+        },
+        "jump_fail_recovery_rate": {
+          "max": 0.04
+        },
+        "torque_saturation": {
+          "max": 0.05
+        }
+      }
+    },
+    {
+      "name": "obstacle_perceptive",
+      "task": "Wheel-Legged-Jump-Obstacle-Perceptive-Flat-v0",
+      "experiment": "wheel_legged_jump_obstacle_perceptive_flat",
+      "num_envs": 512,
+      "max_iterations": 2000,
+      "min_iterations": 300,
+      "window": 20,
+      "consecutive": 3,
+      "rules": {
+        "obstacle_curriculum_level": {
+          "min": 6.0
+        },
+        "obstacle_perception_valid_rate": {
+          "min": 0.7
+        },
+        "obstacle_success_rate": {
+          "min": 0.3
+        },
+        "obstacle_clear_rate": {
+          "min": 0.65
+        },
+        "obstacle_collision_rate": {
+          "max": 0.4
+        },
+        "jump_fail_recovery_rate": {
+          "max": 0.06
+        },
+        "torque_saturation": {
+          "max": 0.05
+        }
+      }
+    }
+  ]
+}

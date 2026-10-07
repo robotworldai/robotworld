@@ -1,0 +1,5 @@
+---
+source: tui/src/chatwidget/tests/history_replay.rs
+expression: combined
+---
+• Conversation reverted to this point. File changes are unchanged.

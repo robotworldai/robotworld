@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "root": "Assets",
+  "external": [
+    {
+      "source": "third_party/benchmarks/ai_cps/assets",
+      "target": "Assets/ai_cps/data"
+    },
+    {
+      "source": "third_party/benchmarks/digit/assets",
+      "target": "Assets/digit/data"
+    },
+    {
+      "source": "third_party/benchmarks/flamingo/assets",
+      "target": "Assets/flamingo/data"
+    },
+    {
+      "source": "third_party/benchmarks/go2_push/assets",
+      "target": "Assets/go2_push/data"
+    },
+    {
+      "source": "third_party/benchmarks/omniisaacgymenvs/assets",
+      "target": "Assets/omniisaacgymenvs/data"
+    },
+    {
+      "source": "third_party/benchmarks/reflexbench/assets",
+      "target": "Assets/reflexbench/data"
+    },
+    {
+      "source": "third_party/benchmarks/robocasa/assets",
+      "target": "Assets/robocasa/data"
+    },
+    {
+      "source": "third_party/benchmarks/robolab/assets",
+      "target": "Assets/robolab/data"
+    },
+    {
+      "source": "third_party/benchmarks/robot_lab/assets",
+      "target": "Assets/robot_lab/data"
+    },
+    {
+      "source": "third_party/benchmarks/steadytray/assets",
+      "target": "Assets/steadytray/data"
+    },
+    {
+      "source": "third_party/benchmarks/ttrl/assets",
+      "target": "Assets/ttrl/data"
+    },
+    {
+      "source": "third_party/benchmarks/wheel_legged/assets",
+      "target": "Assets/wheel_legged/data"
+    },
+    {
+      "source": "third_party/benchmarks/wheeledlab/assets",
+      "target": "Assets/wheeledlab/data"
+    },
+    {
+      "source": "var/datasets/behavior_1k",
+      "target": "Assets/behavior_1k/data"
+    },
+    {
+      "source": "var/datasets/robodojo",
+      "target": "Assets/robodojo/legacy-scenes"
+    },
+    {
+      "source": "third_party/benchmarks/bench2dex/anchors",
+      "target": "Assets/bench2dex/anchors"
+    },
+    {
+      "source": "third_party/benchmarks/bench2dex/dex2bench_dataset",
+      "target": "Assets/bench2dex/dex2bench_dataset"
+    },
+    {
+      "source": "third_party/benchmarks/bench2dex/shared-assets",
+      "target": "Assets/bench2dex/shared-assets"
+    }
+  ],
+  "embedded_manifest": "environment/datasets/embedded-assets.json",
+  "upstream_files_immutable": true
+}

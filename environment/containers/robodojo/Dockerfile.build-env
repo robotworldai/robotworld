@@ -1,0 +1,7 @@
+# syntax=docker/dockerfile:1
+# Upstream's Dockerfile remains byte-for-byte unchanged. Provide the version
+# needed by setuptools_scm when building the exported source without .git.
+ARG CUDA_IMAGE=nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
+FROM ${CUDA_IMAGE}
+ARG CUROBO_VERSION
+ENV SETUPTOOLS_SCM_PRETEND_VERSION_FOR_NVIDIA_CUROBO=${CUROBO_VERSION}

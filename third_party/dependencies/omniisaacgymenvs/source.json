@@ -1,0 +1,6 @@
+{
+  "id": "omniisaacgymenvs",
+  "path": "third_party/dependencies/omniisaacgymenvs/checkout",
+  "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs.git",
+  "commit": "1aaf354d6a2bcfd54525ab183d03313956b5968b"
+}

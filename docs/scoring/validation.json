@@ -1,0 +1,14 @@
+{
+  "coverage": "85/85",
+  "benchmarks": 20,
+  "sources_sha256_verified": 149,
+  "markdown_file_links_verified": 442,
+  "not_selected_in_smoke": 65,
+  "missing_budgets": [
+    [
+      "robocasa",
+      "CountertopCleanup"
+    ]
+  ],
+  "scope": "documentation coverage and source integrity; not simulation success validation"
+}

@@ -1,0 +1,27 @@
+[package]
+
+# Semantic Versioning is used: https://semver.org/
+version = "0.1.0"
+
+# Description
+category = "isaaclab"
+readme  = "README.md"
+
+title = "ReflexBench"
+author = "LxRoboticsLab"
+maintainer = "LxRoboticsLab"
+description = "Reaction-critical manipulation benchmark for Isaac Lab"
+repository = "https://github.com/LxRoboticsLab/ReflexBench.git"
+keywords = ["robotics", "manipulation", "benchmark", "vla", "isaaclab"]
+
+[dependencies]
+"isaaclab" = {}
+"isaaclab_assets" = {}
+"isaaclab_mimic" = {}
+"isaaclab_rl" = {}
+"isaaclab_tasks" = {}
+
+[[python.module]]
+name = "reflexbench"
+
+[isaac_lab_settings]

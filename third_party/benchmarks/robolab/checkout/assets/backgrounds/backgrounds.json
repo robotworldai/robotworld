@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "generated_at": "2026-07-07T16:54:37.008979",
+    "total_backgrounds": 14,
+    "total_folders": 2,
+    "image_width": 600
+  },
+  "folders": {
+    "default": {
+      "folder_path": "default",
+      "backgrounds": [
+        {
+          "path": "default/aerodynamics_workshop.hdr",
+          "image": "default/aerodynamics_workshop.png",
+          "description": "machine,industrial,workshop,wind tunnel,window,indoor,urban,morning-afternoon,medium contrast,natural light,artificial light"
+        },
+        {
+          "path": "default/billiard_hall.hdr",
+          "image": "default/billiard_hall.png",
+          "description": ""
+        },
+        {
+          "path": "default/brown_photostudio.hdr",
+          "image": "default/brown_photostudio.png",
+          "description": ""
+        },
+        {
+          "path": "default/empty_warehouse.hdr",
+          "image": "default/empty_warehouse.png",
+          "description": "warehouse,derelict,fluorescent,concrete,industrial,indoor,urban,morning-afternoon,medium contrast,artificial light"
+        },
+        {
+          "path": "default/home_office.exr",
+          "image": "default/home_office.png",
+          "description": ""
+        }
+      ]
+    },
+    "indoors": {
+      "folder_path": "indoors",
+      "backgrounds": [
+        {
+          "path": "indoors/aircraft_workshop_01_2k.hdr",
+          "image": "indoors/aircraft_workshop_01_2k.png",
+          "description": "workshop,industrial,warehouse,scaffold,indoor,urban,morning-afternoon,medium contrast,natural light,artificial light"
+        },
+        {
+          "path": "indoors/art_studio_2k.hdr",
+          "image": "indoors/art_studio_2k.png",
+          "description": "painting,art,workshop,window,indoor,urban,medium contrast,natural light,artificial light"
+        },
+        {
+          "path": "indoors/garage_2k.hdr",
+          "image": "indoors/garage_2k.png",
+          "description": "garage,fluorescent,indoor,urban,high contrast,natural light"
+        },
+        {
+          "path": "indoors/hotel_room_4k.hdr",
+          "image": "indoors/hotel_room_4k.png",
+          "description": "bed,tv,table,chair,mirror,window,curtain,lamp,hotel,indoor,urban,high contrast,natural light,artificial light"
+        },
+        {
+          "path": "indoors/industrial_pipe_and_valve_01_2k.hdr",
+          "image": "indoors/industrial_pipe_and_valve_01_2k.png",
+          "description": "workshop,lamp,industrial,warehouse,indoor,urban,high contrast,artificial light"
+        },
+        {
+          "path": "indoors/machine_shop_01_4k.hdr",
+          "image": "indoors/machine_shop_01_4k.png",
+          "description": "workshop,hall,warehouse,industrial,machine,metal,indoor,urban,medium contrast,natural light"
+        },
+        {
+          "path": "indoors/reading_room_2k.hdr",
+          "image": "indoors/reading_room_2k.png",
+          "description": "chair,couch,window,door,tile,indoor,urban,morning-afternoon,medium contrast,natural light"
+        },
+        {
+          "path": "indoors/small_hangar_01_4k.hdr",
+          "image": "indoors/small_hangar_01_4k.png",
+          "description": "hangar,plane,industrial,warehouse,indoor,urban,morning-afternoon,low contrast,natural light"
+        },
+        {
+          "path": "indoors/tv_studio_4k.hdr",
+          "image": "indoors/tv_studio_4k.png",
+          "description": "camera,studio,set,news,show,indoor,urban,high contrast,artificial light"
+        }
+      ]
+    }
+  }
+}

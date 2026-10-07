@@ -1,0 +1,2701 @@
+{
+  "upstream_commit": "10e3701e480b518041c8be6a40efee7bdcb69283",
+  "method": "static inert pickle parsing; no actor executed",
+  "checkpoints": [
+    {
+      "path": "checkpoints/br/population/0.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ]
+      },
+      "sha256": "54d807dbd125b581159354ae18d7d550d025a41f468dd0d5d3f1185a1232f08e"
+    },
+    {
+      "path": "checkpoints/br/population/1.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ]
+      },
+      "sha256": "c976237cc38b0bb5e633a1eff0614bef1f66556dbfe85b6ed9916240d980d487"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/0.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "9cc7bc24c800d7a4df81fccd3eace934717741ace129b33cf1c0c3bf4849d9aa"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/1.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "0b14724483008187e5a71e29ccf9240d0b9c081c481db1f15f67603d76980aab"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/2.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "c0227d5bafbc36bae31db49928b4cfe533e91e11ac80ecf742edea8176b4a9e2"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/3.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "e6a77f67f8bfaff6c15e2795982a592717086405cf0dec5ea1d34f30b28210c3"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/4.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "5c7d0a7b4aecf5cc87bff0c70d49f609a63ced9ee5d7ec7ad10abe5af54e57ab"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/5.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "5f73ba3f57a3ac9f80b09b0d30dd950ac57190bd832eb49148bcf0788650899d"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/6.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "ef63655e16f86a55632b3b0c43e638c4fcfe321f75ad1bf0ccf2d535c32f8268"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/7.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "538ea6ac28624589bc603c2ed9bd0675e2e92ea9ce3c4e0c15025a915e2ae4a4"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/8.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "d2423abed30aad83985636175d9efe809bc449ff0ad348328b1761080171390c"
+    },
+    {
+      "path": "checkpoints/crossplay/fsp_population/9.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "7af29a476af13ced3d7aab7193f7c22aaa6731dd9875cce7d7fbfb95a7446c51"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_nash_population/0.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ]
+      },
+      "sha256": "1427e38538d0d95c7ac0d1014802fb6111a3a3cdbe3086a5fc9dce29b82e73cf"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_nash_population/1.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ]
+      },
+      "sha256": "1ed8379adddd1bc78b3d4691080f916cb8cb4c6eb596b38bf9cbb3868b021768"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_nash_population/2.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ]
+      },
+      "sha256": "988eaa90ac9afa3b44bd4077d6551eb9da97e2ecbd280b4490d40e0463156dfd"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_nash_population/3.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ]
+      },
+      "sha256": "9847daedfdfb72586adc013984d70d167a1c6d5ff7fb754f2209b3b4644b29c6"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_nash_population/4.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ]
+      },
+      "sha256": "02792aa48e1022d1c5cfdd77386006bf81f400b49b73d3e7ca363b40af1a78e5"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_nash_population/5.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ]
+      },
+      "sha256": "d2f5e980e0f49ce9d2e2e013eea3e5565603bf069576777261cbefd2b85570c5"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_nash_population/6.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ]
+      },
+      "sha256": "7d8de9dd6d9dc6c3fd9d1c6cd2600945920ccd345879e2fad9b7df02581e6130"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_nash_population/7.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ]
+      },
+      "sha256": "4c0e6488ff493fc6668f70a2cb557ad9360440011323d90ed63f456bc3e2c84d"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_uniform_population/0.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "42a52b58492abecb4a4d7c396a7201baf29ea67b7168ded887c5ad50c188e8a8"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_uniform_population/1.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "3dbfb9168567ac2fe7876dc3862647d1a9effaf5a43df505a68df87617c325e0"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_uniform_population/2.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "d79a64f946eb3f8a81a4db954bdcd363a2913e20636a1b8f5343acd1ff38ac4d"
+    },
+    {
+      "path": "checkpoints/crossplay/psro_uniform_population/3.pt",
+      "shapes": {
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          3,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          3,
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          3,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          3,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          3,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          3,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          3,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          3,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          3,
+          4
+        ]
+      },
+      "sha256": "9c4588ec86a8d1e7b358b74f016809afba4fcf1607b8a8a482fa21a94c047368"
+    },
+    {
+      "path": "checkpoints/crossplay/sp/0.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          57
+        ],
+        "critic/module.base.0.bias": [
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          256,
+          57
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          4
+        ]
+      },
+      "sha256": "78a3b2d73bd1767062008ff2e4b59fb12d3624c49ee5cbb113d7a2e8289265e6"
+    },
+    {
+      "path": "checkpoints/hier/checkpoint_att.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          36
+        ],
+        "critic/module.base.0.bias": [
+          36
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          1,
+          36
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          1,
+          36
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          1,
+          256,
+          36
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          1,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          1,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          1,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          1,
+          4
+        ]
+      },
+      "sha256": "b7d672651c210e0bd0aece73366327b4f5b7254c1cb83767137761484b94df57"
+    },
+    {
+      "path": "checkpoints/hier/checkpoint_att_hover.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          26
+        ],
+        "critic/module.base.0.bias": [
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          1,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          1,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          1,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          1,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          1,
+          256,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          1,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          1,
+          4
+        ]
+      },
+      "sha256": "edb4d32dc5c0fa02dd528a86c0c24e1385ed763b9729cd7dc34a1977fe498fcb"
+    },
+    {
+      "path": "checkpoints/hier/checkpoint_firstpass.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          34
+        ],
+        "critic/module.base.0.bias": [
+          34
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          1,
+          34
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          1,
+          34
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          1,
+          256,
+          34
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          1,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          1,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          1,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          1,
+          4
+        ]
+      },
+      "sha256": "663fe788e551a18d800344634fe9e4b9ba23a9d5aeb7bf6378cd406244288291"
+    },
+    {
+      "path": "checkpoints/hier/checkpoint_firstpass_hover.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          26
+        ],
+        "critic/module.base.0.bias": [
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          1,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          1,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          1,
+          256,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          1,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          1,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          1,
+          4,
+          128
+        ]
+      },
+      "sha256": "26e97bc5415588c77223c73c37b39a7ff69d12a70233236cf6cb03bb5dc1bc8f"
+    },
+    {
+      "path": "checkpoints/hier/checkpoint_goto.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          26
+        ],
+        "critic/module.base.0.bias": [
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          1,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          1,
+          256,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          1,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          1,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          1,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          1,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          1,
+          4
+        ]
+      },
+      "sha256": "f6422988390a97c9da8254af53914ec50763edba4778442c6188f30e66f56c14"
+    },
+    {
+      "path": "checkpoints/hier/checkpoint_secpass.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          34
+        ],
+        "critic/module.base.0.bias": [
+          34
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          1,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          1,
+          256,
+          34
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          1,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          1,
+          34
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          1,
+          34
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          1,
+          4,
+          128
+        ]
+      },
+      "sha256": "297a6bcd06b00ce79f2dba96310c5e8a24622d9a6d3aab4a1f4ac87cd74920cb"
+    },
+    {
+      "path": "checkpoints/hier/checkpoint_secpass_hover.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          26
+        ],
+        "critic/module.base.0.bias": [
+          26
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          1,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          1,
+          256,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          1,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          1,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          1,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          1,
+          26
+        ]
+      },
+      "sha256": "c8eadb8208295feb8d82831682f2d58c72dfd1d5048f64bc5766088e9972ca80"
+    },
+    {
+      "path": "checkpoints/hier/checkpoint_serve.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          37
+        ],
+        "critic/module.base.0.bias": [
+          37
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          1,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          1,
+          37
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          1,
+          37
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          1,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          1,
+          256,
+          37
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          1,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          1,
+          128
+        ]
+      },
+      "sha256": "00abfa3d44f1b5ec47a89c445666051a464bec848ee02f57b4f7004e2a548b14"
+    },
+    {
+      "path": "checkpoints/hier/checkpoint_serve_hover.pt",
+      "shapes": {
+        "critic/module.base.0.weight": [
+          26
+        ],
+        "critic/module.base.0.bias": [
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.bias": [
+          1,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.0.weight": [
+          1,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.5.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.3.weight": [
+          1,
+          128,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.6.weight": [
+          1,
+          128,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.2.weight": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.bias": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.8.weight": [
+          1,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.bias": [
+          1,
+          256
+        ],
+        "actor_params/__state__/_parameters/module.encoder.1.layers.0.weight": [
+          1,
+          256,
+          26
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.bias": [
+          1,
+          4
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.fc_mean.weight": [
+          1,
+          4,
+          128
+        ],
+        "actor_params/__state__/_parameters/module.act_dist.log_std": [
+          1,
+          4
+        ]
+      },
+      "sha256": "f9c2e99b7a75b837bf2c31d63a209ee719b6df36d073791513c439053920a0fe"
+    }
+  ]
+}

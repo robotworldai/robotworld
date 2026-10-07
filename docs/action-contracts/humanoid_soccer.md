@@ -1,0 +1,3 @@
+# humanoid_soccer: English action contract
+
+The runtime policy generates both system and tool contracts with action_guide(names,limits,mode,dt). DIRECT: absolute named joint radians; repeated targets do not accumulate. Omitted ordinary-call joints latch measured qpos; omitted feedback-code joints retain previous program targets. HYBRID: bounded radian offsets are applied to EACH new original-policy proposal, not accumulated across ticks. Example direct q=0.1 requests 0.1rad; hybrid offset=0.1 adds 0.1rad to a fresh proposal, subject to limits. At the nominal50Hz, 10steps=0.2s. Optional balance assistance remains disclosed. Exact joint order and limits are generated from the current model.

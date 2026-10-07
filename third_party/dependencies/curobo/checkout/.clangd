@@ -1,0 +1,15 @@
+CompileFlags:
+  Add:
+    - -std=c++17
+    - -I/usr/local/cuda/include
+  Remove:
+    - -W*
+Diagnostics:
+  ClangTidy:
+    Add:
+      - modernize-*
+      - performance-*
+      - readability-*
+    Remove:
+      - modernize-use-trailing-return-type
+      - readability-braces-around-statements

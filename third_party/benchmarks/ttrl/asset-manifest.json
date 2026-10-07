@@ -1,0 +1,166 @@
+{
+  "native_seeds": [
+    "legged_lab/assets/booster/T1_TT/T1_TT.usd",
+    "legged_lab/assets/table_tennis/table/pp_table_ver2.usd"
+  ],
+  "files": [
+    {
+      "path": "legged_lab/assets/booster/T1_TT/T1_TT.usd",
+      "bytes": 3190,
+      "sha256": "343f1d34c826c501e96f1e1edf4de87c26cfd1128bac592d46a00bb2bc27cd37"
+    },
+    {
+      "path": "legged_lab/assets/booster/T1_TT/configuration/T1_TT_base.usd",
+      "bytes": 12497761,
+      "sha256": "421f6d3512bf59d2c67ff3f71c1c825b021638220715d5ff70e8a2bccdc95dfd"
+    },
+    {
+      "path": "legged_lab/assets/booster/T1_TT/configuration/T1_TT_physics.usd",
+      "bytes": 9180,
+      "sha256": "bac297760c1fd5bbb62c2bc55f3130605e8b03f2cc99ea9c6fdbda743f3b96e8"
+    },
+    {
+      "path": "legged_lab/assets/booster/T1_TT/configuration/T1_TT_sensor.usd",
+      "bytes": 645,
+      "sha256": "7384a5b046ff51d440a2505c428dc867e927e346b7e94cffe791a989e1ef7b06"
+    },
+    {
+      "path": "legged_lab/assets/table_tennis/table/configuration/ping_pong_table_urdf_base.usd",
+      "bytes": 683433,
+      "sha256": "c6fc99a804d60ea6db90931bb8edb3d324ed63fec767ffe6ced424ccf4ad2996"
+    },
+    {
+      "path": "legged_lab/assets/table_tennis/table/configuration/ping_pong_table_urdf_physics.usd",
+      "bytes": 4191,
+      "sha256": "a8023a90996270a4eaa1c3d22b6aa8d7a54ca7ba92f0966d254324f7d3c09dc7"
+    },
+    {
+      "path": "legged_lab/assets/table_tennis/table/configuration/ping_pong_table_urdf_sensor.usd",
+      "bytes": 660,
+      "sha256": "efa9b2284838a3e969b5453b30224d442f04d656e6ba24e18fa0b3530c2c4bb2"
+    },
+    {
+      "path": "legged_lab/assets/table_tennis/table/pp_table_ver2.usd",
+      "bytes": 3743,
+      "sha256": "1f72b63342167feaf7336bc1b19574972e1047ca1218921c3df2c062243c2e3a"
+    }
+  ],
+  "native_reference_edges": [
+    {
+      "source": "legged_lab/assets/booster/T1_TT/T1_TT.usd",
+      "reference": "configuration/T1_TT_base.usd",
+      "resolved": "legged_lab/assets/booster/T1_TT/configuration/T1_TT_base.usd",
+      "kind": "local original asset"
+    },
+    {
+      "source": "legged_lab/assets/booster/T1_TT/T1_TT.usd",
+      "reference": "configuration/T1_TT_physics.usd",
+      "resolved": "legged_lab/assets/booster/T1_TT/configuration/T1_TT_physics.usd",
+      "kind": "local original asset"
+    },
+    {
+      "source": "legged_lab/assets/booster/T1_TT/T1_TT.usd",
+      "reference": "configuration/T1_TT_sensor.usd",
+      "resolved": "legged_lab/assets/booster/T1_TT/configuration/T1_TT_sensor.usd",
+      "kind": "local original asset"
+    },
+    {
+      "source": "legged_lab/assets/table_tennis/table/pp_table_ver2.usd",
+      "reference": "configuration/ping_pong_table_urdf_base.usd",
+      "resolved": "legged_lab/assets/table_tennis/table/configuration/ping_pong_table_urdf_base.usd",
+      "kind": "local original asset"
+    },
+    {
+      "source": "legged_lab/assets/table_tennis/table/pp_table_ver2.usd",
+      "reference": "configuration/ping_pong_table_urdf_physics.usd",
+      "resolved": "legged_lab/assets/table_tennis/table/configuration/ping_pong_table_urdf_physics.usd",
+      "kind": "local original asset"
+    },
+    {
+      "source": "legged_lab/assets/table_tennis/table/pp_table_ver2.usd",
+      "reference": "configuration/ping_pong_table_urdf_sensor.usd",
+      "resolved": "legged_lab/assets/table_tennis/table/configuration/ping_pong_table_urdf_sensor.usd",
+      "kind": "local original asset"
+    },
+    {
+      "source": "legged_lab/assets/booster/T1_TT/configuration/T1_TT_base.usd",
+      "reference": "OmniPBR.mdl",
+      "kind": "Isaac builtin MDL"
+    },
+    {
+      "source": "legged_lab/assets/booster/T1_TT/configuration/T1_TT_physics.usd",
+      "reference": "T1_TT_base.usd",
+      "resolved": "legged_lab/assets/booster/T1_TT/configuration/T1_TT_base.usd",
+      "kind": "local original asset"
+    },
+    {
+      "source": "legged_lab/assets/table_tennis/table/configuration/ping_pong_table_urdf_base.usd",
+      "reference": "OmniPBR.mdl",
+      "kind": "Isaac builtin MDL"
+    },
+    {
+      "source": "legged_lab/assets/table_tennis/table/configuration/ping_pong_table_urdf_physics.usd",
+      "reference": "ping_pong_table_urdf_base.usd",
+      "resolved": "legged_lab/assets/table_tennis/table/configuration/ping_pong_table_urdf_base.usd",
+      "kind": "local original asset"
+    }
+  ],
+  "official": [
+    {
+      "path": "Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png",
+      "bytes": 436257,
+      "sha256": "deab39088eaf39ed7be951966c5e6bd5e58b90ab64743b0cdc8e5579fd5a99d9",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png"
+    },
+    {
+      "path": "Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png",
+      "bytes": 1474958,
+      "sha256": "44fc0e82007bb0bd94631cd7ec45986a71ed74b9413899fbffac13efe151be4b",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png"
+    },
+    {
+      "path": "Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png",
+      "bytes": 111895,
+      "sha256": "940b96ee8c8e53bd1acbc770d4ca0ac98bed9c96439ab386d1b27dbc9790cc4e",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png"
+    },
+    {
+      "path": "Isaac/Environments/Grid/default_environment.usd",
+      "bytes": 7892,
+      "sha256": "394fa87bda9096bc80090e0a67bff8f5c283ff270332f6037391a5d64204fc60",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/default_environment.usd"
+    },
+    {
+      "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+      "bytes": 2000,
+      "sha256": "7f326c41515d7676550d323ab4b495d216571f8efe7e6e1f5019384c8db6f4cd",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl"
+    },
+    {
+      "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_COL_8K.jpg",
+      "bytes": 935107,
+      "sha256": "38b53f7e407016bad8ebb2c90f6d532bda14156f762f311c3b270c3faf7a0ef1",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_COL_8K.jpg"
+    },
+    {
+      "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_GLOSS_8K.jpg",
+      "bytes": 653707,
+      "sha256": "9cf6eb03faa9719699c8d25c6acf96c1a22728233e5a011fe928f3af71af851d",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_GLOSS_8K.jpg"
+    },
+    {
+      "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_NRM_8K.png",
+      "bytes": 3842435,
+      "sha256": "f8726eb8ec7145cbe2e111343f91a22332de42d64d37e5661634fcc7ed925f0e",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_NRM_8K.png"
+    },
+    {
+      "path": "Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+      "bytes": 18429221,
+      "sha256": "1f92cbf17e46659ff37c9770d065280da226896b0f56091c4c1fca071da7fbeb",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr"
+    }
+  ],
+  "unresolved_dependencies": [],
+  "note": "Walked USD sublayers/references/payloads and MDL textures, not only top-level hashes. Built-in MDL resolves from original Isaac4.5 installation."
+}

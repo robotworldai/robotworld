@@ -1,0 +1,4 @@
+# flamingo: English action contract
+
+No matching public runtime metadata snapshot is available in outputs. The active runtime still constructs its exact channel table from the instantiated action manager. This file does not invent resolved joint order or claim a successful simulation.
+Pinned source profile: six absolute actuator position channels (scale1,offset0,rad) followed by two wheel velocity channels (scale40,offset0,rad/s). Leg position channels are MOTOR SPACE with gear ratio -1.5, so +0.1rad motor target corresponds to a static physical target near -0.066667rad. Other position channels use physical joint radians. Zero commands the authored zero, not the measured pose. Actuator delays remain active. See environment/benchmarks/flamingo/project.py and native_project/action_prompt.py.

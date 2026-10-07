@@ -1,0 +1,41 @@
+{
+  "task_name": "carrying_in_groceries",
+  "scene_model": "house_double_floor_lower",
+  "rooms": [
+    "corridor_0",
+    "garage_0",
+    "garden_0",
+    "kitchen_0",
+    "living_room_0"
+  ],
+  "instance_index": 10,
+  "official_instance_id": 311,
+  "num_rollouts": 1,
+  "mode": "public_test",
+  "role": "development",
+  "simulation_validated": true,
+  "assets": "var/datasets/behavior_1k",
+  "asset_recipe": "environment/datasets/behavior_1k/prepare_scene.py",
+  "tools": [
+    "move_base",
+    "move_arms",
+    "set_grippers",
+    "move_torso"
+  ],
+  "room_source": "2026-challenge-task-instances/metadata/B100_task_misc.csv",
+  "renderer": "upstream",
+  "baseline": "upstream scene, assets, initial state, physics, rendering and task rules",
+  "historical_experiment": {
+    "validated_runtime": "behavior_isaac601",
+    "validation_run": "var/runs/docker/behavior_1k/groceries-isaac601-codex-smoke01",
+    "validation_scope": "181-step diagnostic episode, success=false, Q=0",
+    "renderer": "RayTracedLighting",
+    "robot_profile": "custom absolute IK; not upstream R1Pro controller configuration",
+    "counts_as_baseline_validation": false
+  },
+  "validated_runtime": "behavior_isaac601",
+  "validation_run": "var/runs/docker/behavior_1k/groceries-render-native12",
+  "validation_scope": "upstream robot and scene/render settings; external Isaac 6 compatibility; 60 stationary frames per camera, no physics steps",
+  "darkness_resolved": false,
+  "full_task_success": false
+}

@@ -1,0 +1,46 @@
+__pycache__
+*.pyc
+.vscode/*
+*.egg-info/
+*.log
+*.hdf5
+**/build/
+*.thumbs/
+*log/*
+**/install/**
+**/not_used/**
+**/old/**
+**NOT_USED.py
+**OLD.py
+.venv
+debug/*
+!debug/scripts/
+!debug/scripts/**
+debug/scripts/__pycache__/
+!debug/container_hulls/
+!debug/container_hulls/**
+docker-cache/
+
+# Documentation
+docs/superpowers/
+**/_source/
+**/_api/
+**/_build/
+public/*
+docs/doxygen/html/*
+docs/doxygen/xml/*
+
+# Data
+**/data/
+**/output/
+videos/
+misc/paper/last_frames/
+*.code-workspace
+pyrightconfig.json
+
+# Claude Code — local/runtime only
+.claude/settings.local.json
+.claude/worktrees/
+.claude/scheduled_tasks.lock
+.claude/agents
+.claude/commands

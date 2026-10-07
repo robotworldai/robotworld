@@ -1,0 +1,52 @@
+task_name: target_position
+interface_name: velocity
+
+env:
+  seed: 666
+  num_envs: 500
+  episode_length_s: 10.0
+  device: cuda:0
+
+target_position_task:
+  random_goal: true
+  fixed_goal_position: 0.35
+  ball_position_min: 0.10
+  ball_position_max: 0.60
+  goal_position_min: 0.10
+  goal_position_max: 0.60
+  min_initial_goal_distance: 0.05
+
+velocity_interface:
+  max_acc: 0.5
+  max_velocity: 0.0
+
+robustness:
+  enabled: false
+  ball_mass_variation_enabled: false
+  ball_mass_range: [0.005, 0.05]
+  recompute_ball_inertia: true
+  controller_gain_variation_enabled: false
+  controller_gain_range: [4.0, 8.0]
+  action_delay_enabled: false
+  delay_step: 15
+  external_disturbance_enabled: false
+  external_disturbance_ou_mu: 0.0
+  external_disturbance_ou_theta_range: [0.1, 0.3]
+  external_disturbance_ou_sigma_range: [0.01, 0.05]
+  external_disturbance_ou_clip: 0.1
+
+target_position_evaluator:
+  episode_length_s: 10.0
+  num_eval_episodes: 500
+  target_zone: 0.01
+  steady_state_window_s: 1.0
+
+runner:
+  target_episodes: 1
+  max_steps: null
+  render: true
+  save_rollout: true
+
+logging:
+  root_dir: logs/zero_action
+  run_name: zero_action_target_position

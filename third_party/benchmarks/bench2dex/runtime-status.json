@@ -1,0 +1,496 @@
+{
+  "date": "2026-09-29",
+  "upstream_commit": "fd90dcc625b66c2e535a8b25bcf75bc81c7b080d",
+  "upstream_modified": false,
+  "runtime": "Isaac Sim6.0.1 + IsaacLab2.2 experimental",
+  "official_physics_equivalence": false,
+  "image": "world/bench2dex:isaac6.0.1-experimental",
+  "image_id": "sha256:7e1baa9b6f45bce7302ea0eefcb5eeb3dce8cb1b6cb92fee24cd316572db4175",
+  "asset_files": 2038,
+  "asset_bytes": 1120702935,
+  "asset_dependency_roots": 47,
+  "missing_non_mdl_dependencies": 0,
+  "codex_episode": {
+    "case": "41",
+    "run": "var/runs/docker/bench2dex/piano-codex02/41",
+    "model": "gpt-6-astra",
+    "infrastructure_ok": true,
+    "success": false,
+    "control_steps": 681,
+    "physics_steps": 2043,
+    "simulated_seconds": 34.05,
+    "native_stage_completion": {
+      "play_left_melody": false,
+      "play_right_melody": false
+    },
+    "tool_calls": {
+      "apply_action": 7,
+      "coding_control": 11
+    },
+    "videos": {
+      "cameras": 5,
+      "fps": 20,
+      "frames_each": 682,
+      "duration_seconds": 34.1
+    },
+    "full_and_no_images_events_match": true,
+    "agent_boundary": {
+      "source": "/opt/robotworld/World/codex",
+      "commit": "8ae55c863db26d417e83390c5854f1144114276b",
+      "binary_sha256": "6ca8992ea4cda34050a14ca409239e4231a13196bdd2357a632ba5b1606a2892",
+      "model": "gpt-6-astra",
+      "agent": "host bubblewrap; local source-built Codex app-server",
+      "runtime_profile": "anchored",
+      "runtime": "Isaac Sim6.0.1 / IsaacLab2.2 experimental; original anchored none evaluation protocol; not official physics equivalence",
+      "simulator": "local Docker",
+      "benchmark_commit": "fd90dcc625b66c2e535a8b25bcf75bc81c7b080d",
+      "direct_model_api_client": false
+    }
+  },
+  "tests": {
+    "passed": 55
+  },
+  "limitations": [
+    "Only one official origin anchor per selected task; not full50episode/allgeneralization evaluation",
+    "Isaac6.0.1 compatibility; not official Isaac5.1 physics equivalence",
+    "46 microwave loads/steps, but two native planar collision meshes emit cooking warnings; contact equivalence unverified",
+    "Only41 has a full GPT episode;42..49 have4-step hold probes, not model task-success scores"
+  ],
+  "scene_checks": {
+    "41": {
+      "run": "var/runs/docker/bench2dex/piano-codex02/41",
+      "mode": "codex",
+      "infrastructure_ok": true,
+      "control_steps": 681,
+      "physics_steps": 2043,
+      "native_stable_success": false,
+      "action_dimensions": 52,
+      "videos": {
+        "cam_overhead": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "34.100000",
+          "nb_read_frames": "682"
+        },
+        "cam_stereo_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "34.100000",
+          "nb_read_frames": "682"
+        },
+        "cam_stereo_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "34.100000",
+          "nb_read_frames": "682"
+        },
+        "cam_wrist_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "34.100000",
+          "nb_read_frames": "682"
+        },
+        "cam_wrist_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "34.100000",
+          "nb_read_frames": "682"
+        }
+      },
+      "physics_cooking_warnings": [],
+      "contact_equivalence_verified": false
+    },
+    "42": {
+      "run": "var/runs/docker/bench2dex/anchored-scenes-probe01/42",
+      "mode": "probe",
+      "infrastructure_ok": true,
+      "control_steps": 4,
+      "physics_steps": 12,
+      "native_stable_success": false,
+      "action_dimensions": 52,
+      "videos": {
+        "cam_overhead": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        }
+      },
+      "physics_cooking_warnings": [],
+      "contact_equivalence_verified": false
+    },
+    "43": {
+      "run": "var/runs/docker/bench2dex/anchored-scenes-probe01/43",
+      "mode": "probe",
+      "infrastructure_ok": true,
+      "control_steps": 4,
+      "physics_steps": 12,
+      "native_stable_success": false,
+      "action_dimensions": 52,
+      "videos": {
+        "cam_overhead": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        }
+      },
+      "physics_cooking_warnings": [],
+      "contact_equivalence_verified": false
+    },
+    "44": {
+      "run": "var/runs/docker/bench2dex/anchored-scenes-probe01/44",
+      "mode": "probe",
+      "infrastructure_ok": true,
+      "control_steps": 4,
+      "physics_steps": 12,
+      "native_stable_success": false,
+      "action_dimensions": 52,
+      "videos": {
+        "cam_overhead": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        }
+      },
+      "physics_cooking_warnings": [],
+      "contact_equivalence_verified": false
+    },
+    "45": {
+      "run": "var/runs/docker/bench2dex/anchored-scenes-probe01/45",
+      "mode": "probe",
+      "infrastructure_ok": true,
+      "control_steps": 4,
+      "physics_steps": 12,
+      "native_stable_success": false,
+      "action_dimensions": 52,
+      "videos": {
+        "cam_overhead": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        }
+      },
+      "physics_cooking_warnings": [],
+      "contact_equivalence_verified": false
+    },
+    "46": {
+      "run": "var/runs/docker/bench2dex/anchored-scenes-probe01/46",
+      "mode": "probe",
+      "infrastructure_ok": true,
+      "control_steps": 4,
+      "physics_steps": 12,
+      "native_stable_success": false,
+      "action_dimensions": 52,
+      "videos": {
+        "cam_overhead": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        }
+      },
+      "physics_cooking_warnings": [
+        "2026-09-28T17:07:49Z [29,773ms] [Warning] [omni.physx.cooking.plugin] UjitsoMeshCookingContext: cooking failure for /__Prototype_142/original_6/World/mesh",
+        "2026-09-28T17:07:52Z [32,312ms] [Warning] [omni.physx.cooking.plugin] UjitsoMeshCookingContext: cooking failure for /__Prototype_142/original_5/World/mesh"
+      ],
+      "contact_equivalence_verified": false
+    },
+    "47": {
+      "run": "var/runs/docker/bench2dex/anchored-scenes-probe01/47",
+      "mode": "probe",
+      "infrastructure_ok": true,
+      "control_steps": 4,
+      "physics_steps": 12,
+      "native_stable_success": false,
+      "action_dimensions": 52,
+      "videos": {
+        "cam_overhead": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        }
+      },
+      "physics_cooking_warnings": [],
+      "contact_equivalence_verified": false
+    },
+    "48": {
+      "run": "var/runs/docker/bench2dex/anchored-scenes-probe01/48",
+      "mode": "probe",
+      "infrastructure_ok": true,
+      "control_steps": 4,
+      "physics_steps": 12,
+      "native_stable_success": false,
+      "action_dimensions": 52,
+      "videos": {
+        "cam_overhead": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        }
+      },
+      "physics_cooking_warnings": [],
+      "contact_equivalence_verified": false
+    },
+    "49": {
+      "run": "var/runs/docker/bench2dex/anchored-scenes-probe01/49",
+      "mode": "probe",
+      "infrastructure_ok": true,
+      "control_steps": 4,
+      "physics_steps": 12,
+      "native_stable_success": false,
+      "action_dimensions": 52,
+      "videos": {
+        "cam_overhead": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_stereo_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_left": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        },
+        "cam_wrist_right": {
+          "width": 640,
+          "height": 480,
+          "r_frame_rate": "20/1",
+          "duration": "0.250000",
+          "nb_read_frames": "5"
+        }
+      },
+      "physics_cooking_warnings": [],
+      "contact_equivalence_verified": false
+    }
+  }
+}

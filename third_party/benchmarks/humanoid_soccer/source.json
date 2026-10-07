@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/TeleHuman/HumanoidSoccer",
+  "commit": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+  "license": "CC-BY-NC-4.0",
+  "runtime": "official MuJoCo sim2sim",
+  "upstream_modified": false,
+  "copied_from": "existing local HumanoidSoccer checkout, unchanged"
+}

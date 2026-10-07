@@ -1,0 +1,96 @@
+{
+  "source_image": "nvcr.io/nvidia/isaac-sim:4.0.0@sha256:aad570146698a4c1c9e9b834638ddccfc0675af110657203e369625985c85c66",
+  "source_path": "/isaac-sim/exts/omni.isaac.gym",
+  "purpose": "Local experimental compatibility. Original complete extension, unchanged. Not benchmark source.",
+  "redistribution": "NVIDIA proprietary license retained; do not include vendored extension in public source snapshots. Obtain from licensed official image locally.",
+  "files": [
+    {
+      "path": "vendor/omni.isaac.gym/PACKAGE-LICENSES/dependencies/PIP-packages-LICENSES.txt",
+      "sha256": "0377266c914f683a8a453daa8e9a4ec96ef2c3cc4f36f282754df11db224e03a"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/PACKAGE-LICENSES/dependencies/isaac-sim-LICENSES.txt",
+      "sha256": "5ab74297a36595ca773e0cd788403d80456c60e35fcdbd3fe8f62270fb64ac9c"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/PACKAGE-LICENSES/dependencies/isaac-sim-LICENSES.zip",
+      "sha256": "5b4cac04b1380892e35f84d93ccb748f5479b79882b7a5fb8cb0fe4ae0b92d61"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/PACKAGE-LICENSES/omni.isaac.gym-LICENSE.md",
+      "sha256": "5e1f0b8dc89f791cb31cccde4193826f8bdb10ce678273db164045f0c3b0957d"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/config/extension.toml",
+      "sha256": "f545debe65c9a280b2e49b08faa95cc5c3c0e496133d88eec83571128a208a75"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/data/icon.png",
+      "sha256": "30231e6fe2c3747b0456cb696d99fb7ebce25af1c3ac08c08e44736f20916a5e"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/data/preview.png",
+      "sha256": "4fd5cd16438163ff7699dc3f50fcd8bd4ec4aae883c4faea57ab23b51410e1c3"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/docs/CHANGELOG.md",
+      "sha256": "945bac0f95381a662825aa7098469f6eb6f92a6c67a65016e27b2100c7ddb598"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/docs/README.md",
+      "sha256": "3867c57342a5226ccc3792ee4e052e6e1d0fc3f055a332349269c142c0441eca"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/docs/index.rst",
+      "sha256": "cba066a67cfd0764cefe28e5a3c7fd0899a872c3790ad0e5f4c0c375188d1e8d"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/__init__.py",
+      "sha256": "637ca2b515d62b3c0d62bdeff20093db4d9338ee25a24173bed7d8d2b5d95be5"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/tasks/rl_task.py",
+      "sha256": "5b48b35dae07fc2189268dd30799df76bdac1d73d0bd73132f49808509d89f3a"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/tests/__init__.py",
+      "sha256": "080ce79a1002a2bc9ab94f66ad72d12afe69630f2480d23d5102a20e0c66e0a0"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/tests/test_omni_isaac_gym_envs_determinism.py",
+      "sha256": "759ebc48ae26c4094a6ced2e1a769b0eff8ed68239b05b061d30631ab9e389ba"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/tests/test_omni_isaac_gym_envs_launch.py",
+      "sha256": "75e169bc2bb970f0c3ef1309c22625d89029971016e926b93dcc68777a2e21b8"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/tests/test_omni_isaac_gym_envs_threshold.py",
+      "sha256": "52b3cb80364dbcac7435d58d0a564ed0f01b3d70c9161ec341641d2d2cb5bcc4"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/tests/test_omni_isaac_gym_envs_train_full.py",
+      "sha256": "594f87e0b0eadf3d14ac6b0f0771e4640bab739aa55d9c3d14eac697ae814330"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/tests/test_omni_isaac_gym_envs_train_inference.py",
+      "sha256": "637b770de5a920ed9d3426ef8a885555dc407e3ad265cb045aa91d07423fac0a"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/tests/utils.py",
+      "sha256": "875290dac70cc154a2130135ebe9eb66367f0cb82239c2d275365434697768f8"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/vec_env/__init__.py",
+      "sha256": "878eb1fda5697b581b7d5cddbfe031c51461fa7501a2fb3249c408ca197a9196"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/vec_env/vec_env_base.py",
+      "sha256": "d40888c675187e7ab9aacdf3647d97a49d402ea154f84bc5ea2d24a61bc747e2"
+    },
+    {
+      "path": "vendor/omni.isaac.gym/omni/isaac/gym/vec_env/vec_env_mt.py",
+      "sha256": "f8af617f91f8281fbeb94120cd8a50ed223505a9b370aa789d670a49f48ee8f3"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wheeled_quadruped"
+version = "0.3.0"
+description = "Isaac Lab 2.3.2 reinforcement-learning tasks for a wheeled quadruped that balances on its two rear wheels (balance and velocity tasks)."
+requires-python = ">=3.10"
+license = { text = "BSD-3-Clause" }
+# No runtime dependencies are declared here: isaaclab / isaacsim and the RL
+# libraries (rsl-rl, skrl, sb3, rl-games) are provided by the Isaac Lab
+# environment this package is installed into.
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["wheeled_quadruped*"]
+
+[tool.setuptools.package-data]
+"wheeled_quadruped.assets" = ["*.usd"]
+"wheeled_quadruped.tasks.balance.agents" = ["*.yaml"]
+"wheeled_quadruped.tasks.velocity.agents" = ["*.yaml"]

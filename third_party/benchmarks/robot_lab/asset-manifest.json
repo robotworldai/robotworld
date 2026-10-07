@@ -1,0 +1,143 @@
+{
+  "repository": "https://github.com/agilexrobotics/robot_lab.git",
+  "commit": "b868140eeb1459acefef24a865587ec39a5278c3",
+  "files": [
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/.asset_hash",
+      "bytes": 32,
+      "sha256": "73808fe759f85d822d3f22f68bb7657867a6200089025ebb54a00dadd7db9bd9"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1.usd",
+      "bytes": 1586,
+      "sha256": "2baf7b6ae18f4becafee2f4db4eeca60779f65d2c51fa284a087b40e8f4fda8d"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/CMakeLists.txt",
+      "bytes": 275,
+      "sha256": "2dbe30f4dbaf7b8076a726f641a037e29a9bab22665a8a98a2e487b5e7b728c9"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/config/robot_control.yaml",
+      "bytes": 2283,
+      "sha256": "6c7a08a5a23731d3f4da107365bab7755866012b8c37af9fcbceb62570bd1ca1"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/launch/a1_rviz.launch",
+      "bytes": 848,
+      "sha256": "c222cf26ca43d8662503d4451b401832e27854e5bb0f8b95a8c2d25670ce2c5f"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/launch/check_joint.rviz",
+      "bytes": 7623,
+      "sha256": "a3575c09ed54b0905359c1a3f07970586bf3f78dec6bd3671110650b6dff354e"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/meshes/calf.dae",
+      "bytes": 1759399,
+      "sha256": "d06594949938a956fe237e479d9c5957c61ee48aec8066a03e970ab055a4c405"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/meshes/hip.dae",
+      "bytes": 668999,
+      "sha256": "22190d44098fd1b7df49e3b27389197ac1290b1719a20d412da6919e1469eafc"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/meshes/thigh.dae",
+      "bytes": 1151661,
+      "sha256": "040ea5de97f7a47e0e9ff5d8c0dfdf40227b0ef26dca8eb5677e727ba117d873"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/meshes/thigh_mirror.dae",
+      "bytes": 1187647,
+      "sha256": "d9dda9bb59335daab53ef69ca3e8c2d438de4bd9477fd95d787fab855a78872b"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/meshes/trunk.dae",
+      "bytes": 4246288,
+      "sha256": "a46f40fd37fcbba520e01749bcbf0e184ece460f174d57d2f864659312fda24b"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/meshes/trunk_A1.png",
+      "bytes": 71835,
+      "sha256": "512e8cfa5ebedfc4199afe172590d3d486461e42244ab5d439020111f9fc7e78"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/package.xml",
+      "bytes": 374,
+      "sha256": "eda05d3fbb5092d54aa1e7ae493303de8685a44fccf2b51f4bfc21439540015d"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/urdf/a1.urdf",
+      "bytes": 32385,
+      "sha256": "48b5d74bf781bcca3518a277cf3bcabd2e6e1855cb99ee8d21e62f6add0edc71"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/xacro/const.xacro",
+      "bytes": 4814,
+      "sha256": "3cdcf7bed38d902cfa3270045a215aee9b0b6b5657e0fa5ca7882f3e3e8986e3"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/xacro/gazebo.xacro",
+      "bytes": 8213,
+      "sha256": "db63df777fc69f1a4336bf3f62c6be44ff2a7452d8ea815bb9806a0d74928556"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/xacro/leg.xacro",
+      "bytes": 7631,
+      "sha256": "b601a30fb9e288789789fcd491366aa3d728018822606fe9e3bb0bf112a16d59"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/xacro/materials.xacro",
+      "bytes": 865,
+      "sha256": "fca1bbb3920c91436a854ab4f3edfac96bc85f72263d60f5f62d35b613c61b2f"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/xacro/robot.xacro",
+      "bytes": 5311,
+      "sha256": "627a8acd382b067f2f1c3c4e4a29c8a650acf4946a0b89e4b3d32ba9ca1c697e"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/xacro/stairs.xacro",
+      "bytes": 1606,
+      "sha256": "aa4cb4515f1bc8b6eed34b688010ed14a2e6deabd2797a314022de35e6abe861"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/a1_description/xacro/transmission.xacro",
+      "bytes": 1719,
+      "sha256": "f4a0fc2c5df4414e214d4190a003f9da23c903daad454053447ebced8bc9b223"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/config.yaml",
+      "bytes": 693,
+      "sha256": "a1e465582daa648cc1ad20204902abc8bcbb991ec477450ba669b6159e45e9be"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/configuration/a1_base.usd",
+      "bytes": 7280127,
+      "sha256": "9fa87835e613b75c2840bf05bc29701c61b65223fada97c9bf6e9950a03901ab"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/configuration/a1_physics.usd",
+      "bytes": 4705,
+      "sha256": "fb1dda7024b7b5689ca168b7e6efecdeaa8b38776147bcf79a66f8bff9133021"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/configuration/a1_sensor.usd",
+      "bytes": 642,
+      "sha256": "d90971d283adb777d8b8063630c345569318c95fee67cf331f5a219463870369"
+    },
+    {
+      "path": "source/robot_lab/data/Robots/Unitree/A1/configuration/materials/textures/trunk_A1.png",
+      "bytes": 71835,
+      "sha256": "512e8cfa5ebedfc4199afe172590d3d486461e42244ab5d439020111f9fc7e78"
+    }
+  ],
+  "upstream_modified": false,
+  "native_hdr": {
+    "path": "assets/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+    "sha256": "1f92cbf17e46659ff37c9770d065280da226896b0f56091c4c1fca071da7fbeb",
+    "bytes": 18429221
+  }
+}

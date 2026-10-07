@@ -1,0 +1,132 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+[project]
+name = "robolab"
+version = "0.3.1"
+description = "A benchmark for simulation"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [{name = "Xuning Yang"}]
+dependencies = [
+    # Core
+    # IsaacLab + IsaacSim are NOT pinned here: they are mutually-exclusive,
+    # version-specific stacks selected via the `isaac50` / `isaac51` extras
+    # below (see [tool.uv].conflicts). Install with e.g.
+    #   uv sync --extra isaac50   # IsaacLab 2.2.0 / IsaacSim 5.0.0  (default)
+    #   uv sync --extra isaac51   # IsaacLab 2.3.2.post1 / IsaacSim 5.1.0
+    "torch",
+    "numpy",
+    "gymnasium",
+    # Remote inference
+    "requests",
+    "json_numpy",
+    "pyzmq",
+    "msgpack",
+    "msgpack-numpy",
+    "websockets",
+    # Computer vision and image processing
+    "opencv-python",
+    "Pillow",
+    "imageio",
+    # Scientific computing
+    "scipy",
+    "matplotlib",
+    # Data handling
+    "h5py",
+    "PyYAML",
+    "pandas",
+    # Misc
+    "tqdm",
+    "tyro",
+    "python-dotenv",
+    "setuptools<81",
+    # Dashboard (robolab-dashboard CLI); kept in the default install since
+    # the runtime footprint is small and most users want it available.
+    "fastapi",
+    "uvicorn[standard]",
+    "jinja2",
+]
+
+[project.optional-dependencies]
+# Mutually-exclusive IsaacLab/IsaacSim stacks. Exactly one must be selected at
+# install time; they are declared as conflicting under [tool.uv].
+isaac50 = [
+    "isaaclab==2.2.0",
+    "isaacsim[all,extscache]==5.0.0",
+]
+isaac51 = [
+    "isaaclab==2.3.2.post1",
+    "isaacsim[all,extscache]==5.1.0",
+]
+analysis = ["sbi"]
+test = ["pytest"]
+all = ["sbi", "pytest"]
+
+[project.scripts]
+robolab-dashboard = "dashboard.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["robolab", "robolab.*", "policies", "policies.*", "dashboard", "dashboard.*"]
+
+[tool.setuptools.package-data]
+dashboard = ["templates/*.html", "static/*"]
+
+# -- uv configuration --
+
+[tool.uv]
+prerelease = "allow"
+index-strategy = "unsafe-best-match"
+# The two IsaacLab/IsaacSim stacks cannot be co-installed in one environment.
+# Declaring them conflicting lets a single lockfile cover both; pick one per
+# environment with `uv sync --extra isaac50` or `--extra isaac51`.
+conflicts = [[{ extra = "isaac50" }, { extra = "isaac51" }]]
+# isaacsim (both the 5.0 and 5.1 kernels) pins websockets==12.0 — stale
+# metadata in practice: kit only uses websockets for livestream/omni.services,
+# which headless eval never touches, and the benchmark runs routinely on
+# isaac50 with websockets 16. Override the pin so the lock resolves a modern
+# websockets for the policy clients instead of being dragged down to 12.0.
+override-dependencies = ["websockets>=14.0"]
+# warp-lang 1.13.0.dev20260418 on pypi.nvidia.com only published the macOS
+# wheel — no Linux build — so any resolver pass that picked it would break
+# `uv sync` on Linux. Exclude that specific version.
+constraint-dependencies = ["warp-lang != 1.13.0.dev20260418"]
+
+[tool.uv.extra-build-dependencies]
+# flatdict 4.0.1 ships sdist-only and its legacy setup.py needs an older
+# setuptools plus `wheel` to build. Building in an isolated PEP 517 env
+# (i.e. NOT in `no-build-isolation-package`) lets these deps apply
+# deterministically regardless of what's in the project venv.
+flatdict = ["setuptools<81", "wheel"]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[[tool.uv.index]]
+name = "nvidia"
+url = "https://pypi.nvidia.com"
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["robolab", "policies"]
+known-third-party = ["isaaclab", "isaaclab_assets", "isaaclab_mimic", "isaaclab_rl", "isaaclab_tasks"]

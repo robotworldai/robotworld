@@ -1,0 +1,86 @@
+{
+  "date": "2026-09-29",
+  "task": "46",
+  "asset": "dex2bench_dataset/Objects/104_microwave/01_microwave/02/usd_decomposition_linux/mobility.usd",
+  "warning": "UjitsoMeshCookingContext: cooking failure for original_5 and original_6",
+  "meshes": [
+    {
+      "prim": "/partnet_c75ebd7c340649ba5ad304c2564ae1df/link_0/collisions/original_6/World/mesh",
+      "vertices": 4,
+      "local_points": [
+        [
+          0.33877798914909363,
+          0.3071900010108948,
+          0.47019198536872864
+        ],
+        [
+          -0.6309739947319031,
+          -0.2621529996395111,
+          0.47019198536872864
+        ],
+        [
+          -0.6309739947319031,
+          0.3071900010108948,
+          0.47019198536872864
+        ],
+        [
+          0.33877798914909363,
+          -0.2621529996395111,
+          0.47019198536872864
+        ]
+      ],
+      "face_vertex_counts": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "sources": [
+        {
+          "layer": "dex2bench_dataset/Objects/104_microwave/01_microwave/02/usd_decomposition_linux/configuration/mobility_base.usd",
+          "prim": "/meshes/original_6/World/mesh"
+        }
+      ]
+    },
+    {
+      "prim": "/partnet_c75ebd7c340649ba5ad304c2564ae1df/link_0/collisions/original_5/World/mesh",
+      "vertices": 4,
+      "local_points": [
+        [
+          0.33877798914909363,
+          -0.2621529996395111,
+          0.48653700947761536
+        ],
+        [
+          -0.6309739947319031,
+          0.3071900010108948,
+          0.48653700947761536
+        ],
+        [
+          -0.6309739947319031,
+          -0.2621529996395111,
+          0.48653700947761536
+        ],
+        [
+          0.33877798914909363,
+          0.3071900010108948,
+          0.48653700947761536
+        ]
+      ],
+      "face_vertex_counts": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "sources": [
+        {
+          "layer": "dex2bench_dataset/Objects/104_microwave/01_microwave/02/usd_decomposition_linux/configuration/mobility_base.usd",
+          "prim": "/meshes/original_5/World/mesh"
+        }
+      ]
+    }
+  ],
+  "interpretation": "The two reported meshes have four vertices in the untouched official microwave asset. This audit does not establish whether a fallback collider is usable or whether Isaac5.1 behaves differently. No geometry or collision parameters were changed.",
+  "needs": "Contact-focused runtime inspection or comparison on the supported upstream stack before claiming physics equivalence."
+}

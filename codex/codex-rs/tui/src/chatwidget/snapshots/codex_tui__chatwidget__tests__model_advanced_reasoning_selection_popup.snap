@@ -1,0 +1,13 @@
+---
+source: tui/src/chatwidget/tests/popups_and_settings.rs
+expression: popup
+---
+  Advanced Reasoning
+  ⚠ Consumes usage limits faster
+
+
+  1. Max              For difficult problems when quality matters more than
+                      speed · higher usage
+› 2. Ultra (current)  For demanding work using multiple agents · highest usage
+
+  enter apply · s session · esc back

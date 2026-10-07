@@ -1,0 +1,14 @@
+{
+  "version": "world-success-proposals-v0.3",
+  "active_task_cards": 84,
+  "accepted_designs": 16,
+  "state_checks": 27,
+  "unique_ids": true,
+  "links_verified": 655,
+  "ai_cps_dry_run": [
+    "22",
+    "23",
+    "24"
+  ],
+  "scope": "selected task removal, approved design documentation; new scoring implementation still pending"
+}

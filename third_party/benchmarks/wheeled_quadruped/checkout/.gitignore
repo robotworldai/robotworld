@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+
+# Isaac Sim / Omniverse
+.thumbs/
+*.usdc.bak
+*.usd~
+
+# Isaac Lab / RL training outputs
+logs/
+outputs/
+runs/
+wandb/
+*.pt
+*.onnx
+
+# ROS 2 / colcon
+build/
+install/
+log/
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Pretrained policies are intentionally published for public use
+# (overrides the *.pt / *.onnx ignores above)
+!pretrained/
+!pretrained/**
+
+# sim2sim MuJoCo build intermediates
+sim2sim_mujoco/_robot_merged.xml
+sim2sim_mujoco/_robot_mujoco.urdf

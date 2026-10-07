@@ -1,0 +1,15 @@
+# Local experimental runtime; reuses the existing Isaac 6 image layers.
+FROM world/robodojo:isaac6.0.1-local
+WORKDIR /opt/world-behavior
+COPY constraints-isaac601.txt /opt/world-behavior/constraints.txt
+RUN python -m pip install --no-cache-dir -c /opt/world-behavior/constraints.txt \
+    'lerobot[dataset] @ https://codeload.github.com/huggingface/lerobot/tar.gz/1427d35ef58ab46651dc7ef78bde81642090c861' \
+    GitPython addict future cryptography nest_asyncio termcolor progressbar pymeshlab aenum graphviz \
+    'numba>=0.65' 'coverage>=7.5' 'llvmlite>=0.48' 'cffi==1.17.1' nltk dm_tree gspread \
+    'websockets>=15.0.1' && python -m pip freeze > /opt/world-behavior/packages.txt
+RUN python -m pip install --no-cache-dir ipython embreex && python -m pip freeze > /opt/world-behavior/packages.txt
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential ffmpeg && rm -rf /var/lib/apt/lists/*
+COPY --from=behavior_source /bddl3/ /tmp/world-bddl/
+RUN python -m pip install --no-deps --no-build-isolation /tmp/world-bddl && rm -rf /tmp/world-bddl && python -m pip freeze > /opt/world-behavior/packages.txt
+ENV PYTHONPATH=/opt/world-control-libs
+WORKDIR /runs

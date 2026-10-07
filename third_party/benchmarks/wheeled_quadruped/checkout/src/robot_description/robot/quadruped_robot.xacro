@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<robot name="quadruped_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find robot_description)/robot/parts/base/base.xacro"/>
+  <xacro:include filename="$(find robot_description)/robot/parts/leg_joint/leg_joint.xacro"/>
+  <xacro:include filename="$(find robot_description)/robot/parts/front_left_thigh/front_left_thigh.xacro"/>
+  <xacro:include filename="$(find robot_description)/robot/parts/front_right_thigh/front_right_thigh.xacro"/>
+  <xacro:include filename="$(find robot_description)/robot/parts/rear_left_thigh/rear_left_thigh.xacro"/>
+  <xacro:include filename="$(find robot_description)/robot/parts/rear_right_thigh/rear_right_thigh.xacro"/>  
+  <xacro:include filename="$(find robot_description)/robot/parts/shin/shin.xacro"/>
+  <xacro:include filename="$(find robot_description)/robot/parts/front_wheel/front_wheel.xacro"/>
+  <xacro:include filename="$(find robot_description)/robot/parts/rear_wheel/rear_wheel.xacro"/>
+  <xacro:property name="PI" value="3.14159274"/>
+
+  <xacro:arg name="robot_name" default="robot1"/>
+
+  <!-- =============== Link & Joint =============== -->
+  <!-- Base -->
+  <link name="$(arg robot_name)_base_footprint"/>
+  <xacro:base robot_name="$(arg robot_name)" parent="$(arg robot_name)_base_footprint">
+    <origin xyz="0 0 0" rpy="0 -${PI/2} 0"/>
+  </xacro:base>
+
+  <xacro:leg_joint_v0 prefix="$(arg robot_name)_rear_left" parent="$(arg robot_name)_base_link">
+    <origin xyz="-0.277 0.06 0.089405" rpy="0 ${PI/2} ${-PI/2}"/>  
+    <axis xyz="0 -1 0"/> <!-- 0 -1 0 -->
+  </xacro:leg_joint_v0>
+
+  <xacro:leg_joint_v0 prefix="$(arg robot_name)_rear_right" parent="$(arg robot_name)_base_link">
+    <origin xyz="-0.277 -0.06 0.089405" rpy="0 ${-PI/2} ${-PI/2}"/> 
+    <axis xyz="0 1 0"/>
+  </xacro:leg_joint_v0>
+
+  <xacro:leg_joint_v0 prefix="$(arg robot_name)_front_left" parent="$(arg robot_name)_base_link">
+    <origin xyz="0.282 0.06 0.090255" rpy="0 ${8*PI/18} ${-PI/2}"/> 
+    <axis xyz="0 -1 0"/> <!-- 0 -1 0 -->
+  </xacro:leg_joint_v0>
+
+  <xacro:leg_joint_v0 prefix="$(arg robot_name)_front_right" parent="$(arg robot_name)_base_link">
+    <origin xyz="0.282 -0.06 0.090255" rpy="0 ${-8*PI/18} ${-PI/2}"/> 
+    <axis xyz="0 1 0"/>
+  </xacro:leg_joint_v0>
+
+  <xacro:front_left_thigh_v0 prefix="$(arg robot_name)" parent="$(arg robot_name)_front_left_leg_joint_link">
+    <origin xyz="0 0 -0.114" rpy="${PI/2} 0 -${115*PI/180}"/>
+    <axis xyz="0 1 0"/>
+  </xacro:front_left_thigh_v0>
+
+  <xacro:rear_left_thigh_v0 prefix="$(arg robot_name)" parent="$(arg robot_name)_rear_left_leg_joint_link">
+    <origin xyz="0 0 -0.114" rpy="${PI/2} 0 -${135*PI/180}"/>
+    <axis xyz="0 1 0"/>
+  </xacro:rear_left_thigh_v0>
+  
+  <xacro:front_right_thigh_v0 prefix="$(arg robot_name)" parent="$(arg robot_name)_front_right_leg_joint_link">
+    <origin xyz="0 0 -0.114" rpy="${PI/2} 0 ${295*PI/180}"/>
+    <axis xyz="0 -1 0"/> <!-- 0 -1 0 -->
+  </xacro:front_right_thigh_v0>
+
+  <xacro:rear_right_thigh_v0 prefix="$(arg robot_name)" parent="$(arg robot_name)_rear_right_leg_joint_link">
+    <origin xyz="0 0 -0.114" rpy="${PI/2} 0 ${315*PI/180}"/>
+    <axis xyz="0 -1 0"/> <!-- 0 -1 0 -->
+  </xacro:rear_right_thigh_v0>
+  
+  <xacro:shin_v0 prefix="$(arg robot_name)_front_left" parent="$(arg robot_name)_front_left_thigh_link">
+    <origin xyz="0.426 -0.0285 0" rpy="0 -${60*PI/180} 0"/>
+    <axis xyz="0 1 0"/>
+  </xacro:shin_v0>
+
+  <xacro:shin_v0 prefix="$(arg robot_name)_front_right" parent="$(arg robot_name)_front_right_thigh_link">
+    <origin xyz="0.426 -0.0285 0" rpy="${PI} ${60*PI/180} 0"/>
+    <axis xyz="0 1 0"/>
+  </xacro:shin_v0>
+
+  <xacro:shin_v0 prefix="$(arg robot_name)_rear_left" parent="$(arg robot_name)_rear_left_thigh_link">
+    <origin xyz="0.426 -0.0285 0" rpy="0 -${70*PI/180} 0"/>
+    <axis xyz="0 1 0"/>
+  </xacro:shin_v0>
+
+  <xacro:shin_v0 prefix="$(arg robot_name)_rear_right" parent="$(arg robot_name)_rear_right_thigh_link">
+    <origin xyz="0.426 -0.0285 0" rpy="${PI} ${70*PI/180} 0"/>
+    <axis xyz="0 1 0"/>
+  </xacro:shin_v0>
+
+  <!-- Wheels -->
+  <xacro:front_wheel prefix="$(arg robot_name)_fr" parent="$(arg robot_name)_front_right_shin_link">
+	  <origin xyz="-0.345 0.0165 0.0" rpy="0 0 0"/>
+	  <axis xyz="0 -1 0"/>
+  </xacro:front_wheel>
+
+  <xacro:front_wheel prefix="$(arg robot_name)_fl" parent="$(arg robot_name)_front_left_shin_link">
+	  <origin xyz="-0.345 -0.0165 0.0" rpy="0 0 ${PI}"/>
+	  <axis xyz="0 1 0"/>
+  </xacro:front_wheel>
+
+  <xacro:rear_wheel prefix="$(arg robot_name)_rl" parent="$(arg robot_name)_rear_left_shin_link">
+	  <origin xyz="-0.345 -0.0165 0.0" rpy="0 0 ${PI}"/>
+	  <axis xyz="0 1 0"/>
+  </xacro:rear_wheel>
+
+  <xacro:rear_wheel prefix="$(arg robot_name)_rr" parent="$(arg robot_name)_rear_right_shin_link">
+	  <origin xyz="-0.345 0.0165 0.0" rpy="0 0 0"/>
+	  <axis xyz="0 -1 0"/>
+  </xacro:rear_wheel>
+
+</robot>

@@ -1,0 +1,25 @@
+{
+  "key": "flamingo",
+  "repository": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot.git",
+  "commit": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+  "image": "world/flamingo:isaac6.0.1-experimental",
+  "python_paths": [
+    "."
+  ],
+  "adapter": "environment.benchmarks.flamingo.project",
+  "runtime": "IsaacSim6.0.1/IsaacLab2.2 experimental, not upstream equivalent",
+  "tasks": {
+    "T15": {
+      "id": "Isaac-TrackJUMP-Flat-Flamingo-v1-ppo",
+      "title": "双轮足机器人按指令跳起、落地并继续平衡",
+      "steps": 1000,
+      "control_dt": 0.02,
+      "physics_dt": 0.005,
+      "upstream_runtime": "Isaac Sim4.5.0 / IsaacLab2.0.0 / Python3.10",
+      "native_success_available": false,
+      "observation": "Native stack_policy+none_stack_policy only; original StateHandler current+2history (CLI default2), usually90D. No critic/height/basevelocity/contact/reward additions.",
+      "action": "8native targets: L/Rhip,L/Rshoulder,L/Rleg positions(scale1,no offset,leg gear-1.5), L/Rwheel velocities(scale40).",
+      "scoring": "Native jump-event rewards, velocity tracking,illegal-contact termination. NonPlay mass/friction/push preserved; no official jump+stable-landing binary SR,success=null."
+    }
+  }
+}

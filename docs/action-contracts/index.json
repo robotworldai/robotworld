@@ -1,0 +1,253 @@
+{
+  "benchmarks": 20,
+  "tasks": 85,
+  "language": "English",
+  "scope": "prompt/control semantics audit, not simulation performance",
+  "entries": [
+    {
+      "benchmark": "ai_cps",
+      "task_count": 4,
+      "tasks": [
+        "22",
+        "23",
+        "24",
+        "34"
+      ],
+      "contract": "ai_cps.md",
+      "runtime_metadata_example_source": null
+    },
+    {
+      "benchmark": "behavior_1k",
+      "task_count": 10,
+      "tasks": [
+        "carrying_in_groceries",
+        "clean_up_your_desk",
+        "slicing_vegetables",
+        "sorting_vegetables",
+        "clean_boxing_gloves",
+        "putting_up_Christmas_decorations_inside",
+        "setting_the_table",
+        "putting_dishes_away_after_cleaning",
+        "can_meat",
+        "freeze_pies"
+      ],
+      "contract": "behavior_1k.md",
+      "runtime_metadata_example_source": null
+    },
+    {
+      "benchmark": "bench2dex",
+      "task_count": 9,
+      "tasks": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ],
+      "contract": "bench2dex.md",
+      "runtime_metadata_example_source": "outputs/bench2dex/41/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "digit",
+      "task_count": 1,
+      "tasks": [
+        "digit_walk_hand_tracking"
+      ],
+      "contract": "digit.md",
+      "runtime_metadata_example_source": "outputs/digit/digit_walk_hand_tracking/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "flamingo",
+      "task_count": 1,
+      "tasks": [
+        "wheel_legged_jump_balance"
+      ],
+      "contract": "flamingo.md",
+      "runtime_metadata_example_source": null
+    },
+    {
+      "benchmark": "go2_push",
+      "task_count": 1,
+      "tasks": [
+        "quadruped_push_recovery"
+      ],
+      "contract": "go2_push.md",
+      "runtime_metadata_example_source": "outputs/go2_push/quadruped_push_recovery/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "humanoid_soccer",
+      "task_count": 1,
+      "tasks": [
+        "play-soccer"
+      ],
+      "contract": "humanoid_soccer.md",
+      "runtime_metadata_example_source": null
+    },
+    {
+      "benchmark": "omnidrones",
+      "task_count": 2,
+      "tasks": [
+        "drone_payload_hover",
+        "drone_inverted_pendulum_tracking"
+      ],
+      "contract": "omnidrones.md",
+      "runtime_metadata_example_source": "outputs/omnidrones/drone_payload_hover/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "omniisaacgymenvs",
+      "task_count": 1,
+      "tasks": [
+        "anymal_rough_terrain"
+      ],
+      "contract": "omniisaacgymenvs.md",
+      "runtime_metadata_example_source": "outputs/omniisaacgymenvs/anymal_rough_terrain/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "reflexbench",
+      "task_count": 1,
+      "tasks": [
+        "cup_ball_catching"
+      ],
+      "contract": "reflexbench.md",
+      "runtime_metadata_example_source": "outputs/reflexbench/cup_ball_catching/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "robocasa",
+      "task_count": 10,
+      "tasks": [
+        "CountertopCleanup",
+        "SortingCleanup",
+        "CoffeeSetupMug",
+        "CloseDrawer",
+        "NavigateKitchen",
+        "PackIdenticalLunches",
+        "OrganizeMugsByHandle",
+        "LoadDishwasher",
+        "MicrowaveCorrectMeal",
+        "ResetCabinetDoors"
+      ],
+      "contract": "robocasa.md",
+      "runtime_metadata_example_source": null
+    },
+    {
+      "benchmark": "robodojo",
+      "task_count": 15,
+      "tasks": [
+        "hang_mugs",
+        "sweep_blocks",
+        "pour_liquid_into_cup",
+        "make_toast",
+        "store_laptop_and_headphones",
+        "insert_tubes",
+        "plug_in_charger",
+        "pour_balls_into_vase",
+        "play_Xylophone",
+        "fill_pen_holder",
+        "fill_egg_holder",
+        "make_kong",
+        "pour_by_language",
+        "match_and_pick_from_conveyor",
+        "deposit_coin"
+      ],
+      "contract": "robodojo.md",
+      "runtime_metadata_example_source": null
+    },
+    {
+      "benchmark": "robolab",
+      "task_count": 10,
+      "tasks": [
+        "ToolOrganizationTask",
+        "NonHammerToolsInRightBinTask",
+        "FoodPacking2CansTask",
+        "RubiksCubeLeftOfBowlTask",
+        "FruitsOnPlate3Task",
+        "PutTwoMugsOnShelfTask",
+        "BlockStackingSpecifiedOrderTask",
+        "ClutterPlasticTask",
+        "ReorientWhiteMugsTask",
+        "WhiteMugInCenterOfTableTask"
+      ],
+      "contract": "robolab.md",
+      "runtime_metadata_example_source": null
+    },
+    {
+      "benchmark": "robot_lab",
+      "task_count": 1,
+      "tasks": [
+        "a1_front_leg_handstand"
+      ],
+      "contract": "robot_lab.md",
+      "runtime_metadata_example_source": "outputs/robot_lab/a1_front_leg_handstand/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "steadytray",
+      "task_count": 1,
+      "tasks": [
+        "tray_balancing_walk"
+      ],
+      "contract": "steadytray.md",
+      "runtime_metadata_example_source": "outputs/steadytray/tray_balancing_walk/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "ttrl",
+      "task_count": 1,
+      "tasks": [
+        "humanoid_table_tennis_return"
+      ],
+      "contract": "ttrl.md",
+      "runtime_metadata_example_source": "outputs/ttrl/humanoid_table_tennis_return/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "volleybots",
+      "task_count": 2,
+      "tasks": [
+        "drone_volleyball_1v1",
+        "drone_volleyball_solo_juggle"
+      ],
+      "contract": "volleybots.md",
+      "runtime_metadata_example_source": "outputs/volleybots/drone_volleyball_solo_juggle/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "wheel_legged",
+      "task_count": 2,
+      "tasks": [
+        "wheel_legged_upright_recovery",
+        "wheel_legged_rough_terrain"
+      ],
+      "contract": "wheel_legged.md",
+      "runtime_metadata_example_source": "outputs/wheel_legged/wheel_legged_upright_recovery/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "wheeled_quadruped",
+      "task_count": 1,
+      "tasks": [
+        "rear_wheel_upright_balance"
+      ],
+      "contract": "wheeled_quadruped.md",
+      "runtime_metadata_example_source": "outputs/wheeled_quadruped/rear_wheel_upright_balance/run-smoke-native-one-per-bench-20260929-01-0001/artifacts/prompt.json"
+    },
+    {
+      "benchmark": "wheeledlab",
+      "task_count": 11,
+      "tasks": [
+        "mushr-drift",
+        "f1tenth-drift",
+        "elevation",
+        "visual",
+        "rw-courtyard",
+        "rw-hairpins",
+        "rw-gate-dock",
+        "rw-drift-switch",
+        "rw-twin-beam",
+        "rw-reverse-bay",
+        "rw-parallel-park"
+      ],
+      "contract": "wheeledlab.md",
+      "runtime_metadata_example_source": null
+    }
+  ]
+}

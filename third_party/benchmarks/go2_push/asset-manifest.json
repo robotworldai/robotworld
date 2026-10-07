@@ -1,0 +1,35 @@
+{
+  "repository": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion.git",
+  "commit": "22c0dc900a9a9f38349cc959979e820e41021785",
+  "task_dependency": {
+    "repository": "https://github.com/isaac-sim/IsaacLab.git",
+    "tag": "v2.1.1",
+    "commit": "90b79bb2d44feb8d833f260f2bf37da3487180ba"
+  },
+  "entry": "Isaac/IsaacLab/Robots/Unitree/Go2/go2.usd",
+  "files": [
+    {
+      "path": "Isaac/IsaacLab/Robots/Unitree/Go2/Props/instanceable_meshes.usd",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/Unitree/Go2/Props/instanceable_meshes.usd",
+      "bytes": 18802187,
+      "sha256": "2902646d0f4c13c9ecae3ac9046e32c7d18902eef9679de9829f642a15c93fb5"
+    },
+    {
+      "path": "Isaac/IsaacLab/Robots/Unitree/Go2/go2.usd",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Robots/Unitree/Go2/go2.usd",
+      "bytes": 8142,
+      "sha256": "ba171c972b987d8c8fb7157ccad2ba9c0c1fed105755d2d8af46bef96cc11c6d"
+    },
+    {
+      "path": "Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+      "bytes": 18429221,
+      "sha256": "1f92cbf17e46659ff37c9770d065280da226896b0f56091c4c1fca071da7fbeb"
+    }
+  ],
+  "missing": [],
+  "complete": true,
+  "engine_builtins": [
+    "OmniPBR.mdl"
+  ]
+}

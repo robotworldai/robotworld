@@ -1,0 +1,9 @@
+# Local diagnostic only: RoboDojo Python/source are mounted, not packaged here.
+FROM nvidia/cuda:12.8.1-base-ubuntu22.04
+RUN apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 update \
+    && DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=3 \
+       -o Acquire::http::Timeout=30 install -y --no-install-recommends \
+       libgl1 libegl1 libglu1-mesa libglib2.0-0 libgomp1 libxt6 libx11-6 \
+       libxext6 libxrender1 libsm6 libice6 libxrandr2 libxi6 libxcursor1 \
+       libxinerama1 libvulkan1 libxkbcommon0 libnss3 \
+    && rm -rf /var/lib/apt/lists/*

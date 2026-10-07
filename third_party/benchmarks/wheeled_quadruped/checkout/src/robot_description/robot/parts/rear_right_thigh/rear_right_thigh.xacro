@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find robot_description)/robot/parts/rear_right_thigh/rear_right_thigh.gazebo.xacro"/>
+  
+  <xacro:macro name="rear_right_thigh_v0" params="prefix parent *joint_origin *joint_axis">
+	<joint name="${prefix}_rear_right_thigh_joint" type="fixed">
+	  <xacro:insert_block name="joint_origin"/>
+	  <parent link="${parent}"/>
+	  <child link="${prefix}_rear_right_thigh_link"/>
+          <limit effort="500" velocity="10" lower="-3" upper = "3"/>
+          <dynamics damping="0.005" friction="0.1"/>
+	  <xacro:insert_block name="joint_axis"/>
+	</joint>
+
+	<link name="${prefix}_rear_right_thigh_link">
+	  <visual>
+		<geometry>
+		  <mesh filename="package://robot_description/meshes/DAE/right_thigh/right_thigh.dae"/>
+		</geometry>
+	  </visual>
+	  <collision>
+		<geometry>
+		  <mesh filename="package://robot_description/meshes/STL/right_thigh/right_thigh.stl"/>
+		</geometry>
+	  </collision>
+	  <inertial>
+		<origin xyz="0.17 -0.028 -0.014"/>
+		<mass value="1.24"/>
+		<inertia ixx="0.002" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.001" />
+		<!--inertia ixx="-0.44" ixy="0.012" ixz="0.14" iyy="-0.423" iyz="0.0217" izz="0.0135" -->
+	  </inertial>
+	</link>
+  </xacro:macro>
+  
+</robot>

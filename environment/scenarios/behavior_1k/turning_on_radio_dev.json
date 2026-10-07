@@ -1,0 +1,16 @@
+{
+  "benchmark": "behavior_1k",
+  "task_name": "turning_on_radio",
+  "mode": "public_test",
+  "instance_index": 10,
+  "role": "development_not_leaderboard",
+  "num_rollouts": 1,
+  "num_envs": 1,
+  "max_steps": null,
+  "max_actions": 100,
+  "robot_config": "environment/robots/r1pro/behavior_ik.yaml",
+  "assets_relative_to_world": "var/datasets/behavior_1k",
+  "entrypoint": "environment/containers/behavior_1k/run.py",
+  "simulation_validated": false,
+  "task_success_validated": false
+}

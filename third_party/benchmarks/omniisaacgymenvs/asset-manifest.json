@@ -1,0 +1,14 @@
+[
+  {
+    "path": "Isaac/Robots/ANYbotics/anymal_base.usd",
+    "sha256": "a51ba928702f1b3d024eb77adfaf1abf41836eb5b1f14c98d9d1e2a2fc7a11ce",
+    "bytes": 2748364,
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.0/Isaac/Robots/ANYbotics/anymal_base.usd"
+  },
+  {
+    "path": "Isaac/Robots/ANYbotics/anymal_instanceable.usd",
+    "sha256": "5048055c0b07f7cdef9121209e3d85829588784191b3dea1c6d201a1d0690f88",
+    "bytes": 6898,
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.0/Isaac/Robots/ANYbotics/anymal_instanceable.usd"
+  }
+]

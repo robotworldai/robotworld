@@ -1,0 +1,5 @@
+outs:
+- md5: 3d4e9e8e496bfab0cdbef86be3807529
+  size: 131484134
+  path: processed.max
+  hash: md5

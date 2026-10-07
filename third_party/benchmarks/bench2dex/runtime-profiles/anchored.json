@@ -1,0 +1,5 @@
+{
+  "image": "world/bench2dex:isaac6.0.1-experimental",
+  "runtime": "Isaac Sim6.0.1 / IsaacLab2.2 experimental; original anchored none evaluation protocol; not official physics equivalence",
+  "environment": {"WORLD_BENCH2DEX_PROFILE": "none"}
+}

@@ -1,0 +1,5 @@
+*
+!Dockerfile
+!Dockerfile.build-env
+!entrypoint.sh
+!source-manifest.json

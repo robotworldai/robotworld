@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and outputs (heavy, regenerable)
+logs/training/
+logs/rsl_rl/
+logs/videos/*.mp4
+!logs/videos/.gitkeep
+runs/
+wandb/
+outputs/
+
+# Checkpoints
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Data
+*.npz
+*.npy
+
+# OS-specific Isaac Sim cache
+.cache/
+
+# Diagnostic logs from training sessions
+logs/*.log

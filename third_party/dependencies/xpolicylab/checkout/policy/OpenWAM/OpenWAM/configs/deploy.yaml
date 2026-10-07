@@ -1,0 +1,54 @@
+# --- Base deploy settings ---
+checkpoint_path: null          # Default checkpoint dir; --ckpt-dir overrides
+device: cuda:0
+server:
+  host: "0.0.0.0"
+  port: 8848                   # WebSocket port
+
+# --- Inference (cfg.inference) ---
+# Every field has a same-name CLI override (--denoise-steps, --inference-mode, ...).
+# Switching either mode to sync resets only that mode's async-only fields, so
+# an async-tuned yaml can be run as the sync baseline with a single flag.
+inference:
+  denoise_steps: 10
+
+  denoise_mode: sync          # trajectory: sync | async; separate from inference_mode
+  lead_modality: video        # denoise_mode=async: action | video
+  variance_shift_alpha: 1.0   # denoise_mode=async: lead curve shift; >= 1
+  linear_offset: 0.0          # denoise_mode=async: lag start delay; 0 <= value < 1
+
+  inference_mode: sync       # executor: sync | async; separate from denoise_mode
+  inference_horizon: null       # sync/async: actions executed per generated chunk; null = full chunk
+  inference_delay_steps: null # inference_mode=async only: expected latency in action steps
+
+# --- Deploy-time optimizations (cfg.optimization) ---
+optimization:
+  decode_video: false         # false = skip VAE decode, return video=null (actions-only)
+
+  dit_cache:
+    enabled: true            # DiT velocity cache: skip video DiT when prediction is stable
+    cosine_threshold: 0.99    # Skip if cosine similarity to previous prediction exceeds this
+    max_skips: 3              # Max consecutive skips before forcing recompute
+
+  compile:
+    enabled: true             # true enables architecture-specific compile fast paths
+    self_attn:
+      torch_mode: default
+      dynamic: false           # Fixed-shape MoT-loop compile for dual_system_self_attn
+    cross_attn:
+      torch_mode: default
+      dynamic: false           # Action-side fast path for dual_system_cross_attn
+    idm:
+      torch_mode: reduce-overhead
+      dynamic: false           # Fixed-shape IDM video/action fast paths
+      video_loop:
+        enabled: true
+      action_cache:
+        enabled: true
+    tri_system:
+      torch_mode: reduce-overhead
+      dynamic: false           # Fixed-shape trimodal MoT-loop compile for tri_system_joint_self_attn
+
+  prompt_embed_cache:
+    enabled: true             # false = skip prompt -> text embedding caching entirely
+    maxsize: 32               # LRU cap for prompt -> text embeddings cache

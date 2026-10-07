@@ -1,0 +1,4 @@
+*.tar.gz'
+data
+render/coord.npy
+render/model.pth

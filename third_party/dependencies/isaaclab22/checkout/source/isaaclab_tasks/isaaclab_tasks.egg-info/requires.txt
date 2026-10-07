@@ -1,0 +1,7 @@
+numpy<2
+torch>=2.7
+torchvision>=0.14.1
+protobuf!=5.26.0,>=4.25.8
+tensorboard
+scikit-learn
+numba

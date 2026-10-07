@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Wheeled Quadruped Robot: Deep RL Balancing in Isaac Lab"
+abstract: >-
+  A self-balancing wheeled-quadruped robot trained with Proximal Policy
+  Optimization (PPO) in NVIDIA Isaac Lab / Isaac Sim. Implemented as a
+  manager-based RL task with massively-parallel GPU simulation and PPO
+  configs for rsl_rl, rl_games, Stable-Baselines3, and skrl.
+type: software
+authors:
+  - given-names: "Mickyas Tamiru"
+    family-names: "Asfaw"
+repository-code: "https://github.com/MickyasTA/wheeled_quadruped_robot"
+license: MIT
+keywords:
+  - reinforcement-learning
+  - deep-learning
+  - isaac-lab
+  - isaac-sim
+  - ppo
+  - quadruped
+  - legged-robot
+  - balancing
+  - robotics-simulation

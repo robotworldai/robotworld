@@ -1,0 +1,14 @@
+json_numpy
+msgpack-numpy
+websockets>=14
+imageio
+imageio-ffmpeg
+h5py
+PyYAML
+pandas
+tyro
+python-dotenv
+setuptools<81
+fastapi
+uvicorn
+jinja2

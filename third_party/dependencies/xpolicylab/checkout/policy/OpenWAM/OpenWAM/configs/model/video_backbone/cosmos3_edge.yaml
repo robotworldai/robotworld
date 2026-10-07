@@ -1,0 +1,31 @@
+# Cosmos3-Edge (4B) video backbone — NVIDIA dual-stream unified transformer
+# (causal und text stream + bidirectional gen video stream; no external text
+# encoder; modeling code vendored under openwam/model/video_backbone/cosmos3/).
+# Geometry and the action-side context width (text_dim=2048) auto-derive — no
+# action_backbone overrides needed for joint_cross_attn. Works with
+# dual_system (joint_cross_attn | joint_self_attn | idm) and single_system
+# (vanilla | moe); tri_system is also supported. The und pathway is frozen at
+# build (freeze_und below); the gen pathway is trainable by default.
+
+name: cosmos3_edge
+model_path: /path/to/assets/Cosmos3-Edge  # [Required] diffusers-style bundle root (transformer/ + vae/ + text_tokenizer/)
+
+# Flow-matching α-shift for the video scheduler (train + deploy single source of
+# truth). NVIDIA's resolution-keyed train shifts are {256: 3, 480: 5, 720: 10};
+# 5.0 matches the 480p regime this repo trains at.
+shift_video: 5.0
+
+# Prompt handling — mirrors the native pipeline defaults.
+use_system_prompt: false
+prompt_templates: true    # duration + resolution metadata sentences in the prompt
+max_text_tokens: 512
+
+# Assumed clip frame rate for the duration sentence + vision mRoPE temporal
+# scaling (inert while it equals the model's base_fps of 24). Set the real rate
+# when known, or drop the duration sentence with prompt_duration_template=false.
+fps: 24.0
+prompt_duration_template: true
+
+text_encoder_dropout: 0.0  # CFG dropout: prob of substituting "" for prompts (training only); seed via +model.video_backbone.text_encoder_dropout_seed=<int>
+
+freeze_und: true   # freeze the und (text) pathway + token embedding at build

@@ -1,0 +1,128 @@
+[
+  {
+    "path": "Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png",
+    "bytes": 436257,
+    "sha256": "deab39088eaf39ed7be951966c5e6bd5e58b90ab64743b0cdc8e5579fd5a99d9"
+  },
+  {
+    "path": "Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png",
+    "bytes": 1474958,
+    "sha256": "44fc0e82007bb0bd94631cd7ec45986a71ed74b9413899fbffac13efe151be4b"
+  },
+  {
+    "path": "Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png",
+    "bytes": 111895,
+    "sha256": "940b96ee8c8e53bd1acbc770d4ca0ac98bed9c96439ab386d1b27dbc9790cc4e"
+  },
+  {
+    "path": "Isaac/Environments/Grid/default_environment.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/default_environment.usd",
+    "bytes": 7892,
+    "sha256": "394fa87bda9096bc80090e0a67bff8f5c283ff270332f6037391a5d64204fc60"
+  },
+  {
+    "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+    "bytes": 2000,
+    "sha256": "7f326c41515d7676550d323ab4b495d216571f8efe7e6e1f5019384c8db6f4cd"
+  },
+  {
+    "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_COL_8K.jpg",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_COL_8K.jpg",
+    "bytes": 935107,
+    "sha256": "38b53f7e407016bad8ebb2c90f6d532bda14156f762f311c3b270c3faf7a0ef1"
+  },
+  {
+    "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_GLOSS_8K.jpg",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_GLOSS_8K.jpg",
+    "bytes": 653707,
+    "sha256": "9cf6eb03faa9719699c8d25c6acf96c1a22728233e5a011fe928f3af71af851d"
+  },
+  {
+    "path": "Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_NRM_8K.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/IsaacLab/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned001_NRM_8K.png",
+    "bytes": 3842435,
+    "sha256": "f8726eb8ec7145cbe2e111343f91a22332de42d64d37e5661634fcc7ed925f0e"
+  },
+  {
+    "path": "Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Materials/Textures/Skies/PolyHaven/kloofendal_43d_clear_puresky_4k.hdr",
+    "bytes": 18429221,
+    "sha256": "1f92cbf17e46659ff37c9770d065280da226896b0f56091c4c1fca071da7fbeb"
+  },
+  {
+    "path": "Isaac/Props/UIElements/arrow_x.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Props/UIElements/arrow_x.usd",
+    "bytes": 5377,
+    "sha256": "d321116a8fecfef657ac95a5392115b2bfbe7d5eeae2a74556a7037f15259132"
+  },
+  {
+    "path": "Isaac/Props/UIElements/frame_prim.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Props/UIElements/frame_prim.usd",
+    "bytes": 4662,
+    "sha256": "d1299a3164458df37f636eefa5963f2ba60dcbf435cac69f61c6a4af39e0449b"
+  },
+  {
+    "path": "Isaac/Robots/Agility/Digit/digit_v4.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Robots/Agility/Digit/digit_v4.usd",
+    "bytes": 42634482,
+    "sha256": "364edaf0c509115ea617462de04d8b18263fb652c700d1c52cc737517685d426"
+  },
+  {
+    "path": "_external/Materials/Base/Metals/Aluminum_Anodized.mdl",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Aluminum_Anodized.mdl",
+    "bytes": 1586,
+    "sha256": "5469bfef01fbd8c4b1784ed90884a29d93eb68ce6f27a8ae61803411ea3fb713"
+  },
+  {
+    "path": "_external/Materials/Base/Metals/Aluminum_Anodized/Aluminum_Anodized_BaseColor.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Aluminum_Anodized/Aluminum_Anodized_BaseColor.png",
+    "bytes": 16903,
+    "sha256": "d1d042502d7d94bca13cee10c63ab5b3801fb0a46e26d79169e13f5b9c7b5a31"
+  },
+  {
+    "path": "_external/Materials/Base/Metals/Aluminum_Anodized/Aluminum_Anodized_Normal.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Aluminum_Anodized/Aluminum_Anodized_Normal.png",
+    "bytes": 3321558,
+    "sha256": "6dc1cb1b23a9abd766188a85ccbad1a2639d0a9a334f284e359c6c5d4438608e"
+  },
+  {
+    "path": "_external/Materials/Base/Metals/Aluminum_Anodized/Aluminum_Anodized_ORM.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Aluminum_Anodized/Aluminum_Anodized_ORM.png",
+    "bytes": 637843,
+    "sha256": "768f2dbb4f702a9624b912b431efd1a6a8e0ff3e93744cf54f3866ef8f7986e9"
+  },
+  {
+    "path": "_external/Materials/Base/Metals/Aluminum_Cast.mdl",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Aluminum_Cast.mdl",
+    "bytes": 2006,
+    "sha256": "78c3edb2398c7a48618ebe011a9a9d09802e56e1af041ea7797b115f934bce53"
+  },
+  {
+    "path": "_external/Materials/Base/Metals/Aluminum_Cast/Aluminum_Cast_BaseColor.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Aluminum_Cast/Aluminum_Cast_BaseColor.png",
+    "bytes": 1154931,
+    "sha256": "03ab7494d37e1f6551a26894628c5fe03a65b4d85a09ed11337e184852a580b3"
+  },
+  {
+    "path": "_external/Materials/Base/Metals/Aluminum_Cast/Aluminum_Cast_N.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Aluminum_Cast/Aluminum_Cast_N.png",
+    "bytes": 6557833,
+    "sha256": "812c0161ea14abc581cb35c47b33dc6005c089f8e82dca6cb4dd4832deb0556c"
+  },
+  {
+    "path": "_external/Materials/Base/Metals/Aluminum_Cast/Aluminum_Cast_ORM.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Metals/Aluminum_Cast/Aluminum_Cast_ORM.png",
+    "bytes": 4198310,
+    "sha256": "571eba5a99da444b681609a722a29914490c6dae45d230dac471a45875211a4c"
+  },
+  {
+    "path": "_external/Materials/Base/Plastics/Plastic_ABS.mdl",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Materials/Base/Plastics/Plastic_ABS.mdl",
+    "bytes": 1522,
+    "sha256": "996caa235e62010e15fcf8c820ffdf502a3c276fc416d3f95298e325adf44616"
+  }
+]

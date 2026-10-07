@@ -1,0 +1,14 @@
+{
+  "image": "world/omniisaacgymenvs:isaac4.0.0",
+  "image_id": "sha256:7c06ca1e820e97a17e63ef62181d175916c42f35e6374cf01e490d69618fa43a",
+  "image_build": "passed",
+  "cpu_imports": "passed",
+  "gpu": "NVIDIA GeForce RTX5090 sm_120",
+  "native_torch": "2.2.2+cu118",
+  "cuda_tiny_kernel": "failed: no kernel image is available for execution on the device",
+  "environment_steps": 0,
+  "model_called": false,
+  "upstream_modified": false,
+  "simulation_app": "not launched yet; separate native CUDA tiny-kernel preflight failed",
+  "evidence": "World/var/runs/docker/native17/builds/omniisaacgymenvs-isaac40-cuda-kernel.log"
+}

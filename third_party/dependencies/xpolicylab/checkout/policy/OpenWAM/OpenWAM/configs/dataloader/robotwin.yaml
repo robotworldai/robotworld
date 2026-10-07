@@ -1,0 +1,61 @@
+type: robotwin
+dataset_dir: /path/to/robotwin_data
+embodiment: aloha-agilex          # robot embodiment name, maps to directory {embodiment}_{variant}
+variant: both                     # "clean_50", "randomized_500", or "both"
+
+# ── Action space ─────────────────────────────────────────────────────────────
+# action_mode "eef" (20D xyz+rot6d+grip) or "joint" (14D qpos).
+# unify_action=true scatters this reader's raw action/proprio into the shared
+# 80-D vector so heterogeneous robots train one action head; the per-dim mask
+# keeps unmapped dims out of the loss. The 80-D semantic layout is:
+#   [ 0: 3) left  eef xyz     [ 3: 9) left  eef rot6d   [ 9]    left  gripper
+#   [10:34) left  hand (24)   [34:37) right eef xyz     [37:43) right eef rot6d
+#   [43]    right gripper     [44:68) right hand (24)   [68:80) reserved (12)
+# The map below is for action_mode: eef, whose raw layout is
+#   raw [0:3) L xyz · [3:9) L rot6d · [9] L grip · [10:13) R xyz · [13:19) R rot6d · [19] R grip
+# → raw left-arm 0-9 to unified 0-9, raw right-arm 10-19 to unified 34-43.
+# NOTE: for action_mode: joint (14-D qpos) this map does NOT apply — joints have
+# no eef-xyz/rot6d slots in the 80-D layout; set a joint-appropriate map first.
+action_mode: eef
+unify_action: true
+unify_action_map: ["0-9", "34-43"]
+unify_state_map: null  # null = state reuses unify_action_map
+
+# ── Frame sampling ───────────────────────────────────────────────────────────
+# num_frames = state/action window length; action horizon = num_frames - 1.
+# video_stride subsamples video only; state/action stay at the raw rate.
+# window_stride = sliding window step (1 = every frame starts a window).
+num_frames: 33
+video_stride: 4
+window_stride: 1
+split: train                      # "train" or "val"
+
+# ── Rendering (3-slot L-shape canvas) ────────────────────────────────────────
+# camera_layout = [head, left/bottom-left, right/bottom-right]; null slots are
+# rendered as black tiles. At 384x320: top 256Hx320W, bottom halves 128Hx160W,
+# each tile BILINEAR-stretched to its slot. target_camera drives single-view
+# mode and is ignored when multiview=true.
+height: 384
+width: 320
+multiview: true
+camera_layout: [head_camera, left_camera, right_camera]
+target_camera: head_camera
+
+# ── Normalization ────────────────────────────────────────────────────────────
+# Applied to BOTH joint and eef at load time. The stats file is auto-resolved
+# and, if absent, auto-built on first load (rank 0 computes, other ranks wait):
+#   <dataset_dir>/meta/robotwin_<variant>_normalization_stats.npy
+# "min-max" → rescale into [-1, 1]; "z-score" → zero-mean unit-variance;
+# null → disable, keep raw physical units.
+normalize_mode: min-max
+
+# ── Video augmentation (optional) ────────────────────────────────────────────
+# Load-time color jitter applied by the reader to each clip with the SAME
+# random factors across all frames (temporal consistency), TRAIN split only.
+# enabled: false keeps video byte-identical while preserving the knobs.
+color_jitter:
+  enabled: false
+  brightness: 0.2
+  contrast: 0.2
+  saturation: 0.2
+  hue: 0.0

@@ -1,0 +1,309 @@
+import math
+
+import torch as th
+import warp as wp
+
+import omnigibson.lazy as lazy
+from omnigibson.macros import create_module_macros
+from omnigibson.object_states.aabb import AABB
+from omnigibson.object_states.tensorized_relative_state import TensorizedRelativeState
+from omnigibson.utils.constants import PrimType
+from omnigibson.utils.python_utils import classproperty
+from omnigibson.utils.usd_utils import RigidBodyViewAPI, rigid_inverse_mat44
+
+# Create settings for this module
+m = create_module_macros(module_path=__file__)
+m.MAX_DISTANCE_VERTICAL = 5.0
+m.MAX_DISTANCE_HORIZONTAL = 5.0
+
+# Number of horizontal directions
+# total 8 * 2 = 16 signed directions, spaced 22.5 degrees apart.
+m.HORIZONTAL_AXIS_COUNT = 8
+
+_HORIZONTAL_DIRECTION_COUNT = 2 * m.HORIZONTAL_AXIS_COUNT
+
+
+# Tensorized Adjacency state
+#
+# VALUE is (S, N, N, 18) bool tensor populated by Warp ray casts against per-link wp.Mesh.
+#
+# Axis layout:
+#   k=0       : +Z   (other above self)
+#   k=1       : -Z   (other below self)
+#   k=2..9    : positive directions of the 8 unique legacy horizontal axes
+#   k=10..17  : negative directions of those same axes
+#
+# VALUES[s, a, b, k] = True iff a ray from object a's AABB center in direction k
+# hits any collision-link of object b within max_distances[k]. Self pairs and
+# cross-scene pairs are False.
+#
+# Cloth is skipped via is_compatible — cloth has no collision_mesh_cpu_data. TODO(andi) verrify this
+
+# Total number of signed ray directions (2 vertical + 16 horizontal)
+_ADJ_AXIS_COUNT = 2 + _HORIZONTAL_DIRECTION_COUNT  # = 18
+
+# Horizontal-direction slice into the K axis: range(_HORIZONTAL_K_START, _HORIZONTAL_K_END).
+_HORIZONTAL_K_START = 2
+_HORIZONTAL_K_END = _ADJ_AXIS_COUNT  # exclusive
+
+
+@wp.kernel
+def _adjacency_ray_cast_kernel(
+    aabb_values: wp.array3d(dtype=wp.float32),  # (S, N_aabb, 6) — [lo_x, lo_y, lo_z, hi_x, hi_y, hi_z]
+    aabb_obj_idxs: wp.array(dtype=wp.int32),  # (N_adj,) — adj_idx → aabb_idx, -1 if no AABB
+    directions: wp.array2d(dtype=wp.float32),  # (K, 3) — world-frame ray directions
+    max_distances: wp.array(dtype=wp.float32),  # (K,) — per-axis max ray distance
+    link_mesh_ids: wp.array(dtype=wp.uint64),  # (L,) — wp.Mesh ids; 0 if link has no collision mesh
+    link_pose_matrices: wp.array(dtype=wp.mat44),  # (L,) — link world transforms
+    link_to_obj_idx: wp.array(dtype=wp.int32),  # (L,) — link → adj_idx of parent obj, -1 if untracked
+    link_to_scene_idx: wp.array(dtype=wp.int32),  # (L,) — link → scene_idx of parent obj
+    output: wp.array4d(dtype=wp.int32),  # (S, N_adj, N_adj, K) — atomic_max target
+):
+    """
+    One thread per (scene, origin_obj, target_link, axis). On hit, atomic-OR sets scratch[s, a, b, k].
+    """
+    s, a, l, k = wp.tid()
+
+    # Skip if origin object has no tracked AABB (e.g. cloth, which is_compatible filters out
+    # of Adjacency but might still have an Adjacency.OBJ_IDXS entry from a cross-scene partner).
+    aabb_idx = aabb_obj_idxs[a]
+    if aabb_idx < 0:
+        return
+
+    # Skip if target link has no collision mesh
+    mesh_id = link_mesh_ids[l]
+    if mesh_id == wp.uint64(0):
+        return
+
+    # Skip if target link's parent isn't in this scene
+    if link_to_scene_idx[l] != s:
+        return
+
+    # Skip if target link is untracked, or belongs to the same object (self-pair)
+    b = link_to_obj_idx[l]
+    if b < 0 or b == a:
+        return
+
+    # Compute origin (AABB center in world frame) — read 6 floats inline
+    lo_x = aabb_values[s, aabb_idx, 0]
+    lo_y = aabb_values[s, aabb_idx, 1]
+    lo_z = aabb_values[s, aabb_idx, 2]
+    hi_x = aabb_values[s, aabb_idx, 3]
+    hi_y = aabb_values[s, aabb_idx, 4]
+    hi_z = aabb_values[s, aabb_idx, 5]
+    origin_w = wp.vec3((lo_x + hi_x) * 0.5, (lo_y + hi_y) * 0.5, (lo_z + hi_z) * 0.5)
+    dir_w = wp.vec3(directions[k, 0], directions[k, 1], directions[k, 2])
+    t_max = max_distances[k]
+
+    # Transform ray into target link's local frame.
+    # transform_point applies translation; transform_vector is rotation-only (correct for direction).
+    inv = rigid_inverse_mat44(link_pose_matrices[l])
+    origin_local = wp.transform_point(inv, origin_w)
+    dir_local = wp.transform_vector(inv, dir_w)
+
+    if wp.mesh_query_ray_anyhit(mesh_id, origin_local, dir_local, t_max):
+        wp.atomic_max(output, s, a, b, k, wp.int32(1))
+
+
+@wp.kernel
+def _adjacency_finalize_kernel(
+    output: wp.array4d(dtype=wp.int32),  # (S, N, N, K) int32
+    values: wp.array4d(dtype=wp.uint8),  # (S, N, N, K) uint8 — backed by th.bool storage
+):
+    """Convert int32 scratch to uint8 bool VALUES."""
+    s, a, b, k = wp.tid()
+    if output[s, a, b, k] > wp.int32(0):
+        values[s, a, b, k] = wp.uint8(1)
+    else:
+        values[s, a, b, k] = wp.uint8(0)
+
+
+def _build_adjacency_axis_tables():
+    """Build the (18, 3) directions and distance tables.
+
+    Layout matches the kernel's k axis:
+      [+Z, -Z, axis_0+, ..., axis_7+, axis_0-, ..., axis_7-]
+
+    These are the 16 unique signed directions in the legacy scalar ray set.
+    Omitting its four duplicate rays preserves the OR-reduced predicate result
+    while avoiding redundant ray casts.
+    """
+    axis_angles = th.arange(m.HORIZONTAL_AXIS_COUNT, dtype=th.float32) * (math.pi / m.HORIZONTAL_AXIS_COUNT)
+    axes = th.stack([th.cos(axis_angles), th.sin(axis_angles), th.zeros_like(axis_angles)], dim=1)
+    horizontal_dirs = th.cat([axes, -axes], dim=0)
+
+    directions = th.zeros((_ADJ_AXIS_COUNT, 3), dtype=th.float32)
+    directions[0] = th.tensor([0.0, 0.0, 1.0])
+    directions[1] = th.tensor([0.0, 0.0, -1.0])
+    directions[2:] = horizontal_dirs
+
+    max_distances = th.full((_ADJ_AXIS_COUNT,), m.MAX_DISTANCE_HORIZONTAL, dtype=th.float32)
+    max_distances[0] = m.MAX_DISTANCE_VERTICAL
+    max_distances[1] = m.MAX_DISTANCE_VERTICAL
+    return directions, max_distances
+
+
+class Adjacency(TensorizedRelativeState):
+    """
+    Pairwise adjacency state.
+
+    S = number of scenes
+    N = number of objects with Adjacency state
+    VALUES has shape (S, N, N, 18) bool: +Z, -Z, then the positive and negative
+    directions of the eight unique legacy horizontal axes. VALUES[s, a, b, k] is True iff
+    object b is adjacent to object a in direction k (from a's AABB center).
+
+    Diagonal and cross-scene cells are always False.
+    Cloth is excluded via is_compatible (no collision mesh to ray-cast against).
+    """
+
+    # Wp kernel inputs (single source of truth).
+    _aabb_obj_idxs = None  # wp.array (N_adj,) int32
+    _link_to_obj_idx = None  # wp.array (L_total,) int32
+    _link_to_scene_idx = None  # wp.array (L_total,) int32
+    _directions = None  # wp.array2d (18, 3) float32
+    _max_distances = None  # wp.array (18,) float32
+    _output = None  # wp.array4d (S, N_adj, N_adj, 18) int32 — atomic_max target
+
+    @classproperty
+    def value_shape(cls):
+        return (_ADJ_AXIS_COUNT,)
+
+    @classproperty
+    def value_type(cls):
+        return th.bool
+
+    @classproperty
+    def value_name(cls):
+        return "adjacency"
+
+    @classmethod
+    def get_dependencies(cls):
+        deps = super().get_dependencies()
+        deps.add(AABB)
+        return deps
+
+    @classmethod
+    def is_compatible(cls, obj, **kwargs):
+        compatible, reason = super().is_compatible(obj, **kwargs)
+        if not compatible:
+            return compatible, reason
+        # Cloth has no collision_mesh_cpu_data — exclude as both origin and target.
+        # TODO: revisit when cloth gains a queryable mesh proxy.
+        if obj.prim_type == PrimType.CLOTH:
+            return False, "Adjacency does not support cloth objects"
+        return True, None
+
+    @classmethod
+    def global_initialize(cls):
+        super().global_initialize()
+        # Build the constant axis tables (directions + per-axis max distance).
+        directions_cpu, max_distances_cpu = _build_adjacency_axis_tables()
+        cls._directions = lazy.isaacsim.core.utils.warp.tensor.create_tensor_from_list(
+            directions_cpu, "float32", device="cuda"
+        )
+        cls._max_distances = lazy.isaacsim.core.utils.warp.tensor.create_tensor_from_list(
+            max_distances_cpu, "float32", device="cuda"
+        )
+
+    @classmethod
+    def initialize_view(cls):
+        super().initialize_view()
+
+        S = len(cls.IDX_OBJS)
+        N = len(cls.OBJ_IDXS)
+
+        # Build aabb_obj_idxs: maps Adjacency-N → AABB-N (or -1 if unknown to AABB).
+        if N > 0 and AABB.OBJ_IDXS is not None:
+            aabb_obj_idxs_cpu = th.full((N,), -1, dtype=th.int32)
+            for rel_path, adj_idx in cls.OBJ_IDXS.items():
+                aabb_obj_idxs_cpu[adj_idx] = AABB.OBJ_IDXS.get(rel_path, -1)
+            cls._aabb_obj_idxs = lazy.isaacsim.core.utils.warp.tensor.create_tensor_from_list(
+                aabb_obj_idxs_cpu, "int32", device="cuda"
+            )
+        else:
+            cls._aabb_obj_idxs = None
+
+        # Build link_to_obj_idx / link_to_scene_idx tables, length = N_links_total in
+        # RigidBodyViewAPI (whether or not those links belong to Adjacency-tracked objects).
+        # Untracked link slots stay at -1; the kernel skips them.
+        if RigidBodyViewAPI._PATH_TO_IDX:
+            L_total = len(RigidBodyViewAPI._PATH_TO_IDX)
+            link_to_obj_cpu = th.full((L_total,), -1, dtype=th.int32)
+            link_to_scene_cpu = th.full((L_total,), -1, dtype=th.int32)
+            for s_idx, scene_row in enumerate(cls.IDX_OBJS):
+                for adj_idx, obj in enumerate(scene_row):
+                    if obj is None:
+                        continue
+                    for link in obj.links.values():
+                        flat_idx = RigidBodyViewAPI.get_flat_idx(link.prim_path)
+                        if flat_idx is None:
+                            continue
+                        link_to_obj_cpu[flat_idx] = adj_idx
+                        link_to_scene_cpu[flat_idx] = s_idx
+            cls._link_to_obj_idx = lazy.isaacsim.core.utils.warp.tensor.create_tensor_from_list(
+                link_to_obj_cpu, "int32", device="cuda"
+            )
+            cls._link_to_scene_idx = lazy.isaacsim.core.utils.warp.tensor.create_tensor_from_list(
+                link_to_scene_cpu, "int32", device="cuda"
+            )
+        else:
+            cls._link_to_obj_idx = None
+            cls._link_to_scene_idx = None
+
+        # Allocate the int32 scratch (S, N, N, K) used as the atomic_max target.
+        if S > 0 and N > 0:
+            cls._output = wp.zeros((S, N, N, _ADJ_AXIS_COUNT), dtype=wp.int32, device="cuda")
+        else:
+            cls._output = None
+
+    @classmethod
+    def _update_values(cls, values):
+        # All required handles must be live; otherwise nothing to do this step.
+        if (
+            cls._output is None
+            or cls.VALUES_WP is None
+            or AABB.VALUES_WP is None
+            or cls._aabb_obj_idxs is None
+            or RigidBodyViewAPI.LINK_MESH_IDS is None
+            or RigidBodyViewAPI.POSE_MATRICES is None
+            or cls._link_to_obj_idx is None
+            or cls._link_to_scene_idx is None
+        ):
+            return
+
+        S = values.shape[0]
+        N = values.shape[1]
+        K = _ADJ_AXIS_COUNT
+        L = RigidBodyViewAPI.LINK_MESH_IDS.shape[0]
+        if S == 0 or N == 0 or L == 0:
+            return
+
+        # 1. Zero the int32 scratch via CUDA memset (graph-capturable for contiguous wp.array).
+        cls._output.zero_()
+
+        # 2. Ray-cast against each link's mesh; atomic_max into scratch on hit.
+        wp.launch(
+            kernel=_adjacency_ray_cast_kernel,
+            dim=(S, N, L, K),
+            inputs=[
+                AABB.VALUES_WP,
+                cls._aabb_obj_idxs,
+                cls._directions,
+                cls._max_distances,
+                RigidBodyViewAPI.LINK_MESH_IDS,
+                RigidBodyViewAPI.POSE_MATRICES,
+                cls._link_to_obj_idx,
+                cls._link_to_scene_idx,
+                cls._output,
+            ],
+            device="cuda",
+        )
+
+        # 3. Convert int32 scratch → uint8 bool VALUES.
+        wp.launch(
+            kernel=_adjacency_finalize_kernel,
+            dim=(S, N, N, K),
+            inputs=[cls._output, cls.VALUES_WP],
+            device="cuda",
+        )

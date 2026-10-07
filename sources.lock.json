@@ -1,0 +1,182 @@
+[
+  {
+    "id": "codex",
+    "path": "codex",
+    "url": "https://github.com/openai/codex.git",
+    "commit": "8ae55c863db26d417e83390c5854f1144114276b"
+  },
+  {
+    "id": "behavior_1k",
+    "path": "third_party/benchmarks/behavior_1k/checkout",
+    "url": "https://github.com/StanfordVL/BEHAVIOR-1K.git",
+    "commit": "6cbf70b075816096e9be53958780769f3264d25d"
+  },
+  {
+    "id": "robocasa",
+    "path": "third_party/benchmarks/robocasa/checkout",
+    "url": "https://github.com/robocasa/robocasa.git",
+    "commit": "456174f62b89b8fca99eaaf33949c29fec9cfc2a"
+  },
+  {
+    "id": "robolab",
+    "path": "third_party/benchmarks/robolab/checkout",
+    "url": "https://github.com/NVlabs/RoboLab.git",
+    "commit": "ad45d4f974725d020f82c2b0d77d78533aeba2b3"
+  },
+  {
+    "id": "curobo",
+    "path": "third_party/dependencies/curobo/checkout",
+    "url": "https://github.com/yuechen0614/curobo.git",
+    "commit": "895c6517243f8cb091c73c018c8167192d39599a"
+  },
+  {
+    "id": "isaaclab6",
+    "path": "third_party/dependencies/isaaclab6/checkout",
+    "url": "https://github.com/isaac-sim/IsaacLab.git",
+    "commit": "28a37cecdd433c22d9eabd6a5954add9f13a8951"
+  },
+  {
+    "id": "robosuite",
+    "path": "third_party/dependencies/robosuite/checkout",
+    "url": "https://github.com/ARISE-Initiative/robosuite",
+    "commit": "5ce6643f3092639d08f7b0f90ed1c6a84f50552c"
+  },
+  {
+    "id": "xpolicylab",
+    "path": "third_party/dependencies/xpolicylab/checkout",
+    "url": "https://github.com/XPolicyLab/XPolicyLab.git",
+    "commit": "3f7823726fd0dd80705f009a94f59d9042ced56a"
+  },
+  {
+    "id": "robodojo",
+    "path": "third_party/benchmarks/RoboDojo",
+    "url": "https://github.com/RoboDojo-Benchmark/RoboDojo.git",
+    "commit": "726e9aabfaa642203722eb126f5eaf0f37f3e1ad"
+  },
+  {
+    "id": "humanoid_soccer",
+    "path": "third_party/benchmarks/humanoid_soccer/checkout",
+    "url": "https://github.com/TeleHuman/HumanoidSoccer",
+    "commit": "e72e470230047dedaf66df0983f1d0ab746faeb5"
+  },
+  {
+    "id": "ai_cps",
+    "path": "third_party/benchmarks/ai_cps/checkout",
+    "url": "https://github.com/zhehuazhou/ai-cps-robotics-benchmark.git",
+    "commit": "e04cb9fef85b96620220caec54404b3887ba0aa2"
+  },
+  {
+    "id": "omniisaacgymenvs",
+    "path": "third_party/dependencies/omniisaacgymenvs/checkout",
+    "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs.git",
+    "commit": "1aaf354d6a2bcfd54525ab183d03313956b5968b"
+  },
+  {
+    "id": "wheeledlab",
+    "path": "third_party/benchmarks/wheeledlab/checkout",
+    "url": "https://github.com/UWRobotLearning/WheeledLab.git",
+    "commit": "a5017ce0696032805190448b2addb8077e458387"
+  },
+  {
+    "id": "steadytray",
+    "path": "third_party/benchmarks/steadytray/checkout",
+    "url": "https://github.com/AllenHuangGit/SteadyTray.git",
+    "commit": "ae781f9f43f9505118c2c434733c57ed1c09dbc3"
+  },
+  {
+    "id": "steadytray_runtime",
+    "path": "third_party/benchmarks/steadytray/isaaclab_checkout",
+    "url": "https://github.com/AllenHuangGit/IsaacLab_SteadyTray.git",
+    "commit": "3e14846319ac07b5c430c8b6982745a8e7d1d95e"
+  },
+  {
+    "id": "ttrl",
+    "path": "third_party/benchmarks/ttrl/checkout",
+    "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026.git",
+    "commit": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078"
+  },
+  {
+    "id": "reflexbench",
+    "path": "third_party/benchmarks/reflexbench/checkout",
+    "url": "https://github.com/LxRoboticsLab/ReflexBench.git",
+    "commit": "8bb931485093c6d98f8729774ad01bf824964e16"
+  },
+  {
+    "id": "aerial_balance",
+    "path": "third_party/benchmarks/aerial_balance/checkout",
+    "url": "https://github.com/Wenminggong/aerial_balance_bench.git",
+    "commit": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9"
+  },
+  {
+    "id": "volleybots",
+    "path": "third_party/benchmarks/volleybots/checkout",
+    "url": "https://github.com/thu-uav/VolleyBots.git",
+    "commit": "10e3701e480b518041c8be6a40efee7bdcb69283"
+  },
+  {
+    "id": "wheel_legged",
+    "path": "third_party/benchmarks/wheel_legged/checkout",
+    "url": "https://github.com/zyicome/Wheel-Legged-Lab.git",
+    "commit": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7"
+  },
+  {
+    "id": "wheeled_quadruped",
+    "path": "third_party/benchmarks/wheeled_quadruped/checkout",
+    "url": "https://github.com/MickyasTA/wheeled_quadruped_robot.git",
+    "commit": "bcb4ec233927beb6e8b1806fad4703f52131dcbb"
+  },
+  {
+    "id": "go2_push",
+    "path": "third_party/benchmarks/go2_push/checkout",
+    "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion.git",
+    "commit": "22c0dc900a9a9f38349cc959979e820e41021785"
+  },
+  {
+    "id": "go2_push_isaaclab211",
+    "path": "third_party/benchmarks/go2_push/isaaclab211",
+    "url": "https://github.com/isaac-sim/IsaacLab.git",
+    "commit": "90b79bb2d44feb8d833f260f2bf37da3487180ba"
+  },
+  {
+    "id": "robot_lab",
+    "path": "third_party/benchmarks/robot_lab/checkout",
+    "url": "https://github.com/agilexrobotics/robot_lab.git",
+    "commit": "b868140eeb1459acefef24a865587ec39a5278c3"
+  },
+  {
+    "id": "digit",
+    "path": "third_party/benchmarks/digit/checkout",
+    "url": "https://github.com/isaac-sim/IsaacLab.git",
+    "commit": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8"
+  },
+  {
+    "id": "omniisaacgymenvs_benchmark",
+    "path": "third_party/benchmarks/omniisaacgymenvs/checkout",
+    "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs.git",
+    "commit": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775"
+  },
+  {
+    "id": "flamingo",
+    "path": "third_party/benchmarks/flamingo/checkout",
+    "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot.git",
+    "commit": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40"
+  },
+  {
+    "id": "omnidrones",
+    "path": "third_party/benchmarks/omnidrones/checkout",
+    "url": "https://github.com/btx0424/OmniDrones.git",
+    "commit": "9ce7c2028b71be64d7e748c31f685cd3b54afe27"
+  },
+  {
+    "id": "ttrl_isaaclab21",
+    "path": "third_party/benchmarks/ttrl/isaaclab21_checkout",
+    "url": "https://github.com/isaac-sim/IsaacLab.git",
+    "commit": "21f7136325136ca3f6ca4e0a8125edffe5c24f7e"
+  },
+  {
+    "id": "bench2dex",
+    "url": "https://github.com/Bench2Dex/Bench2Dex",
+    "commit": "fd90dcc625b66c2e535a8b25bcf75bc81c7b080d",
+    "path": "third_party/benchmarks/bench2dex/checkout"
+  }
+]

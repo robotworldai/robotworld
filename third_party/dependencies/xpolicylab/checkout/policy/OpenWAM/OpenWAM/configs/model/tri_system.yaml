@@ -1,0 +1,47 @@
+# Tri-System WAM: video DiT + ActionDiT + Understanding Expert (Qwen3-VL) in one
+# trimodal mixed attention. Only joint_self_attn is supported.
+
+defaults:
+  - video_backbone: wan22_ti2v_5b        # wan22_ti2v_5b | wan21_vace_1_3b | wan21_i2v_14b_480p | cosmos_predict25_2b | cosmos3_edge
+  - action_backbone: separate_action_dit # dual/tri only support ActionDiT
+  - vlm_backbone: qwen3_vl_2b            # understanding backbone (tri only)
+  - _self_
+
+# Pretrained components kept frozen; entries missing on the active backbone are skipped.
+freeze:
+  - video_backbone.text_encoder
+  - video_backbone.reason1
+  - video_backbone.vae
+  - video_backbone.image_encoder
+  - video_backbone.video_encoder
+  - vlm_backbone.vlm_model
+
+# understanding_expert stays under `architecture:` (trainable expert forwarded via
+# the architecture block); vlm_backbone is a top-level group like video_backbone.
+architecture:
+  framework: tri_system
+  variant: joint_self_attn   # only joint_self_attn
+
+  action_dim: 80             # 80 = unified action space (unify_action=true); raw width otherwise (e.g. robotwin eef=20, joint=14)
+  use_proprioception: true   # true = dataloader must provide sample["proprio"], appended as one proprio token
+  state_dim: 80              # proprio width; required when use_proprioception=true
+
+  # Video<->action visibility (understanding is a read-only tail: all attend to it, it attends only to itself):
+  #   mutual | action_sees_video | video_sees_action | isolated
+  attention_mask_mode: mutual
+  # Video<->video visibility: first_frame_causal | per_frame_causal | bidirectional
+  video_attention_mask_mode: first_frame_causal
+
+  # joint_self_attn enforces 1:1 with vb.num_layers — keep bridge_interval=1.
+  bridge_layers: null
+  bridge_interval: 1
+
+  mot_checkpoint_mixed_attn: true  # grad-checkpoint the mixed attention; disabling typically OOMs Wan22 + Qwen3-VL
+
+  # Understanding expert: VLM hidden -> dim via vlm_projector_type, then joins the
+  # trimodal attention at every video layer (num_layers auto = vb.num_layers).
+  understanding_expert:
+    dim: 512                        # understanding stream hidden dim
+    ffn_dim: 2048
+    vlm_projector_type: mlp3x_silu  # linear | mlp{N}x_silu (N-layer SiLU MLP)
+    eps: 1.0e-5

@@ -1,0 +1,6 @@
+{
+  "image": "world/robot-lab:isaac6.0.1-experimental",
+  "runtime": "Isaac Sim 6.0.1 / IsaacLab 2.2; pinned A1 URDF regenerated with foot-preserving importer; experimental, not official-equivalent",
+  "environment": {"WORLD_A1_REIMPORT": "1"},
+  "compatibility_notes": "Regenerates the original pinned URDF in each run directory. Keeps original reward, termination, events and source checkout. Fails closed if foot rigid bodies or 12 actuated joints are absent."
+}

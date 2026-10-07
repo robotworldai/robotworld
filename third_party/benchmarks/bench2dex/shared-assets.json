@@ -1,0 +1,29 @@
+{
+  "source": "Official NVIDIA Isaac5.1 assets, fetched byte-for-byte; original ground asset version",
+  "files": [
+    {
+      "path": "shared-assets/Isaac/Environments/Grid/default_environment.usd",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Grid/default_environment.usd",
+      "sha256": "8a21c317d638d33a4e6c20c958a7ed8f4d8c5195efd7e20f1b85178b4a15638a",
+      "bytes": 13622
+    },
+    {
+      "path": "shared-assets/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png",
+      "sha256": "deab39088eaf39ed7be951966c5e6bd5e58b90ab64743b0cdc8e5579fd5a99d9",
+      "bytes": 436257
+    },
+    {
+      "path": "shared-assets/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png",
+      "sha256": "44fc0e82007bb0bd94631cd7ec45986a71ed74b9413899fbffac13efe151be4b",
+      "bytes": 1474958
+    },
+    {
+      "path": "shared-assets/Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png",
+      "sha256": "940b96ee8c8e53bd1acbc770d4ca0ac98bed9c96439ab386d1b27dbc9790cc4e",
+      "bytes": 111895
+    }
+  ]
+}

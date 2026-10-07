@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find robot_description)/robot/parts/leg_joint/leg_joint.gazebo.xacro"/>
+  
+  <xacro:macro name="leg_joint_v0" params="prefix parent *joint_origin *joint_axis">
+	<joint name="${prefix}_leg_joint" type="fixed">
+	  <xacro:insert_block name="joint_origin"/>
+	  <parent link="${parent}"/>
+	  <child link="${prefix}_leg_joint_link"/>
+          <limit effort="500" velocity="10" lower="-3.14159" upper = "3.14159"/>
+          <dynamics damping="0.005" friction="0.1"/>
+	  <xacro:insert_block name="joint_axis"/>
+	</joint>
+
+	<link name="${prefix}_leg_joint_link">
+	  <visual>
+		<geometry>
+		  <mesh filename="package://robot_description/meshes/DAE/leg_joint/leg_joint.dae"/>
+		</geometry>
+	  </visual>
+	  <collision>
+		<geometry>
+		  <mesh filename="package://robot_description/meshes/STL/leg_joint/leg_joint.stl"/>
+		</geometry>
+	  </collision>
+	  <inertial>
+		<origin xyz="0 0 -0.038"/>
+		<mass value="1.16"/>
+		<inertia ixx="0.002" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.001" />
+	  </inertial>
+	</link>
+  </xacro:macro>
+  
+</robot>

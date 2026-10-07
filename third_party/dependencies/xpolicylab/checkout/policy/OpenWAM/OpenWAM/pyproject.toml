@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openwam"
+version = "0.1.0"
+description = "OpenWAM: An Open, Modular Exploration Towards Systematic World–Action Model Pretraining"
+authors = [{ name = "OpenWAM Contributors" }]
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24,<3",
+    "Pillow>=10,<13",
+    "torch>=2.5,<3",
+    "torchvision>=0.15,<1",
+    "transformers>=5.5,<6",
+    "diffusers>=0.38,<1",
+    "imageio>=2.28,<3",
+    "imageio[ffmpeg]>=2.28,<3",
+    "pyarrow>=14,<26",
+    "PyYAML>=6,<7",
+    "safetensors>=0.4,<1",
+    "einops>=0.7,<1",
+    "sentencepiece>=0.1.99,<1",
+    "protobuf>=5,<8",
+    "modelscope>=1.13,<2",
+    "ftfy>=6.1,<7",
+    "opencv-python>=4.7,<5",
+    "h5py>=3.8,<4",
+    "pandas>=2.0,<4",
+    "scipy>=1.10,<2",
+    "accelerate>=1.0,<2",
+    "deepspeed>=0.18.5,<0.19",
+    "tqdm>=4.66,<5",
+    "wandb>=0.16,<1",
+    "hydra-core>=1.3,<2",
+    "omegaconf>=2.3,<3",
+    "websockets>=16,<17",
+    "msgpack>=1,<2",
+    "av>=12,<18",
+    "timm>=1.0.20,<1.1",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<10",
+    "ruff>=0.4,<1",
+    "pre-commit>=3.5,<5",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["./"]
+include = ["openwam", "openwam.*"]
+
+[project.scripts]
+openwam-serve = "openwam.deploy.server:main"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+exclude = [
+    "third_party/",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501", "E741"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["openwam"]

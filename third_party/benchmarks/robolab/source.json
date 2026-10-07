@@ -1,0 +1,6 @@
+{
+  "url": "https://github.com/NVlabs/RoboLab.git",
+  "commit": "ad45d4f974725d020f82c2b0d77d78533aeba2b3",
+  "license": "Apache-2.0",
+  "asset_transport": "official Git LFS; selected USD dependency closure"
+}

@@ -1,0 +1,45 @@
+{
+  "repository": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot.git",
+  "commit": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+  "files": [
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev01_5_2/flamingo_rev01_5_2_merge_joints.zip",
+      "bytes": 10411615,
+      "sha256": "19412f9faf377ce2e08704a49f3f3a63fa56b620c19d066f8a3f5a05a37efa09"
+    },
+    {
+      "path": "lab/flamingo/assets/data/ActuatorNets/Flamingo/kan/wheel/symbolic_formula.txt",
+      "bytes": 271,
+      "sha256": "88a934d84a02ff7b6f509a0481e1d1cab5f4f582968aa3c53518d6f06710d119"
+    }
+  ],
+  "upstream_modified": false,
+  "extracted_files": [
+    {
+      "path": "assets/Robots/Flamingo/flamingo_rev01_5_2/config.yaml",
+      "bytes": 786,
+      "sha256": "f3b61876dc26662320b2df29d1909a2a7aefd56fd5a3ff7a05552cd4adf997ed"
+    },
+    {
+      "path": "assets/Robots/Flamingo/flamingo_rev01_5_2/configuration/flamingo_rev01_5_2_merge_joints_sensor.usd",
+      "bytes": 659,
+      "sha256": "9eb4e52706058dabae3abbab63390ffa48e890693bc5bbdfc424dda317f921cf"
+    },
+    {
+      "path": "assets/Robots/Flamingo/flamingo_rev01_5_2/configuration/flamingo_rev01_5_2_merge_joints_physics.usd",
+      "bytes": 4828,
+      "sha256": "7aec7e7b5995bc0af50da4e5ca23cb3c2425cb98d23e845ee98b41bf73ded0c2"
+    },
+    {
+      "path": "assets/Robots/Flamingo/flamingo_rev01_5_2/configuration/flamingo_rev01_5_2_merge_joints_base.usd",
+      "bytes": 44809046,
+      "sha256": "5f3262f46bef65b15868171e2949ebd473eeb41d854006d8e213a4233d82fbb7"
+    },
+    {
+      "path": "assets/Robots/Flamingo/flamingo_rev01_5_2/flamingo_rev01_5_2_merge_joints.usd",
+      "bytes": 5732,
+      "sha256": "8d12682d9ee0dd19ae0b2ead77e0be09c4254883117700a533fae364119144f5"
+    }
+  ],
+  "extraction": "Unmodified ZIP members outside read-only checkout"
+}

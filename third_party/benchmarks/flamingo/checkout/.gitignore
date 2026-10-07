@@ -1,0 +1,14 @@
+**/__pycache__/
+*.egg-info
+logs/
+*.pt
+*.onnx
+outputs/
+build/
+*.usd
+urdf/
+mjcf/
+*.thumbs
+.thumbs/
+*.asset_hash
+configuration/

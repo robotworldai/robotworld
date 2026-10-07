@@ -1,0 +1,19 @@
+# Local offline snapshot recipe. Source-build reproducibility is a separate task.
+# No credentials, assets, or globally installed Codex are included.
+FROM nvidia/cuda:12.8.1-base-ubuntu22.04
+COPY runtime/ /opt/robotworld/RoboDojo/.cache/isaac6_replay_env/
+COPY upstream/ /opt/robotworld/RoboDojo/
+COPY isaaclab/ /opt/robotworld/IsaacLab/
+COPY system-libs/ /opt/world-system-libs/
+COPY controls/ /opt/world-control-libs/
+COPY tools/ /usr/local/bin/
+COPY runtime-manifest.json /opt/world-runtime-manifest.json
+ENV PATH=/opt/robotworld/RoboDojo/.cache/isaac6_replay_env/bin:/usr/local/bin:/usr/bin:/bin \
+    LD_LIBRARY_PATH=/opt/world-system-libs:/usr/local/nvidia/lib:/usr/local/nvidia/lib64 \
+    PYTHONPATH=/opt/world-control-libs:/opt/robotworld/RoboDojo:/opt/robotworld/RoboDojo/XPolicyLab \
+    NVIDIA_DRIVER_CAPABILITIES=all \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    TORCH_EXTENSIONS_DIR=/root/.cache/torch_extensions
+WORKDIR /runs
+CMD ["python", "-c", "import importlib.metadata as m; print('Isaac Sim', m.version('isaacsim'))"]

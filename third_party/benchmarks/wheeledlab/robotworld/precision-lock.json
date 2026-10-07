@@ -1,0 +1,11 @@
+{
+  "protocol": "robotworld-driving-precision-v1",
+  "note": "Frozen task criteria before GPT precision evaluation; engineering controller results are not GPT scores. Each run also snapshots exact environment/interface sources.",
+  "files": {
+    "precision_specs.py": "d012474b8550023785bb52e5169f874206048ec052b582bbda20fc0134fe3acd",
+    "precision_geometry.py": "8350d247d69cbfd3e829d06a99e127fb241862133fdf146c11da22db3355fa6a",
+    "precision_environment.py": "6ab50edc5cec07442df685d1f068fe26baaa0a1290952832d57f4c24413524c0",
+    "precision_scoring.py": "b13817cd06be6cd73f7b75dedfd2e385e9f20ce487357d126e7942b3f022922c",
+    "precision_prompt.py": "1beabbf9e000951f4a5d139a613494b3a0547ea847cd14832bb426f7dd590e1f"
+  }
+}

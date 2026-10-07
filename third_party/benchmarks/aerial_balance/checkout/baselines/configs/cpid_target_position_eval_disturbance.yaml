@@ -1,0 +1,12 @@
+env_config: environments/configs/template_eval_disturbance.yaml
+policy_config: baselines/configs/cpid_predictor_15.yaml
+
+runner:
+  target_episodes: 500
+  max_steps: null
+  render: false
+  save_rollout: true
+
+logging:
+  root_dir: logs/cpid_500
+  run_name: cpid_target_position_velocity_delay_w_compensation_disturbance

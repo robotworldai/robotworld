@@ -1,0 +1,4 @@
+{
+  "images": {},
+  "instructions": "Optional mapping from local image tags to authorized registry URLs/digests. Example key: world/robodojo:isaac6.0.1-local. No public base image is currently provided; populate this or prepare a local runtime snapshot."
+}

@@ -1,0 +1,37 @@
+{
+  "key": "wheel_legged",
+  "repository": "https://github.com/zyicome/Wheel-Legged-Lab.git",
+  "commit": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+  "image": "world/wheel-legged:isaac6.0.1-experimental",
+  "python_paths": [
+    "source/wheel_legged_robot"
+  ],
+  "adapter": "environment.benchmarks.wheel_legged.project",
+  "runtime": "Isaac Sim 6.0.1 / Isaac Lab 2.2: experimental compatibility, not upstream-equivalent",
+  "tasks": {
+    "T07": {
+      "id": "Wheel-Legged-Recovery-Flat-v0",
+      "title": "轮足机器人从近跌倒状态恢复直立",
+      "steps": 2000,
+      "upstream_runtime": "Isaac Sim 5.1.0 / Isaac Lab 2.3.2 / Python 3.11",
+      "control_dt": 0.01,
+      "physics_dt": 0.005,
+      "observation": "Native policy vector only: 36 scalar values, scaled and noisy; no privileged critic, no height scan in Reactive. Native state condition, not pure vision.",
+      "action": "6 bounded VMC targets: left angle/length/wheel speed, right angle/length/wheel speed. Scales .35 rad, .06 m plus .237 m (clipped .18-.30), 24 rad/s.",
+      "scoring": "Native reward and termination terms, plus exact native recovery outcome hook and terrain tracking diagnostics. T07 per-recovery success is tilt<.25 rad and clearance>.14 m held .30 s after .25 s grace, deadline2.5s; episode survival is not success. T08 has no native binary success.",
+      "native_success_available": true
+    },
+    "T08": {
+      "id": "Wheel-Legged-Terrain-Reactive-v0",
+      "title": "轮足机器人在起伏与台阶地形中抗扰行进",
+      "steps": 2000,
+      "upstream_runtime": "Isaac Sim 5.1.0 / Isaac Lab 2.3.2 / Python 3.11",
+      "control_dt": 0.01,
+      "physics_dt": 0.005,
+      "observation": "Native policy vector only: 36 scalar values, scaled and noisy; no privileged critic, no height scan in Reactive. Native state condition, not pure vision.",
+      "action": "6 bounded VMC targets: left angle/length/wheel speed, right angle/length/wheel speed. Scales .35 rad, .06 m plus .237 m (clipped .18-.30), 24 rad/s.",
+      "scoring": "Native reward and termination terms, plus exact native recovery outcome hook and terrain tracking diagnostics. T07 per-recovery success is tilt<.25 rad and clearance>.14 m held .30 s after .25 s grace, deadline2.5s; episode survival is not success. T08 has no native binary success.",
+      "native_success_available": false
+    }
+  }
+}

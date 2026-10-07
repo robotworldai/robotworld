@@ -1,0 +1,27 @@
+{
+  "key": "aerial_balance",
+  "engine": "custom",
+  "repository": "https://github.com/Wenminggong/aerial_balance_bench.git",
+  "commit": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+  "image": "world/aerial-balance:isaac4.2.0",
+  "entrypoint": [
+    "/isaac-sim/python.sh"
+  ],
+  "python_paths": [
+    "."
+  ],
+  "runtime": "Isaac Sim4.2.0 / Isaac Lab1.4.0 / author torch2.8cu128; image+CPU+tiny CUDA verified on RTX5090; scene unvalidated (missing author payloads)",
+  "tasks": {
+    "T04": {
+      "id": "template_eval_disturbance.yaml",
+      "title": "绳牵横梁上的小球抗扰定位",
+      "steps": 600,
+      "control_dt": 0.016666666666666666,
+      "physics_dt": 0.005555555555555556,
+      "upstream_runtime": "Isaac Sim 4.2.0 + Isaac Lab 1.4.0 + Python 3.10（作者 tested stack）",
+      "observation": "原 11 维状态：球位置/速度/加速度、梁角度/角速度/角加速度、drone z 位移/速度/加速度、目标与上一动作。是 state-based 设置。",
+      "action": "原 velocity 接口是竖直速度增量；提供球位置/速度、梁角/角速度等 11 维状态。原策略步长约 1/60 s。原 YAML 同时有 15 步动作延迟，必须如实记录。",
+      "scoring": "原评测报告目标带误差、收敛时间、稳态误差与 success_rate；本设置目标带 0.01 m、回合 10 s。代码 SR 统计未显式排除所有物理提前终止，也没有单独要求在带内至少保持一整秒，不能把它描述成更严格的验收。"
+    }
+  }
+}

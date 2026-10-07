@@ -1,0 +1,67 @@
+robot1:
+  controller_manager:
+    ros__parameters:
+      update_rate: 1000  # Hz
+
+      fl_forward_position_controller:
+        type: forward_command_controller/ForwardCommandController
+
+      fr_forward_position_controller:
+        type: forward_command_controller/ForwardCommandController
+
+      rr_forward_position_controller:
+        type: forward_command_controller/ForwardCommandController
+
+      rl_forward_position_controller:
+        type: forward_command_controller/ForwardCommandController
+
+      joint_state_broadcaster:
+        type: joint_state_broadcaster/JointStateBroadcaster
+
+  fl_forward_position_controller:
+    ros__parameters:
+      joints:
+        - robot1_front_left_leg_joint
+        - robot1_front_left_thigh_joint
+        - robot1_front_left_shin_joint
+      interface_name: position
+      command_interfaces:
+        - position
+      state_interfaces:
+        - position
+
+  fr_forward_position_controller:
+    ros__parameters:
+      joints:
+        - robot1_front_right_leg_joint
+        - robot1_front_right_thigh_joint
+        - robot1_front_right_shin_joint
+      interface_name: position
+      command_interfaces:
+        - position
+      state_interfaces:
+        - position
+
+  rr_forward_position_controller:
+    ros__parameters:
+      joints:
+        - robot1_rear_right_leg_joint
+        - robot1_rear_right_thigh_joint
+        - robot1_rear_right_shin_joint
+      interface_name: position
+      command_interfaces:
+        - position
+      state_interfaces:
+        - position
+
+  rl_forward_position_controller:
+    ros__parameters:
+      joints:
+        - robot1_rear_left_leg_joint
+        - robot1_rear_left_thigh_joint
+        - robot1_rear_left_shin_joint
+      interface_name: position
+      command_interfaces:
+        - position
+      state_interfaces:
+        - position

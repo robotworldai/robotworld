@@ -1,0 +1,124 @@
+{
+  "repository": "Bench2Dex/teleopdata",
+  "revision": "b195787c65046083e6a43776b67bdf1389dfa3eb",
+  "episode": "000000",
+  "files": [
+    {
+      "case": "41",
+      "path": "dataset/79_bimanual_piano_melody/origin-generalization/episode_000000.hdf5",
+      "type": "file",
+      "oid": "38e3cf94b043b0944e58060a9e00ccdf025862bd",
+      "size": 3359308,
+      "lfs": {
+        "oid": "6e391769e8b1db15e8c1757a4c2dabf6fe537eb803601bf024542fe8969ba8d3",
+        "size": 3359308,
+        "pointerSize": 132
+      },
+      "xetHash": "da799015a69bf3ac9e42831da99760d8af1bfa21c1dd2d361d050e1494e4d212"
+    },
+    {
+      "case": "42",
+      "path": "dataset/76_soup_serving/origin-generalization/episode_000000.hdf5",
+      "type": "file",
+      "oid": "7d5b9029463db84e9db4aba87112635f04ad44cf",
+      "size": 3892882,
+      "lfs": {
+        "oid": "822e763113345637aec9be5627fec803c08f7df6f18d6916a5d82bd1d437498e",
+        "size": 3892882,
+        "pointerSize": 132
+      },
+      "xetHash": "2c8020cb1be69435d972d63e9862b2629ef5b4d96825f8ecc01820f4a89d118d"
+    },
+    {
+      "case": "43",
+      "path": "dataset/12_screwdriver_box_and_hammer/origin-generalization/episode_000000.hdf5",
+      "type": "file",
+      "oid": "c1482c77d7b955a8fb6eac4e34212982ee73b3ea",
+      "size": 5192505,
+      "lfs": {
+        "oid": "2250a83d7ca4825089760271a6ec6ae5f381426759b0ed7588657f2ae96b7c8b",
+        "size": 5192505,
+        "pointerSize": 132
+      },
+      "xetHash": "63ab3e3b31b93e766333abb28dcd3949218130e7bebf30706578cf36f6b1be41"
+    },
+    {
+      "case": "44",
+      "path": "dataset/34_fridge_wine_interhand_pour/origin-generalization/episode_000000.hdf5",
+      "type": "file",
+      "oid": "2f17e959ed5c6ceb6237f8e58fcda68d0bc6e949",
+      "size": 4586728,
+      "lfs": {
+        "oid": "294561a8e4465f5ec241b0b0627d3f96f10cf50716308323b26fa05e75319cdd",
+        "size": 4586728,
+        "pointerSize": 132
+      },
+      "xetHash": "f9b6859bfadc04f876a8d3a690938ea9c455a05de8c85b6fa95145069c3b978b"
+    },
+    {
+      "case": "45",
+      "path": "dataset/67_faucet_cup_water_fill/origin-generalization/episode_000000.hdf5",
+      "type": "file",
+      "oid": "cc51cf1199a0b8231c79171d1a059fb87149babd",
+      "size": 3580826,
+      "lfs": {
+        "oid": "55eff1fbd4e1ea1fdfc7bff730a09ed8aa36b9c8b652621208a88c1709d6b279",
+        "size": 3580826,
+        "pointerSize": 132
+      },
+      "xetHash": "bf5453b1dc49041c91d6b085951ce9d621efffb6ae11e22db5e25a253c13b733"
+    },
+    {
+      "case": "46",
+      "path": "dataset/44_microwave_bowl_loading/origin-generalization/episode_000000.hdf5",
+      "type": "file",
+      "oid": "e8c998962c8683a9bd3185dc79e4c1aafce24a78",
+      "size": 4910829,
+      "lfs": {
+        "oid": "33da061053b6d32ad3690edf3d57dc20b18b857bf865250553872457f7092868",
+        "size": 4910829,
+        "pointerSize": 132
+      },
+      "xetHash": "534c972519e1b9301e887a155b15d78221e8a1c89a7b0d9111e2403ddf7f7c53"
+    },
+    {
+      "case": "47",
+      "path": "dataset/80_gaming_desk_setup/origin-generalization/episode_000000.hdf5",
+      "type": "file",
+      "oid": "f144a94c2bf55eee741d735f8c0335343178ceef",
+      "size": 3545160,
+      "lfs": {
+        "oid": "bd04474bc8757394f8313c55625e251e32c82b384647cf0c7dc45464e57877d1",
+        "size": 3545160,
+        "pointerSize": 132
+      },
+      "xetHash": "70dc862942d988b76d5ad747c45d2a2fabfee3249d3b9e076f025c8e18cbebc5"
+    },
+    {
+      "case": "48",
+      "path": "dataset/73_jigsaw_puzzle_assembly/origin-generalization/episode_000000.hdf5",
+      "type": "file",
+      "oid": "0ccafa0162ffa73a307b90b2f462df335dbbce15",
+      "size": 3840901,
+      "lfs": {
+        "oid": "15f3cfd3d3d42c70bdb6e20a851b04263c72e9a79e336953a683350dcfa57ed4",
+        "size": 3840901,
+        "pointerSize": 132
+      },
+      "xetHash": "f35f06099695a102228369821445fa94285f3897861028471e2174d0055fc5ef"
+    },
+    {
+      "case": "49",
+      "path": "dataset/03_wine_glass_plate_balance/origin-generalization/episode_000000.hdf5",
+      "type": "file",
+      "oid": "0ae938c299682d8faf13b62a9e470b6249eff9e9",
+      "size": 3865383,
+      "lfs": {
+        "oid": "591447a44dc280c1d9d7b30858844868ce3e744bd95a4875f9ae178ca3550e1f",
+        "size": 3865383,
+        "pointerSize": 132
+      },
+      "xetHash": "76dd227f2512c20615ca87fe62df149a8ce87acb4926ffeac63468f184e20617"
+    }
+  ]
+}

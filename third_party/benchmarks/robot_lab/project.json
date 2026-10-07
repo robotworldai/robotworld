@@ -1,0 +1,25 @@
+{
+  "key": "robot_lab",
+  "repository": "https://github.com/agilexrobotics/robot_lab.git",
+  "commit": "b868140eeb1459acefef24a865587ec39a5278c3",
+  "image": "world/robot-lab:isaac6.0.1-experimental",
+  "python_paths": [
+    "source/robot_lab"
+  ],
+  "adapter": "environment.benchmarks.robot_lab.project",
+  "runtime": "IsaacSim6.0.1/IsaacLab2.2 experimental, not upstream equivalent",
+  "tasks": {
+    "T11": {
+      "id": "RobotLab-Isaac-Velocity-Flat-HandStand-Unitree-A1-v0",
+      "title": "A1抬起后腿、以前腿支撑并抗扰",
+      "steps": 500,
+      "control_dt": 0.02,
+      "physics_dt": 0.005,
+      "upstream_runtime": "Isaac Sim4.5.0 / IsaacLab2.0.0 / Python3.10",
+      "native_success_available": false,
+      "observation": "Original noisy45D policy; no base linear velocity or height scan; no critic.",
+      "action": "12joint position residuals(scale.25rad+default), FR/FL/RR/RL hip/thigh/calf. Processed target clip[-100,100].",
+      "scoring": "Original handstand foot-height/gravity/contact/tracking rewards and illegal-contact termination. Fixed source10seconds500steps, not material20seconds; success=null."
+    }
+  }
+}

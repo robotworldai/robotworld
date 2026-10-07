@@ -1,0 +1,10 @@
+ARG BASE_IMAGE=world/wheeledlab:isaac6.0.1-experimental
+FROM ${BASE_IMAGE}
+LABEL org.world.benchmark="OmniDrones" org.world.runtime="Isaac6.0.1 experimental; not official physics equivalence"
+ENV ACCEPT_EULA=Y OMNI_KIT_ACCEPT_EULA=YES PYTHONDONTWRITEBYTECODE=1 MAX_JOBS=4
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential && rm -rf /var/lib/apt/lists/*
+# Keep the original Python API used by the untouched environment, compile the
+# TensorDict extension against this runtime's PyTorch rather than an old wheel.
+RUN python -m pip install --no-cache-dir --no-deps --no-build-isolation https://github.com/pytorch/tensordict/archive/bc7836b2b93c327dad2e9ea7b400ba2ccca83fc6.tar.gz https://github.com/pytorch/rl/archive/146341bf997446d26d59a7a36fb15aeba81435c5.tar.gz
+RUN python -m pip install --no-cache-dir hydra-core omegaconf imageio imageio-ffmpeg wandb einops
+WORKDIR /world

@@ -1,0 +1,13 @@
+env_config: environments/configs/template_eval_delay_30.yaml
+policy_config: baselines/configs/rl_rpo_predictor_30.yaml
+checkpoint_path: "/home/wenminggong/projects/human_robot_collaborative_transportation/Human_Drone_Balance/logs/real_world_completed/rpo_vel_300/mvel_0.0_sdim_8_pids_0_len_1_reward_2_curr_0_usd_origin_maxa_0.5_obsn_0_filter_0_thetac_0_ford_0_svg_0_sm_0_stau_0_thron_0.0_cond_0_astate_0_balld_0_rang_0_seed_1024/checkpoints/best_agent.pt"
+
+runner:
+  target_episodes: 1000
+  max_steps: null
+  render: false
+  save_rollout: true
+
+logging:
+  root_dir: logs/rl/rpo_results/delay_w_compensation_delay_30
+  run_name: rpo_target_position_legacy8_eval_delay_w_compensation_delay_30

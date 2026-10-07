@@ -1,0 +1,29 @@
+{
+  "key": "ttrl",
+  "engine": "custom",
+  "repository": "https://github.com/purdue-tracelab/TTRL-ICRA2026.git",
+  "commit": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+  "image": "world/ttrl:isaac4.5.0",
+  "entrypoint": [
+    "/isaac-sim/python.sh"
+  ],
+  "python_paths": [
+    ".",
+    "rsl_rl"
+  ],
+  "runtime": "Original Isaac Sim4.5.0 / IsaacLab2.1.0; GPU unvalidated",
+  "tasks": {
+    "T02": {
+      "id": "t1_tt_eval",
+      "title": "人形机器人连续接回随机乒乓来球",
+      "steps": 540,
+      "budget_kind": "harness conservative serve-count upper bound, not replacement native episode time",
+      "control_dt": 0.02,
+      "physics_dt": 0.002,
+      "decimation": 10,
+      "observation": "Original noisy actor history only; learned predictor disabled, zero prediction slots disclosed; critic excluded",
+      "action": "21 original joint-position offsets with native scale and clip",
+      "scoring": "Original completed-serve hit and valid-return rates with first2serves skipped; no whole-episode SR"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+numpy<2
+torch>=2.7
+torchvision>=0.14.1
+protobuf!=5.26.0,>=4.25.8
+hydra-core
+h5py
+tensorboard
+moviepy
+pillow==11.2.1
+
+[all]
+tqdm
+stable-baselines3>=2.6
+skrl>=1.4.3
+rsl-rl-lib==2.3.3
+rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11
+rich
+gym
+
+[rl-games]
+rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11
+gym
+
+[rl_games]
+rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11
+gym
+
+[rsl-rl]
+rsl-rl-lib==2.3.3
+
+[rsl_rl]
+rsl-rl-lib==2.3.3
+
+[sb3]
+stable-baselines3>=2.6
+tqdm
+rich
+
+[skrl]
+skrl>=1.4.3

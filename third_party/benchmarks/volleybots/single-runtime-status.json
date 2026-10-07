@@ -1,0 +1,73 @@
+{
+  "date": "2026-09-28",
+  "native_task": "SingleJuggleVolleyball",
+  "task_key": "T05-single",
+  "original_1v1_unchanged": true,
+  "image": "world/volleybots:isaac6.0.1-experimental",
+  "image_id": "sha256:b32bb4c747b56d7b3ce795f431232ace37f504c1b2697e5caf758cc410cf52a0",
+  "build": "passed",
+  "native_probe": "var/runs/docker/volleybots/single-probe09",
+  "codex_episode": "var/runs/docker/volleybots/single-codex02",
+  "infrastructure_ok": true,
+  "requested_steps": 800,
+  "actual_steps": 92,
+  "native_true_hits": [
+    [
+      1.0
+    ]
+  ],
+  "native_end_reason": "done_ball_too_low",
+  "task_completed": false,
+  "native_binary_success_available": false,
+  "official_physics_equivalence": false,
+  "upstream_modified": false,
+  "control_dt": 0.02,
+  "video_probe": {
+    "r_frame_rate": "50/1",
+    "duration": "1.860000",
+    "nb_frames": "93"
+  },
+  "event_pairs": {
+    "tools.jsonl": {
+      "full_records": 12,
+      "no_images_records": 12,
+      "matched": true
+    },
+    "environment.jsonl": {
+      "full_records": 191,
+      "no_images_records": 191,
+      "matched": true
+    },
+    "codex.jsonl": {
+      "full_records": 58,
+      "no_images_records": 58,
+      "matched": true
+    }
+  },
+  "agent_boundary": {
+    "source": "/opt/robotworld/World/codex",
+    "commit": "8ae55c863db26d417e83390c5854f1144114276b",
+    "binary_sha256": "6ca8992ea4cda34050a14ca409239e4231a13196bdd2357a632ba5b1606a2892",
+    "model": "gpt-6-astra",
+    "agent": "host bubblewrap; local source-built Codex app-server",
+    "runtime_profile": "isaac6",
+    "runtime": "Isaac Sim6.0.1 experimental external compatibility; native SingleJuggleVolleyball; not official physics equivalence",
+    "simulator": "local Docker",
+    "benchmark_commit": "10e3701e480b518041c8be6a40efee7bdcb69283",
+    "direct_model_api_client": false
+  },
+  "compatibility": {
+    "core": "legacy namespaces, constructor and tensor-view APIs mapped externally",
+    "contact_sensor": "IsaacLab2.2 ContactSensor replaces Orbit import; original net_forces_w based task contact rules unchanged",
+    "wrench": "original rotor/base link-origin wrenches submitted once per articulation per native tick",
+    "renderer": "spectator-only framing/backdrop; exposure-2stops restored after capture"
+  },
+  "packages": {
+    "isaacsim": "6.0.1.0",
+    "isaaclab": "0.44.8",
+    "torch": "2.11.0",
+    "numpy": "2.3.1",
+    "torchrl": "0.4.0",
+    "tensordict": "0.4.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "key": "steadytray",
+  "repository": "https://github.com/AllenHuangGit/SteadyTray.git",
+  "commit": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+  "image": "world/steadytray:isaac6.0.1-experimental",
+  "runtime": "Isaac Sim 6.0.1 experimental with exact project-specific IsaacLab source, not official runtime equivalence",
+  "python_paths": [
+    "source/steadytray"
+  ],
+  "runtime_python_paths": [
+    "third_party/benchmarks/steadytray/isaaclab_checkout/source/isaaclab",
+    "third_party/benchmarks/steadytray/isaaclab_checkout/source/isaaclab_assets",
+    "third_party/benchmarks/steadytray/isaaclab_checkout/source/isaaclab_tasks",
+    "third_party/benchmarks/steadytray/isaaclab_checkout/source/isaaclab_rl"
+  ],
+  "tasks": {
+    "T01": {
+      "id": "G1-Steady-Object",
+      "title": "端托盘行走，同时抵抗物体与身体推扰",
+      "steps": 1000,
+      "upstream_runtime": "Isaac Sim 4.5 + IsaacLab_SteadyTray author fork 3e14846319ac07b5c430c8b6982745a8e7d1d95e (VERSION 2.1.1)",
+      "observation": "Original noisy policy history and encoder object/tray history including delays; critic excluded. Not RGB-only.",
+      "action": "Original full-body joint position targets using G1_DELAY_ACTION_SCALE and default offsets; no author residual runner or pretrained locomotion policy.",
+      "scoring": "Native reward/termination and command tracking errors; no official binary walking SR. Separately report RobotWorld-derived full-20s raw-failure-free completion and strict object retention. Neither alone proves walking command following.",
+      "physics_dt": 0.005,
+      "decimation": 4,
+      "native_sr_available": false,
+      "scoring_kind": "RobotWorld-derived strict failure-free completion reported separately from native reward/tracking metrics"
+    }
+  },
+  "runtime_source": {
+    "repository": "https://github.com/AllenHuangGit/IsaacLab_SteadyTray.git",
+    "commit": "3e14846319ac07b5c430c8b6982745a8e7d1d95e",
+    "directory": "isaaclab_checkout"
+  }
+}

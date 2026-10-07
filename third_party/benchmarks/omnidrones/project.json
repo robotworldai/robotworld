@@ -1,0 +1,39 @@
+{
+  "key": "omnidrones",
+  "engine": "custom",
+  "repository": "https://github.com/btx0424/OmniDrones.git",
+  "commit": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+  "image": "world/omnidrones:isaac4.1.0",
+  "python_paths": [
+    "."
+  ],
+  "entrypoint": [
+    "/isaac-sim/python.sh"
+  ],
+  "adapter": "environment.benchmarks.omnidrones.project",
+  "runtime": "Native Isaac Sim4.1.0/Python3.10; not runtime-validated on RTX5090",
+  "tasks": {
+    "T16": {
+      "id": "Payload/PayloadHover",
+      "title": "无人机吊载悬停并抑制受扰摆动",
+      "steps": 500,
+      "control_dt": 0.016129032258064516,
+      "native_success_available": false,
+      "observation": "Unchanged agents.observation vector only; native state, not pure vision",
+      "action": "Hummingbird raw4rotors[-1,1]; action_transform=null",
+      "scoring": "Native reward, stats and terminated/truncated; binary success=null",
+      "configured_physics_dt": 0.016
+    },
+    "T17": {
+      "id": "InvPendulum/InvPendulumTrack",
+      "title": "无人机托举倒立摆并跟踪轨迹",
+      "steps": 600,
+      "control_dt": 0.016129032258064516,
+      "native_success_available": false,
+      "observation": "Unchanged agents.observation vector only; native state, not pure vision",
+      "action": "Hummingbird raw4rotors[-1,1]; action_transform=null",
+      "scoring": "Native reward, stats and terminated/truncated; binary success=null",
+      "configured_physics_dt": 0.016
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "id": "volleybots-fixed-rally-receive-v2",
+  "task": "drone_volleyball_1v1",
+  "native_task": "Volleyball1v1",
+  "runtime_profile": "isaac6-scripted-1v1",
+  "image": "world/volleybots:isaac6.0.1-experimental",
+  "controlled_player": 1,
+  "initial_server": 0,
+  "seed": 7,
+  "random_turn": false,
+  "step_limit": 1000,
+  "control_dt": 0.02,
+  "opponent": "fixed-rally-v1",
+  "primary_score": "terminal native actor_1_wins (binary); win rate over valid completed model rollouts",
+  "draw_score": 0,
+  "infrastructure_errors": "separately counted, excluded from completed-rollout SR denominator",
+  "secondary_metrics": [
+    "native return",
+    "own and opponent hits",
+    "fault cases",
+    "control steps",
+    "outcome"
+  ],
+  "code_control_default": "off",
+  "code_control_tracks": [
+    "off",
+    "on (separate score)"
+  ],
+  "official_trained_baseline": false,
+  "official_physics_equivalence": false,
+  "source_hashes": {
+    "fixed_rally_opponent.py": "619633416cf4cbd8c196fad4fe2dde5884213f21c7845c81bf43700233e0d8d9",
+    "scripted_opponent.py": "2414ea67087025c49f5cd49567fd8f55ed20bffa8fa43397fb0cf8f9f8df448a"
+  },
+  "observation": {
+    "condition": "native symmetric 37D actor state",
+    "own_player_only": true,
+    "review_camera_exposed": false,
+    "history": {
+      "previous_observations": 4,
+      "interval": 2,
+      "unit": "tool observation, not physics tick"
+    }
+  },
+  "tools": {
+    "observe": {
+      "physics_steps": 0
+    },
+    "apply_action": {
+      "dimension": 4,
+      "minimum_steps": 1,
+      "maximum_steps": 50,
+      "semantics": "absolute normalized rotor targets [-1,1], held for requested steps"
+    },
+    "coding_control": {
+      "optional": true,
+      "maximum_steps": 250,
+      "feedback_dt": 0.02,
+      "semantics": "model-written callback returns only native rotor actions"
+    }
+  },
+  "source_codex": true,
+  "simulator": "local Docker",
+  "physics_paused_during_reasoning": true,
+  "rule_source": "checkout/volley_bots/envs/competitive/utils/rules.py::determine_game_result",
+  "opponent_player": 0,
+  "previous_protocol": "volleybots-fixed-rally-v1 (Codex/player0 served; scores must not be pooled)",
+  "clock_start": "native reset; opponent serves during the same 1000-step episode; no extra uncounted warmup"
+}

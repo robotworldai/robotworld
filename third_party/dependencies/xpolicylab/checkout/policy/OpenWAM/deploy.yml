@@ -1,0 +1,40 @@
+policy_name: OpenWAM
+protocol: ws
+# True batch inference: the Isaac client runs num_envs (sim_config.yml, default
+# 10) parallel envs; get_action_batch stacks every running env into ONE
+# engine.generate_batch forward pass.
+eval_batch: true
+
+# Server transport: overridden by setup_eval_policy_server.sh per launch.
+port: null
+host: localhost
+
+# Identifiers + per-launch wiring (set via --overrides from the eval scripts).
+bench_name: null
+task_name: null
+ckpt_name: null
+env_cfg_type: null
+action_type: ee
+action_dim: null
+seed: 42
+gpu_id: null
+
+# --- OpenWAM-specific keys (resolved in setup_eval_policy_server.sh) ---
+# OpenWAM source root. null -> the vendored copy at policy/OpenWAM/OpenWAM/.
+openwam_root: null
+# Checkpoint dir containing config.yaml + checkpoint_step_*.safetensors
+# + normalization_stats.npy (+ tokenizer/). null -> XPolicyLab checkpoints/
+# resolution (explicit path, 5-tuple run dir, or checkpoints/<ckpt_name>).
+ckpt_dir: null
+# OpenWAM deploy hyperparameters yaml. null -> <openwam_root>/configs/deploy.yaml;
+# model.py force-overrides dit_cache/compile/decode_video off + sync regardless.
+openwam_deploy_config: null
+device: cuda
+
+# Actions executed per generated chunk before the client requests a new one.
+# null -> OpenWAM inference.inference_horizon (null there = full 32-step chunk).
+replan_steps: null
+default_instruction: follow the instruction
+# true skips checkpoint loading and returns hold-position chunks (protocol
+# debugging only; never valid for a real evaluation).
+allow_dummy_policy: false

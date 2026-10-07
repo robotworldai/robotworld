@@ -1,0 +1,3538 @@
+//! AppEvent dispatch for the TUI app.
+//!
+//! This module contains the exhaustive `AppEvent` dispatcher and exit-mode handling. Large domain
+//! actions are delegated to focused app submodules so the central match remains the routing layer.
+
+use super::rate_limit_refresh::RateLimitReadStatus;
+use super::rate_limit_refresh::RateLimitRefreshOutcome;
+use super::resize_reflow::trailing_run_start;
+use super::session_lifecycle::ThreadAttachPresentation;
+use super::*;
+use crate::app_event::RecapTrigger;
+use crate::app_event::ThreadTitleDestination;
+use crate::app_server_session::ForkGoalContinuation;
+use crate::app_server_session::UnsupportedLegacyPermissionProfile;
+use crate::app_server_session::turn_permissions_overrides;
+use crate::config_update::format_config_error;
+use crate::external_agent_config_migration::flow::ExternalAgentConfigMigrationFlowOutcome;
+use crate::pager_overlay::TranscriptHistoryState;
+use crate::session_resume::cwds_differ;
+use codex_app_server_client::AppServerEvent;
+use codex_app_server_protocol::ThreadGoalStatus;
+#[cfg(target_os = "windows")]
+use codex_app_server_protocol::WindowsSandboxSetupMode;
+
+pub(super) const SHUTDOWN_FIRST_EXIT_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 2);
+
+impl App {
+    pub(crate) async fn handle_event(
+        &mut self,
+        tui: &mut tui::Tui,
+        app_server: &mut AppServerSession,
+        event: AppEvent,
+    ) -> Result<AppRunControl> {
+        // Release the shortcut's input guard even when a fork is rejected below.
+        if matches!(event, AppEvent::ForkCurrentSession { .. }) {
+            self.chat_widget.fork_in_progress = false;
+        }
+        if self.reconnect.offline
+            && !matches!(
+                &event,
+                AppEvent::OpenDaemonMenu
+                    | AppEvent::OpenWarnings
+                    | AppEvent::CopyWarning(_)
+                    | AppEvent::CopySelection { .. }
+                    | AppEvent::ConfirmDaemonUpdate(_)
+                    | AppEvent::RunDaemonUpdate(_)
+                    | AppEvent::InsertHistoryCell(_)
+                    | AppEvent::CommitRealtimeTranscriptHistory
+                    | AppEvent::ResetTranscriptForThreadSwitch
+                    | AppEvent::FinishPromptRevert { .. }
+                    | AppEvent::PromptSuggestionStarted { .. }
+                    | AppEvent::PromptSuggestionFinished { .. }
+                    | AppEvent::ManagedWorktreeCreated(_)
+                    | AppEvent::AgentsOverviewWorktreeCreated(_)
+                    | AppEvent::AppendMessageHistoryEntry { .. }
+                    | AppEvent::BeginInitialHistoryReplayBuffer
+                    | AppEvent::BeginThreadSwitchHistoryReplayBuffer
+                    | AppEvent::EndInitialHistoryReplayBuffer
+                    | AppEvent::FatalExitRequest(_)
+            )
+        {
+            return Ok(AppRunControl::Continue);
+        }
+        if matches!(
+            &event,
+            AppEvent::OpenWindowsSandboxEnablePrompt { .. }
+                | AppEvent::OpenWindowsSandboxFallbackPrompt { .. }
+                | AppEvent::BeginWindowsSandboxElevatedSetup { .. }
+                | AppEvent::BeginWindowsSandboxLegacySetup { .. }
+                | AppEvent::EnableWindowsSandboxForAgentMode { .. }
+        ) && !self.windows_sandbox_setup_is_local()
+        {
+            if matches!(
+                &event,
+                AppEvent::OpenWindowsSandboxFallbackPrompt { .. }
+                    | AppEvent::EnableWindowsSandboxForAgentMode { .. }
+            ) {
+                self.chat_widget.clear_windows_sandbox_setup_status();
+            }
+            self.chat_widget.add_info_message(
+                "Windows sandbox setup requires local connections and executors.".to_string(),
+                /*hint*/ None,
+            );
+            return Ok(AppRunControl::Continue);
+        }
+        if self.chat_widget.has_misalignment_policy_violation()
+            && matches!(
+                event,
+                AppEvent::OpenAgentPicker
+                    | AppEvent::SelectAgentThread(_)
+                    | AppEvent::StartSide { .. }
+                    | AppEvent::ForkCurrentSession { .. }
+                    | AppEvent::StartManagedWorktree {
+                        mode: crate::app_event::ManagedWorktreeMode::Fork,
+                        ..
+                    }
+                    | AppEvent::RevertSessionForPromptEdit { .. }
+                    | AppEvent::SetThreadGoalDraft { .. }
+                    | AppEvent::SetThreadGoalStatus {
+                        status: ThreadGoalStatus::Active,
+                        ..
+                    }
+            )
+        {
+            return Ok(AppRunControl::Continue);
+        }
+
+        // Keep the picker check and model update in one event without recursively polling this
+        // large dispatcher on the TUI thread's stack.
+        let (event, sparkle_model) = match event {
+            AppEvent::AstraSelectedFromModelPicker {
+                thread_id,
+                model,
+                action,
+            } => {
+                let should_offer = self.chat_widget.current_model() != model
+                    && self.chat_widget.sparkle_thread_for_picker_action(&model) == Some(thread_id);
+                let next_event = action.into_app_event(model.clone());
+                (next_event, should_offer.then_some(model))
+            }
+            event => (event, None),
+        };
+        match event {
+            AppEvent::OpenDaemonMenu => self.open_daemon_menu(),
+            AppEvent::ConfirmDaemonUpdate(source) => self.confirm_daemon_update(source),
+            AppEvent::RunDaemonUpdate(source) => {
+                self.pending_update_action = Some(UpdateAction::Daemon(source));
+                return Ok(self.handle_exit_mode(app_server, ExitMode::Immediate).await);
+            }
+            AppEvent::UserVerificationApproved { thread_id, server_name, request_id } => {
+                Box::pin(self.start_user_verification(app_server, thread_id, server_name, request_id)).await?;
+            }
+            AppEvent::UserVerificationFinished { thread_id, server_name, request_id, attempt_id, result } => {
+                // Keep this RPC future out of the event loop's stack frame.
+                Box::pin(self.finish_user_verification(app_server, thread_id, server_name, request_id, attempt_id, result)).await?;
+            }
+            AppEvent::ReviewMisalignment(review) => {
+                self.open_misalignment_review(tui, review);
+            }
+            AppEvent::ContinueMisalignment(review) => {
+                self.continue_misalignment(app_server, review).await;
+            }
+            AppEvent::CloseMisalignmentReview => self.chat_widget.show_misalignment_policy_precaution(),
+            AppEvent::SkillsListLoaded { ref cwd, .. }
+                if cwds_differ(cwd, self.config.cwd.as_path()) =>
+            {
+                self.skill_load_warnings.startup_complete = true;
+            }
+            AppEvent::PluginMentionsLoaded { ref cwd, .. }
+                if cwds_differ(cwd, self.config.cwd.as_path()) => {}
+            AppEvent::NewSession { name } => {
+                self.start_fresh_session_with_summary_hint(
+                    tui, app_server, /*session_start_source*/ None,
+                    /*initial_user_message*/ None, name,
+                )
+                .await;
+                if self.chat_widget.has_misalignment_policy_violation() {
+                    self.chat_widget.show_misalignment_policy_precaution();
+                }
+            }
+            AppEvent::StartManagedWorktree { mode, name } => {
+                if self.pending_start_managed_worktree.is_some() {
+                    self.chat_widget
+                        .add_error_message("A worktree is already being created.".to_string());
+                } else {
+                    self.pending_start_managed_worktree = Some((mode, name));
+                }
+            }
+            AppEvent::ManagedWorktreeCreated(created) => {
+                self.pending_managed_worktree_created = Some(created);
+            }
+            AppEvent::BrowseManagedWorktrees => {
+                if let Some(request) = self.chat_widget.request_managed_worktrees() {
+                    crate::worktree_browser::fetch(
+                        request,
+                        self.config.codex_home.to_path_buf(),
+                        app_server.request_handle(),
+                        self.app_event_tx.clone(),
+                    );
+                }
+            }
+            AppEvent::ManagedWorktreesLoaded { request, result } => {
+                self.chat_widget.on_managed_worktrees_loaded(request, result);
+            }
+            AppEvent::ManagedWorktreeAction { request, action } => {
+                if let Some(event) = self.chat_widget.managed_worktree_action(&request, action) {
+                    self.app_event_tx.send(event);
+                }
+            }
+            AppEvent::ShowManagedWorktreeActions { request, entry } => {
+                self.chat_widget.show_managed_worktree_actions(request, entry);
+            }
+            AppEvent::ConfirmManagedWorktreeRemoval { request, root } => {
+                self.chat_widget.confirm_managed_worktree_removal(request, root);
+            }
+            AppEvent::RemoveManagedWorktree { request, root } => {
+                if self.chat_widget.worktree_request_is_current(&request)
+                    && !request.cwd.starts_with(&root)
+                {
+                    let codex_home = self.config.codex_home.to_path_buf();
+                    let tx = self.app_event_tx.clone();
+                    tokio::spawn(async move {
+                        let result = crate::worktree_browser::remove(
+                            codex_home,
+                            request.cwd,
+                            root.clone(),
+                        )
+                        .await
+                        .map_err(|error| error.to_string());
+                        tx.send(AppEvent::ManagedWorktreeRemoved { root, result });
+                    });
+                }
+            }
+            AppEvent::ManagedWorktreeRemoved { root, result } => match result {
+                Ok(()) => self.chat_widget.add_info_message(
+                    format!("Removed worktree at {}. Thread history was kept.", root.display()),
+                    /*hint*/ None,
+                ),
+                Err(error) => self.chat_widget.add_error_message(format!(
+                    "Could not remove worktree at {}: {error}",
+                    root.display()
+                )),
+            },
+            AppEvent::ChangeWorkingDirectory {
+                thread_id,
+                requested_cwd,
+            } => {
+                if self.pending_working_directory_change.is_some()
+                    || self.primary_thread_id != Some(thread_id)
+                    || !self.chat_widget.can_change_working_directory(thread_id)
+                {
+                    self.chat_widget.add_error_message(
+                        "Changing directories requires an idle primary session without queued input."
+                            .to_string(),
+                    );
+                } else if crate::uses_remote_workspace_or_environment(
+                    &self.app_server_target,
+                    self.environment_manager.as_ref(),
+                ) {
+                    self.chat_widget.add_error_message(
+                        "Changing directories is not supported for remote workspaces or remote execution environments."
+                            .to_string(),
+                    );
+                } else {
+                    let cwd = AbsolutePathBuf::resolve_path_against_base(
+                        requested_cwd.as_path(),
+                        self.chat_widget.config_ref().cwd.as_path(),
+                    );
+                    match std::fs::metadata(cwd.as_path()) {
+                        Ok(metadata) if metadata.is_dir() => {
+                            self.pending_working_directory_change =
+                                Some(working_directory::PendingWorkingDirectoryChange {
+                                    source_thread_id: thread_id,
+                                    source_cwd: self.config.cwd.clone(),
+                                    destination: cwd,
+                                });
+                        }
+                        Ok(_) => self
+                            .chat_widget
+                            .add_error_message(format!("Not a directory: {}", cwd.display())),
+                        Err(error) => self.chat_widget.add_error_message(format!(
+                            "Cannot access directory {}: {error}",
+                            cwd.display()
+                        )),
+                    }
+                }
+            }
+            AppEvent::StartupThreadStarted { result } => {
+                self.handle_startup_thread_started(app_server, result)
+                    .await?;
+            }
+            AppEvent::DynamicToolThreadStarted {
+                thread,
+                task_tools_available,
+                registered,
+            } => {
+                let Ok(thread_id) = ThreadId::from_string(&thread.id) else {
+                    return Ok(AppRunControl::Continue);
+                };
+                self.agents_overview
+                    .dispatched_requests
+                    .entry(thread_id)
+                    .or_default();
+                if task_tools_available {
+                    app_server.remember_task_tool_thread(thread_id);
+                }
+                // Fallback metadata must not replay after fresh reads or newer notifications.
+                if !thread.ephemeral
+                    && !self.agents_overview.removed_threads.contains(&thread_id)
+                    && !self.agents_overview.threads.get(&thread_id).is_some_and(Option::is_some) {
+                    self.agents_overview.threads.insert(thread_id, Some(thread));
+                    self.agents_overview.refresh_thread_ids.insert(thread_id);
+                }
+                self.refresh_changed_agents_overview_threads(app_server);
+                self.repaint_agents_overview();
+                let _ = registered.send(());
+            }
+            AppEvent::DynamicToolCallCompleted {
+                request_id,
+                response,
+            } => {
+                self.dynamic_tool_tasks.remove(&request_id);
+                match serde_json::to_value(response) {
+                    Ok(result) => {
+                        if let Err(error) = app_server
+                            .resolve_server_request(request_id.clone(), result)
+                            .await
+                        {
+                            tracing::warn!(?request_id, %error, "failed to resolve dynamic tool call");
+                        }
+                    }
+                    Err(error) => {
+                        tracing::warn!(?request_id, %error, "failed to serialize dynamic tool response");
+                    }
+                }
+            }
+            AppEvent::TaskToolsAvailable { thread_id } => {
+                app_server.remember_task_tool_thread(thread_id);
+            }
+            AppEvent::RequestOlderScrollbackHistory { thread_id } => {
+                if self.chat_widget.thread_id() == Some(thread_id)
+                    && self.overlay.is_none()
+                    && self.scrollback_has_older_history
+                {
+                    self.request_older_history_page(app_server, thread_id);
+                }
+            }
+            AppEvent::OlderThreadHistoryLoaded {
+                thread_id,
+                cursor,
+                result,
+            } => {
+                if let Err(err) = self
+                    .handle_older_history_page(tui, app_server, thread_id, &cursor, result)
+                    .await
+                {
+                    app_server.cancel_older_history_page(thread_id, &cursor);
+                    if self.chat_widget.thread_id() == Some(thread_id) {
+                        self.transcript_view.history = TranscriptHistoryState::Failed;
+                        if let Some(Overlay::Transcript(overlay)) = self.overlay.as_mut() {
+                            overlay.set_history_state(TranscriptHistoryState::Failed);
+                        }
+                        tui.frame_requester().schedule_frame();
+                    }
+                    tracing::warn!(%thread_id, error = %err, "failed to load older transcript history");
+                }
+            }
+            AppEvent::OpenWarnings => self.chat_widget.open_warnings(&self.transcript_cells),
+            AppEvent::CopyWarning(text) => {
+                let result = tui.copy_transcript_selection(&text, crate::clipboard_copy::CopyFormat::PlainText);
+                self.chat_widget.show_selection_copy_result(result);
+            }
+            AppEvent::OpenTranscriptExportFilePrompt => {
+                self.chat_widget.show_transcript_export_file_prompt();
+            }
+            AppEvent::ExportTranscript { destination } => {
+                if let Err(error) = self.export_transcript(tui, app_server, destination).await {
+                    self.chat_widget
+                        .add_error_message(format!("Export failed: {error}"));
+                }
+                if self.chat_widget.no_modal_or_popup_active() {
+                    self.chat_widget
+                        .set_queue_autosend_suppressed(/*suppressed*/ false);
+                    self.chat_widget.maybe_send_next_queued_input();
+                }
+            }
+            AppEvent::CopySelection { text, label, format } => {
+                let result = tui.clipboard.copy(text, format, tui.frame_requester());
+                self.chat_widget.show_copy_result(&label, result);
+            }
+            AppEvent::ClearUi { name } => {
+                if self.reject_pending_permission_root_switch() {
+                    return Ok(AppRunControl::Continue);
+                }
+                self.clear_terminal_ui(tui, /*redraw_header*/ false)?;
+                self.reset_app_ui_state_after_clear();
+
+                self.start_fresh_session_with_summary_hint(
+                    tui,
+                    app_server,
+                    Some(ThreadStartSource::Clear),
+                    /*initial_user_message*/ None,
+                    name,
+                )
+                .await;
+            }
+            AppEvent::RawOutputModeChanged { enabled } => {
+                self.apply_raw_output_mode(tui, enabled, /*notify*/ false);
+            }
+            AppEvent::ClearUiAndSubmitUserMessage { text } => {
+                if self.reject_pending_permission_root_switch() {
+                    self.chat_widget.restore_user_message_to_composer(text.into());
+                    return Ok(AppRunControl::Continue);
+                }
+                self.clear_terminal_ui(tui, /*redraw_header*/ false)?;
+                self.reset_app_ui_state_after_clear();
+
+                self.start_fresh_session_with_summary_hint(
+                    tui,
+                    app_server,
+                    Some(ThreadStartSource::Clear),
+                    crate::chatwidget::create_initial_user_message(
+                        Some(text),
+                        Vec::new(),
+                        Vec::new(),
+                    ),
+                    /*new_thread_name*/ None,
+                )
+                .await;
+            }
+            AppEvent::OpenResumePicker => {
+                self.pending_open_resume_picker = true;
+            }
+            AppEvent::OpenExternalAgentConfigMigration => {
+                let cwd = if self.chat_widget.thread_id().is_some()
+                    || !app_server.uses_remote_workspace()
+                {
+                    Some(self.chat_widget.config_ref().cwd.to_path_buf())
+                } else {
+                    app_server.remote_cwd_override().map(Path::to_path_buf)
+                };
+                match crate::external_agent_config_migration::flow::handle_external_agent_config_migration_prompt(
+                    tui,
+                    app_server,
+                    cwd.as_deref(),
+                )
+                .await
+                {
+                    Ok(ExternalAgentConfigMigrationFlowOutcome::Started(lines)) => {
+                        self.chat_widget.add_plain_history_lines(lines);
+                    }
+                    Ok(ExternalAgentConfigMigrationFlowOutcome::NoItems) => {
+                        self.chat_widget.add_info_message(
+                            crate::external_agent_config_migration::flow::EXTERNAL_AGENT_CONFIG_MIGRATION_NO_ITEMS_MESSAGE
+                                .to_string(),
+                            /*hint*/ None,
+                        );
+                    }
+                    Ok(ExternalAgentConfigMigrationFlowOutcome::Cancelled) => {}
+                    Ok(ExternalAgentConfigMigrationFlowOutcome::TerminalError(err)) => {
+                        return Err(err.into());
+                    }
+                    Err(error_message) => {
+                        self.chat_widget.add_error_message(error_message);
+                    }
+                }
+                tui.frame_requester().schedule_frame();
+            }
+            AppEvent::ResumeSessionByIdOrName(id_or_name) => {
+                match crate::lookup_session_target_with_app_server(
+                    app_server,
+                    &self.config,
+                    &id_or_name,
+                )
+                .await
+                {
+                    Ok(Some(target_session)) => {
+                        return self
+                            .resume_target_session(tui, app_server, target_session)
+                            .await;
+                    }
+                    Ok(None) => {
+                        self.chat_widget.add_error_message(format!(
+                            "No saved chat found matching '{id_or_name}'."
+                        ));
+                    }
+                    Err(err)
+                        if err
+                            .downcast_ref::<crate::named_session_lookup::AmbiguousSessionName>()
+                            .is_some() =>
+                    {
+                        self.chat_widget.add_error_message(err.to_string());
+                    }
+                    Err(err) => return Err(err),
+                }
+            }
+            AppEvent::ArchiveCurrentThread => {
+                return self.archive_current_thread(tui, app_server).await;
+            }
+            AppEvent::DeleteCurrentThread => {
+                return self.delete_current_thread(tui, app_server).await;
+            }
+            AppEvent::ForkCurrentSession { name } => {
+                let from_locked_thread = self.chat_widget.is_external_writer_view();
+                let source = if from_locked_thread {
+                    "locked_thread_shortcut"
+                } else {
+                    "slash_command"
+                };
+                self.session_telemetry.counter(
+                    "codex.thread.fork",
+                    /*inc*/ 1,
+                    &[("source", source)],
+                );
+                self.chat_widget
+                    .add_plain_history_lines(vec!["/fork".magenta().into()]);
+                if let Some(thread_id) = self.chat_widget.thread_id() {
+                    if self.pending_server_profiles.contains_key(&thread_id) {
+                        self.chat_widget.add_error_message(
+                            "Wait for permissions to update before forking.".into(),
+                        );
+                        return Ok(AppRunControl::Continue);
+                    }
+                    self.chat_widget.fork_in_progress = true;
+                    // This handler awaits the fork outside the draw loop. Paint before waiting.
+                    let screen_size = tui.terminal.last_known_screen_size;
+                    self.handle_draw_pre_render(tui, screen_size)?;
+                    self.chat_widget.pre_draw_tick();
+                    self.render_chat_widget_frame(tui, screen_size)?;
+                    self.refresh_in_memory_config_from_disk_best_effort("forking the thread")
+                        .await;
+                    let mut fork_config = self.config.clone();
+                    if app_server.uses_remote_workspace() {
+                        fork_config.workspace_roots.clone_from(
+                            &self.chat_widget.config_ref().workspace_roots,
+                        );
+                    }
+                    fork_config.model = Some(self.chat_widget.current_model().to_string());
+                    fork_config.model_reasoning_effort =
+                        self.chat_widget.current_reasoning_effort();
+                    let selected_profile = self.confirmed_server_profile(thread_id);
+                    match app_server.fork_thread_at(
+                        &self.local_settings,
+                        fork_config,
+                        thread_id,
+                        /*last_turn_id*/ None,
+                        /*before_turn_id*/ None,
+                        ForkGoalContinuation::StartIfIdle,
+                        selected_profile.as_ref(),
+                    ).await {
+                        Ok(mut forked) => {
+                            let retained_input = from_locked_thread
+                                .then(|| self.chat_widget.capture_thread_input_state())
+                                .flatten();
+                            let name_error = if let Some(name) = name {
+                                match app_server
+                                    .thread_set_name(forked.session.thread_id, name.clone())
+                                    .await
+                                {
+                                    Ok(()) => {
+                                        forked.session.thread_name = Some(name);
+                                        None
+                                    }
+                                    Err(err) => {
+                                        Some(format!("Failed to name the forked session: {err}"))
+                                    }
+                                }
+                            } else {
+                                None
+                            };
+                            self.detach_current_thread_for_navigation(app_server, Some(forked.session.thread_id)).await;
+                            match self
+                                .replace_chat_widget_with_app_server_thread(
+                                    tui,
+                                    forked,
+                                    ThreadAttachPresentation::SessionLineage,
+                                    /*initial_user_message*/ None,
+                                )
+                                .await
+                            {
+                                Ok(()) => {
+                                    // Keep local input without replacing the fork's running state.
+                                    self.chat_widget.restore_reconnected_input(retained_input);
+                                    if let Some(err) = name_error {
+                                        self.chat_widget.add_error_message(err);
+                                    }
+                                    self.chat_widget.add_info_message(
+                                        "Fork created. You can continue here.".to_string(),
+                                        /*hint*/ None,
+                                    );
+                                }
+                                Err(err) => {
+                                    self.chat_widget.add_error_message(format!(
+                                        "Failed to attach to forked app-server thread: {err}"
+                                    ));
+                                }
+                            }
+                        }
+                        Err(err) => {
+                            self.chat_widget.add_error_message(format!(
+                                "Failed to fork current session through the app server: {err}"
+                            ));
+                        }
+                    }
+                    if from_locked_thread {
+                        // Repeated locked-view shortcuts must not act on the resulting view.
+                        if let Err(err) = tui.discard_pending_input_before_interactive_screen() {
+                            tracing::warn!(%err, "failed to discard input after forking");
+                        }
+                        tui.schedule_screen_size_recheck(Duration::ZERO);
+                    }
+                } else {
+                    self.chat_widget.add_error_message(
+                        "A thread must contain at least one turn before it can be forked."
+                            .to_string(),
+                    );
+                }
+
+                self.chat_widget.fork_in_progress = false;
+                self.chat_widget.maybe_send_next_queued_input();
+                tui.frame_requester().schedule_frame();
+            }
+            AppEvent::RevertSessionForPromptEdit {
+                thread_id,
+                selected_cell,
+                mut prompt,
+            } => {
+                if self.chat_widget.thread_id() != Some(thread_id) {
+                    return Ok(AppRunControl::Continue);
+                }
+                if self.app_server_target.uses_remote_workspace()
+                    && (!prompt.local_images.is_empty()
+                        || prompt.text.trim_start().starts_with(['/', '!']))
+                {
+                    self.chat_widget.add_error_message(
+                        "This remote prompt contains local image paths or command syntax that cannot be restored safely. Write a new message and reattach any images.".into(),
+                    );
+                    tui.frame_requester().schedule_frame();
+                    return Ok(AppRunControl::Continue);
+                }
+                if self.pending_server_profiles.contains_key(&thread_id) {
+                    self.chat_widget.restore_user_message_to_composer(prompt);
+                    self.chat_widget.add_error_message(
+                        "Wait for permissions to update before editing this prompt.".into(),
+                    );
+                    tui.frame_requester().schedule_frame();
+                    return Ok(AppRunControl::Continue);
+                }
+                let Some(index) = self.transcript_cells.iter().position(|cell| Arc::ptr_eq(cell, &selected_cell)) else {
+                    self.restore_backtrack_prompt_after_revert_error(prompt, "the selected prompt is no longer visible");
+                    tui.frame_requester().schedule_frame();
+                    return Ok(AppRunControl::Continue);
+                };
+                let nth_user_message = crate::app_backtrack::user_count(&self.transcript_cells[..index]);
+                let selection: Result<(String, Vec<Turn>)> = async {
+                    let channel = self.thread_event_channels.get(&thread_id)
+                        .ok_or_else(|| color_eyre::eyre::eyre!("the selected thread is no longer available"))?;
+                    let (start_item, loaded_tail, latest_turn_id) = {
+                        let store = channel.store.lock().await;
+                        (
+                            store.turns.iter().find_map(|turn| turn.items.first()
+                                .map(|item| (turn.id.clone(), item.id().to_string()))),
+                            store.turns.last().map(|turn| turn.id.clone()),
+                            store.latest_turn_id.clone(),
+                        )
+                    };
+                    let mut thread = app_server.thread_read(thread_id, /*include_turns*/ false).await?;
+                    app_server.hydrate_initial_thread_history(
+                        &mut thread,
+                        /*turn_cursor*/ None,
+                        /*item_cursor*/ None,
+                        /*config*/ None,
+                        /*local_settings*/ None,
+                        start_item.as_ref().map(|(turn_id, _)| turn_id).or(loaded_tail.as_ref()).map_or(
+                            crate::app_server_session::HistoryHydrationScope::Complete,
+                            |turn_id| crate::app_server_session::HistoryHydrationScope::ThroughTurn(turn_id),
+                        ),
+                    ).await?;
+                    if thread.turns.last().map(|turn| &turn.id) != latest_turn_id.as_ref() {
+                        color_eyre::eyre::bail!("thread history changed; reload the session before editing this prompt");
+                    }
+                    // With no retained visible items, the next prompt follows the metadata-only tail.
+                    let start_item = start_item.or_else(|| loaded_tail.as_ref().and_then(|tail| {
+                        thread.turns.iter().position(|turn| &turn.id == tail).and_then(|index| {
+                            thread.turns[index + 1..].iter().find_map(|turn| turn.items.first()
+                                .map(|item| (turn.id.clone(), item.id().to_string())))
+                        })
+                    }));
+                    let before_turn_id = crate::app_backtrack::backtrack_revert_before_turn_id(
+                        &thread.turns,
+                        start_item.as_ref(),
+                        nth_user_message,
+                        &mut prompt,
+                    )?;
+                    // Keep the store aligned with the displayed prefix, including retained live turns.
+                    let cut = thread.turns.iter().position(|turn| turn.id == before_turn_id)
+                        .ok_or_else(|| color_eyre::eyre::eyre!("selected turn disappeared"))?;
+                    thread.turns.truncate(cut);
+                    if let Some((turn_id, item_id)) = &start_item {
+                        for turn in &mut thread.turns {
+                            if &turn.id == turn_id {
+                                if let Some(index) = turn.items.iter().position(|item| item.id() == item_id) {
+                                    turn.items.drain(..index);
+                                }
+                                break;
+                            }
+                            turn.items.clear();
+                        }
+                    }
+                    Ok((before_turn_id, thread.turns))
+                }.await;
+                let (before_turn_id, retained_turns) = match selection {
+                    Ok(selection) => selection,
+                    Err(err) => {
+                        self.restore_backtrack_prompt_after_revert_error(prompt, err);
+                        tui.frame_requester().schedule_frame();
+                        return Ok(AppRunControl::Continue);
+                    }
+                };
+                let reverted = match app_server.revert_thread(thread_id, before_turn_id, &retained_turns).await {
+                    Ok(reverted) => reverted,
+                    Err(err) => {
+                    // Validation and unsupported-method errors leave history unchanged. Other
+                    // failures can arrive after the server has already committed the revert.
+                    if matches!(&err, codex_app_server_client::TypedRequestError::Server { source, .. }
+                        if matches!(source.code, -32602..=-32600)) {
+                        self.restore_backtrack_prompt_after_revert_error(prompt, err);
+                        tui.frame_requester().schedule_frame();
+                        return Ok(AppRunControl::Continue);
+                    }
+                    self.chat_widget.restore_user_message_to_composer(prompt);
+                    return Err(color_eyre::Report::new(err).wrap_err("prompt edit could not be confirmed; resume this session to reload its history"));
+                    }
+                };
+                self.chat_widget.restore_user_message_to_composer(prompt.clone());
+                // Stop on any post-mutation failure: accepting input against the old displayed
+                // transcript would hide the fact that server history has already changed.
+                tokio::time::timeout(Duration::from_secs(/*secs*/ 10), async {
+                    while let Some(event) = app_server.next_event().await {
+                        let is_reverted = matches!(
+                            &event,
+                            AppServerEvent::ServerNotification(notification)
+                                if matches!(notification.as_ref(), ServerNotification::ThreadReverted(notification)
+                                    if notification.thread_id == thread_id.to_string())
+                        );
+                        self.handle_app_server_event(app_server, event).await;
+                        if is_reverted {
+                            return Ok(());
+                        }
+                    }
+                    Err(color_eyre::eyre::eyre!("app-server disconnected"))
+                }).await
+                    .wrap_err("history was reverted, but refreshing the session timed out; resume this session to reload it")??;
+                // Preserve the widget and unrelated threads; only replace this replay store.
+                self.chat_widget.restore_thread_input_state(
+                    /*input_state*/ None,
+                    crate::chatwidget::ThreadInputStateRestoreMode { preserve_in_flight_turn: false },
+                );
+                self.chat_widget.restore_user_message_to_composer(prompt);
+                self.chat_widget.set_queue_autosend_suppressed(/*suppressed*/ true);
+                self.abort_thread_event_listener(thread_id);
+                if let Some(mut rx) = self.active_thread_rx.take() {
+                    while let Ok(event) = rx.try_recv() {
+                        if let ThreadBufferedEvent::Notification(notification) = event {
+                            self.chat_widget.handle_server_notification(*notification, Some(ReplayKind::ThreadSnapshot));
+                        }
+                    }
+                }
+                let mut session = self.thread_event_channels.get(&thread_id)
+                    .ok_or_else(|| color_eyre::eyre::eyre!("reverted thread is no longer available"))?
+                    .store.lock().await.session.clone()
+                    .ok_or_else(|| color_eyre::eyre::eyre!("reverted thread has no session"))?;
+                session.rollout_path = reverted.thread.path.clone();
+                if self.primary_thread_id == Some(thread_id) {
+                    self.primary_session_configured = Some(session.clone());
+                }
+                self.thread_event_channels.remove(&thread_id);
+                self.active_thread_id = None;
+                self.recap.reset_for_new_thread(Instant::now());
+                self.recap.seed_from_turns(&retained_turns, Instant::now());
+                self.retain_realtime_replay_state_before_replace();
+                self.forget_realtime_replay_thread(thread_id);
+                self.chat_widget.reset_after_prompt_revert(reverted.thread.path, &retained_turns);
+                self.ensure_thread_channel(thread_id).store.lock().await
+                    .set_session(session, retained_turns);
+                self.activate_thread_channel(thread_id).await;
+                // Apply the trim after any transcript inserts produced by shutdown notifications.
+                // The existing reset barrier keeps terminal input blocked until then.
+                self.pending_thread_switch_resets += 1;
+                self.app_event_tx.send(AppEvent::FinishPromptRevert {
+                    thread_id, nth_user_message,
+                });
+            }
+            AppEvent::FinishPromptRevert { thread_id, nth_user_message } => {
+                self.pending_thread_switch_resets -= 1;
+                if self.chat_widget.thread_id() == Some(thread_id) {
+                    if let Some(index) = crate::app_backtrack::nth_user_position(&self.transcript_cells, nth_user_message) {
+                        self.transcript_cells.truncate(index);
+                self.native_history.retain(&self.transcript_cells);
+                    }
+                    self.transcript_view = Default::default();
+                    self.scrollback_has_older_history = app_server.has_older_history(thread_id);
+                    self.deferred_history_lines.clear();
+                    self.last_rendered_history_tail = None;
+                    self.last_thread_usage_status_cell = None;
+                    self.pending_thread_usage_history_refresh = false;
+                    self.backtrack_render_pending = !tui.is_owned_screen();
+                    self.chat_widget.set_queue_autosend_suppressed(/*suppressed*/ false);
+                    self.chat_widget.emit_prompt_edit_thread_event();
+                    tui.frame_requester().schedule_frame();
+                }
+            }
+            AppEvent::BeginInitialHistoryReplayBuffer => {
+                self.begin_initial_history_replay_buffer();
+            }
+            AppEvent::BeginThreadSwitchHistoryReplayBuffer => {
+                self.begin_thread_switch_history_replay_buffer();
+            }
+            AppEvent::ResetTranscriptForThreadSwitch => {
+                self.reset_for_thread_switch(tui)?;
+                self.pending_thread_switch_resets -= 1;
+            }
+            AppEvent::CommitRealtimeTranscriptHistory => {
+                for cell in self.chat_widget.take_realtime_transcript_history() {
+                    self.insert_history_cell(tui, cell);
+                }
+            }
+            AppEvent::FollowTranscript => {
+                self.transcript_view.jump_to_latest();
+                tui.frame_requester().schedule_frame();
+            }
+            AppEvent::InsertHistoryCell(cell) => {
+                self.insert_history_cell(tui, cell);
+            }
+            AppEvent::EndInitialHistoryReplayBuffer => {
+                self.scrollback_has_older_history = self
+                    .chat_widget
+                    .thread_id()
+                    .is_some_and(|thread_id| app_server.has_older_history(thread_id));
+                if tui.is_owned_screen() {
+                    self.transcript_view.history = if self.scrollback_has_older_history { TranscriptHistoryState::Partial } else { TranscriptHistoryState::Complete };
+                }
+                self.finish_initial_history_replay_buffer(tui);
+            }
+            AppEvent::ConsolidateAgentMessage {
+                source,
+                cwd,
+                inline_visualization_context,
+                scrollback_reflow,
+                deferred_history_cell,
+            } => {
+                self.handle_consolidate_agent_message(
+                    tui,
+                    source,
+                    cwd,
+                    inline_visualization_context,
+                    scrollback_reflow,
+                    deferred_history_cell,
+                )?;
+                self.chat_widget.note_stream_consolidation_completed();
+                self.insert_pending_usage_output_after_stream_shutdown(tui);
+            }
+            AppEvent::ConsolidateProposedPlan(source) => {
+                let end = self.transcript_cells.len();
+                let start = trailing_run_start::<history_cell::ProposedPlanStreamCell>(
+                    &self.transcript_cells,
+                );
+                let consolidated: Arc<dyn HistoryCell> =
+                    Arc::new(history_cell::new_proposed_plan(source, &self.config.cwd));
+
+                if start < end {
+                    self.native_history.consolidate(&self.transcript_cells[start..end], &consolidated);
+                    if tui.is_owned_screen() {
+                        self.transcript_view.replace_group(&self.transcript_cells, start..end, &consolidated);
+                    } else {
+                        self.transcript_view.replace_range(&self.transcript_cells, start..end, &consolidated);
+                    }
+                    self.transcript_cells
+                        .splice(start..end, std::iter::once(consolidated.clone()));
+
+                    if let Some(Overlay::Transcript(t)) = &mut self.overlay {
+                        t.regroup_cells(start..end, consolidated.clone());
+                        tui.frame_requester().schedule_frame();
+                    }
+
+                    self.finish_required_stream_reflow(tui)?;
+                } else {
+                    let deferred = tui.is_owned_screen() || self.native_history.insert(&consolidated);
+                    self.transcript_cells.push(consolidated.clone());
+                    if let Some(Overlay::Transcript(t)) = &mut self.overlay {
+                        t.insert_cell(consolidated.clone());
+                        tui.frame_requester().schedule_frame();
+                    }
+                    self.render_inserted_history_cell(tui, &consolidated, deferred);
+
+                    self.maybe_finish_stream_reflow(tui)?;
+                }
+                self.chat_widget.note_stream_consolidation_completed();
+                self.insert_pending_usage_output_after_stream_shutdown(tui);
+            }
+            AppEvent::StartCommitAnimation => {
+                self.commit_animation.get_or_insert_with(|| {
+                    let mut interval = tokio::time::interval_at(
+                        tokio::time::Instant::now() + COMMIT_ANIMATION_TICK,
+                        COMMIT_ANIMATION_TICK,
+                    );
+                    interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
+                    interval
+                });
+            }
+            AppEvent::StopCommitAnimation => {
+                self.commit_animation = None;
+            }
+            AppEvent::Exit(mode) => {
+                if matches!(mode, ExitMode::ShutdownFirst | ExitMode::ShutdownAfterInterrupt) {
+                    self.show_shutdown_feedback(tui)?;
+                }
+                return Ok(self.handle_exit_mode(app_server, mode).await);
+            }
+            AppEvent::RunningTaskExit { action, thread_id } => match action {
+                RunningTaskExitAction::RunInBackground => {
+                    return Ok(self.handle_exit_mode(app_server, ExitMode::Immediate).await);
+                }
+                RunningTaskExitAction::CancelTask => {
+                    if self.chat_widget.thread_id() == Some(thread_id)
+                        && self.chat_widget.is_agent_turn_running()
+                        && self.chat_widget.submit_op(AppCommand::interrupt())
+                    {
+                        self.chat_widget.pause_active_goal_for_interrupt();
+                    } else if self.side_threads.contains_key(&thread_id)
+                        && let Err(error) = self
+                            .try_submit_active_thread_op_via_app_server(
+                                app_server,
+                                thread_id,
+                                &AppCommand::interrupt(),
+                            )
+                            .await
+                    {
+                        self.chat_widget
+                            .add_error_message(format!("Failed to interrupt task: {error}"));
+                    }
+                }
+                RunningTaskExitAction::Exit => {
+                    if self.chat_widget.thread_id() == Some(thread_id)
+                        && self.chat_widget.is_active_goal_turn_running()
+                        && let Err(error) = app_server
+                            .thread_goal_set(
+                                thread_id,
+                                /*objective*/ None,
+                                Some(codex_app_server_protocol::ThreadGoalStatus::Paused),
+                                /*token_budget*/ None,
+                            )
+                            .await
+                    {
+                        self.chat_widget
+                            .add_error_message(format!("Failed to pause task goal: {error}"));
+                        return Ok(AppRunControl::Continue);
+                    }
+                    let turn_id = self
+                        .active_turn_id_for_thread(thread_id)
+                        .await
+                        .unwrap_or_default();
+                    match app_server.turn_interrupt(thread_id, turn_id).await {
+                        Ok(()) => {
+                            self.app_event_tx
+                                .send(AppEvent::Exit(ExitMode::ShutdownAfterInterrupt));
+                        }
+                        Err(error) => {
+                            self.chat_widget
+                                .add_error_message(format!("Failed to interrupt task: {error}"));
+                        }
+                    }
+                }
+            },
+            AppEvent::Logout => match app_server.logout_account().await {
+                Ok(()) => {
+                    self.show_shutdown_feedback(tui)?;
+                    return Ok(self
+                        .handle_exit_mode(app_server, ExitMode::ShutdownFirst)
+                        .await);
+                }
+                Err(err) => {
+                    tracing::error!("failed to logout: {err}");
+                    self.chat_widget
+                        .add_error_message(format!("Logout failed: {err}"));
+                }
+            },
+            AppEvent::FatalExitRequest(message) => {
+                return Ok(AppRunControl::Exit(ExitReason::Fatal(message)));
+            }
+            AppEvent::ImagesPrepared(id) => {
+                self.chat_widget.on_images_prepared(id);
+            }
+            AppEvent::CodexOp(mut op) => {
+                if let AppCommand::OverrideTurnContext {
+                    cwd,
+                    approval_policy,
+                    approvals_reviewer,
+                    permission_profile,
+                    active_permission_profile,
+                    ..
+                } = &op
+                    && (cwd.is_some()
+                        || approval_policy.is_some()
+                        || approvals_reviewer.is_some()
+                        || permission_profile.is_some()
+                        || active_permission_profile.is_some())
+                    && self.reject_pending_permission_change()
+                {
+                    return Ok(AppRunControl::Continue);
+                }
+                if self.active_thread_id == self.chat_widget.thread_id() {
+                    if matches!(&op, AppCommand::UserTurn { .. })
+                        && self.chat_widget.defer_pending_turn_for_luna_reserve()
+                    {
+                        return Ok(AppRunControl::Continue);
+                    }
+                    self.chat_widget
+                        .apply_reserve_fallback_to_pending_turn(&mut op);
+                }
+                let is_user_turn = matches!(&op, AppCommand::UserTurn { .. });
+                let is_realtime_stop = matches!(&op, AppCommand::RealtimeConversationStop { .. });
+                let realtime_stop_thread_id = match &op {
+                    AppCommand::RealtimeConversationStop { thread_id } => Some(*thread_id),
+                    _ => None,
+                };
+                let realtime_speech_delivery_id = match &op {
+                    AppCommand::RealtimeConversationSpeech { delivery_id, .. } => {
+                        Some(*delivery_id)
+                    }
+                    _ => None,
+                };
+                let is_realtime_conversation = matches!(
+                    &op,
+                    AppCommand::RealtimeConversationStart { .. }
+                        | AppCommand::RealtimeConversationStop { .. }
+                        | AppCommand::RealtimeConversationSpeech { .. }
+                );
+                if is_user_turn {
+                    let screen_size = tui.terminal.last_known_screen_size;
+                    self.handle_draw_pre_render(tui, screen_size)?;
+                    if self.transcript_reflow.has_pending_reflow() {
+                        self.transcript_reflow.schedule_immediate();
+                        self.maybe_run_resize_reflow(tui, screen_size)?;
+                    }
+                    self.chat_widget.pre_draw_tick();
+                    self.render_chat_widget_frame(tui, screen_size)?;
+                }
+                let parked_voice = match &op {
+                    AppCommand::RealtimeConversationStart { thread_id, .. }
+                    | AppCommand::RealtimeConversationStop { thread_id }
+                    | AppCommand::RealtimeConversationSpeech { thread_id, .. } => self
+                        .background_voice
+                        .as_ref()
+                        .is_some_and(|owner| owner.thread_id() == Some(*thread_id)),
+                    _ => false,
+                };
+                let visible_thread = self.active_thread_id;
+                if parked_voice
+                    && let Some(owner) = self.background_voice.as_mut()
+                {
+                    std::mem::swap(&mut self.chat_widget, owner);
+                    self.active_thread_id = self.chat_widget.thread_id();
+                }
+                self.chat_widget.prepare_local_op_submission(&op);
+                let result = self.submit_active_thread_op(app_server, op).await;
+                if result.is_err()
+                    && let Some(delivery_id) = realtime_speech_delivery_id
+                {
+                    self.chat_widget.restore_undelivered_realtime_speech(delivery_id);
+                }
+                if parked_voice
+                    && let Some(owner) = self.background_voice.as_mut()
+                {
+                    std::mem::swap(&mut self.chat_widget, owner);
+                    self.active_thread_id = visible_thread;
+                }
+                if let Err(err) = result {
+                    if self.recover_transport_error(&err) {
+                        return Ok(AppRunControl::Continue);
+                    }
+                    let chat_widget = match self.background_voice.as_deref_mut() {
+                        Some(owner) if parked_voice => owner,
+                        _ => &mut self.chat_widget,
+                    };
+                    let unsupported_permissions = err
+                        .downcast_ref::<UnsupportedLegacyPermissionProfile>()
+                        .is_some();
+                    if unsupported_permissions {
+                        chat_widget
+                            .set_queue_autosend_suppressed(/*suppressed*/ true);
+                    }
+                    let handled = is_user_turn
+                        && (matches!(
+                            err.downcast_ref::<TypedRequestError>(),
+                            Some(TypedRequestError::Server { method, .. })
+                                if method == "turn/start"
+                        ) || unsupported_permissions)
+                        && chat_widget
+                            .handle_turn_start_rejection(format!("Failed to start turn: {err:#}"));
+                    if is_realtime_conversation {
+                        let message = format!("Voice conversation failed: {err:#}");
+                        if is_realtime_stop {
+                            if chat_widget.thread_id() == realtime_stop_thread_id {
+                                chat_widget.record_realtime_failure();
+                                chat_widget.reset_realtime_conversation();
+                                chat_widget.add_realtime_error(message);
+                            }
+                        } else {
+                            chat_widget.on_realtime_error(message);
+                        }
+                        tracing::error!(error = ?err, "realtime conversation request failed");
+                    } else if handled {
+                        tracing::error!(error = ?err, "failed to start turn through app server");
+                    } else {
+                        return Err(err);
+                    }
+                }
+            }
+            AppEvent::ConfirmSafetyBufferedRetry {
+                thread_id,
+                turn_id,
+                model,
+                turn,
+                prompt,
+            } => {
+                self.chat_widget
+                    .confirm_safety_buffered_retry(thread_id, turn_id, model, turn, prompt);
+            }
+            AppEvent::RetrySafetyBufferedTurn {
+                thread_id,
+                turn_id,
+                model,
+                turn,
+                prompt,
+            } => {
+                self.retry_safety_buffered_turn(
+                    tui,
+                    app_server,
+                    super::safety_buffering::SafetyBufferedRetry {
+                        thread_id,
+                        turn_id,
+                        model,
+                        turn,
+                        prompt,
+                    },
+                )
+                .await;
+            }
+            AppEvent::AppendMessageHistoryEntry { thread_id, text } => {
+                self.append_message_history_entry(thread_id, text);
+            }
+            AppEvent::SyncThreadGitBranch {
+                thread_id,
+                branch,
+                cwd: _cwd,
+            } => {
+                if let Err(err) = app_server
+                    .thread_metadata_update_branch(thread_id, branch)
+                    .await
+                {
+                    tracing::warn!("failed to sync thread git branch from directive: {err}");
+                }
+            }
+            AppEvent::LookupMessageHistoryEntry {
+                thread_id,
+                offset,
+                log_id,
+            } => {
+                self.lookup_message_history_entry(thread_id, offset, log_id)
+                    .await?;
+            }
+            AppEvent::LookupMessageHistoryBatch {
+                thread_id,
+                cursor,
+                log_id,
+            } => {
+                self.lookup_message_history_batch(thread_id, cursor, log_id)
+                    .await?;
+            }
+            AppEvent::ApproveRecentAutoReviewDenial { thread_id, id } => {
+                self.chat_widget
+                    .approve_recent_auto_review_denial(thread_id, id);
+            }
+            AppEvent::SubmitThreadOp { thread_id, op } => {
+                self.submit_thread_op(app_server, thread_id, op).await?;
+            }
+            AppEvent::ThreadHistoryEntryResponse { thread_id, event } => {
+                self.enqueue_thread_history_entry_response(thread_id, event)
+                    .await?;
+            }
+            AppEvent::DiffResult(cwd, text) => {
+                if cwds_differ(&cwd, self.chat_widget.config_ref().cwd.as_path()) {
+                    return Ok(AppRunControl::Continue);
+                }
+                // Clear the in-progress state in the bottom pane
+                self.chat_widget.on_diff_complete();
+                // Enter alternate screen using TUI helper and build pager lines
+                let _ = tui.enter_alt_screen();
+                let pager_lines: Vec<ratatui::text::Line<'static>> = if text.trim().is_empty() {
+                    vec!["No changes detected.".italic().into()]
+                } else {
+                    text.lines().map(ansi_escape_line).collect()
+                };
+                self.overlay = Some(Overlay::new_static_with_lines(
+                    pager_lines,
+                    "D I F F".to_string(),
+                    self.keymap.pager.clone(),
+                ));
+                tui.frame_requester().schedule_frame();
+            }
+            AppEvent::OpenAppLink {
+                app_id,
+                title,
+                description,
+                instructions,
+                url,
+                is_installed,
+                is_enabled,
+            } => {
+                self.chat_widget
+                    .open_app_link_view(crate::bottom_pane::AppLinkViewParams {
+                        app_id,
+                        title,
+                        description,
+                        instructions,
+                        url,
+                        is_installed,
+                        is_enabled,
+                        suggest_reason: None,
+                        suggestion_type: None,
+                        elicitation_target: None,
+                    });
+            }
+            AppEvent::OpenUrlInBrowser { url } => {
+                self.open_url_in_browser(url);
+            }
+            AppEvent::OpenDesktopThread { thread_id } => {
+                self.open_desktop_thread(thread_id);
+            }
+            AppEvent::PetSelected { pet_id } => {
+                self.handle_pet_selected(tui, pet_id);
+            }
+            AppEvent::PetDisabled => {
+                self.handle_pet_disabled(tui).await;
+            }
+            AppEvent::PetPreviewRequested { pet_id } => {
+                self.chat_widget.start_pet_picker_preview(pet_id);
+            }
+            AppEvent::PetPreviewLoaded { request_id, result } => {
+                self.handle_pet_preview_loaded(tui, request_id, result);
+            }
+            AppEvent::PetSelectionLoaded {
+                request_id,
+                pet_id,
+                result,
+            } => {
+                return self
+                    .handle_pet_selection_loaded(tui, request_id, pet_id, result)
+                    .await;
+            }
+            AppEvent::ConfiguredPetLoaded { pet_id, result } => {
+                self.handle_configured_pet_loaded(tui, pet_id, result);
+            }
+            AppEvent::RefreshConnectors { force_refetch } => {
+                self.chat_widget.refresh_connectors(force_refetch);
+            }
+            AppEvent::FetchConnectorsList {
+                force_refetch,
+                generation,
+            } => {
+                if generation == self.chat_widget.connector_scope_generation() {
+                    self.fetch_connectors_list(app_server, force_refetch);
+                }
+            }
+            AppEvent::FetchInstalledConnectorMentions {
+                force_refresh,
+                generation,
+            } => {
+                if generation == self.chat_widget.connector_scope_generation() {
+                    self.fetch_installed_connector_mentions(app_server, force_refresh, generation);
+                }
+            }
+            AppEvent::PluginInstallAuthAdvance { refresh_connectors } => {
+                if refresh_connectors {
+                    self.chat_widget.refresh_connectors(/*force_refetch*/ true);
+                }
+                self.chat_widget.advance_plugin_install_auth_flow();
+            }
+            AppEvent::PluginInstallAuthAbandon => {
+                self.chat_widget.abandon_plugin_install_auth_flow();
+            }
+            AppEvent::FetchPluginsList { cwd } => {
+                self.fetch_plugins_list(app_server, cwd);
+            }
+            AppEvent::FetchHooksList { cwd } => {
+                self.fetch_hooks_list(app_server, cwd);
+            }
+            AppEvent::OpenMarketplaceAddPrompt => {
+                self.chat_widget.open_marketplace_add_prompt();
+            }
+            AppEvent::OpenMarketplaceAddLoading { source } => {
+                self.chat_widget.open_marketplace_add_loading_popup(&source);
+            }
+            AppEvent::OpenMarketplaceRemoveConfirm {
+                marketplace_name,
+                marketplace_display_name,
+            } => {
+                self.chat_widget.open_marketplace_remove_confirmation(
+                    marketplace_name,
+                    marketplace_display_name,
+                );
+            }
+            AppEvent::OpenMarketplaceRemoveLoading {
+                marketplace_display_name,
+            } => {
+                self.chat_widget
+                    .open_marketplace_remove_loading_popup(&marketplace_display_name);
+            }
+            AppEvent::OpenMarketplaceUpgradeLoading { marketplace_name } => {
+                self.chat_widget
+                    .open_marketplace_upgrade_loading_popup(marketplace_name.as_deref());
+            }
+            AppEvent::OpenPluginDetailLoading {
+                plugin_display_name,
+            } => {
+                self.chat_widget
+                    .open_plugin_detail_loading_popup(&plugin_display_name);
+            }
+            AppEvent::OpenPluginInstallLoading {
+                plugin_display_name,
+            } => {
+                self.chat_widget
+                    .open_plugin_install_loading_popup(&plugin_display_name);
+            }
+            AppEvent::OpenPluginUninstallLoading {
+                plugin_display_name,
+            } => {
+                self.chat_widget
+                    .open_plugin_uninstall_loading_popup(&plugin_display_name);
+            }
+            AppEvent::PluginsLoaded { cwd, result } => {
+                self.chat_widget.on_plugins_loaded(cwd, result);
+            }
+            AppEvent::OpenPluginsList { cwd, response } => {
+                self.chat_widget.open_plugins_list(cwd, response);
+            }
+            AppEvent::PluginRemoteSectionsLoaded {
+                cwd,
+                marketplaces,
+                section_errors,
+            } => {
+                self.chat_widget.on_plugin_remote_sections_loaded(
+                    cwd,
+                    marketplaces,
+                    section_errors,
+                );
+            }
+            AppEvent::HooksLoaded { cwd, result } => {
+                self.chat_widget.on_hooks_loaded(cwd, result);
+            }
+            AppEvent::FetchMarketplaceAdd { cwd, source } => {
+                self.fetch_marketplace_add(app_server, cwd, source);
+            }
+            AppEvent::FetchMarketplaceUpgrade {
+                cwd,
+                marketplace_name,
+            } => {
+                self.fetch_marketplace_upgrade(app_server, cwd, marketplace_name);
+            }
+            AppEvent::MarketplaceAddLoaded {
+                cwd,
+                source,
+                result,
+            } => {
+                let add_succeeded = result.is_ok();
+                self.chat_widget
+                    .on_marketplace_add_loaded(cwd.clone(), source, result);
+                if add_succeeded && self.chat_widget.config_ref().cwd.as_path() == cwd.as_path() {
+                    self.fetch_plugins_list(app_server, cwd);
+                }
+            }
+            AppEvent::MarketplaceUpgradeLoaded { cwd, result } => {
+                let marketplace_contents_changed =
+                    matches!(&result, Ok(response) if !response.upgraded_roots.is_empty());
+                if marketplace_contents_changed {
+                    self.refresh_plugin_mentions_after_config_write();
+                }
+                self.chat_widget
+                    .on_marketplace_upgrade_loaded(cwd.clone(), result);
+                if self.chat_widget.config_ref().cwd.as_path() == cwd.as_path() {
+                    self.fetch_plugins_list(app_server, cwd);
+                }
+            }
+            AppEvent::FetchMarketplaceRemove {
+                cwd,
+                marketplace_name,
+                marketplace_display_name,
+            } => {
+                self.fetch_marketplace_remove(
+                    app_server,
+                    cwd,
+                    marketplace_name,
+                    marketplace_display_name,
+                );
+            }
+            AppEvent::MarketplaceRemoveLoaded {
+                cwd,
+                marketplace_name,
+                marketplace_display_name,
+                result,
+            } => {
+                let remove_succeeded = result.is_ok();
+                self.chat_widget.on_marketplace_remove_loaded(
+                    cwd.clone(),
+                    marketplace_name,
+                    marketplace_display_name,
+                    result,
+                );
+                if remove_succeeded && self.chat_widget.config_ref().cwd.as_path() == cwd.as_path()
+                {
+                    self.refresh_plugin_mentions_after_config_write();
+                    self.fetch_plugins_list(app_server, cwd);
+                }
+            }
+            AppEvent::FetchPluginDetail { cwd, params } => {
+                self.fetch_plugin_detail(app_server, cwd, params);
+            }
+            AppEvent::PluginDetailLoaded { cwd, result } => {
+                self.chat_widget.on_plugin_detail_loaded(cwd, result);
+            }
+            AppEvent::FetchPluginInstall {
+                cwd,
+                location,
+                plugin_name,
+                plugin_display_name,
+            } => {
+                self.fetch_plugin_install(
+                    app_server,
+                    cwd,
+                    location,
+                    plugin_name,
+                    plugin_display_name,
+                );
+            }
+            AppEvent::FetchPluginUninstall {
+                cwd,
+                plugin_id,
+                plugin_display_name,
+            } => {
+                self.fetch_plugin_uninstall(app_server, cwd, plugin_id, plugin_display_name);
+            }
+            AppEvent::SetPluginEnabled {
+                cwd,
+                plugin_id,
+                enabled,
+            } => {
+                self.set_plugin_enabled(app_server, cwd, plugin_id, enabled);
+            }
+            AppEvent::PluginInstallLoaded {
+                cwd,
+                location,
+                plugin_name,
+                plugin_display_name,
+                result,
+            } => {
+                let install_succeeded = result.is_ok();
+                if install_succeeded {
+                    self.refresh_plugin_mentions_after_config_write();
+                }
+                let should_refresh_plugin_detail = self.chat_widget.on_plugin_install_loaded(
+                    cwd.clone(),
+                    location.clone(),
+                    plugin_name.clone(),
+                    plugin_display_name,
+                    result,
+                );
+                if install_succeeded && self.chat_widget.config_ref().cwd.as_path() == cwd.as_path()
+                {
+                    self.fetch_plugins_list(app_server, cwd.clone());
+                    if should_refresh_plugin_detail {
+                        let (marketplace_path, remote_marketplace_name) =
+                            location.into_request_params();
+                        self.fetch_plugin_detail(
+                            app_server,
+                            cwd,
+                            PluginReadParams {
+                                marketplace_path,
+                                remote_marketplace_name,
+                                plugin_name,
+                            },
+                        );
+                    }
+                }
+            }
+            AppEvent::PluginEnabledSet {
+                cwd,
+                plugin_id,
+                enabled,
+                result,
+            } => {
+                let queued_enabled = self
+                    .pending_plugin_enabled_writes
+                    .get_mut(&plugin_id)
+                    .and_then(Option::take);
+                let should_apply_result = if let Some(queued_enabled) = queued_enabled
+                    && (result.is_err() || queued_enabled != enabled)
+                {
+                    self.spawn_plugin_enabled_write(
+                        app_server,
+                        cwd.clone(),
+                        plugin_id.clone(),
+                        queued_enabled,
+                    );
+                    false
+                } else {
+                    true
+                };
+                if should_apply_result {
+                    self.pending_plugin_enabled_writes.remove(&plugin_id);
+                    let update_succeeded = result.is_ok();
+                    if update_succeeded {
+                        self.refresh_plugin_mentions_after_config_write();
+                    }
+                    self.chat_widget
+                        .on_plugin_enabled_set(cwd, plugin_id, enabled, result);
+                }
+            }
+            AppEvent::FetchMcpInventory { detail, thread_id } => {
+                self.fetch_mcp_inventory(app_server, detail, thread_id);
+            }
+            AppEvent::McpInventoryLoaded {
+                result,
+                detail,
+                thread_id,
+            } => {
+                self.handle_mcp_inventory_result(result, detail, thread_id);
+            }
+            AppEvent::SkillsListLoaded { result, .. } => {
+                self.handle_skills_list_result(
+                    result.map_err(|err| color_eyre::eyre::eyre!(err)),
+                    "failed to load skills on startup",
+                );
+                self.skill_load_warnings.startup_complete = true;
+            }
+            AppEvent::StartFileSearch(query) => {
+                self.file_search.on_user_query(query.clone());
+                if let Some(thread_id) = self.active_thread_id
+                    && app_server.task_tools_available(thread_id)
+                    && self.config.features.enabled(Feature::MentionsV2)
+                {
+                    let cwd = self
+                        .thread_cwd(thread_id)
+                        .await
+                        .map(|cwd| cwd.to_path_buf())
+                        .or_else(|| {
+                            app_server
+                                .remote_cwd_override()
+                                .map(std::path::Path::to_path_buf)
+                        })
+                        .unwrap_or_else(|| self.config.cwd.to_path_buf());
+                    crate::task_mentions::spawn_search(
+                        app_server.request_handle(),
+                        query,
+                        thread_id,
+                        cwd,
+                        app_server.task_search_generation(),
+                        self.app_event_tx.clone(),
+                    );
+                }
+            }
+            AppEvent::FileSearchResult { query, matches } => {
+                self.chat_widget.apply_file_search_result(query, matches);
+            }
+            AppEvent::TaskSearchResult {
+                thread_id,
+                query,
+                matches,
+            } => {
+                if self.active_thread_id == Some(thread_id)
+                    && app_server.task_tools_available(thread_id)
+                {
+                    self.chat_widget.on_task_search_result(&query, matches);
+                }
+            }
+            AppEvent::RefreshRateLimits { origin } => {
+                self.refresh_rate_limits(app_server, origin);
+            }
+            AppEvent::ApplyBackendBannerFallback { thread_id } => {
+                if self.active_thread_id == Some(thread_id)
+                    && self.chat_widget.thread_id() == Some(thread_id)
+                {
+                    self.apply_backend_banner_fallback(app_server).await;
+                    if !self.rate_limit_refresh_state.has_pending_recovery() {
+                        self.chat_widget.finish_rate_limit_recovery();
+                    }
+                    self.refresh_rate_limits(app_server, RateLimitRefreshOrigin::Periodic);
+                }
+            }
+            AppEvent::RefreshThreadUsage {
+                thread_id,
+                request_id,
+            } => {
+                self.refresh_thread_usage(app_server, thread_id, request_id);
+            }
+            AppEvent::RefreshStatusLineWorkspaceHeadline { request_id } => {
+                self.refresh_status_line_workspace_headline(app_server, request_id);
+            }
+            AppEvent::OpenThreadGoalMenu { thread_id } => {
+                self.open_thread_goal_menu(app_server, thread_id).await;
+            }
+            AppEvent::OpenThreadGoalEditor { thread_id } => {
+                self.open_thread_goal_editor(app_server, thread_id).await;
+            }
+            AppEvent::SetThreadGoalDraft {
+                thread_id,
+                draft,
+                mode,
+            } => {
+                self.set_thread_goal_draft(app_server, thread_id, draft, mode)
+                    .await;
+            }
+            AppEvent::SetThreadGoalStatus { thread_id, status } => {
+                self.set_thread_goal_status(app_server, thread_id, status)
+                    .await;
+            }
+            AppEvent::ClearThreadGoal { thread_id } => {
+                self.clear_thread_goal(app_server, thread_id).await;
+            }
+            AppEvent::SendAddCreditsNudgeEmail { credit_type } => {
+                if let Some(request_id) = self
+                    .chat_widget
+                    .start_add_credits_nudge_email_request(credit_type)
+                {
+                    self.send_add_credits_nudge_email(app_server, request_id, credit_type);
+                }
+            }
+            AppEvent::AddCreditsNudgeEmailFinished { request_id, result } => {
+                self.chat_widget
+                    .finish_add_credits_nudge_email_request(request_id, result);
+            }
+            AppEvent::RateLimitsLoaded {
+                request_id,
+                origin,
+                hard_stop_generation,
+                result,
+            } => {
+                let accepted = match self.rate_limit_refresh_state.finish(
+                    request_id,
+                    hard_stop_generation,
+                    self.rate_limit_hard_stop_generation,
+                    if result.is_ok() {
+                        RateLimitReadStatus::Succeeded
+                    } else {
+                        RateLimitReadStatus::Failed
+                    },
+                ) {
+                    RateLimitRefreshOutcome::Apply => true,
+                    RateLimitRefreshOutcome::Ignore => false,
+                    RateLimitRefreshOutcome::RefreshRecovery => {
+                        // Start in this account's event turn; a queued refresh could cross an account change.
+                        self.refresh_rate_limits(app_server, RateLimitRefreshOrigin::Recovery);
+                        false
+                    }
+                };
+                match result {
+                Ok(response) => {
+                    let rate_limit_reset_credits = response.rate_limit_reset_credits.clone();
+                    let snapshots = if accepted
+                    {
+                        self.chat_widget.apply_usage_notice_read(request_id);
+                        self.chat_widget.update_backend_banner(&response);
+                        self.apply_backend_banner_fallback(app_server).await;
+                        app_server_rate_limit_snapshots(response)
+                    } else {
+                        Vec::new()
+                    };
+                    match origin {
+                        RateLimitRefreshOrigin::Recovery | RateLimitRefreshOrigin::Periodic => {
+                            for snapshot in snapshots {
+                                self.chat_widget.on_rate_limit_snapshot(Some(snapshot));
+                            }
+                        }
+                        RateLimitRefreshOrigin::StartupPrefetch {
+                            reset_hint_request_id,
+                        } => {
+                            if self.chat_widget.finish_rate_limit_reset_hint_refresh(
+                                reset_hint_request_id,
+                                snapshots,
+                                rate_limit_reset_credits.ok_or_else(|| {
+                                    "account/rateLimits/read response did not include rateLimitResetCredits"
+                                        .to_string()
+                                }),
+                            ) {
+                                self.insert_pending_usage_output_if_ready(tui);
+                            }
+                            tui.frame_requester().schedule_frame();
+                        }
+                        RateLimitRefreshOrigin::ResetConsume { request_id } => {
+                            self.chat_widget.finish_post_consume_reset_credits_refresh(
+                                request_id,
+                                snapshots,
+                                rate_limit_reset_credits.ok_or_else(|| {
+                                    "account/rateLimits/read response did not include rateLimitResetCredits"
+                                        .to_string()
+                                }),
+                            );
+                            tui.frame_requester().schedule_frame();
+                        }
+                        RateLimitRefreshOrigin::StatusCommand { request_id } => {
+                            self.chat_widget
+                                .finish_status_rate_limit_refresh(request_id, snapshots);
+                        }
+                        RateLimitRefreshOrigin::UsageMenu { request_id } => {
+                            self.chat_widget.finish_usage_menu_rate_limit_refresh(
+                                request_id,
+                                snapshots,
+                                rate_limit_reset_credits.ok_or_else(|| {
+                                    "account/rateLimits/read response did not include rateLimitResetCredits"
+                                    .to_string()
+                                }),
+                            );
+                        }
+                        RateLimitRefreshOrigin::ResetPicker { request_id } => {
+                            self.chat_widget.finish_rate_limit_reset_credits_refresh(
+                                request_id,
+                                snapshots,
+                                rate_limit_reset_credits.ok_or_else(|| {
+                                    "account/rateLimits/read response did not include rateLimitResetCredits"
+                                        .to_string()
+                                }),
+                            );
+                        }
+                    }
+                }
+                Err(err) => {
+                    // A failed read is not authoritative recovery. Keep the last valid banner.
+                    tracing::warn!("account/rateLimits/read failed during TUI refresh: {err}");
+                    match origin {
+                        RateLimitRefreshOrigin::Recovery | RateLimitRefreshOrigin::Periodic => {
+                            // Re-evaluate snapshot age even when the backend cannot refresh it.
+                            // This updates display freshness without authorizing model recovery.
+                            self.chat_widget.refresh_status_surfaces();
+                        },
+                        RateLimitRefreshOrigin::StartupPrefetch {
+                            reset_hint_request_id,
+                        } => {
+                            self.chat_widget.finish_rate_limit_reset_hint_refresh(
+                                reset_hint_request_id,
+                                Vec::new(),
+                                Err(err),
+                            );
+                        }
+                        RateLimitRefreshOrigin::ResetConsume { request_id } => {
+                            self.chat_widget.finish_post_consume_reset_credits_refresh(
+                                request_id,
+                                Vec::new(),
+                                Err(err),
+                            );
+                        }
+                        RateLimitRefreshOrigin::StatusCommand { request_id } => {
+                            self.chat_widget
+                                .finish_status_rate_limit_refresh(request_id, Vec::new());
+                        }
+                        RateLimitRefreshOrigin::UsageMenu { request_id } => {
+                            self.chat_widget.finish_usage_menu_rate_limit_refresh(
+                                request_id,
+                                Vec::new(),
+                                Err(err),
+                            );
+                        }
+                        RateLimitRefreshOrigin::ResetPicker { request_id } => {
+                            self.chat_widget.finish_rate_limit_reset_credits_refresh(
+                                request_id,
+                                Vec::new(),
+                                Err(err),
+                            );
+                        }
+                    }
+                }
+                }
+                if (accepted || matches!(
+                    origin,
+                    RateLimitRefreshOrigin::Recovery | RateLimitRefreshOrigin::ResetConsume { .. }
+                )) && !self.rate_limit_refresh_state.has_pending_recovery()
+                {
+                    self.chat_widget.finish_rate_limit_recovery();
+                }
+            },
+            AppEvent::OpenAnalytics { view: summary_view } => {
+                tui.enter_alt_screen()?;
+                let mut view = self.retained_analytics.take().unwrap_or_else(|| {
+                    Box::new(crate::analytics::AnalyticsView::new(self.keymap.list.clone()))
+                });
+                view.keymap = self.keymap.list.clone();
+                if summary_view.is_some() {
+                    view.select_summary(summary_view);
+                }
+                view.open(
+                    app_server.request_handle(),
+                    tui.frame_requester(),
+                    self.model_catalog.try_list_models()?,
+                    std::sync::Arc::new(self.config.clone()),
+                );
+                self.overlay = Some(Overlay::Analytics(view));
+                tui.frame_requester().schedule_frame();
+            }
+            AppEvent::OpenRateLimitResetCredits => {
+                let request_id = self.chat_widget.show_rate_limit_reset_loading_popup();
+                self.refresh_rate_limits(
+                    app_server,
+                    RateLimitRefreshOrigin::ResetPicker { request_id },
+                );
+            }
+            AppEvent::OpenRateLimitResetConfirmation {
+                picker_request_id,
+                confirmation_gate,
+                credit_id,
+                reset_title,
+                reset_detail,
+                reset_description,
+            } => {
+                self.chat_widget.show_rate_limit_reset_confirmation(
+                    picker_request_id,
+                    confirmation_gate,
+                    credit_id,
+                    reset_title,
+                    reset_detail,
+                    reset_description,
+                );
+            }
+            AppEvent::ConsumeRateLimitResetCredit {
+                idempotency_key,
+                credit_id,
+            } => {
+                if let Some(request_id) = self
+                    .chat_widget
+                    .start_rate_limit_reset_consumption(&idempotency_key)
+                {
+                    self.consume_rate_limit_reset_credit(
+                        app_server,
+                        request_id,
+                        idempotency_key,
+                        credit_id,
+                    );
+                }
+            }
+            AppEvent::RateLimitResetCreditConsumed {
+                request_id,
+                idempotency_key,
+                credit_id,
+                result,
+            } => {
+                if let Err(err) = &result {
+                    tracing::warn!(
+                        "account/rateLimitResetCredit/consume failed during TUI request: {err}"
+                    );
+                }
+                if self.chat_widget.finish_rate_limit_reset_consume(
+                    request_id,
+                    idempotency_key,
+                    credit_id,
+                    result,
+                ) {
+                    // Reads started before redemption must not restore the pre-reset banner.
+                    self.rate_limit_hard_stop_generation =
+                        self.rate_limit_hard_stop_generation.wrapping_add(1);
+                    self.rate_limit_refresh_state.invalidate_recovery();
+                    self.chat_widget.clear_backend_banner();
+                    self.refresh_rate_limits(
+                        app_server,
+                        RateLimitRefreshOrigin::ResetConsume { request_id },
+                    );
+                }
+            }
+            AppEvent::ThreadUsageLoaded {
+                thread_id,
+                request_id,
+                result,
+            } => {
+                self.finish_thread_usage_refresh(tui, thread_id, request_id, result)?;
+            }
+            AppEvent::AgentsOverviewUsageLoaded { thread_id, request_id, result } => {
+                self.finish_agents_overview_usage(thread_id, request_id, result);
+            }
+            AppEvent::CommitPendingUsageOutput => {
+                self.insert_pending_usage_output_if_ready(tui);
+            }
+            AppEvent::CommitPendingUsageOutputAfterStreamShutdown => {
+                self.insert_pending_usage_output_after_stream_shutdown(tui);
+            }
+            AppEvent::ConnectorsLoaded {
+                thread_id,
+                cwd,
+                generation,
+                result,
+                is_final,
+            } => {
+                if thread_id == self.current_displayed_thread_id()
+                    && cwd.as_path() == self.chat_widget.config_ref().cwd.as_path()
+                    && generation == self.chat_widget.connector_scope_generation()
+                {
+                    self.chat_widget.on_connectors_loaded(result, is_final);
+                }
+            }
+            AppEvent::InstalledConnectorMentionsLoaded {
+                thread_id,
+                cwd,
+                generation,
+                result,
+            } => {
+                if thread_id == self.current_displayed_thread_id()
+                    && cwd.as_path() == self.chat_widget.config_ref().cwd.as_path()
+                    && generation == self.chat_widget.connector_scope_generation()
+                {
+                    self.chat_widget
+                        .on_connector_mentions_loaded(generation, result);
+                }
+            }
+            AppEvent::UpdateReasoningEffort(effort) => {
+                self.on_update_reasoning_effort(effort.clone());
+                self.sync_active_thread_reasoning_setting(app_server, effort)
+                    .await;
+            }
+            AppEvent::UpdateLunaReserveReasoning { thread_id, effort } => {
+                self.update_luna_reserve_reasoning(app_server, thread_id, effort)
+                    .await;
+            }
+            AppEvent::UpdateModel(model) => {
+                if self
+                    .active_thread_model_setting_update_params(model.clone())
+                    .is_some_and(|params| params.permissions.is_some())
+                    && self.reject_pending_permission_change()
+                {
+                    return Ok(AppRunControl::Continue);
+                }
+                let model_changed = self.chat_widget.current_model() != model
+                    || self.chat_widget.current_collaboration_mode().model() != model;
+                if model_changed {
+                    self.chat_widget.set_model(&model);
+                    self.sync_active_thread_model_setting(app_server, model, /*effort*/ None)
+                        .await;
+                    self.sync_active_thread_service_tier_to_cached_session()
+                        .await;
+                }
+            }
+            AppEvent::AstraSelectedFromModelPicker { .. } => unreachable!("picker event unwrapped"),
+            AppEvent::BackgroundVoiceError { thread_id, message } => {
+                if self.chat_widget.thread_id() == Some(thread_id) {
+                    self.chat_widget.add_error_message(message);
+                } else {
+                    self.background_voice_error = Some((thread_id, message));
+                }
+            }
+            AppEvent::RealtimeConversationStateChanged => {
+                self.repaint_agents_overview();
+            }
+            AppEvent::VoiceControl { thread_id, control } => {
+                if thread_id == self.chat_widget.thread_id() || self.voice_owner_thread_id().is_some() {
+                    self.control_voice(control);
+                }
+            }
+            AppEvent::RealtimeWebrtcOfferCreated {
+                thread_id,
+                attempt_id,
+                result,
+            } => {
+                if let Some(owner) = self.voice_widget_for_thread(thread_id) {
+                    owner.on_realtime_webrtc_offer_created(thread_id, attempt_id, result);
+                } else if let Ok(offer) = result {
+                    offer.handle.close();
+                }
+            }
+            AppEvent::RealtimeWebrtcConnected {
+                thread_id,
+                attempt_id,
+                result,
+            } => {
+                if let Some(owner) = self.voice_widget_for_thread(thread_id) {
+                    owner.on_realtime_webrtc_connected(attempt_id, result);
+                }
+            }
+            AppEvent::StopRealtimeConversation { thread_id } => {
+                match tokio::time::timeout(
+                    SHUTDOWN_FIRST_EXIT_TIMEOUT,
+                    app_server.thread_realtime_stop(thread_id),
+                )
+                .await
+                {
+                    Ok(Ok(())) => {}
+                    Ok(Err(error)) => tracing::warn!(
+                        %thread_id,
+                        %error,
+                        "failed to stop voice conversation after switching threads"
+                    ),
+                    Err(_) => tracing::warn!(
+                        %thread_id,
+                        "timed out stopping voice conversation after switching threads"
+                    ),
+                }
+            }
+            AppEvent::SettingsSelectionClosed => {
+                self.app_event_tx.send(AppEvent::SettingsSelectionSettled);
+            }
+            AppEvent::SettingsSelectionSettled => {
+                if self.chat_widget.no_modal_or_popup_active()
+                    && !self
+                        .chat_widget
+                        .thread_id()
+                        .is_some_and(|thread_id| self.pending_server_profiles.contains_key(&thread_id))
+                {
+                    let config = self.chat_widget.config_ref();
+                    let permissions_override = Self::turn_permissions_override_from_config(
+                        config,
+                        config.permissions.active_permission_profile().as_ref(),
+                        self.runtime_permission_profile_override
+                            .as_ref()
+                            .and_then(RuntimePermissionProfileOverride::turn_permission_profile),
+                    );
+                    if turn_permissions_overrides(permissions_override, config.cwd.as_path())
+                        .is_ok()
+                    {
+                        self.chat_widget
+                            .set_queue_autosend_suppressed(/*suppressed*/ false);
+                        self.chat_widget.maybe_send_next_queued_input();
+                    }
+                }
+            }
+            AppEvent::FetchPermissionProfiles { request_id, thread_cwd } => {
+                if self.chat_widget.permission_popup_request_is_current(request_id) {
+                    crate::permission_discovery::fetch(
+                        app_server,
+                        request_id,
+                        self.chat_widget.config_ref(),
+                        thread_cwd.as_deref(),
+                        self.app_event_tx.clone(),
+                    );
+                }
+            }
+            AppEvent::PermissionProfilesLoaded { request_id, result } => {
+                self.chat_widget.on_permission_profiles_loaded(request_id, result);
+            }
+            AppEvent::FetchModels { request_id } => {
+                if self.chat_widget.model_popup_request_is_current(request_id) {
+                    app_server.fetch_models(request_id, self.app_event_tx.clone());
+                }
+            }
+            AppEvent::ModelsLoaded { request_id, result } => {
+                if self.chat_widget.on_models_loaded(request_id, result) {
+                    self.model_catalog = self.chat_widget.model_catalog();
+                    app_server.set_available_models(self.model_catalog.try_list_models()?);
+                    self.sync_active_thread_service_tier_to_cached_session().await;
+                }
+            }
+            AppEvent::OpenReasoningPopup { model } => {
+                self.chat_widget.open_reasoning_popup(model);
+            }
+            AppEvent::OpenAdvancedReasoningPopup { model } => {
+                self.chat_widget.open_advanced_reasoning_popup(model);
+            }
+            AppEvent::ApplyAdvancedReasoning { model, effort } => {
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                if self
+                    .active_thread_model_setting_update_params(model.clone())
+                    .is_some_and(|params| params.permissions.is_some())
+                    && self.reject_pending_permission_change()
+                {
+                    return Ok(AppRunControl::Continue);
+                }
+                let model_changed = self.chat_widget.current_model() != model
+                    || self.chat_widget.current_collaboration_mode().model() != model;
+                let default_effort =
+                    self.on_apply_advanced_reasoning(model.as_str(), effort.clone());
+                if model_changed {
+                    self.sync_active_thread_model_setting(
+                        app_server,
+                        model.clone(),
+                        Some(effort.clone()),
+                    )
+                    .await;
+                } else if let Some(mut params) =
+                    self.active_thread_reasoning_setting_update_params(Some(effort.clone()))
+                {
+                    params.collaboration_mode =
+                        Some(self.chat_widget.effective_collaboration_mode());
+                    self.send_thread_settings_update(app_server, params).await;
+                }
+                self.sync_active_thread_service_tier_to_cached_session()
+                    .await;
+
+                if let Some(default_effort) = default_effort.as_ref()
+                    && let Err(err) = self.persist_model_defaults(
+                        app_server.request_handle(),
+                        crate::config_update::build_model_selection_edits(
+                            model.as_str(),
+                            Some(default_effort),
+                        ),
+                        "default model and reasoning effort",
+                    )
+                    .await
+                {
+                    let error = format_config_error(&err);
+                    tracing::error!(error = %error, "failed to persist conversation model");
+                    self.chat_widget
+                        .add_error_message(format!("Failed to save default model: {error}"));
+                } else {
+                    self.chat_widget.add_info_message(
+                        format!("Model changed to {model} {effort} for this conversation"),
+                        /*hint*/ None,
+                    );
+                }
+            }
+            AppEvent::OpenPlanReasoningScopePrompt { model, effort } => {
+                self.chat_widget
+                    .open_plan_reasoning_scope_prompt(model, effort);
+            }
+            AppEvent::OpenAllModelsPopup => {
+                self.chat_widget.open_all_models_popup();
+            }
+            AppEvent::OpenFullAccessConfirmation {
+                preset,
+                return_to_permissions,
+                profile_selection,
+            } => {
+                self.chat_widget.open_full_access_confirmation(
+                    preset,
+                    return_to_permissions,
+                    profile_selection,
+                );
+            }
+            AppEvent::ApplyPermissionShortcut { thread_id, selection } => {
+                self.apply_permission_shortcut(app_server, thread_id, selection).await;
+            }
+            AppEvent::OpenFeedbackNote {
+                category,
+                include_logs,
+            } => {
+                self.chat_widget.open_feedback_note(category, include_logs, self.feedback_audience);
+            }
+            AppEvent::OpenFeedbackConsent { category } => {
+                self.chat_widget.open_feedback_consent(category);
+            }
+            AppEvent::SubmitFeedback {
+                category,
+                reason,
+                turn_id,
+                include_logs,
+            } => {
+                self.submit_feedback(app_server, category, reason, turn_id, include_logs);
+            }
+            AppEvent::FeedbackSubmitted {
+                origin_thread_id,
+                category,
+                include_logs,
+                result,
+            } => {
+                self.handle_feedback_submitted(origin_thread_id, category, include_logs, result)
+                    .await;
+            }
+            AppEvent::LaunchExternalEditor => {
+                if self.chat_widget.external_editor_state() == ExternalEditorState::Active {
+                    self.launch_external_editor(tui).await;
+                }
+            }
+            AppEvent::RefreshWindowsSandbox { thread_id } => {
+                #[cfg(any(target_os = "windows", test))]
+                self.refresh_windows_sandbox_for_thread(app_server, thread_id).await;
+                #[cfg(not(any(target_os = "windows", test)))]
+                let _ = thread_id;
+            }
+            AppEvent::OpenWindowsSandboxEnablePrompt {
+                preset,
+                profile_selection,
+            } => {
+                self.chat_widget
+                    .open_windows_sandbox_enable_prompt(preset, profile_selection);
+            }
+            AppEvent::OpenWindowsSandboxFallbackPrompt {
+                preset,
+                profile_selection,
+            } => {
+                self.session_telemetry.counter(
+                    "codex.windows_sandbox.fallback_prompt_shown",
+                    /*inc*/ 1,
+                    &[],
+                );
+                self.chat_widget.clear_windows_sandbox_setup_status();
+                if let Some(started_at) = self.windows_sandbox.setup_started_at.take() {
+                    self.session_telemetry.record_duration(
+                        "codex.windows_sandbox.elevated_setup_duration_ms",
+                        started_at.elapsed(),
+                        &[("result", "failure")],
+                    );
+                }
+                self.chat_widget
+                    .open_windows_sandbox_fallback_prompt(preset, profile_selection);
+            }
+            AppEvent::BeginWindowsSandboxElevatedSetup {
+                preset,
+                profile_selection,
+            } => {
+                #[cfg(target_os = "windows")]
+                self.begin_windows_sandbox_setup(
+                    app_server,
+                    preset,
+                    profile_selection,
+                    WindowsSandboxEnableMode::Elevated,
+                )
+                .await;
+                #[cfg(not(target_os = "windows"))]
+                let _ = (preset, profile_selection);
+            }
+            AppEvent::BeginWindowsSandboxLegacySetup {
+                preset,
+                profile_selection,
+            } => {
+                #[cfg(target_os = "windows")]
+                self.begin_windows_sandbox_setup(
+                    app_server,
+                    preset,
+                    profile_selection,
+                    WindowsSandboxEnableMode::Legacy,
+                )
+                .await;
+                #[cfg(not(target_os = "windows"))]
+                let _ = (preset, profile_selection);
+            }
+            AppEvent::EnableWindowsSandboxForAgentMode {
+                preset,
+                mode,
+                profile_selection,
+            } => {
+                #[cfg(target_os = "windows")]
+                {
+                    self.chat_widget.clear_windows_sandbox_setup_status();
+                    if let Some(started_at) = self.windows_sandbox.setup_started_at.take()
+                        && mode == WindowsSandboxEnableMode::Elevated
+                    {
+                        self.session_telemetry.record_duration(
+                            "codex.windows_sandbox.elevated_setup_duration_ms",
+                            started_at.elapsed(),
+                            &[("result", "success")],
+                        );
+                    }
+                    let selected_mode = match mode {
+                        WindowsSandboxEnableMode::Elevated => WindowsSandboxSetupMode::Elevated,
+                        WindowsSandboxEnableMode::Legacy => WindowsSandboxSetupMode::Unelevated,
+                    };
+                    let elevated_enabled = selected_mode == WindowsSandboxSetupMode::Elevated;
+                    if self
+                        .verify_windows_sandbox_mode_after_setup(app_server, selected_mode)
+                        .await
+                    {
+                            self.chat_widget.windows_sandbox_elevated_setup_complete =
+                                elevated_enabled;
+                            if let Some(selection) = profile_selection {
+                                self.select_permission_profile(app_server, selection).await;
+                            } else {
+                                self.app_event_tx.send(AppEvent::CodexOp(
+                                    AppCommand::override_turn_context(
+                                        /*cwd*/ None,
+                                        Some(AskForApproval::from(preset.approval)),
+                                        Some(self.config.approvals_reviewer),
+                                        Some(preset.permission_profile.clone()),
+                                        Some(preset.active_permission_profile.clone()),
+                                        /*model*/ None,
+                                        /*effort*/ None,
+                                        /*summary*/ None,
+                                        /*service_tier*/ None,
+                                        /*collaboration_mode*/ None,
+                                        /*personality*/ None,
+                                    ),
+                                ));
+                                self.app_event_tx.send(AppEvent::UpdateAskForApprovalPolicy(
+                                    AskForApproval::from(preset.approval),
+                                ));
+                                self.app_event_tx
+                                    .send(AppEvent::UpdateActivePermissionProfile(
+                                        preset.active_permission_profile.clone(),
+                                    ));
+                            }
+                                self.chat_widget.add_plain_history_lines(vec![
+                                    Line::from(vec!["• ".dim(), "Sandbox ready".into()]),
+                                    Line::from(vec![
+                                        "  ".into(),
+                                        "Codex can now safely edit files and execute commands in your computer"
+                                            .dark_gray(),
+                                    ]),
+                                ]);
+                    } else {
+                        self.chat_widget.retain_input_after_failed_permission_selection();
+                    }
+                }
+                #[cfg(not(target_os = "windows"))]
+                {
+                    let _ = (preset, mode, profile_selection);
+                }
+            }
+            AppEvent::PersistModelSelection { model, effort } => {
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                match self.persist_model_defaults(
+                    app_server.request_handle(),
+                    crate::config_update::build_model_selection_edits(
+                        model.as_str(),
+                        effort.as_ref(),
+                    ),
+                    "default model and reasoning effort",
+                )
+                .await
+                {
+                    Ok(()) => {
+                        let effort_label = effort
+                            .as_ref()
+                            .map(std::string::ToString::to_string)
+                            .unwrap_or_else(|| "default".to_string());
+                        tracing::info!("Selected model: {model}, Selected effort: {effort_label}");
+                        let mut message = format!("Model changed to {model}");
+                        if let Some(label) = Self::reasoning_label_for(&model, effort.as_ref()) {
+                            message.push(' ');
+                            message.push_str(&label);
+                        }
+                        self.chat_widget.add_info_message(message, /*hint*/ None);
+                    }
+                    Err(err) => {
+                        let error = format_config_error(&err);
+                        tracing::error!(
+                            error = %error,
+                            "failed to persist model selection"
+                        );
+                        self.chat_widget
+                            .add_error_message(format!("Failed to save default model: {error}"));
+                    }
+                }
+            }
+            AppEvent::SelectSessionModel { model, effort } => {
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.select_session_model(app_server, model, effort).await;
+            }
+            AppEvent::CyberModelAutoReviewNotice => {
+                self.chat_widget.add_warning_message(
+                    "Cyber models default to \"Approve for me\" for safety reasons.".to_string(),
+                );
+            }
+            AppEvent::PluginUninstallLoaded {
+                cwd,
+                plugin_id: _plugin_id,
+                plugin_display_name,
+                result,
+            } => {
+                let uninstall_succeeded = result.is_ok();
+                if uninstall_succeeded {
+                    self.refresh_plugin_mentions_after_config_write();
+                }
+                self.chat_widget.on_plugin_uninstall_loaded(
+                    cwd.clone(),
+                    plugin_display_name,
+                    result,
+                );
+                if uninstall_succeeded
+                    && self.chat_widget.config_ref().cwd.as_path() == cwd.as_path()
+                {
+                    self.fetch_plugins_list(app_server, cwd);
+                }
+            }
+            AppEvent::RefreshPluginMentions => {
+                self.refresh_plugin_mentions(app_server);
+            }
+            AppEvent::PluginMentionsLoaded { mut plugins, .. } => {
+                if !self.config.features.enabled(Feature::Plugins) {
+                    plugins = None;
+                }
+                self.chat_widget.on_plugin_mentions_loaded(plugins);
+            }
+            AppEvent::OpenRealtimeSettings => {
+                self.open_realtime_settings(app_server).await;
+            }
+            AppEvent::PersistRealtimeVoiceSelection { voice } => {
+                self.persist_realtime_voice(app_server, voice).await;
+            }
+            AppEvent::PersistServiceTierSelection { service_tier } => {
+                self.refresh_status_line();
+                self.config.service_tier = service_tier.clone();
+                self.sync_active_thread_service_tier_to_cached_session()
+                    .await;
+                let edits = crate::config_update::build_service_tier_selection_edits(
+                    service_tier.as_deref(),
+                );
+                match self.persist_model_defaults(app_server.request_handle(), edits, "default service tier")
+                    .await
+                {
+                    Ok(()) => {
+                        let message = if let Some(service_tier) = service_tier {
+                            format!("Service tier set to {service_tier}")
+                        } else {
+                            "Service tier cleared".to_string()
+                        };
+                        self.chat_widget.add_info_message(message, /*hint*/ None);
+                    }
+                    Err(err) => {
+                        tracing::error!(error = %err, "failed to persist service tier selection");
+                        self.chat_widget.add_error_message(format!(
+                            "Failed to save default service tier: {err}"
+                        ));
+                    }
+                }
+            }
+            AppEvent::UpdateAskForApprovalPolicy(policy) => {
+                if self.reject_pending_permission_change() {
+                    return Ok(AppRunControl::Continue);
+                }
+                let mut config = self.config.clone();
+                if !self.try_set_approval_policy_on_config(
+                    &mut config,
+                    policy,
+                    "Failed to set approval policy",
+                    "failed to set approval policy on app config",
+                ) {
+                    return Ok(AppRunControl::Continue);
+                }
+                self.config = config;
+                let approval_policy =
+                    AskForApproval::from(self.config.permissions.approval_policy.value());
+                self.runtime_approval_policy_override =
+                    Some(RuntimeApprovalPolicyOverride::Explicit(approval_policy));
+                self.chat_widget.set_approval_policy(approval_policy);
+                self.sync_active_thread_permission_settings_to_cached_session()
+                    .await;
+            }
+            AppEvent::UpdateActivePermissionProfile(active_permission_profile) => {
+                if self.reject_pending_permission_change() {
+                    return Ok(AppRunControl::Continue);
+                }
+                let mut config = self.config.clone();
+                let Some(permission_profile) = self
+                    .try_set_builtin_active_permission_profile_on_config(
+                        &mut config,
+                        active_permission_profile.clone(),
+                        "Failed to set permission profile",
+                        "failed to set active permission profile on app config",
+                    )
+                else {
+                    return Ok(AppRunControl::Continue);
+                };
+                let permission_profile_for_chat = permission_profile.clone();
+
+                self.config = config;
+                if let Err(err) = self
+                    .chat_widget
+                    .set_permission_profile_from_session_snapshot(
+                        PermissionProfileSnapshot::active(
+                            permission_profile_for_chat,
+                            active_permission_profile,
+                        ),
+                    )
+                {
+                    tracing::warn!(%err, "failed to set permission profile on chat config");
+                    self.chat_widget
+                        .add_error_message(format!("Failed to set permission profile: {err}"));
+                    return Ok(AppRunControl::Continue);
+                }
+                self.runtime_permission_profile_override =
+                    Some(RuntimePermissionProfileOverride::from_config(&self.config));
+                self.sync_active_thread_permission_settings_to_cached_session()
+                    .await;
+                self.chat_widget.submit_initial_user_message_if_pending();
+            }
+            AppEvent::SelectPermissionProfile(selection) => {
+                self.select_permission_profile(app_server, selection).await;
+            }
+            AppEvent::UpdateApprovalsReviewer(policy) => {
+                if self.reject_pending_permission_change() {
+                    return Ok(AppRunControl::Continue);
+                }
+                self.config.approvals_reviewer = policy;
+                self.chat_widget.set_approvals_reviewer(policy);
+                if let Some(profile) = self.runtime_permission_profile_override.as_mut() {
+                    profile.approvals_reviewer = policy;
+                }
+                self.sync_active_thread_permission_settings_to_cached_session()
+                    .await;
+                if let Err(err) = crate::config_update::write_config_batch(
+                    app_server.request_handle(),
+                    vec![crate::config_update::replace_config_value(
+                        "approvals_reviewer",
+                        serde_json::json!(policy.to_string()),
+                    )],
+                )
+                .await
+                {
+                    tracing::error!(
+                        error = %err,
+                        "failed to persist approvals reviewer update"
+                    );
+                    self.chat_widget.add_error_message(format!(
+                        "Failed to save approvals reviewer: {}",
+                        format_config_error(&err)
+                    ));
+                }
+            }
+            AppEvent::FetchExperimentalFeatures { thread_id, response_tx } => {
+                self.fetch_experimental_features(app_server, thread_id, response_tx);
+            }
+            AppEvent::SaveExperimentalFeatures { thread_id, updates, response_tx } => {
+                self.save_experimental_features(app_server, thread_id, updates, response_tx);
+            }
+            AppEvent::EnableFeatureForNewThreads(feature) => {
+                self.enable_feature_for_new_threads(tui, app_server, feature)
+                    .await;
+            }
+            AppEvent::UpdateFeatureFlags { updates } => {
+                self.update_feature_flags(app_server, updates).await;
+            }
+            AppEvent::UpdateMemorySettings {
+                use_memories,
+                generate_memories,
+            } => {
+                self.update_memory_settings_with_app_server(
+                    app_server,
+                    use_memories,
+                    generate_memories,
+                )
+                .await;
+            }
+            AppEvent::ResetMemories => {
+                self.reset_memories_with_app_server(app_server).await;
+            }
+            AppEvent::UpdateRateLimitSwitchPromptHidden(hidden) => {
+                self.chat_widget.set_rate_limit_switch_prompt_hidden(hidden);
+            }
+            AppEvent::UpdatePlanModeReasoningEffort(effort) => {
+                self.on_update_plan_mode_reasoning_effort(effort);
+                self.sync_active_thread_plan_mode_reasoning_setting(app_server)
+                    .await;
+            }
+            AppEvent::PersistRateLimitSwitchPromptHidden => {
+                self.local_settings.notices.hide_rate_limit_model_nudge = Some(true);
+                if let Err(err) = ConfigEditsBuilder::for_config_path(self.local_settings.user_config_path.as_path())
+                    .set_hide_rate_limit_model_nudge(/*acknowledged*/ true)
+                    .apply()
+                    .await
+                {
+                    tracing::error!(
+                        error = %err,
+                        "failed to persist rate limit switch prompt preference"
+                    );
+                    self.chat_widget.add_error_message(format!(
+                        "Failed to save rate limit reminder preference: {err}"
+                    ));
+                }
+            }
+            AppEvent::PersistPlanModeReasoningEffort(effort) => {
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                let key_path = "plan_mode_reasoning_effort";
+                let edit = if let Some(effort) = effort {
+                    crate::config_update::replace_config_value(
+                        key_path,
+                        serde_json::json!(effort.to_string()),
+                    )
+                } else {
+                    crate::config_update::clear_config_value(key_path)
+                };
+                if let Err(err) = self.persist_model_defaults(
+                    app_server.request_handle(),
+                    vec![edit],
+                    "Plan mode reasoning effort",
+                )
+                .await
+                {
+                    tracing::error!(
+                        error = %err,
+                        "failed to persist plan mode reasoning effort"
+                    );
+                    self.chat_widget.add_error_message(format!(
+                        "Failed to save Plan mode reasoning effort: {err}"
+                    ));
+                }
+            }
+            AppEvent::PersistModelMigrationPromptAcknowledged {
+                from_model,
+                to_model,
+            } => {
+                if let Err(err) = ConfigEditsBuilder::for_config_path(self.local_settings.user_config_path.as_path())
+                    .record_model_migration_seen(from_model.as_str(), to_model.as_str())
+                    .apply()
+                    .await
+                {
+                    tracing::error!(
+                        error = %err,
+                        "failed to persist model migration prompt acknowledgement"
+                    );
+                    self.chat_widget.add_error_message(format!(
+                        "Failed to save model migration prompt preference: {err}"
+                    ));
+                }
+            }
+            AppEvent::OpenAgentsOverview => self.open_agents_overview(app_server),
+            AppEvent::NewAgentsOverviewSession { cwd } => {
+                return Box::pin(self.new_agents_overview_session(tui, app_server, cwd)).await;
+            }
+            AppEvent::AgentsOverviewThreadsLoaded { request_id, result } => {
+                self.apply_agents_overview_thread_refresh(app_server, request_id, result);
+            }
+            AppEvent::SelectAgentsOverviewThread { thread_id } => {
+                match self
+                    .select_agents_overview_thread(tui, app_server, thread_id)
+                    .await?
+                {
+                    AppRunControl::Continue
+                        if self.primary_thread_id.is_none()
+                            && self.chat_widget.selected_index_for_present_view(AGENTS_OVERVIEW_VIEW_ID).is_none() => {
+                        self.open_agents_overview(app_server);
+                    }
+                    AppRunControl::Continue => {}
+                    AppRunControl::Exit(reason) => return Ok(AppRunControl::Exit(reason)),
+                }
+            }
+            AppEvent::NewAgentsOverviewWorktree { cwd } => {
+                Box::pin(self.new_agents_overview_worktree(tui, app_server, cwd)).await;
+            }
+            AppEvent::AgentsOverviewWorktreeCreated(result) => {
+                self.pending_managed_worktree_creation = false;
+                self.agents_overview.view_state.lock().unwrap_or_else(std::sync::PoisonError::into_inner).creating_worktree = false;
+                match result {
+                    Ok(mut pending) => {
+                        let Some(checkout) = pending.checkout.take() else {
+                            return Ok(AppRunControl::Continue);
+                        };
+                        let manager = pending.manager.clone();
+                        let cwd = AbsolutePathBuf::try_from(checkout.cwd.clone())?;
+                        return Box::pin(self.start_agents_overview_session(tui, app_server, Some(cwd), Some((manager, checkout)), /*startup_draft*/ None)).await;
+                    }
+                    Err(error) => self.add_agents_overview_error(error),
+                }
+            }
+            AppEvent::RenameAgentsOverviewThread { thread_id, name } => {
+                match app_server.thread_set_name(thread_id, name.clone()).await {
+                    Ok(()) => {
+                        self.chat_widget.expect_manual_thread_name(thread_id, name);
+                        self.cancel_thread_title_generation(thread_id);
+                    }
+                    Err(error) => {
+                        if let Ok(mut state) = self.agents_overview.view_state.lock() {
+                            state.input = name;
+                            state.rename_target = Some(thread_id);
+                        }
+                        self.repaint_agents_overview();
+                        self.add_agents_overview_error(format!("Failed to rename task: {error}"));
+                    }
+                }
+            }
+            AppEvent::SuggestThreadName {
+                thread_id,
+                request_id,
+            } => {
+                self.suggest_thread_name(app_server, thread_id, request_id)
+                    .await;
+            }
+            AppEvent::GeneratePromptSuggestion(request) => {
+                self.generate_prompt_suggestion(app_server, request);
+            }
+            AppEvent::PromptSuggestionStarted { request, result } => {
+                self.on_prompt_suggestion_started(app_server, request, result);
+            }
+            AppEvent::PromptSuggestionFinished { request, temporary_thread_id, text } => {
+                self.temporary_structured_requests.remove(&temporary_thread_id);
+                if text.is_none() {
+                    request.cancellation.cancel();
+                }
+                self.chat_widget.apply_prompt_suggestion(&request, text);
+            }
+            AppEvent::ThreadTitleStarted {
+                cancellation,
+                thread_id,
+                destination,
+                prompt,
+                effort,
+                result,
+            } => {
+                self.on_thread_title_started(
+                    app_server,
+                    thread_id,
+                    destination,
+                    prompt,
+                    effort,
+                    result,
+                    cancellation,
+                );
+            }
+            AppEvent::GeneratedThreadTitle {
+                cancellation,
+                thread_id,
+                temporary_thread_id,
+                destination,
+                result,
+            } => {
+                self.temporary_structured_requests
+                    .remove(&temporary_thread_id);
+
+                if cancellation.is_cancelled() {
+                    return Ok(AppRunControl::Continue);
+                }
+                self.finish_thread_title_generation(thread_id, destination);
+                match destination {
+                    ThreadTitleDestination::Automatic => {
+                        if let Ok(response) = result
+                            && let Some(title) = super::thread_title::parse_thread_title(&response)
+                            && let Ok(thread) = app_server
+                                .thread_read(thread_id, /*include_turns*/ false)
+                                .await
+                            && thread.name.is_none()
+                        {
+                            match app_server.thread_set_name(thread_id, title.clone()).await {
+                                Ok(()) => self
+                                    .chat_widget
+                                    .on_thread_name_updated(thread_id, Some(title)),
+                                Err(error) => {
+                                    tracing::debug!(%error, "failed to apply generated thread title");
+                                }
+                            }
+                        }
+                    }
+                    ThreadTitleDestination::RenameSuggestion { request_id } => {
+                        let suggestion = result
+                            .ok()
+                            .and_then(|response| super::thread_title::parse_thread_title(&response));
+
+                        self.chat_widget.apply_thread_name_suggestion(
+                            thread_id,
+                            request_id,
+                            suggestion.as_deref(),
+                        );
+                    }
+                }
+            }
+            AppEvent::HideAgentsOverviewThread { thread_id } => {
+                self.agents_overview.hidden_threads.insert(thread_id);
+                self.repaint_agents_overview();
+            }
+            AppEvent::ConfirmAgentsOverviewAction { thread_id, action } => {
+                self.confirm_agents_overview_action(thread_id, action);
+            }
+            AppEvent::RunAgentsOverviewAction { thread_id, action } => {
+                self.run_agents_overview_action(tui, app_server, thread_id, action).await?;
+            }
+            AppEvent::StopAgentsOverviewThread { thread_id } => {
+                self.stop_agents_overview_thread(app_server, thread_id)
+                    .await;
+            }
+            #[cfg(any(unix, windows))]
+            AppEvent::StartAgentsDaemon => {
+                self.start_agents_daemon();
+            }
+            #[cfg(any(unix, windows))]
+            AppEvent::AgentsDaemonStarted { result } => match result {
+                Ok(()) => self.chat_widget.add_info_message(
+                    "Background server started. Run `codex agents` in another terminal; this session remains unchanged."
+                        .to_string(),
+                    /*hint*/ None,
+                ),
+                Err(error) => self
+                    .chat_widget
+                    .add_error_message(format!("Failed to start the background server: {error}")),
+            },
+            AppEvent::OpenAgentPicker => {
+                self.open_agent_picker(app_server).await;
+            }
+            AppEvent::AgentPickerThreadsLoaded {
+                primary_thread_id,
+                request_id,
+                result,
+            } => {
+                self.apply_agent_picker_thread_refresh(primary_thread_id, request_id, result);
+            }
+            AppEvent::SelectAgentThread(thread_id) => {
+                self.select_agent_thread_and_discard_side(tui, app_server, thread_id)
+                    .await?;
+            }
+            AppEvent::StartSide {
+                parent_thread_id,
+                user_message,
+            } => {
+                return self
+                    .handle_start_side(tui, app_server, parent_thread_id, user_message)
+                    .await;
+            }
+            AppEvent::OpenSkillsList => {
+                self.chat_widget.open_skills_list();
+            }
+            AppEvent::OpenManageSkillsPopup => {
+                self.chat_widget.open_manage_skills_popup();
+            }
+            AppEvent::SetSkillEnabled { path, enabled } => {
+                match crate::config_update::write_skill_enabled(
+                    app_server.request_handle(),
+                    path.clone(),
+                    enabled,
+                )
+                .await
+                {
+                    Ok(()) => {
+                        self.chat_widget.update_skill_enabled(path, enabled);
+                    }
+                    Err(err) => {
+                        let path_display = path.display();
+                        self.chat_widget.add_error_message(format!(
+                            "Failed to update skill config for {path_display}: {err}"
+                        ));
+                    }
+                }
+            }
+            AppEvent::SetAppEnabled { id, enabled } => {
+                let edits = if enabled {
+                    vec![
+                        crate::config_update::clear_config_value(
+                            crate::config_update::app_scoped_key_path(&id, "enabled"),
+                        ),
+                        crate::config_update::clear_config_value(
+                            crate::config_update::app_scoped_key_path(&id, "disabled_reason"),
+                        ),
+                    ]
+                } else {
+                    vec![
+                        crate::config_update::replace_config_value(
+                            crate::config_update::app_scoped_key_path(&id, "enabled"),
+                            serde_json::json!(false),
+                        ),
+                        crate::config_update::replace_config_value(
+                            crate::config_update::app_scoped_key_path(&id, "disabled_reason"),
+                            serde_json::json!("user"),
+                        ),
+                    ]
+                };
+                match crate::config_update::write_config_batch(app_server.request_handle(), edits)
+                    .await
+                {
+                    Ok(_) => {
+                        self.chat_widget.update_connector_enabled(&id, enabled);
+                    }
+                    Err(err) => {
+                        self.chat_widget.add_error_message(format!(
+                            "Failed to update app config for {id}: {err}"
+                        ));
+                    }
+                }
+            }
+            AppEvent::SetHookEnabled { key, enabled } => {
+                self.set_hook_enabled(app_server, key, enabled);
+            }
+            AppEvent::TrustHook { key, current_hash } => {
+                self.trust_hook(app_server, key, current_hash);
+            }
+            AppEvent::TrustHooks { updates } => {
+                self.trust_hooks(app_server, updates);
+            }
+            AppEvent::HookEnabledSet {
+                key,
+                enabled,
+                result,
+            } => {
+                let queued_enabled = self
+                    .pending_hook_enabled_writes
+                    .get_mut(&key)
+                    .and_then(Option::take);
+                let should_apply_result = if let Some(queued_enabled) = queued_enabled
+                    && (result.is_err() || queued_enabled != enabled)
+                {
+                    self.spawn_hook_enabled_write(app_server, key.clone(), queued_enabled);
+                    false
+                } else {
+                    true
+                };
+                if should_apply_result {
+                    self.pending_hook_enabled_writes.remove(&key);
+                    if let Err(err) = result {
+                        self.chat_widget.add_error_message(err);
+                    }
+                }
+            }
+            AppEvent::HookTrusted { result } => {
+                if let Err(err) = result {
+                    self.chat_widget.add_error_message(err);
+                }
+            }
+            AppEvent::OpenPermissionsPopup | AppEvent::OpenApprovalsPopup => {
+                if self.reject_pending_permission_change() {
+                    return Ok(AppRunControl::Continue);
+                }
+                #[cfg(any(target_os = "windows", test))]
+                if self.chat_widget.windows_sandbox_local_server
+                    && self.windows_sandbox_host() != WindowsSandboxHost::Remote
+                    && self.chat_widget.windows_sandbox_config.requirements.is_none()
+                    && !self.refresh_windows_sandbox_config(app_server).await
+                {
+                    return Ok(AppRunControl::Continue);
+                }
+                if app_server.uses_remote_workspace() {
+                    self.chat_widget.request_permission_profiles();
+                } else {
+                    self.chat_widget.open_approvals_popup();
+                }
+            }
+            AppEvent::OpenReviewBranchPicker(cwd) => {
+                self.chat_widget.show_review_branch_picker(&cwd).await;
+            }
+            AppEvent::OpenReviewCommitPicker(cwd) => {
+                self.chat_widget.show_review_commit_picker(&cwd).await;
+            }
+            AppEvent::OpenReviewCustomPrompt => {
+                self.chat_widget.show_review_custom_prompt();
+            }
+            AppEvent::SubmitUserMessageWithMode {
+                text,
+                collaboration_mode,
+            } => {
+                self.chat_widget
+                    .submit_user_message_with_mode(text, collaboration_mode);
+            }
+            AppEvent::ManageSkillsClosed => {
+                self.chat_widget.handle_manage_skills_closed();
+            }
+            AppEvent::FullScreenUserVerificationRequest(request) => {
+                let _ = tui.enter_alt_screen();
+                self.overlay = Some(Overlay::new_static_with_renderables(
+                    vec![crate::bottom_pane::user_verification::prompt_header(&request)],
+                    "U S E R  V E R I F I C A T I O N".to_string(),
+                    self.keymap.pager.clone(),
+                ));
+            }
+            AppEvent::FullScreenApprovalRequest(request) => match request {
+                ApprovalRequest::ApplyPatch(request) => {
+                    let _ = tui.enter_alt_screen();
+                    let diff_summary = DiffSummary::new(request.changes, request.cwd);
+                    self.overlay = Some(Overlay::new_static_with_renderables(
+                        vec![diff_summary.into()],
+                        "P A T C H".to_string(),
+                        self.keymap.pager.clone(),
+                    ));
+                }
+                ApprovalRequest::Exec(request) => {
+                    let _ = tui.enter_alt_screen();
+                    let full_cmd = strip_bash_lc_and_escape(&request.command);
+                    let full_cmd_lines = highlight_bash_to_lines(&full_cmd);
+                    self.overlay = Some(Overlay::new_static_with_lines(
+                        full_cmd_lines,
+                        "E X E C".to_string(),
+                        self.keymap.pager.clone(),
+                    ));
+                }
+                ApprovalRequest::Permissions(request) => {
+                    let _ = tui.enter_alt_screen();
+                    let mut lines = Vec::new();
+                    if let Some(environment_id) = request.environment_id {
+                        lines.push(Line::from(vec![
+                            "Environment: ".into(),
+                            environment_id.bold(),
+                        ]));
+                        lines.push(Line::from(""));
+                    }
+                    if let Some(reason) = request.reason {
+                        lines.push(Line::from(vec!["Reason: ".into(), reason.italic()]));
+                        lines.push(Line::from(""));
+                    }
+                    if let Some(rule_line) =
+                        crate::bottom_pane::format_requested_permissions_rule(&request.permissions)
+                    {
+                        lines.push(Line::from(vec![
+                            "Permission rule: ".into(),
+                            rule_line.cyan(),
+                        ]));
+                    }
+                    self.overlay = Some(Overlay::new_static_with_renderables(
+                        vec![Box::new(Paragraph::new(lines).wrap(Wrap { trim: false }))],
+                        "P E R M I S S I O N S".to_string(),
+                        self.keymap.pager.clone(),
+                    ));
+                }
+                ApprovalRequest::McpElicitation(request) => {
+                    let _ = tui.enter_alt_screen();
+                    let paragraph = Paragraph::new(vec![
+                        Line::from(vec!["Server: ".into(), request.server_name.bold()]),
+                        Line::from(""),
+                        Line::from(request.message),
+                    ])
+                    .wrap(Wrap { trim: false });
+                    self.overlay = Some(Overlay::new_static_with_renderables(
+                        vec![Box::new(paragraph)],
+                        "E L I C I T A T I O N".to_string(),
+                        self.keymap.pager.clone(),
+                    ));
+                }
+            },
+            AppEvent::FullscreenTranscriptSelected { enabled } => {
+                self.save_fullscreen_transcript(enabled).await;
+            }
+            AppEvent::StatusLineSetup {
+                items,
+                use_theme_colors,
+            } => {
+                let ids = items.iter().map(ToString::to_string).collect::<Vec<_>>();
+                let items_edit = crate::legacy_core::config::edit::status_line_items_edit(&ids);
+                let colors_edit =
+                    crate::legacy_core::config::edit::status_line_use_colors_edit(use_theme_colors);
+                let apply_result = ConfigEditsBuilder::for_config_path(self.local_settings.user_config_path.as_path())
+                    .with_edits([items_edit, colors_edit])
+                    .apply()
+                    .await;
+                match apply_result {
+                    Ok(()) => {
+                        self.local_settings.tui.status_line = Some(ids.clone());
+                        self.local_settings.tui.status_line_use_colors = use_theme_colors;
+                        self.chat_widget.setup_status_line(items, use_theme_colors);
+                    }
+                    Err(err) => {
+                        let error = format_config_error(&err);
+                        tracing::error!(error = %error, "failed to persist status line settings; keeping previous selection");
+                        self.app_event_tx.send(AppEvent::FollowTranscript);
+                        self.chat_widget.add_error_message(format!(
+                            "Failed to save status line settings: {error}"
+                        ));
+                    }
+                }
+            }
+            AppEvent::StatusLineBranchUpdated { cwd, branch } => {
+                self.chat_widget.set_status_line_branch(cwd, branch);
+                self.refresh_status_line();
+            }
+            AppEvent::StatusLineGitSummaryUpdated { cwd, summary } => {
+                self.chat_widget.set_status_line_git_summary(cwd, summary);
+                self.refresh_status_line();
+            }
+            AppEvent::StatusLineWorkspaceHeadlineUpdated { request_id, result } => {
+                if self
+                    .chat_widget
+                    .set_status_line_workspace_headline(request_id, result)
+                {
+                    tui.frame_requester().schedule_frame();
+                }
+            }
+            AppEvent::StatusLineSetupCancelled => {
+                self.chat_widget.cancel_status_line_setup();
+            }
+            AppEvent::TerminalTitleSetup { items } => {
+                let ids = items.iter().map(ToString::to_string).collect::<Vec<_>>();
+                let edit = crate::legacy_core::config::edit::terminal_title_items_edit(&ids);
+                let apply_result = ConfigEditsBuilder::for_config_path(self.local_settings.user_config_path.as_path())
+                    .with_edits([edit])
+                    .apply()
+                    .await;
+                match apply_result {
+                    Ok(()) => {
+                        self.local_settings.tui.terminal_title = Some(ids.clone());
+                        self.chat_widget.setup_terminal_title(items);
+                    }
+                    Err(err) => {
+                        tracing::error!(error = %err, "failed to persist terminal title items; keeping previous selection");
+                        self.app_event_tx.send(AppEvent::FollowTranscript);
+                        self.chat_widget.revert_terminal_title_setup_preview();
+                        self.chat_widget.add_error_message(format!(
+                            "Failed to save terminal title items: {err}"
+                        ));
+                    }
+                }
+            }
+            AppEvent::TerminalTitleSetupPreview { items } => {
+                self.chat_widget.preview_terminal_title(items);
+            }
+            AppEvent::TerminalTitleSetupCancelled => {
+                self.chat_widget.cancel_terminal_title_setup();
+            }
+            AppEvent::SyntaxThemeSelected { name } => {
+                let edit = crate::legacy_core::config::edit::syntax_theme_edit(&name);
+                let apply_result = ConfigEditsBuilder::for_config_path(self.local_settings.user_config_path.as_path())
+                    .with_edits([edit])
+                    .apply()
+                    .await;
+                match apply_result {
+                    Ok(()) => {
+                        // Ensure the selected theme is active in the current
+                        // session.  The preview callback covers arrow-key
+                        // navigation, but if the user presses Enter without
+                        // navigating, the runtime theme must still be applied.
+                        if let Some(theme) = crate::render::highlight::resolve_theme_by_name(
+                            &name,
+                            Some(&self.local_settings.codex_home),
+                        ) {
+                            crate::render::highlight::set_syntax_theme(theme);
+                        }
+                        self.sync_tui_theme_selection(name);
+                        self.refresh_status_line();
+                        tui.frame_requester().schedule_frame();
+                    }
+                    Err(err) => {
+                        self.restore_runtime_theme_from_config();
+                        self.refresh_status_line();
+                        tracing::error!(error = %err, "failed to persist theme selection");
+                        self.app_event_tx.send(AppEvent::FollowTranscript);
+                        self.chat_widget
+                            .add_error_message(format!("Failed to save theme: {err}"));
+                    }
+                }
+            }
+            AppEvent::SyntaxThemePreviewed => {
+                self.refresh_status_line();
+                tui.frame_requester().schedule_frame();
+            }
+            AppEvent::OpenKeymapActionMenu { context, action } => {
+                self.chat_widget
+                    .open_keymap_action_menu(context, action, &self.keymap);
+            }
+            AppEvent::OpenKeymapReplaceBindingMenu { context, action } => {
+                self.chat_widget
+                    .open_keymap_replace_binding_menu(context, action, &self.keymap);
+            }
+            AppEvent::OpenKeymapCapture {
+                context,
+                action,
+                intent,
+                capture_mode,
+            } => {
+                self.chat_widget.open_keymap_capture(
+                    context,
+                    action,
+                    intent,
+                    capture_mode,
+                    &self.keymap,
+                );
+            }
+            AppEvent::OpenKeymapDebug => {
+                self.chat_widget.open_keymap_debug(&self.keymap);
+            }
+            AppEvent::KeymapCaptured {
+                context,
+                action,
+                key,
+                intent,
+            } => {
+                self.apply_keymap_capture(context, action, key, intent)
+                    .await;
+                self.merge_startup_warnings(tui, &history_cell::StartupWarningsCell::default());
+            }
+            AppEvent::KeymapCleared { context, action } => {
+                self.apply_keymap_clear(context, action).await;
+                self.merge_startup_warnings(tui, &history_cell::StartupWarningsCell::default());
+            }
+            AppEvent::GenerateRecap { thread_id } => {
+                if self.current_displayed_thread_id() == Some(thread_id) {
+                    if self.chat_widget.is_user_turn_pending_or_running() {
+                        self.chat_widget.add_error_message(
+                            "Wait for the current task to finish before running /recap.".to_string(),
+                        );
+                    } else {
+                        self.request_recap(app_server, thread_id, RecapTrigger::Manual);
+                    }
+                }
+            }
+            AppEvent::CheckRecap { thread_id } => {
+                if self.current_displayed_thread_id() == Some(thread_id)
+                    && !self.chat_widget.is_user_turn_pending_or_running()
+                    && self
+                        .recap
+                        .should_generate(tokio::time::Instant::now().into_std())
+                {
+                    self.request_recap(app_server, thread_id, RecapTrigger::Automatic);
+                }
+            }
+            AppEvent::RecapStarted {
+                thread_id,
+                request_id,
+                trigger,
+                completed_turn_count,
+                turn_revision,
+                history,
+                result,
+            } => {
+                self.handle_recap_started(
+                    app_server,
+                    recap::RecapRequest {
+                        thread_id,
+                        request_id,
+                        trigger,
+                        completed_turn_count,
+                        turn_revision,
+                    },
+                    history,
+                    result,
+                );
+            }
+            AppEvent::RecapGenerated {
+                thread_id,
+                request_id,
+                trigger,
+                temporary_thread_id,
+                completed_turn_count,
+                turn_revision,
+                result,
+            } => {
+                self.temporary_structured_requests.remove(&temporary_thread_id);
+                if let Some(cell) = self.handle_generated_recap(
+                    recap::RecapRequest {
+                        thread_id,
+                        request_id,
+                        trigger,
+                        completed_turn_count,
+                        turn_revision,
+                    },
+                    temporary_thread_id,
+                    result,
+                ) {
+                    self.insert_history_cell(tui, Box::new(cell));
+                }
+            }
+        }
+        if let Some(model) = sparkle_model {
+            self.chat_widget
+                .on_sparkle_model_selected_from_picker(&model);
+        }
+        Ok(AppRunControl::Continue)
+    }
+
+    async fn apply_keymap_capture(
+        &mut self,
+        context: String,
+        action: String,
+        key: String,
+        intent: crate::app_event::KeymapEditIntent,
+    ) {
+        let outcome = match crate::keymap_setup::keymap_with_edit(
+            &self.local_settings.tui.keymap,
+            &self.keymap,
+            &context,
+            &action,
+            &key,
+            &intent,
+        ) {
+            Ok(outcome) => outcome,
+            Err(err) => {
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.chat_widget.add_error_message(err);
+                return;
+            }
+        };
+        let (keymap_config, bindings, message) = match outcome {
+            crate::keymap_setup::KeymapEditOutcome::Updated {
+                keymap_config,
+                bindings,
+                message,
+            } => (*keymap_config, bindings, message),
+            crate::keymap_setup::KeymapEditOutcome::Unchanged { message } => {
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.chat_widget.add_info_message(message, /*hint*/ None);
+                return;
+            }
+        };
+
+        let runtime_keymap = match RuntimeKeymap::from_config(&keymap_config) {
+            Ok(runtime_keymap) => runtime_keymap,
+            Err(err) => {
+                let params = crate::keymap_setup::build_keymap_conflict_params(
+                    context,
+                    action,
+                    key,
+                    intent,
+                    err,
+                    &self.keymap,
+                );
+                self.chat_widget.show_selection_view(params);
+                return;
+            }
+        };
+
+        let edit =
+            crate::legacy_core::config::edit::keymap_bindings_edit(&context, &action, &bindings);
+        match ConfigEditsBuilder::for_config_path(self.local_settings.user_config_path.as_path())
+            .with_edits([edit])
+            .apply()
+            .await
+        {
+            Ok(()) => {
+                self.cancel_pending_key_chord();
+                self.local_settings.tui.keymap = keymap_config.clone();
+                self.keymap = runtime_keymap.clone();
+                self.chat_widget
+                    .apply_keymap_update(keymap_config, &runtime_keymap);
+                self.sync_side_thread_ui();
+                self.chat_widget
+                    .return_to_keymap_picker(&context, &action, &runtime_keymap);
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.chat_widget.add_info_message(message, /*hint*/ None);
+            }
+            Err(err) => {
+                tracing::error!(error = %err, "failed to persist keymap binding");
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.chat_widget
+                    .add_error_message(format!("Failed to save shortcut: {err}"));
+            }
+        }
+    }
+
+    fn refresh_plugin_mentions_after_config_write(&mut self) {
+        self.chat_widget.refresh_plugin_mentions();
+        self.chat_widget.submit_op(AppCommand::reload_user_config());
+        self.chat_widget
+            .refresh_connector_mentions(/*force_refresh*/ true);
+    }
+
+    async fn apply_keymap_clear(&mut self, context: String, action: String) {
+        let keymap_config = match crate::keymap_setup::keymap_without_custom_binding(
+            &self.local_settings.tui.keymap,
+            &context,
+            &action,
+        ) {
+            Ok(keymap_config) => keymap_config,
+            Err(err) => {
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.chat_widget.add_error_message(err);
+                return;
+            }
+        };
+
+        let runtime_keymap = match RuntimeKeymap::from_config(&keymap_config) {
+            Ok(runtime_keymap) => runtime_keymap,
+            Err(err) => {
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.chat_widget
+                    .add_error_message(format!("Failed to refresh shortcuts: {err}"));
+                return;
+            }
+        };
+
+        let edit = crate::legacy_core::config::edit::keymap_binding_clear_edit(&context, &action);
+        match ConfigEditsBuilder::for_config_path(self.local_settings.user_config_path.as_path())
+            .with_edits([edit])
+            .apply()
+            .await
+        {
+            Ok(()) => {
+                self.cancel_pending_key_chord();
+                self.local_settings.tui.keymap = keymap_config.clone();
+                self.keymap = runtime_keymap.clone();
+                self.chat_widget
+                    .apply_keymap_update(keymap_config, &runtime_keymap);
+                self.sync_side_thread_ui();
+                self.chat_widget
+                    .return_to_keymap_picker(&context, &action, &runtime_keymap);
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.chat_widget.add_info_message(
+                    format!("Removed custom shortcut for `{context}.{action}`."),
+                    /*hint*/ None,
+                );
+            }
+            Err(err) => {
+                tracing::error!(error = %err, "failed to clear keymap binding");
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.chat_widget
+                    .add_error_message(format!("Failed to remove shortcut: {err}"));
+            }
+        }
+    }
+
+    pub(super) async fn handle_exit_mode(
+        &mut self,
+        app_server: &mut AppServerSession,
+        mode: ExitMode,
+    ) -> AppRunControl {
+        for (request_id, (_, task)) in self.dynamic_tool_tasks.drain() {
+            task.abort();
+            let response = crate::dynamic_tools::failure_response(
+                "TUI disconnected while handling a dynamic tool call",
+            );
+            match serde_json::to_value(response) {
+                Ok(result) => {
+                    if let Err(error) = app_server
+                        .resolve_server_request(request_id.clone(), result)
+                        .await
+                    {
+                        tracing::warn!(?request_id, %error, "failed to cancel dynamic tool call");
+                    }
+                }
+                Err(error) => {
+                    tracing::warn!(?request_id, %error, "failed to serialize dynamic tool response")
+                }
+            }
+        }
+        match mode {
+            ExitMode::ShutdownFirst | ExitMode::ShutdownAfterInterrupt => {
+                // Mark the thread we are explicitly shutting down for exit so
+                // its shutdown completion does not trigger agent failover.
+                self.pending_shutdown_exit_thread_id =
+                    self.active_thread_id.or(self.chat_widget.thread_id());
+                if self.pending_shutdown_exit_thread_id.is_some()
+                    || self.voice_owner_thread_id().is_some()
+                {
+                    // This is a UI escape-hatch budget, not a protocol
+                    // deadline. A healthy local thread/unsubscribe round trip
+                    // should finish comfortably inside two seconds, while a
+                    // longer wait makes Ctrl+C feel broken when the app-server
+                    // is already wedged.
+                    if tokio::time::timeout(
+                        SHUTDOWN_FIRST_EXIT_TIMEOUT,
+                        self.shutdown_current_thread(app_server),
+                    )
+                    .await
+                    .is_err()
+                    {
+                        tracing::warn!("timed out waiting for app-server thread shutdown");
+                    }
+                }
+                self.pending_shutdown_exit_thread_id = None;
+                AppRunControl::Exit(if mode == ExitMode::ShutdownAfterInterrupt {
+                    ExitReason::TurnInterrupted
+                } else {
+                    ExitReason::UserRequested
+                })
+            }
+            ExitMode::Immediate => {
+                self.stop_realtime_conversation(app_server).await;
+                self.pending_shutdown_exit_thread_id = None;
+                AppRunControl::Exit(ExitReason::UserRequested)
+            }
+        }
+    }
+
+    pub(super) async fn archive_current_thread(
+        &mut self,
+        tui: &mut tui::Tui,
+        app_server: &mut AppServerSession,
+    ) -> Result<AppRunControl> {
+        let Some(thread_id) = self.active_thread_id.or(self.chat_widget.thread_id()) else {
+            self.chat_widget
+                .add_error_message("A thread must start before it can be archived.".to_string());
+            return Ok(AppRunControl::Continue);
+        };
+        if self.side_threads.contains_key(&thread_id) {
+            self.chat_widget.add_error_message(
+                "'/archive' is unavailable in side conversations. Press Ctrl+C to return to the main thread first."
+                    .to_string(),
+            );
+            return Ok(AppRunControl::Continue);
+        }
+
+        if !matches!(self.app_server_target, AppServerTarget::Embedded) {
+            self.shutdown_side_threads(app_server).await;
+            if !self.side_threads.is_empty() {
+                return Ok(AppRunControl::Continue);
+            }
+        }
+
+        let result = async {
+            self.stop_voice_for_removed_thread(app_server, thread_id)
+                .await?;
+            app_server.thread_archive(thread_id).await
+        }
+        .await;
+        Ok(match result {
+            Ok(()) if matches!(self.app_server_target, AppServerTarget::Embedded) => {
+                AppRunControl::Exit(ExitReason::Archived(thread_id))
+            }
+            Ok(()) => {
+                self.track_agents_overview_notification(&ServerNotification::ThreadArchived(
+                    codex_app_server_protocol::ThreadArchivedNotification {
+                        thread_id: thread_id.to_string(),
+                    },
+                ));
+                self.discard_thread_local_state(thread_id).await;
+                self.agents_overview.input_states.remove(&thread_id);
+                self.agents_overview.dispatched_requests.remove(&thread_id);
+                self.reset_for_thread_switch(tui)?;
+                self.pending_thread_switch_resets += 1;
+                self.app_event_tx
+                    .send(AppEvent::ResetTranscriptForThreadSwitch);
+                self.detach_current_thread_for_navigation(app_server, /*destination*/ None)
+                    .await;
+                self.reset_thread_event_state().await;
+                let init = self.chatwidget_init_for_forked_or_resumed_thread(
+                    tui,
+                    self.config.clone(),
+                    /*initial_user_message*/ None,
+                );
+                self.replace_chat_widget(ChatWidget::new_with_app_event(init));
+                self.open_agents_overview(app_server);
+                AppRunControl::Continue
+            }
+            Err(err) => {
+                self.chat_widget
+                    .add_error_message(format!("Failed to archive current thread: {err}"));
+                AppRunControl::Continue
+            }
+        })
+    }
+
+    pub(super) async fn delete_current_thread(
+        &mut self,
+        tui: &mut tui::Tui,
+        app_server: &mut AppServerSession,
+    ) -> Result<AppRunControl> {
+        let Some(thread_id) = self.active_thread_id.or(self.chat_widget.thread_id()) else {
+            self.chat_widget
+                .add_error_message("A thread must start before it can be deleted.".to_string());
+            return Ok(AppRunControl::Continue);
+        };
+        if self.side_threads.contains_key(&thread_id) {
+            self.chat_widget.add_error_message(
+                "'/delete' is unavailable in side conversations. Press Ctrl+C to return to the main thread first."
+                    .to_string(),
+            );
+            return Ok(AppRunControl::Continue);
+        }
+
+        if !matches!(self.app_server_target, AppServerTarget::Embedded) {
+            self.shutdown_side_threads(app_server).await;
+            if !self.side_threads.is_empty() {
+                return Ok(AppRunControl::Continue);
+            }
+        }
+
+        let result = async {
+            self.stop_voice_for_removed_thread(app_server, thread_id)
+                .await?;
+            app_server.thread_delete(thread_id).await
+        }
+        .await;
+        Ok(match result {
+            Ok(()) if matches!(self.app_server_target, AppServerTarget::Embedded) => {
+                AppRunControl::Exit(ExitReason::ThreadRemoved)
+            }
+            Ok(()) => {
+                self.track_agents_overview_notification(&ServerNotification::ThreadDeleted(
+                    codex_app_server_protocol::ThreadDeletedNotification {
+                        thread_id: thread_id.to_string(),
+                    },
+                ));
+                self.discard_thread_local_state(thread_id).await;
+                self.agents_overview.input_states.remove(&thread_id);
+                self.agents_overview.dispatched_requests.remove(&thread_id);
+                self.reset_for_thread_switch(tui)?;
+                self.pending_thread_switch_resets += 1;
+                self.app_event_tx
+                    .send(AppEvent::ResetTranscriptForThreadSwitch);
+                self.detach_current_thread_for_navigation(app_server, /*destination*/ None)
+                    .await;
+                self.reset_thread_event_state().await;
+                let init = self.chatwidget_init_for_forked_or_resumed_thread(
+                    tui,
+                    self.config.clone(),
+                    /*initial_user_message*/ None,
+                );
+                self.replace_chat_widget(ChatWidget::new_with_app_event(init));
+                self.open_agents_overview(app_server);
+                AppRunControl::Continue
+            }
+            Err(err) => {
+                self.chat_widget
+                    .add_error_message(format!("Failed to delete current thread: {err}"));
+                AppRunControl::Continue
+            }
+        })
+    }
+}

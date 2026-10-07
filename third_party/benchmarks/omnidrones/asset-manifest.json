@@ -1,0 +1,12 @@
+[
+  {
+    "path": "omni_drones/robots/assets/usd/hummingbird.usd",
+    "bytes": 8940739,
+    "sha256": "b4391716dd2c3636c5f82436d09bd72d38daf249d546f927da22e553dbf20bee"
+  },
+  {
+    "path": "omni_drones/robots/assets/usd/hummingbird.yaml",
+    "bytes": 659,
+    "sha256": "5a89f4ed4f3426ca89bd481cfea57243937708a6c7e1c36d494b4a58d0962a35"
+  }
+]

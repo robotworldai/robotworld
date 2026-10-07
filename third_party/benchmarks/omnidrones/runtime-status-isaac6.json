@@ -1,0 +1,110 @@
+{
+  "runtime_profile": "isaac6",
+  "image": "world/omnidrones:isaac6.0.1-experimental",
+  "image_id": "sha256:f177a0cb61f9b2923d926b2eb15361d9cdc12d2fbee2b309ffd550080734a269",
+  "image_built": true,
+  "upstream_modified": false,
+  "official_physics_equivalence": false,
+  "python": "3.12.14",
+  "torch": "2.11.0+cu130",
+  "cpu_imports": "passed; original TensorDict/TorchRL 0.3.1 source releases rebuilt",
+  "rotor_group_vmap": "passed; original actuator equations unchanged",
+  "gpu_validation": "T16 probe12 and T17 probe02 passed: four real action steps each; actual 1/62s dt asserted; five video frames at62FPS; original observations36/51 dimensions",
+  "model_evaluation": "Completed local source-Codex experimental evaluations after validated force bridge; old force-loss runs invalid and preserved",
+  "physics_differences": [
+    {
+      "setting": "improve_patch_friction",
+      "native_requested": false,
+      "effective": true,
+      "configurable_in_new_engine": false,
+      "opt_in": "WORLD_OMNIDRONES_ALLOW_FIXED_PATCH_FRICTION=1"
+    }
+  ],
+  "evidence_root": "var/runs/docker/native17",
+  "initial_sync": "Root/joint writes synchronize articulation link kinematics without a physics tick before the original observation function; before/after state audit saved",
+  "probe_evidence": {
+    "T16": "var/runs/docker/native17/omnidrones6-probe12/omnidrones/T16",
+    "T17": "var/runs/docker/native17/omnidrones6-t17-probe02/omnidrones/T17"
+  },
+  "force_path_diagnostic": {
+    "path": "var/runs/docker/native17/omnidrones6-force-diagnostic01/force-diagnostic.json",
+    "same_reset_ten_steps_action": [
+      0.8,
+      0.8,
+      0.8,
+      0.8
+    ],
+    "final_vz": {
+      "original": -1.7134275436401367,
+      "ballistic": -1.5586256980895996,
+      "rotor_only": 1.921338438987732,
+      "full_articulation_batch": 1.7697900533676147
+    }
+  },
+  "force_compatibility_validation": {
+    "passed": true,
+    "evidence": {
+      "T16": "var/runs/docker/native17/omnidrones6-probe13/omnidrones/T16",
+      "T17": "var/runs/docker/native17/omnidrones6-t17-probe03/omnidrones/T17"
+    },
+    "probe_action": [
+      0.8,
+      0.6,
+      0.4,
+      0.2
+    ],
+    "steps": 4,
+    "T16_final_vz": 0.3054649829864502,
+    "T16_final_world_angular_velocity": [
+      0.5191951990127563,
+      -1.3899339437484741,
+      -0.1417950689792633
+    ],
+    "T17_final_vz": 0.3659692108631134,
+    "T17_final_world_angular_velocity": [
+      -0.74979567527771,
+      1.2804491519927979,
+      0.12162817269563675
+    ],
+    "native_original_forces_preserved": true
+  },
+  "completed_runs": {
+    "T16": {
+      "path": "var/runs/docker/native17/omnidrones6-gpt03/omnidrones/T16",
+      "steps": 500,
+      "budget": 500,
+      "return": 120.1210142057389,
+      "terminated": false,
+      "truncated": true,
+      "final_distance_m": 0.8010665221531406,
+      "native_position_error_ema_m": 0.8055645823478699,
+      "success": null,
+      "video_frames": 501
+    },
+    "T17": {
+      "path": "var/runs/docker/native17/omnidrones6-gpt04/omnidrones/T17",
+      "steps": 141,
+      "budget": 600,
+      "return": 79.3732428252697,
+      "terminated": true,
+      "truncated": false,
+      "pendulum_up_z": 0.14162018761957365,
+      "final_distance_m": 0.40915983031713526,
+      "native_mean_tracking_error_m": 0.3809250593185425,
+      "success": null,
+      "video_frames": 142
+    }
+  },
+  "review_render": {
+    "evidence": "var/runs/docker/native17/omnidrones6-render-diagnostic01",
+    "requested_AA": 0,
+    "observed_effective_AA": 3,
+    "motion_blur": false,
+    "frame_generation": false,
+    "32_extra_render_only_updates_clear_reset_pose": true,
+    "physical_time_delta": 0,
+    "future_initial_render_updates": 32,
+    "subsequent_render_updates": 4,
+    "recorded_model_videos_preserved_with_visual_residual_limitation": true
+  }
+}

@@ -1,0 +1,478 @@
+[
+  {
+    "root": "dex2bench_dataset/Objects/003_cracker_box/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/004_sugar_box/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/008_pudding_box/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/024_bowl/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/025_mug/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/025_mug/usd_sdf_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/029_plate/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/030_fork/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/031_spoon/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/036_wood_block/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/037_scissors/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/043_phillips_screwdriver/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/044_flat_screwdriver/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/048_hammer/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/063-a_marbles/google_16k/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/065-f_cups/google_16k/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/077_rubiks_cube/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/094_faucet/02_faucet/01/usd_decomposition_linux/mobility.usd",
+    "layers": 5,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/098_keyboard/02_keyboard/01/usd_decomposition_linux_rebuilt_fixed/mobility.usd",
+    "layers": 5,
+    "assets": 43,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl",
+      "OmniPBR_Opacity.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/104_microwave/01_microwave/02/usd_decomposition_linux/mobility.usd",
+    "layers": 5,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl",
+      "OmniPBR_Opacity.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/105_mouse/02_mouse/01/usd_baked_linux/mobility.usd",
+    "layers": 5,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/111_refrigerator/01_refrigerator/01/usd_decomposition_linux/mobility.usd",
+    "layers": 5,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/130_tray/usd_sdf_linux/base3.usd",
+    "layers": 1,
+    "assets": 3,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/151_milk-box/usd_decomposition_linux/base3.usd",
+    "layers": 1,
+    "assets": 3,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/154_wooden_box/usd_decomposition_linux/base0.usd",
+    "layers": 1,
+    "assets": 3,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/163_baguette/usd_decomposition_linux/base3.usd",
+    "layers": 1,
+    "assets": 3,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/194_wineglass/usd_decomposition_linux/base4.usd",
+    "layers": 1,
+    "assets": 3,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/194_wineglass/usd_decomposition_linux/base4_flatbase.usd",
+    "layers": 1,
+    "assets": 3,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/201_screen/usd_decomposition_linux/base3.usd",
+    "layers": 1,
+    "assets": 3,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/224_wine_bottle/usd_decomposition_linux/textured.usd",
+    "layers": 1,
+    "assets": 1,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/325_digital_piano/01_digital_piano/01/digital_piano.usd",
+    "layers": 5,
+    "assets": 18,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl",
+      "OmniPBR_Opacity.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/326_jigsaw_puzzle/01_jigsaw_puzzle/01/usd_sdf_linux/jigsaw_puzzle_fixed_Puzzle_Piece_1__0_sdf.usd",
+    "layers": 1,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/326_jigsaw_puzzle/01_jigsaw_puzzle/01/usd_sdf_linux/jigsaw_puzzle_fixed_Puzzle_Piece_2_008802_0_sdf.usd",
+    "layers": 1,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/326_jigsaw_puzzle/01_jigsaw_puzzle/01/usd_sdf_linux/jigsaw_puzzle_fixed_Puzzle_Piece_3_D31E29_0_sdf.usd",
+    "layers": 1,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/326_jigsaw_puzzle/01_jigsaw_puzzle/01/usd_sdf_linux/jigsaw_puzzle_fixed_Puzzle_Piece_4_1E5AD8_0_sdf.usd",
+    "layers": 1,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/326_jigsaw_puzzle/01_jigsaw_puzzle/01/usd_sdf_linux/jigsaw_puzzle_fixed_Puzzle_Piece_5_FFC107_0_sdf.usd",
+    "layers": 1,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/330_kitchen_pack/01_kitchen_pack/01/usd_decomposition_linux/kitchen_pack_Bowl_phong2_0.usd",
+    "layers": 1,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/330_kitchen_pack/01_kitchen_pack/01/usd_decomposition_linux/kitchen_pack_Ladle_Clutery_Mat_0.usd",
+    "layers": 1,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [
+      {
+        "authored": "/tmp/textures/kitchen_pack_Ladle_Clutery_Mat_0_texture0.png",
+        "local": "dex2bench_dataset/Objects/330_kitchen_pack/01_kitchen_pack/01/usd_decomposition_linux/textures/kitchen_pack_Ladle_Clutery_Mat_0_texture0.png"
+      },
+      {
+        "authored": "/tmp/textures/kitchen_pack_Ladle_Clutery_Mat_0_texture1.png",
+        "local": "dex2bench_dataset/Objects/330_kitchen_pack/01_kitchen_pack/01/usd_decomposition_linux/textures/kitchen_pack_Ladle_Clutery_Mat_0_texture1.png"
+      },
+      {
+        "authored": "/tmp/textures/kitchen_pack_Ladle_Clutery_Mat_0_texture2.png",
+        "local": "dex2bench_dataset/Objects/330_kitchen_pack/01_kitchen_pack/01/usd_decomposition_linux/textures/kitchen_pack_Ladle_Clutery_Mat_0_texture2.png"
+      }
+    ],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/330_kitchen_pack/01_kitchen_pack/01/usd_decomposition_linux/kitchen_pack_Pot_01_Pot_Mat_0.usd",
+    "layers": 1,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Objects/332_gas_stove/01_gas_stove/01/usd_decomposition_linux/gas_stove_kitchen.usd",
+    "layers": 1,
+    "assets": 3,
+    "unresolved_runtime_mdl": [
+      "gltf/pbr.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/Robots_p/ur5+wuji/usd/Multi_UR5_wuji_with_flange.usd",
+    "layers": 5,
+    "assets": 0,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/scenes/ithor/FloorPlan222_physics/scene.usda",
+    "layers": 23,
+    "assets": 32,
+    "unresolved_runtime_mdl": [],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/scenes/ithor/FloorPlan26_physics/scene.usda",
+    "layers": 35,
+    "assets": 44,
+    "unresolved_runtime_mdl": [],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/scenes/ithor/FloorPlan2_physics/scene.usda",
+    "layers": 37,
+    "assets": 45,
+    "unresolved_runtime_mdl": [],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/scenes/ithor/FloorPlan326_physics/scene.usda",
+    "layers": 32,
+    "assets": 38,
+    "unresolved_runtime_mdl": [],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "dex2bench_dataset/scenes/ithor/FloorPlan329_physics/scene.usda",
+    "layers": 23,
+    "assets": 27,
+    "unresolved_runtime_mdl": [],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  },
+  {
+    "root": "shared-assets/Isaac/Environments/Grid/default_environment.usd",
+    "layers": 1,
+    "assets": 3,
+    "unresolved_runtime_mdl": [
+      "OmniPBR.mdl"
+    ],
+    "external_texture_aliases": [],
+    "missing_non_mdl": []
+  }
+]

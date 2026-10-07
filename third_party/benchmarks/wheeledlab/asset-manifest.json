@@ -1,0 +1,58 @@
+{
+  "source": "bundled in pinned upstream Git checkout",
+  "files": [
+    {
+      "path": "Robots/F1TENTH/f1tenth.usd",
+      "bytes": 43726839,
+      "sha256": "57667ae4d176ef993e8e873da8d55abe7cdab23b4971f0d624bc8ac68bded97d"
+    },
+    {
+      "path": "Robots/UWPRL/mushr_nano.usd",
+      "bytes": 30152644,
+      "sha256": "6c275f088984b17ceab94307605cbe7e9e5c7d60abbf1cd668fd1a59af047f2c"
+    },
+    {
+      "path": "Robots/UWRLL/mushr_nano_v2.usd",
+      "bytes": 30139111,
+      "sha256": "f65756555120abb1155698813a67fd98e7a7beb8dba12101158a5cb049bc5488"
+    },
+    {
+      "path": "Terrains/huge_compact.usd",
+      "bytes": 48769773,
+      "sha256": "53dcf8601249945dadba834288e4099bd581d57b63cc0e88349458c14eaba391"
+    }
+  ],
+  "unresolved_upstream_texture": "Terrains/textures/color_121212.hdr",
+  "official_ground": [
+    {
+      "path": "Isaac/Environments/Grid/default_environment.usd",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/default_environment.usd",
+      "bytes": 7892,
+      "sha256": "394fa87bda9096bc80090e0a67bff8f5c283ff270332f6037391a5d64204fc60"
+    },
+    {
+      "path": "Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png",
+      "bytes": 436257,
+      "sha256": "deab39088eaf39ed7be951966c5e6bd5e58b90ab64743b0cdc8e5579fd5a99d9"
+    },
+    {
+      "path": "Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png",
+      "bytes": 1474958,
+      "sha256": "44fc0e82007bb0bd94631cd7ec45986a71ed74b9413899fbffac13efe151be4b"
+    },
+    {
+      "path": "Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png",
+      "bytes": 111895,
+      "sha256": "940b96ee8c8e53bd1acbc770d4ca0ac98bed9c96439ab386d1b27dbc9790cc4e"
+    },
+    {
+      "path": "Isaac/Props/UIElements/arrow_x.usd",
+      "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.5/Isaac/Props/UIElements/arrow_x.usd",
+      "bytes": 5377,
+      "sha256": "d321116a8fecfef657ac95a5392115b2bfbe7d5eeae2a74556a7037f15259132"
+    }
+  ]
+}

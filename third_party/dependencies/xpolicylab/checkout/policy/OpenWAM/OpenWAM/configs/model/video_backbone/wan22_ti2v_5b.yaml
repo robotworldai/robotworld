@@ -1,0 +1,12 @@
+# Wan2.2-TI2V-5B video backbone (cfg.model.video_backbone.*). Supports an
+# external encoder + from_scratch; any H,W % 32 == 0.
+
+defaults:
+  - encoder: wan22_vae   # used only when from_scratch=true; wan22_vae | flux2_vae | dinov3 | vjepa21
+  - _self_
+
+name: wan22_ti2v_5b
+model_path: /path/to/Wan2.2-TI2V-5B  # [Required] weights dir
+
+from_scratch: false   # true = re-init the DiT from scratch (VAE/text encoder still load + freeze)
+shift_video: 5.0      # flow-matching α-shift for the video scheduler (train + deploy single source of truth)

@@ -1,0 +1,51 @@
+task_name: trajectory_tracking
+interface_name: velocity
+
+env:
+  seed: 666
+  num_envs: 10
+  episode_length_s: 20.0
+  device: cuda:0
+
+trajectory_tracking_task:
+  center_position: 0.35
+  initial_ball_position: 0.35
+  trajectory_type: random
+  amplitude: 0.10
+  period: 6.0
+  amplitude_range: [0.05, 0.20]
+  period_range: [4.0, 10.0]
+  random_amplitude: false
+  random_period: false
+
+velocity_interface:
+  max_acc: 0.5
+  max_velocity: 0.0
+
+robustness:
+  enabled: false
+  ball_mass_variation_enabled: false
+  ball_mass_range: [0.0005, 0.0005]
+  recompute_ball_inertia: true
+  controller_gain_variation_enabled: false
+  controller_gain_range: [10.0, 10.0]
+  action_delay_enabled: false
+  delay_step: 0
+  external_disturbance_enabled: false
+  external_disturbance_ou_mu: 0.0
+  external_disturbance_ou_theta_range: [0.1, 0.3]
+  external_disturbance_ou_sigma_range: [0.01, 0.05]
+  external_disturbance_ou_clip: 0.05
+
+trajectory_tracking_evaluator:
+  num_eval_episodes: 10
+
+runner:
+  target_episodes: 10
+  max_steps: null
+  render: true
+  save_rollout: true
+
+logging:
+  root_dir: logs/zero_action
+  run_name: zero_action_trajectory_tracking

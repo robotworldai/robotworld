@@ -1,0 +1,19 @@
+name: Pinball
+
+defaults:
+  # see https://hydra.cc/docs/advanced/overriding_packages/
+  - /base/env_base@_here_
+  - /base/sim_base@_here_
+  # - /base/randomization_base@_here_
+
+env:
+  num_envs: 32
+  max_episode_length: 600
+
+drone_model:
+  name: Hummingbird # Iris
+  controller: LeePositionController
+
+time_encoding: true
+
+action_transform: null

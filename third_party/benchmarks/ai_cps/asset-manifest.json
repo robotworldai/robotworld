@@ -1,0 +1,38 @@
+[
+  {
+    "path": "Isaac/Environments/Grid/Materials/Textures/radialFalloffGrid_v02.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/2022.2.0/Isaac/Environments/Grid/Materials/Textures/radialFalloffGrid_v02.png",
+    "bytes": 146562,
+    "sha256": "3f80853044c13f7ba50b5ed2b39c7478c9fd0ac1a5ffa55f37b5e081a98ea511"
+  },
+  {
+    "path": "Isaac/Environments/Grid/Materials/Textures/radialGrid_clrmap_50.png",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/2022.2.0/Isaac/Environments/Grid/Materials/Textures/radialGrid_clrmap_50.png",
+    "bytes": 426785,
+    "sha256": "645616e25dd4a51ca7d888ae6f23ca644655aecfa942af9baa530af33ef9c3db"
+  },
+  {
+    "path": "Isaac/Environments/Grid/default_environment.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/2022.2.0/Isaac/Environments/Grid/default_environment.usd",
+    "bytes": 10699,
+    "sha256": "5040cca2100d46d42d563bd7979d1e00319610d78563b28d08fb66d6c9fe50d9"
+  },
+  {
+    "path": "Isaac/Robots/Franka/franka_collisions.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/2022.2.0/Isaac/Robots/Franka/franka_collisions.usd",
+    "bytes": 116453,
+    "sha256": "cc71f311b2ae6f56c5d0ae021307ad7e8227b1f0998086a19c62aa5be6e3b619"
+  },
+  {
+    "path": "Isaac/Robots/Franka/franka_instanceable.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/2022.2.0/Isaac/Robots/Franka/franka_instanceable.usd",
+    "bytes": 7036,
+    "sha256": "f5e134d0eee521abacb43912bcc6acb105f9d85333bcdb522c0ff0d6fadd742c"
+  },
+  {
+    "path": "Isaac/Robots/Franka/franka_visuals.usd",
+    "url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/2022.2.0/Isaac/Robots/Franka/franka_visuals.usd",
+    "bytes": 9668722,
+    "sha256": "8dc0a0d6e481a95ef2431a956ef47720917e111970688d29029e98d723933f1f"
+  }
+]

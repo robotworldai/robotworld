@@ -1,0 +1,57 @@
+policy_name: nmpc
+
+gravity: auto
+plank_length: auto
+rope_length: auto
+ball_mass: 0.0005
+ball_radius: auto
+ball_inertia_ratio: 0.4
+max_acc: auto
+max_velocity: auto
+t_step: auto
+use_multiprocessing: true
+
+solver:
+  n_horizon: 35
+  t_step: 0.016666666666666666
+  n_robust: 0
+  store_full_solution: false
+  ipopt_print_level: 0
+  print_time: false
+  suppress_ipopt_output: true
+
+objective:
+  terminal_pb: 1.0
+  terminal_vb: 1.0
+  terminal_theta: 1.0
+  terminal_vrz: 1.0
+  stage_pb: 1.0
+  stage_vb: 0.25
+  stage_theta: 0.0
+  stage_vrz: 0.5
+  rterm_u: 0.05
+
+constraints:
+  ball_position_min: 0.0
+  ball_position_max: 0.7
+  theta_min: -0.6981317007977318
+  theta_max: 0.6981317007977318
+  acceleration_min: -0.5
+  acceleration_max: 0.5
+  velocity_min: null
+  velocity_max: null
+
+state_predictor:
+  enabled: true
+  delay_step: 15
+  solver: rk4
+  step_dt: auto
+  max_acc: auto
+  max_velocity: auto
+  plank_length: auto
+  rope_length: auto
+  gravity: auto
+  ball_mass: 0.0005
+  ball_radius: auto
+  ball_inertia_ratio: 0.4
+  epsilon: 1.0e-6

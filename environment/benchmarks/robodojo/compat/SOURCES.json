@@ -1,0 +1,17 @@
+{
+  "reference": "local TraceHarness; adapted into World, never imported as a harness",
+  "reference_sha256": {
+    "trace_harness/isaac6_adapter.py": "ecfa5b747eb7b32f3d5bd38fe0589a372ccca520869b380e33e63185700a0145",
+    "trace_harness/scene_pose.py": "45927e15e06dd7ece18a118f82e3e9f1e79675c797e633f8d34e4e013e344f28",
+    "trace_harness/conveyor_diagnostics.py": "660264e5517ed5314ad13b202d84247b82a877c78041a395e8debbebe59d4eb7"
+  },
+  "isaacsim_distribution": "6.0.1.0",
+  "isaaclab_distribution": "6.1.11",
+  "source_commits": {
+    "RoboDojo": "ee67a1468510da7624a089164402359f2afc72c8",
+    "IsaacLab": "28a37cecdd433c22d9eabd6a5954add9f13a8951",
+    "CuRobo": "895c6517243f8cb091c73c018c8167192d39599a",
+    "XPolicyLab": "3f7823726fd0dd80705f009a94f59d9042ced56a",
+    "Codex": "8ae55c863db26d417e83390c5854f1144114276b"
+  }
+}

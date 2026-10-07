@@ -1,0 +1,17 @@
+# V-JEPA 2.1 ViT-g/384 external video encoder. Activate via:
+#   model.video_backbone.from_scratch=true model.video_backbone.shift_video=12.0 model/video_backbone/encoder=vjepa21
+# from_scratch=true is REQUIRED (V-JEPA emits z_dim=1408 vs the native 48).
+# Structural fields are read from the weights' manifest.json, not yaml.
+
+name: vjepa21
+model_path: /path/to/vjepa21  # [Required] dir with manifest.json + the checkpoint file it names
+
+# Cond (frame-0) latent path; targets always use the video forward:
+#   video (default): dup frame 0 -> 2-frame clip through the video branch
+#   mixed (legacy):  frame 0 through the image branch
+vjepa21_forward: video
+
+# Optional frozen S-VAE feature reducer (raw embed_dim -> svae_target_dim, e.g. 48
+# to match the Wan VAE z_dim); train via scripts/svae_train/. Leave both null for the raw path.
+svae_path: null         # trained svae.pt (weights travel in the main checkpoint)
+svae_target_dim: null   # optional cross-check vs the S-VAE latent_dim

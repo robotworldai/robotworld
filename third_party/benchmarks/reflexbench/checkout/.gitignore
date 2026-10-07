@@ -1,0 +1,43 @@
+# Python
+**/__pycache__/
+**/*.egg-info/
+**/.pytest_cache/
+*.py[cod]
+
+# Environments and IDEs
+.DS_Store
+.idea/
+.vscode/
+.venv/
+env_isaaclab/
+_isaac_sim*
+
+# Build artifacts
+build/
+dist/
+_build/
+*.so
+
+# Experiment outputs
+logs/
+outputs/
+**/logs/
+**/runs/
+**/output/
+**/outputs/
+**/recordings/
+**/videos/
+**/wandb/
+eval_videos/
+*.log
+*.tmp
+
+# Datasets and checkpoints
+datasets/
+scripts/data_collection/collected_data/
+scripts/data_collection/lerobot_dataset/
+.pretrained_checkpoints/
+
+# Locally installed third-party source trees
+curobo/
+curobo-main/

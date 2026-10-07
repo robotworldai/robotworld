@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-28",
+  "image": "world/aerial-balance:isaac4.2.0",
+  "image_id": "sha256:0fa295bdd35092cfaa46f20517c4016da782236f622b3516227da9fe3dcf495c",
+  "image_bytes": 39785522921,
+  "build": "passed",
+  "base_image": "nvcr.io/nvidia/isaac-sim:4.2.0@sha256:b606646df3aab3f38ba655ce96cdf8f45a13bb167f01c4b2992e40d6f2900089",
+  "isaaclab_commit": "dd044a4977722d85e966c5b63949093c9b14667f",
+  "cpu_imports": {
+    "python": "3.10.14 (main, Apr 12 2024, 18:16:13) [GCC 7.3.1 20180303 (Red Hat 7.3.1-5)]",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "numpy": "1.26.4",
+    "gymnasium": "0.29.0",
+    "yaml": "6.0.2",
+    "lab_file": "/opt/isaaclab14/source/extensions/omni.isaac.lab/omni/isaac/lab/__init__.py"
+  },
+  "cuda_probe": {
+    "exit_code": 0,
+    "kind": "4-element CUDA tensor, no simulator scene",
+    "result": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "gpu": "RTX5090",
+    "compiled_sm120": true
+  },
+  "scene_probe": "not run: four missing original author payloads",
+  "model_run": "not run",
+  "upstream_modified": false,
+  "dependency_conflict": "Benchmark conda_env.yml torch2.8.0 vs IsaacLab1.4 metadata torch2.4.0; benchmark torch retained using Lab --no-deps, non-Torch dependencies installed separately",
+  "limitations": [
+    "CPU module imports and tiny CUDA kernel do not verify Isaac4.2 renderer/PhysX on RTX5090.",
+    "Bundled torchvision0.19/torchaudio2.4 metadata still require torch2.4; these unused optional modules were not validated."
+  ]
+}

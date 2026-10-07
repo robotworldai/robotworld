@@ -1,0 +1,167 @@
+# Editors / IDEs
+.vscode*
+*.code-workspace
+*swp
+*swo
+\#*\#
+.\#*
+*Flymake log*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+nvidia_curobo*/
+
+# uv (library project — lockfile is intentionally not committed)
+uv.lock
+requirements.txt
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# Translations
+*.mo
+*.pot
+
+# Logs
+*.log
+*logs/
+log/*
+benchmark/log/*
+local_settings.py
+
+# Sphinx / docs
+_build/
+docs/_source/
+docs/cpp_api/
+docs/api/*
+docs/modules.rst
+docs/setup.rst
+docs/install_instructions.rst
+docs/doxygen/html/*
+docs/doxygen/xml/*
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter / IPython
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# PEP 582
+__pypackages__/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Rope project settings
+.ropeproject
+
+# mkdocs
+/site
+
+# Cython debug
+cython_debug/
+
+# Project-specific outputs
+experiments/
+**/outputs/
+**/datasets/
+external/*
+public/*
+docker/pkgs/*
+
+# Profiling / tracing
+*.ncu*
+*.nsys*
+*.qdrep
+*.sql*
+*.nvcudmp
+*.profile
+*.etli
+
+# Data / asset files (large or generated)
+*.hdf5
+*.npy
+*.npz
+*.zip
+*.tar
+*.t
+*.p
+*.pt
+*.pth*
+*.engine
+*.cache
+*.flatbuffers
+*.glb
+*.onnx
+*.usd
+*.usda
+*.csv
+*.json
+*.SLDPRT
+*.xacro
+*.gazebo
+*tfevents*
+/examples/*.stl
+
+# Generated images (allow tracked docs assets)
+*.svg
+*.SVG
+!docs/images/*.svg

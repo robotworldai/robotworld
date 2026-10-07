@@ -1,0 +1,87 @@
+{
+  "source_commit": "ad45d4f974725d020f82c2b0d77d78533aeba2b3",
+  "note": "Task-family labels do not uniquely identify official tasks. No custom perturbations added.",
+  "tasks": [
+    {
+      "id": 11,
+      "title": "工具按类别和数量放入多个容器",
+      "verified_candidate_classes": [
+        "ToolOrganizationBothTask",
+        "NonHammerToolsInRightBinTask",
+        "FoodPacking2CansTask"
+      ],
+      "mapping_status": "related_only: different official instructions; no exact combined task established",
+      "custom_fault_injection": false
+    },
+    {
+      "id": 12,
+      "title": "根据左/右、前/后和数量完成桌面重排",
+      "verified_candidate_classes": [
+        "RubiksCubeLeftOfBowlTask",
+        "RubiksCubeInFrontOfBowlTask",
+        "PutTwoMugsOnShelfTask"
+      ],
+      "mapping_status": "related_only: separate official spatial/counting tasks",
+      "custom_fault_injection": false
+    },
+    {
+      "id": 13,
+      "title": "容器已满时选择备用容器",
+      "verified_candidate_classes": [],
+      "mapping_status": "no exact official mapping verified",
+      "custom_fault_injection": false
+    },
+    {
+      "id": 16,
+      "title": "多物体搬运中途发生掉落后的续作",
+      "verified_candidate_classes": [
+        "ToolOrganizationBothTask"
+      ],
+      "mapping_status": "natural failures only; no injected drop",
+      "custom_fault_injection": false
+    },
+    {
+      "id": 29,
+      "title": "抓取滑落后的重新定位与恢复",
+      "verified_candidate_classes": [
+        "ToolOrganizationBothTask"
+      ],
+      "mapping_status": "natural failures only; no injected slip",
+      "custom_fault_injection": false
+    },
+    {
+      "id": 31,
+      "title": "放置偏离目标区域后的纠正",
+      "verified_candidate_classes": [
+        "ToolOrganizationBothTask"
+      ],
+      "mapping_status": "natural placement errors only",
+      "custom_fault_injection": false
+    },
+    {
+      "id": 32,
+      "title": "命令 completed 但物体没有达到目标状态",
+      "verified_candidate_classes": [
+        "ToolOrganizationBothTask"
+      ],
+      "mapping_status": "tool completion is not official predicate success",
+      "custom_fault_injection": false
+    },
+    {
+      "id": 33,
+      "title": "短暂传感器缺失后的安全继续",
+      "verified_candidate_classes": [],
+      "mapping_status": "requires custom sensor-dropout protocol; not standard evaluation",
+      "custom_fault_injection": false
+    },
+    {
+      "id": 36,
+      "title": "主动终态检查后发现未完成并补做",
+      "verified_candidate_classes": [
+        "ToolOrganizationBothTask"
+      ],
+      "mapping_status": "official predicates unchanged; behavioral analysis only",
+      "custom_fault_injection": false
+    }
+  ]
+}

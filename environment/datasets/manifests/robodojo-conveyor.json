@@ -1,0 +1,1092 @@
+{
+  "layout": "Eval_Layout/RoboDojo/arx_x5/1/match_and_pick_from_conveyor_0.json",
+  "file_count": 216,
+  "total_bytes": 1076300341,
+  "files": [
+    {
+      "path": "Background/brown_photostudio_02_4k.hdr",
+      "bytes": 25433817,
+      "sha256": "368251c254a47dc7aaf532a515c0bd9ad3708ce5a3c5bb520b1628bcb9a37bc0"
+    },
+    {
+      "path": "Eval_Layout/RoboDojo/arx_x5/1/match_and_pick_from_conveyor_0.json",
+      "bytes": 9005,
+      "sha256": "8a6dc60165eb92a49b4c933bf77910ee587194e6d483b3db2920e4794bd98936"
+    },
+    {
+      "path": "Material/material_0564/Wood_Tiles_Fineline.mdl",
+      "bytes": 123967,
+      "sha256": "60ca84bd62482b1f444f5fefab4ae74a2fa4e6b3304a08142accc50575d6be31"
+    },
+    {
+      "path": "Material/material_0564/brickbond_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5190594,
+      "sha256": "72708e20c100534f06761e90010e339b21807c03ab5339fdc0f6c70298aa34b2"
+    },
+    {
+      "path": "Material/material_0564/brickbond_R_id_G_offs_B_rotation.png",
+      "bytes": 61671,
+      "sha256": "9fd00d71ac34a2bc3ae995a93f3b3b4bef47c4a9b672ed5eec66c1a8af8b8894"
+    },
+    {
+      "path": "Material/material_0564/brickbond_norm.png",
+      "bytes": 5097857,
+      "sha256": "36f065ec0cc3be3632cd9855942e0022e651ea2704c5eb4b3c93914679eaac46"
+    },
+    {
+      "path": "Material/material_0564/chantilly_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5192773,
+      "sha256": "2e0cabf2d39d63984f8dc6b45304b1d6dce0fa7b462ba5cda17a564c63c13ba2"
+    },
+    {
+      "path": "Material/material_0564/chantilly_R_id_G_offs_B_rotation.png",
+      "bytes": 165856,
+      "sha256": "3eac1bf2d9fefaba86c8160cdc1413206682c7eee1b92ae78e790ac7fcf49dd8"
+    },
+    {
+      "path": "Material/material_0564/chantilly_norm.png",
+      "bytes": 5219533,
+      "sha256": "a49b4ddd3eb9d1aca27491dc5a46ee821f26adebc8c50a5d7c04d8cf8d4d7bb4"
+    },
+    {
+      "path": "Material/material_0564/chevron_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5561847,
+      "sha256": "3a7cded4f69a5bf02630fbd6e68d177d6ca31f73dcafe5125efdf3ed77d8f235"
+    },
+    {
+      "path": "Material/material_0564/chevron_R_id_G_offs_B_rotation.png",
+      "bytes": 253093,
+      "sha256": "a8672aa9e976b6f1f4414269e05b09eef306c75d8ac8e711f8daa2b617213c3f"
+    },
+    {
+      "path": "Material/material_0564/chevron_norm.png",
+      "bytes": 7660298,
+      "sha256": "efcf37cdd9bd301b9e3513f3df53cbc9f0e74ca6ec7db8d2be6047ae893b6257"
+    },
+    {
+      "path": "Material/material_0564/cubes_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5282713,
+      "sha256": "7903a3bf94df642d678feec55c7798a16fd18bb8e3f50dff1873b4ebc7068400"
+    },
+    {
+      "path": "Material/material_0564/cubes_R_id_G_offs_B_rotation.png",
+      "bytes": 188376,
+      "sha256": "9bdd0f5580f45c8112000f0ce338d0bf95cf9a91cf3851adddcff2ee7c42a53b"
+    },
+    {
+      "path": "Material/material_0564/cubes_norm.png",
+      "bytes": 5932734,
+      "sha256": "bc8219f0ac1573a4871777d26a773bccd4084e850f88e30a4b03fd1cec0f07be"
+    },
+    {
+      "path": "Material/material_0564/diagonal_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5507965,
+      "sha256": "ec63497a0ed3753608d8904a91abbad0bff232d1fa51ab5d2f7598a2e53f1481"
+    },
+    {
+      "path": "Material/material_0564/diagonal_R_id_G_offs_B_rotation.png",
+      "bytes": 278035,
+      "sha256": "95db350abe05f308e61f9e8ee81e8bfd926ae4a44105248b03dd2120fd2a551f"
+    },
+    {
+      "path": "Material/material_0564/diagonal_norm.png",
+      "bytes": 7421414,
+      "sha256": "0708f89b7dc534c9681783946bb01386a49d4d16afb417e16ac27b16f06e9c92"
+    },
+    {
+      "path": "Material/material_0564/fineline_diff.jpg",
+      "bytes": 2216725,
+      "sha256": "36f485d03362d1f853e73c617005e44e800608cb3616a71c8c7fd92e565ba605"
+    },
+    {
+      "path": "Material/material_0564/fineline_norm.jpg",
+      "bytes": 2748933,
+      "sha256": "991f65d02adcb3c0b1fa285531dd478bfda2480bbc07009e7f1f44fb06c49bdb"
+    },
+    {
+      "path": "Material/material_0564/fineline_rough_detail.jpg",
+      "bytes": 2583516,
+      "sha256": "882f61d1a41796829c3b8f919ec316331d7444b79f21341140ef567ecda71b2e"
+    },
+    {
+      "path": "Material/material_0564/fineline_rough_grain.jpg",
+      "bytes": 1592267,
+      "sha256": "534d2005cb09b2eb8c9ab730ead8483ac838aa204c3cf250650184ab70a0c038"
+    },
+    {
+      "path": "Material/material_0564/herringbone_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5509842,
+      "sha256": "f6d1d4db4b5d09f95f27e90fb17dbe60b8f4a9ab266d98bcd4ee9b0506480962"
+    },
+    {
+      "path": "Material/material_0564/herringbone_R_id_G_offs_B_rotation.png",
+      "bytes": 304083,
+      "sha256": "d9c4f7944ddcb9e6c919e4f2f044ab1efe9660042a568f142365e08a424194fd"
+    },
+    {
+      "path": "Material/material_0564/herringbone_norm.png",
+      "bytes": 7592872,
+      "sha256": "e7b5c153686bfdfe25af7ed9820b2ae2bbd9b73986d51e85f326d7bde2d67b58"
+    },
+    {
+      "path": "Material/material_0564/mosaic_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5345943,
+      "sha256": "b6b9fb4c15e1ad3fe24783be2897c00447f3374433fd923e7a42bf4920fcf8ba"
+    },
+    {
+      "path": "Material/material_0564/mosaic_R_id_G_offs_B_rotation.png",
+      "bytes": 74735,
+      "sha256": "1c4f6877c6be7b39bb705ee1a53c65691e23de2f66d5be524bac2b0890d7859a"
+    },
+    {
+      "path": "Material/material_0564/mosaic_norm.png",
+      "bytes": 5988778,
+      "sha256": "fdf922e6866e7e39fd4aa23e7f82374c1fcd5f1b65c17ffde7aa18eba457d8ec"
+    },
+    {
+      "path": "Material/material_0564/stackbond_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5339370,
+      "sha256": "361f1c0bcd09e62fdce1fade132a4129e660efe17f3c610ecbff83a6c72a2b09"
+    },
+    {
+      "path": "Material/material_0564/stackbond_R_id_G_offs_B_rotation.png",
+      "bytes": 622237,
+      "sha256": "fb0d4cdde31299ff9b1c3a7ef65eb7b29a2c7c1e881f33f70131c37493a9b4f1"
+    },
+    {
+      "path": "Material/material_0564/stackbond_norm.png",
+      "bytes": 5205492,
+      "sha256": "083c1c77a805a98d962d9c3d9066b8121c9513cb8bca941d2f1a20a7d012459e"
+    },
+    {
+      "path": "Material/material_0564/tiles_wood_R_rough_G_dents_B_spots.jpg",
+      "bytes": 5318464,
+      "sha256": "73f07f9f0053a64f77123e0c2c6b7c04fb13c6c3845fbdb73a899c13e1416ad0"
+    },
+    {
+      "path": "Material/material_0564/tiles_wood_orangepeel_norm.jpg",
+      "bytes": 583443,
+      "sha256": "14b18dba2a5e4978a8d14cb1efd17e3a7a8c7ad5e5b3438ddc7d025c6453fbfe"
+    },
+    {
+      "path": "Material/material_0564/versailles_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5489803,
+      "sha256": "7bf177cbb47fb36b44923ad36bad818f405604b6e1113119314f4e8291800cf1"
+    },
+    {
+      "path": "Material/material_0564/versailles_R_id_G_offs_B_rotation.png",
+      "bytes": 164987,
+      "sha256": "bb6e5627e4bd516c16a2e14ee94b05e2e527697a7d7139dd87bdc79ac3f175e8"
+    },
+    {
+      "path": "Material/material_0564/versailles_norm.png",
+      "bytes": 6678546,
+      "sha256": "bd57efebab075c03b8f290d7c47651eee8650d04c650d0ca3fdd33b1e662d006"
+    },
+    {
+      "path": "Material/material_0564/woodstrip_R_edgewear_G_gaps_B_gaps_rough.jpg",
+      "bytes": 5342612,
+      "sha256": "5fbe05e89f160fb283e17f621a33844ecc6b3abd555b43e94a1ff8f3b9d8a336"
+    },
+    {
+      "path": "Material/material_0564/woodstrip_R_id_G_offs_B_rotation.png",
+      "bytes": 525457,
+      "sha256": "f57463c41a8cb21a1b69253d37c0d33b808d367f789765b2290d8fbff3e18c73"
+    },
+    {
+      "path": "Material/material_0564/woodstrip_norm.png",
+      "bytes": 5122769,
+      "sha256": "ff6c49a20fca5088736b8fa0cc2612a2f8225466824189af7f96df818481511a"
+    },
+    {
+      "path": "Object/RoboDojo/Dynamic/conveyor/00000/metadata.json",
+      "bytes": 5162,
+      "sha256": "cd12712dd7f58cd0137913ada13803c804e0b40b9679931c941629cf012188be"
+    },
+    {
+      "path": "Object/RoboDojo/Dynamic/conveyor/00000/object.usdz",
+      "bytes": 550126969,
+      "sha256": "ebde63388f344570acce9b7b06c30b2d48461ecd83d53cea54de5eded105be07"
+    },
+    {
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/metadata.json",
+      "bytes": 2414,
+      "sha256": "981392df89e5a45a28c0240ef0cb289b778550ec7ad49e98419a813865bb3d30"
+    },
+    {
+      "path": "Object/RoboDojo/Geometry/camera_stand/00000/object.usd",
+      "bytes": 8103315,
+      "sha256": "6c4b9ec4cd325f6e47d862b87e7dddbe9adc5e9a5aa0f04224c47d0f16a600a8"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/bottle/00047/description.json",
+      "bytes": 7058,
+      "sha256": "4e4d0e63b8bed197420b72718f8a346019af38a252f407f903c8c4622d9cc9d5"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/bottle/00047/metadata.json",
+      "bytes": 4323,
+      "sha256": "ec7ce78a8a5e9d3543fc76556b99e641285742b923af458b8a809700e3740cfc"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/bottle/00047/object.usdz",
+      "bytes": 3416719,
+      "sha256": "19ab5101dd7754978a8000e0431057e22d3f51ef8699d621ebc015988ec356e9"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/camera/00002/metadata.json",
+      "bytes": 3456,
+      "sha256": "c250abd3aa93d64c56356f1de8f490882f8908fd1c3f75aeee3d9be3752d206c"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/camera/00002/object.usdz",
+      "bytes": 45122893,
+      "sha256": "01a120e80eed8719a7aeb5f2dc66d23d05ba7ba4457688ff1ba17ca4ca0a4a86"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/game_machine/00000/description.json",
+      "bytes": 7505,
+      "sha256": "d74e0949f88ad874b12adb30c914230599f89e8d498332db0d4559250f3b8594"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/game_machine/00000/metadata.json",
+      "bytes": 3511,
+      "sha256": "0caa20cd72b9a4288d9ae918ce346bda25a7872521084a305d468d0cfb045706"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/game_machine/00000/object.usdz",
+      "bytes": 33124763,
+      "sha256": "e68cbf6c7faa7f89444adb7272dd98f2da57d17615e7fac5c962e746b83ffd29"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/garage/00016/description.json",
+      "bytes": 7321,
+      "sha256": "88e976bb81aea45b86c68d7df46bf43e0496517674b12451e485132f603deb27"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/garage/00016/metadata.json",
+      "bytes": 3500,
+      "sha256": "a77d9a7dfc310d4bd9c47617919c041eebfe61c13e235eb5fe02a9f437f9c3b1"
+    },
+    {
+      "path": "Object/RoboDojo/Rigid/garage/00016/object.usdz",
+      "bytes": 46912970,
+      "sha256": "e9439412492c616fafd376f4013e1fa1fb2678076a06f4db5d320948b766c1a3"
+    },
+    {
+      "path": "Robots/x5/ARX.usd",
+      "bytes": 28300821,
+      "sha256": "5723a835bf5627a935a8dabb3a44447725bd1465243ce791e221b3e990121d63"
+    },
+    {
+      "path": "Robots/x5/X5A.urdf",
+      "bytes": 9218,
+      "sha256": "7aaa308a1a5b6a213d914db86ba09ddd6252f25cb498ac9a148bfa6c7166a423"
+    },
+    {
+      "path": "Robots/x5/configuration/ARX_base.usd",
+      "bytes": 28281338,
+      "sha256": "01a382332e3a60ee2fc61013d2ad13dd0df287d43142e2b854a6b3853e0c892b"
+    },
+    {
+      "path": "Robots/x5/configuration/ARX_physics.usd",
+      "bytes": 5459,
+      "sha256": "96369690dd2a0bdc583f21e7a985e2a0c0d9a50e0f4c6d41d8dc4d9c918df53b"
+    },
+    {
+      "path": "Robots/x5/configuration/ARX_robot.usd",
+      "bytes": 1843,
+      "sha256": "89b2d4349c05691d71d13007f7747e61b64ab5bf7707cca55fcb0e575f45a063"
+    },
+    {
+      "path": "Robots/x5/configuration/ARX_sensor.usd",
+      "bytes": 643,
+      "sha256": "7dfddb8b25ea5ff43e327b63b22c496141bc727c89b616a06e022abcca847677"
+    },
+    {
+      "path": "Robots/x5/configuration/X5A_temp_base.usd",
+      "bytes": 28282173,
+      "sha256": "18ac17e17edc1e6e1661f3b20cf59edd3ba4292150dfcb02c4f5c1def2a199ec"
+    },
+    {
+      "path": "Robots/x5/configuration/X5A_temp_physics.usd",
+      "bytes": 5752,
+      "sha256": "71959c376a0cb79c9cfef3e7c6449c9aa204590095965bdc37a094c1dad9f1e5"
+    },
+    {
+      "path": "Robots/x5/configuration/X5A_temp_robot.usd",
+      "bytes": 1843,
+      "sha256": "89b2d4349c05691d71d13007f7747e61b64ab5bf7707cca55fcb0e575f45a063"
+    },
+    {
+      "path": "Robots/x5/configuration/X5A_temp_sensor.usd",
+      "bytes": 643,
+      "sha256": "7dfddb8b25ea5ff43e327b63b22c496141bc727c89b616a06e022abcca847677"
+    },
+    {
+      "path": "Robots/x5/curobo.yml",
+      "bytes": 12550,
+      "sha256": "98252b4c25b24576469aabedcdb0be5e1c6ee1ed79b6407ce1bc2eb9625a25ea"
+    },
+    {
+      "path": "Robots/x5/curobo_tmp.yml",
+      "bytes": 12526,
+      "sha256": "5eea08bf7ef276bf9dfd078ef9f69221e9a67c8cf6cd19fce5ef66d42e96b3f2"
+    },
+    {
+      "path": "Robots/x5/meshes/base_link.STL",
+      "bytes": 1611284,
+      "sha256": "898dbe3af3a98857358ac5a3d74e085ec9c69946737e767dad139776761cbd92"
+    },
+    {
+      "path": "Robots/x5/meshes/camera.glb",
+      "bytes": 15899328,
+      "sha256": "9833e436988bcd83f3113ab1071428427c80d6a1392d9e0b7cf35d2b6e949d7c"
+    },
+    {
+      "path": "Robots/x5/meshes/camera_base.glb",
+      "bytes": 62332,
+      "sha256": "d771a24ab886166536ffe4a0719af1163e44fac4067e07110cf72a7a01d260b0"
+    },
+    {
+      "path": "Robots/x5/meshes/link1.STL",
+      "bytes": 162184,
+      "sha256": "04a52b86a5b28c847377a9167e7effab0478fa591052e83b0b32cf8709bb3885"
+    },
+    {
+      "path": "Robots/x5/meshes/link2.STL",
+      "bytes": 4353884,
+      "sha256": "2865da6a962c814abaf9251497bcf5f5e3b67610e3b657ddcaa9de8b3d45e83e"
+    },
+    {
+      "path": "Robots/x5/meshes/link3.STL",
+      "bytes": 1052684,
+      "sha256": "3ac2411b0cbffcf4808cae4c215cfeab607f240cd124eeba209ac7986ac047c0"
+    },
+    {
+      "path": "Robots/x5/meshes/link4.STL",
+      "bytes": 142784,
+      "sha256": "3447ddef920c22e4607b887e1cc588037dfb51c37825c4cac86a5391425469c4"
+    },
+    {
+      "path": "Robots/x5/meshes/link5.STL",
+      "bytes": 679584,
+      "sha256": "934b3e70ce2987f8de999de29d8ef72c8370dced8e9fdf6f9ddd3e7e24c1e464"
+    },
+    {
+      "path": "Robots/x5/meshes/link6.STL",
+      "bytes": 643784,
+      "sha256": "32dca4ededcf3215163207b9aea1046114ae59921555d1e068ee46fa6e53915e"
+    },
+    {
+      "path": "Robots/x5/meshes/link7.STL",
+      "bytes": 65284,
+      "sha256": "ec3d40b39cccde0075ca3d16603f14f180fce41a46b446473d384def7a1b0be0"
+    },
+    {
+      "path": "Robots/x5/meshes/link8.STL",
+      "bytes": 65284,
+      "sha256": "29f7a8379cad81797e82e4ba099455cc275ac6ac5bb9e264ce46719fd7d2bb60"
+    },
+    {
+      "path": "Robots/x5/robot_config.yml",
+      "bytes": 794,
+      "sha256": "9de4f63b84c0f730623c09af7a2d530d84973981397280b6e4b626b50ba6f1c9"
+    },
+    {
+      "path": "Room/Simple_Room/.thumbs/256x256/SimpleRoom.usd.png",
+      "bytes": 54337,
+      "sha256": "26aa63c797b2b85bec13865521c60f7f34f15f8bffa34799ae0678aa44b85668"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/SimpleRoom.json",
+      "bytes": 416,
+      "sha256": "ea5adc9b0a1602b1a4c301c01c386a1adf7e49dc18e1239080ebe4a04bda73d2"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/SimpleRoom.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/SimpleRoom_room001.json",
+      "bytes": 28181,
+      "sha256": "a6226f57d18aeb57a70c5e76d951fdb242231ff8d3747c7dd18c77bfe264c09f"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice000.png",
+      "bytes": 901,
+      "sha256": "88fd176941a815caa5b7c43a714d571952c839ab906495e43bca9142ffa56f7f"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice001.png",
+      "bytes": 901,
+      "sha256": "88fd176941a815caa5b7c43a714d571952c839ab906495e43bca9142ffa56f7f"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice002.png",
+      "bytes": 901,
+      "sha256": "88fd176941a815caa5b7c43a714d571952c839ab906495e43bca9142ffa56f7f"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice003.png",
+      "bytes": 901,
+      "sha256": "88fd176941a815caa5b7c43a714d571952c839ab906495e43bca9142ffa56f7f"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice004.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice005.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice006.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice007.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice008.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice009.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice010.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice011.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice012.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice013.png",
+      "bytes": 879,
+      "sha256": "463907aca0e35cfe142d49e893289710e7fb47d87b539b8bf8a0ad871d10a2cd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice014.png",
+      "bytes": 877,
+      "sha256": "89b76b36c06b662fdda3033ecc4cb229b89c48f31c2c434995601f30401d7e5b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice015.png",
+      "bytes": 877,
+      "sha256": "89b76b36c06b662fdda3033ecc4cb229b89c48f31c2c434995601f30401d7e5b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice016.png",
+      "bytes": 877,
+      "sha256": "89b76b36c06b662fdda3033ecc4cb229b89c48f31c2c434995601f30401d7e5b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice017.png",
+      "bytes": 877,
+      "sha256": "89b76b36c06b662fdda3033ecc4cb229b89c48f31c2c434995601f30401d7e5b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice018.png",
+      "bytes": 877,
+      "sha256": "89b76b36c06b662fdda3033ecc4cb229b89c48f31c2c434995601f30401d7e5b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice019.png",
+      "bytes": 877,
+      "sha256": "89b76b36c06b662fdda3033ecc4cb229b89c48f31c2c434995601f30401d7e5b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice020.png",
+      "bytes": 877,
+      "sha256": "89b76b36c06b662fdda3033ecc4cb229b89c48f31c2c434995601f30401d7e5b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice021.png",
+      "bytes": 877,
+      "sha256": "89b76b36c06b662fdda3033ecc4cb229b89c48f31c2c434995601f30401d7e5b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice022.png",
+      "bytes": 877,
+      "sha256": "89b76b36c06b662fdda3033ecc4cb229b89c48f31c2c434995601f30401d7e5b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice023.png",
+      "bytes": 878,
+      "sha256": "94a02b1f801a04be5c2c321d74c12d94f54c6d96c6971fdcb23203ef5f892eea"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice024.png",
+      "bytes": 878,
+      "sha256": "94a02b1f801a04be5c2c321d74c12d94f54c6d96c6971fdcb23203ef5f892eea"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice025.png",
+      "bytes": 878,
+      "sha256": "94a02b1f801a04be5c2c321d74c12d94f54c6d96c6971fdcb23203ef5f892eea"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice026.png",
+      "bytes": 878,
+      "sha256": "94a02b1f801a04be5c2c321d74c12d94f54c6d96c6971fdcb23203ef5f892eea"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice027.png",
+      "bytes": 878,
+      "sha256": "94a02b1f801a04be5c2c321d74c12d94f54c6d96c6971fdcb23203ef5f892eea"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice028.png",
+      "bytes": 878,
+      "sha256": "94a02b1f801a04be5c2c321d74c12d94f54c6d96c6971fdcb23203ef5f892eea"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice029.png",
+      "bytes": 882,
+      "sha256": "d4723cea179d0b1e37107c97aa58684bce13a575e65957eb75ca5d4b09a0fd43"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice030.png",
+      "bytes": 882,
+      "sha256": "d4723cea179d0b1e37107c97aa58684bce13a575e65957eb75ca5d4b09a0fd43"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice031.png",
+      "bytes": 882,
+      "sha256": "d4723cea179d0b1e37107c97aa58684bce13a575e65957eb75ca5d4b09a0fd43"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice032.png",
+      "bytes": 880,
+      "sha256": "70a66b17f2b8f7cbab7f9fdad53382b9eed17c2e2c7d83e2edd79602ed5a29a4"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice033.png",
+      "bytes": 880,
+      "sha256": "70a66b17f2b8f7cbab7f9fdad53382b9eed17c2e2c7d83e2edd79602ed5a29a4"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice034.png",
+      "bytes": 880,
+      "sha256": "70a66b17f2b8f7cbab7f9fdad53382b9eed17c2e2c7d83e2edd79602ed5a29a4"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice035.png",
+      "bytes": 880,
+      "sha256": "70a66b17f2b8f7cbab7f9fdad53382b9eed17c2e2c7d83e2edd79602ed5a29a4"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice036.png",
+      "bytes": 880,
+      "sha256": "70a66b17f2b8f7cbab7f9fdad53382b9eed17c2e2c7d83e2edd79602ed5a29a4"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice037.png",
+      "bytes": 880,
+      "sha256": "70a66b17f2b8f7cbab7f9fdad53382b9eed17c2e2c7d83e2edd79602ed5a29a4"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice038.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice039.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice040.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice041.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice042.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice043.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice044.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice045.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice046.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice047.png",
+      "bytes": 880,
+      "sha256": "69c0c10bdf3766d1e1b43d17b1218c28420047e0494f21d8bf01c483b53223f1"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice048.png",
+      "bytes": 902,
+      "sha256": "27bfe7c7e69352e3d7b76f090d99336c9a085171050df06428abf0c77b5d00dd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice049.png",
+      "bytes": 902,
+      "sha256": "27bfe7c7e69352e3d7b76f090d99336c9a085171050df06428abf0c77b5d00dd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice050.png",
+      "bytes": 902,
+      "sha256": "27bfe7c7e69352e3d7b76f090d99336c9a085171050df06428abf0c77b5d00dd"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice051.png",
+      "bytes": 902,
+      "sha256": "53cabbf69d4eb817315198ef19be6b3171f1ed2ec73f9203e02152e01e436e4c"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice052.png",
+      "bytes": 902,
+      "sha256": "53cabbf69d4eb817315198ef19be6b3171f1ed2ec73f9203e02152e01e436e4c"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice053.png",
+      "bytes": 903,
+      "sha256": "ee32043a3662e1b91209b247c21b38cb9b7fd4b906a758e19f34e7579a9475ca"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice054.png",
+      "bytes": 903,
+      "sha256": "ee32043a3662e1b91209b247c21b38cb9b7fd4b906a758e19f34e7579a9475ca"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice055.png",
+      "bytes": 907,
+      "sha256": "67efc49c6554776e7b2e0c6c4dbbe46697dfb5a403c0b6af5ccc3b89ba4d4e3f"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice056.png",
+      "bytes": 907,
+      "sha256": "67efc49c6554776e7b2e0c6c4dbbe46697dfb5a403c0b6af5ccc3b89ba4d4e3f"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice057.png",
+      "bytes": 907,
+      "sha256": "67efc49c6554776e7b2e0c6c4dbbe46697dfb5a403c0b6af5ccc3b89ba4d4e3f"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/room_boundaries/room001/SimpleRoom_slice058.png",
+      "bytes": 905,
+      "sha256": "4c2ac213ba37ca8a68357b52b4e8e1e24c0f6ebe6ae8c5b9d819e3d6a600a6b7"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice000.png",
+      "bytes": 885,
+      "sha256": "6eca35c75aab7f66c9c90db8ebfe5b35d412ba17003763eadd85426410209683"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice001.png",
+      "bytes": 885,
+      "sha256": "6eca35c75aab7f66c9c90db8ebfe5b35d412ba17003763eadd85426410209683"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice002.png",
+      "bytes": 885,
+      "sha256": "6eca35c75aab7f66c9c90db8ebfe5b35d412ba17003763eadd85426410209683"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice003.png",
+      "bytes": 885,
+      "sha256": "fb8321cc6d9add94513f92c40c73097b8ff20ac86250ff049c3745dd1970f57c"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice004.png",
+      "bytes": 860,
+      "sha256": "1e747c42e4ce57ad9f745b77d230d34ae2ecfb6c0b74e77043729b08afbf485b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice005.png",
+      "bytes": 860,
+      "sha256": "1e747c42e4ce57ad9f745b77d230d34ae2ecfb6c0b74e77043729b08afbf485b"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice006.png",
+      "bytes": 856,
+      "sha256": "b2569b5d8fbcac96e887d1a9804298c022edf102cd536a77ab51dcb6eb7d2a40"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice007.png",
+      "bytes": 856,
+      "sha256": "b2569b5d8fbcac96e887d1a9804298c022edf102cd536a77ab51dcb6eb7d2a40"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice008.png",
+      "bytes": 856,
+      "sha256": "b2569b5d8fbcac96e887d1a9804298c022edf102cd536a77ab51dcb6eb7d2a40"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice009.png",
+      "bytes": 856,
+      "sha256": "b2569b5d8fbcac96e887d1a9804298c022edf102cd536a77ab51dcb6eb7d2a40"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice010.png",
+      "bytes": 856,
+      "sha256": "b2569b5d8fbcac96e887d1a9804298c022edf102cd536a77ab51dcb6eb7d2a40"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice011.png",
+      "bytes": 856,
+      "sha256": "b2569b5d8fbcac96e887d1a9804298c022edf102cd536a77ab51dcb6eb7d2a40"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice012.png",
+      "bytes": 855,
+      "sha256": "985c786f2e4c1adbcaca0eb00ed3ac003a573b5b50e0bea3df6dad29b3f22fa9"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice013.png",
+      "bytes": 855,
+      "sha256": "985c786f2e4c1adbcaca0eb00ed3ac003a573b5b50e0bea3df6dad29b3f22fa9"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice014.png",
+      "bytes": 862,
+      "sha256": "d61969d1e1a025f3c48f504e2e2e507f2e6cb45a496c60a90e9ce212d8134f04"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice015.png",
+      "bytes": 862,
+      "sha256": "d61969d1e1a025f3c48f504e2e2e507f2e6cb45a496c60a90e9ce212d8134f04"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice016.png",
+      "bytes": 862,
+      "sha256": "d61969d1e1a025f3c48f504e2e2e507f2e6cb45a496c60a90e9ce212d8134f04"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice017.png",
+      "bytes": 862,
+      "sha256": "d61969d1e1a025f3c48f504e2e2e507f2e6cb45a496c60a90e9ce212d8134f04"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice018.png",
+      "bytes": 862,
+      "sha256": "d61969d1e1a025f3c48f504e2e2e507f2e6cb45a496c60a90e9ce212d8134f04"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice019.png",
+      "bytes": 862,
+      "sha256": "d61969d1e1a025f3c48f504e2e2e507f2e6cb45a496c60a90e9ce212d8134f04"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice020.png",
+      "bytes": 862,
+      "sha256": "d61969d1e1a025f3c48f504e2e2e507f2e6cb45a496c60a90e9ce212d8134f04"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice021.png",
+      "bytes": 862,
+      "sha256": "d61969d1e1a025f3c48f504e2e2e507f2e6cb45a496c60a90e9ce212d8134f04"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice022.png",
+      "bytes": 862,
+      "sha256": "d61969d1e1a025f3c48f504e2e2e507f2e6cb45a496c60a90e9ce212d8134f04"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice023.png",
+      "bytes": 865,
+      "sha256": "947c91f85994d2f0f2349e0abe56168006e20cacb6e6c8a0a6bd1a7ca42e17a7"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice024.png",
+      "bytes": 865,
+      "sha256": "947c91f85994d2f0f2349e0abe56168006e20cacb6e6c8a0a6bd1a7ca42e17a7"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice025.png",
+      "bytes": 865,
+      "sha256": "947c91f85994d2f0f2349e0abe56168006e20cacb6e6c8a0a6bd1a7ca42e17a7"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice026.png",
+      "bytes": 865,
+      "sha256": "947c91f85994d2f0f2349e0abe56168006e20cacb6e6c8a0a6bd1a7ca42e17a7"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice027.png",
+      "bytes": 865,
+      "sha256": "947c91f85994d2f0f2349e0abe56168006e20cacb6e6c8a0a6bd1a7ca42e17a7"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice028.png",
+      "bytes": 865,
+      "sha256": "947c91f85994d2f0f2349e0abe56168006e20cacb6e6c8a0a6bd1a7ca42e17a7"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice029.png",
+      "bytes": 869,
+      "sha256": "94fbc396548542a0bf45f57a11f045ea45b415712069e0b31345a70f227b0856"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice030.png",
+      "bytes": 869,
+      "sha256": "94fbc396548542a0bf45f57a11f045ea45b415712069e0b31345a70f227b0856"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice031.png",
+      "bytes": 869,
+      "sha256": "94fbc396548542a0bf45f57a11f045ea45b415712069e0b31345a70f227b0856"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice032.png",
+      "bytes": 869,
+      "sha256": "da2650c156624d79878519469eb25cfa00629fe6274855d2497ec91665039c60"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice033.png",
+      "bytes": 869,
+      "sha256": "da2650c156624d79878519469eb25cfa00629fe6274855d2497ec91665039c60"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice034.png",
+      "bytes": 869,
+      "sha256": "da2650c156624d79878519469eb25cfa00629fe6274855d2497ec91665039c60"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice035.png",
+      "bytes": 869,
+      "sha256": "da2650c156624d79878519469eb25cfa00629fe6274855d2497ec91665039c60"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice036.png",
+      "bytes": 869,
+      "sha256": "da2650c156624d79878519469eb25cfa00629fe6274855d2497ec91665039c60"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice037.png",
+      "bytes": 869,
+      "sha256": "da2650c156624d79878519469eb25cfa00629fe6274855d2497ec91665039c60"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice038.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice039.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice040.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice041.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice042.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice043.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice044.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice045.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice046.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice047.png",
+      "bytes": 871,
+      "sha256": "e33c865a2910f9553952368c6a315538779efd5aae47b85206ffb0020d0d1b58"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice048.png",
+      "bytes": 895,
+      "sha256": "d20e10ba6fa7e608db3a236ac385a990d79cd64f3bbc3daf5def64b70c8e6e2a"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice049.png",
+      "bytes": 895,
+      "sha256": "d20e10ba6fa7e608db3a236ac385a990d79cd64f3bbc3daf5def64b70c8e6e2a"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice050.png",
+      "bytes": 895,
+      "sha256": "d20e10ba6fa7e608db3a236ac385a990d79cd64f3bbc3daf5def64b70c8e6e2a"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice051.png",
+      "bytes": 892,
+      "sha256": "e0693626ccad288973567af279978e379b9f910d0254cb8c841c10a2442c7eca"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice052.png",
+      "bytes": 892,
+      "sha256": "e0693626ccad288973567af279978e379b9f910d0254cb8c841c10a2442c7eca"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice053.png",
+      "bytes": 891,
+      "sha256": "b0adca0340da745695f9d18ff927fdb5f016a49dc15f89a001edf0a8ee91e696"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice054.png",
+      "bytes": 891,
+      "sha256": "b0adca0340da745695f9d18ff927fdb5f016a49dc15f89a001edf0a8ee91e696"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice055.png",
+      "bytes": 892,
+      "sha256": "a4260b45cccbff6d80e9178b8f4ffeda6ff5865586cad5a310a98b73e1352cbf"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice056.png",
+      "bytes": 892,
+      "sha256": "a4260b45cccbff6d80e9178b8f4ffeda6ff5865586cad5a310a98b73e1352cbf"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice057.png",
+      "bytes": 892,
+      "sha256": "a4260b45cccbff6d80e9178b8f4ffeda6ff5865586cad5a310a98b73e1352cbf"
+    },
+    {
+      "path": "Room/Simple_Room/Annotation/scene_slices/SimpleRoom_slice058.png",
+      "bytes": 885,
+      "sha256": "8308fb4d1fedf684c85a4b7aa3d7262f5de814bf465945ccf164e322ab2e24c4"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/DefaultMaterial_Base_Color.png",
+      "bytes": 309606,
+      "sha256": "49a93f3124cc628d579ac7ad39708ef1692c642668fd9ae784264dd728069bfd"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/DefaultMaterial_Mixed_AO.png",
+      "bytes": 1110839,
+      "sha256": "1a53593fa84590c8339714c247a7b5b71bd578ce72fc0168b1e335efb0a17cd5"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/DefaultMaterial_Normal_DirectX.png",
+      "bytes": 2052839,
+      "sha256": "12aec50406cf9ba8f5c32cb27d35dd1af367433a7cd91de5d191fe0ddec57009"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/DefaultMaterial_Roughness.png",
+      "bytes": 87313,
+      "sha256": "0ab8364b5adfab4bd74ac4df359eb271595b3f0593eaf7e50ffd539b6155ad7c"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/Parquet_AO.png",
+      "bytes": 100361,
+      "sha256": "8917fc3f37e3e5985823f01339d5009eb2094ba3156f6f1326cd3ada0e9836c3"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/Parquet_Color.png",
+      "bytes": 17770200,
+      "sha256": "c67a4b0c0d77134cbe667af01b81861b5c157a738d7659fb3d348dabc204fe2f"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/Parquet_Normal.png",
+      "bytes": 9157075,
+      "sha256": "ef2d766ab27ff02e3b519a9438746d94264dc130bdc23f6ddddd89fed57e8c81"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/Parquet_Rough.png",
+      "bytes": 7945746,
+      "sha256": "dd7abcbf1627299aaddc730f4399683a51dbae4dca8180e683d71e4533d67b96"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/WallWood_Color.png",
+      "bytes": 22115990,
+      "sha256": "5890ba4255bf7ce41465c5ec8131d02aa04853480ceafa99dbee2106bdc15906"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/WallWood_Normal.png",
+      "bytes": 11588550,
+      "sha256": "9082f2f18db24a5e9d92282aab6b01c930d9d1d1d97825540e7cb7465f561b94"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/WallWood_Rough.png",
+      "bytes": 7578363,
+      "sha256": "52246dd49107cec33307654ae1021b88cd65af53069b9e235f703aa34f90be7b"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/WhitePlastic_Color.png",
+      "bytes": 4639472,
+      "sha256": "f1705e778fe56e1b22f86d7e4fb8e12def7e5e0a1c053be46db5100fec093861"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/WhitePlastic_Normal.png",
+      "bytes": 304449,
+      "sha256": "67eac4ffbea3538fcf40a44c63abfa432517c78895c5537396dea7b87cca7f7c"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/WhitePlastic_Rough.png",
+      "bytes": 8055045,
+      "sha256": "9f94f83edcfb93a03f79df531db6f5237fceb20eacee46c0cb8c07c1ed66c86e"
+    },
+    {
+      "path": "Room/Simple_Room/SubUSDs/textures/abandoned_parking_4k.hdr",
+      "bytes": 25661358,
+      "sha256": "3797789e0e71990f3129c5ebdd052883c458b5834845a239d8c822f5a577a389"
+    },
+    {
+      "path": "Room/Simple_Room/base0.usd",
+      "bytes": 2197390,
+      "sha256": "2ef6448c4e170d761d21653b78485b4701b1ebbafacb3d7d7a7b27e1923500df"
+    }
+  ],
+  "repo_id": null,
+  "revision": null,
+  "repo_type": "dataset",
+  "prefix": "robodojo/match_and_pick_from_conveyor_0/Assets",
+  "destination": "var/datasets/robodojo/match_and_pick_from_conveyor_0/Assets"
+}

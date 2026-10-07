@@ -1,0 +1,30 @@
+{
+  "benchmark": "aerial_balance",
+  "task": "T04",
+  "reason": "Removed from active evaluation at user request; unresolved upstream USD payloads. Existing source/assets/error records retained as archive only.",
+  "previous_registry_entries": {
+    "environment/validation/selected-tasks.json": [
+      {
+        "benchmark": "aerial_balance",
+        "case": "T04",
+        "native_task": "template_eval_disturbance.yaml",
+        "registered_steps": 600,
+        "required_runtime_profile": null
+      }
+    ],
+    "environment/evaluation/native17.json": [
+      {
+        "id": "T04",
+        "title": "绳牵横梁上的小球抗扰定位",
+        "project": "aerial_balance",
+        "repository": "Wenminggong/aerial_balance_bench",
+        "commit": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+        "handoff_native_task": "environments/configs/template_eval_disturbance.yaml",
+        "existing_integration": false,
+        "project_manifest": "third_party/benchmarks/aerial_balance/project.json",
+        "existing_case": null,
+        "protocol_note": null
+      }
+    ]
+  }
+}
