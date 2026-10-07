@@ -189,39 +189,7 @@ If you use RobotWorld in your research, please cite:
 ```bibtex
 @misc{yang2026robotworld,
   title  = {{RobotWorld}: Benchmarking Multimodal Agents for Robot Use Across Diverse Tasks and Embodiments},
-  author = {Yang, Zhiqin and
-            Li, Chenxin and
-            Hu, Xiaomeng and
-            Liu, Yibin and
-            Huang, Weidong and
-            Sun, Jiankai and
-            Li, Haitao and
-            Wu, Zijian and
-            Huang, Yuzhi and
-            Huang, Fanding and
-            Sun, Hanwen and
-            Liu, Jiashun and
-            Tong, Jingqi and
-            Huang, Mingxin and
-            Hu, Shaoli and
-            Huang, Shijue and
-            Bai, Tianyi and
-            Wang, Xinyuan and
-            Lin, Yunlong and
-            Tang, Zhengyang and
-            Zhang, Zhexin and
-            Chen, Zhuo and
-            Song, Xierui and
-            Dai, Juntao and
-            Chen, Boyuan and
-            Ji, Jiaming and
-            Zhan, Fangneng and
-            Hu, Mengkang and
-            Xue, Wei and
-            Zhang, Yonggang and
-            Hu, Han and
-            Ho, Tsung-Yi and
-            Guo, Yike},
+  author = {Yang, Zhiqin and Li, Chenxin and Hu, Xiaomeng and Liu, Yibin and Huang, Weidong and Sun, Jiankai and Li, Haitao and Wu, Zijian and Huang, Yuzhi and Huang, Fanding and Sun, Hanwen and Liu, Jiashun and Tong, Jingqi and Huang, Mingxin and Hu, Shaoli and Huang, Shijue and Bai, Tianyi and Wang, Xinyuan and Lin, Yunlong and Tang, Zhengyang and Zhang, Zhexin and Chen, Zhuo and Song, Xierui and Dai, Juntao and Chen, Boyuan and Ji, Jiaming and Zhan, Fangneng and Hu, Mengkang and Xue, Wei and Zhang, Yonggang and Hu, Han and Ho, Tsung-Yi and Guo, Yike},
   year   = {2026},
   url    = {https://github.com/robotworldai/robotworld}
 }
