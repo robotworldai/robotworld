@@ -13,7 +13,7 @@ This review covers the public source snapshot and its documented entry points. I
 
 Inspected 37,076 tracked files, including bundled upstream code, for token-shaped values, credential assignments, personal deployment paths, private-IP HTTP endpoints, and deployment-specific service identifiers. The available Git history contains one release commit; its files were covered by the tracked-file scan. Remote URL configuration was also checked for embedded credentials.
 
-No project-owned live API credential, CodeBuddy configuration, or personal deployment address was identified. This is a pattern-based inspection with manual classification of matches, not proof that every possible secret format is absent.
+No project-owned live API credential or personal deployment address was identified. This is a pattern-based inspection with manual classification of matches, not proof that every possible secret format is absent. It does not certify that all deployment metadata has been removed.
 
 Matches retained with their context:
 

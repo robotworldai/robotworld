@@ -38,9 +38,9 @@ command execution, without rewriting images, tools or task instructions.
 source-built app-server. Nonroot/process/filesystem/observation-write checks and
 `command/exec` passed. Two GPT-6 Astra synthetic tests correctly read the initial
 image, called a tool, and read the new tool-returned image; containers were removed.
-The Azure service returned token-rate-limit failures before successful retries,
+The configured provider returned token-rate-limit failures before successful retries,
 so strict all-requests-success acceptance did not pass. Historical attempts are
-retained under `/root/robotworld-environment-setup-20260930/main-agent-roundtrip-*`.
+retained in the local validation archive and are not included in this repository.
 
 These tests disabled built-in model tools only for the synthetic one-tool test.
 Formal task tool profiles were not changed. This backend alone does not provision

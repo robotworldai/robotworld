@@ -104,7 +104,7 @@ def test_missing_or_changed_packet_fails_closed(change):
 @pytest.mark.parametrize("dynamic_tools", [False, True])
 def test_actual_http_audit_trims_history_before_retry_without_changing_current(tmp_path, monkeypatch, dynamic_tools):
     from environment.runtime import request_audit as module
-    history, payload = ObservationHistory(), dict(model="gpt-6-astra-azure", tools=[dict(type="function", name="step")], input=[])
+    history, payload = ObservationHistory(), dict(model="fixture-model", tools=[dict(type="function", name="step")], input=[])
     for number in range(65):
         parts = history.append(number, number * 15, [image(str(number).encode())])
         payload["input"].append(dict(type="function_call_output", call_id=str(number), output=wire(parts)))

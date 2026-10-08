@@ -111,7 +111,7 @@ def test_real_audit_retries_only_before_stream(tmp_path, monkeypatch, partial_st
     monkeypatch.setattr(module, "open_with_retry", lambda *args, **kwargs:
                         original(*args, **kwargs, sleep=lambda delay: None))
     cfg = dict(model_provider="fixture", model_providers={"fixture": dict(base_url="http://invalid")})
-    body = dict(model="gpt-6-astra-azure", tools=[dict(type="function", name="step")],
+    body = dict(model="fixture-model", tools=[dict(type="function", name="step")],
                 input=[dict(type="input_image", image_url="data:image/png;base64,cmdi")])
     with module.RequestAudit(cfg, tmp_path / "audit.json", {"step"}, current_image=lambda: b"rgb",
                              max_retries=3) as audit:

@@ -8,9 +8,9 @@ Export with the host report/Scaffold venv, never the simulation environment:
 
 ```bash
 python environment/reports/behavior/export.py \
-  --batch /root/robotworld-behavior-private/first-four-20260926-01 \
-  --output /data/t3-data/report/robotworld-behavior
-python environment/reports/behavior/serve.py --root /data/t3-data --port 8080
+  --batch /path/to/local/batch \
+  --output /path/to/report-only/robotworld-behavior
+python environment/reports/behavior/serve.py --root /path/to/report-only --port 8080
 ```
 
 The served root contains ONLY report files. No symlinks to private runs. The
@@ -36,8 +36,8 @@ seeking, camera selection and failure filtering. Unit tests live in
 
 ```bash
 python environment/reports/behavior/bundle.py \
-  --source /data/t3-data/report/robotworld-behavior \
-  --output /dockerdata/robotworld-r580/report-web/robotworld-behavior-first-four.html
+  --source /path/to/report-only/robotworld-behavior \
+  --output /path/to/offline/robotworld-behavior.html
 ```
 
 This embeds all selected videos, RGB, display JSON and CJK font. It uses local

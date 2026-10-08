@@ -237,7 +237,7 @@ def test_direct_audit_forwards_exact_inputs_and_requires_completion(monkeypatch,
             return Response(b'data: {"type":"response.completed"}\n\n')
     client = urllib.request.build_opener()
     monkeypatch.setattr(module.urllib.request, "build_opener", lambda *args: Opener())
-    payload = dict(model="gpt-6-astra-azure", tools=[dict(type="function", name="observe")],
+    payload = dict(model="fixture-model", tools=[dict(type="function", name="observe")],
                    input=[dict(type="function_call_output", call_id=str(i), output=[
                        dict(type="input_image", image_url="data:image/png;base64,cmdi")]) for i in range(4)])
     with module.RequestAudit(config, tmp_path / "audit.json", {"observe"},

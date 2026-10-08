@@ -62,7 +62,7 @@ Local short GPU and source-Codex smoke acceptance passed on 2026-10-04:
 
 - Probe: 8 ticks, 9 review frames, independently changing opponent actions,
   exit 0 and infrastructure_ok=true.
-- Astra/Azure xhigh, coding off: 32 ticks via 7 apply_action calls, all 7 API
+- Astra xhigh, coding off: 32 ticks via 7 apply_action calls, all 7 API
   responses completed, median full response 13.71 seconds, 33 review frames,
   no outgoing policy images, exit 0 and infrastructure_ok=true.
 - Both runs stopped at the requested short budget with outcome=unfinished and
@@ -70,8 +70,7 @@ Local short GPU and source-Codex smoke acceptance passed on 2026-10-04:
 - Fresh private-cache startup spent several minutes compiling RTX shaders.
   Missing viewport.pxr registry messages did not prevent either run completing.
 
-Artifacts are under `/root/robotworld-environment-setup-20260930/` in
-`volleybots-scripted-smoke-1004-01` and `volleybots-astra-smoke-1004-01`.
+Artifacts are retained in the local validation archive and are not included in this repository.
 Full-horizon match, native terminal outcome, and sustained opponent rally
 acceptance remain pending. This change does not enqueue 1v1, restart running
 episodes or modify existing campaign scores.

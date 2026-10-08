@@ -181,7 +181,7 @@ def main():
     for name in ("index.html", "style.css", "app.js"):
         shutil.copyfile(Path(__file__).with_name(name), output / name)
     write(output / "data.json", {"generated_at": datetime.now(timezone.utc).isoformat(),
-          "batch_status": batch["status"], "model": "GPT-6 Astra / AI Hub Azure",
+          "batch_status": batch["status"], "model": "GPT-6 Astra",
           "harness": "Codex + sensor-only EEF", "simulator": "Isaac Sim 5.1 / OmniGibson 3.9.3",
           "scope": "原生训练实例 0；固定躯干、无高层 skill 的诊断回合，不等同于完整官方评测。",
           "tasks": tasks})

@@ -10,9 +10,8 @@ images per request. Full images/video stay on disk. `request-audit.json` records
 the selected rounds, incoming/outgoing counts and hashes. Failed image auditing
 rejects the run rather than producing a valid model score.
 
-For GPT-6 Astra, the existing private AI Hub credential is used by the per-run
-direct route, bypassing the legacy shared image-dropping proxy. Other models
-retain their configured provider. No global Codex authentication is changed.
+Each run uses its configured model provider and local authentication settings.
+No global Codex authentication is changed.
 The new source path requires runtime verification before claiming parity with
 the historical container results below; previously built images are not rebuilt
 or silently updated by this source change.

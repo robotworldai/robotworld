@@ -98,8 +98,8 @@ setting it in an arbitrary host shell as proof of effective configuration.
 
 111 focused unit/integration tests passed on2026-10-02. Real pinned Codex
 image-window-v2 with a synthetic provider completed exactly20 empty turns,
-then stopped with nonaction_consecutive_limit and0 physics steps:
-`/root/robotworld-environment-setup-20260930/nonaction20-fixed-codex-1002`.
+then stopped with nonaction_consecutive_limit and0 physics steps.
+The evidence is retained in the local validation archive, outside this repository.
 This is not all-backend physical acceptance. Broader tests also exposed
 pre-existing mismatches for image-policy recovery and the AI-CPS catalog;
 those policies were not changed by this work.

@@ -43374,8 +43374,8 @@
     },
     {
       "path": "docs/NONACTION_BUDGET.md",
-      "sha256": "ca65115841249c2e0df31a711b11d39a3fff1ddbaef52daf68f696c65dabef08",
-      "bytes": 6138
+      "sha256": "26e2d101531065cb74a3802cc2682c889959b00cbbc8c52960d1b71caf8cf6d3",
+      "bytes": 6145
     },
     {
       "path": "docs/PREBUILT_IMAGES.md",
@@ -43389,8 +43389,8 @@
     },
     {
       "path": "docs/RELEASE_REVIEW.md",
-      "sha256": "92c6f90f4327d733c61b3bf73e73e70bc7f812218605a675b0f965b3a3ddfc28",
-      "bytes": 6905
+      "sha256": "25b4ee19aa2715b788599fe540226ac1ddf9ec9a08210192b6a85a34a4987a92",
+      "bytes": 6946
     },
     {
       "path": "docs/SCORING_STANDARDS.md",
@@ -44154,8 +44154,8 @@
     },
     {
       "path": "environment/benchmarks/robodojo/README.md",
-      "sha256": "12d1e7e460a3e51884b4b0bd40180c31bb17159ac1957b5621623473ae523705",
-      "bytes": 2222
+      "sha256": "f850a6b7d8351c7d3b337ebf76303fb3959221ceb75c7f3894fb8a8b286306c3",
+      "bytes": 2111
     },
     {
       "path": "environment/benchmarks/robodojo/RTX_DIAGNOSIS.md",
@@ -44394,8 +44394,8 @@
     },
     {
       "path": "environment/benchmarks/volleybots/SCRIPTED_1V1.md",
-      "sha256": "dc235347a0db1f83b0e1fbb64440a0ea412a17825adca0dd93eae2cc8b5ba550",
-      "bytes": 3967
+      "sha256": "aae7182cbc2a0a1f61108459d49c3f6f7f81343e7ca29d01e4f3257347aeac23",
+      "bytes": 3913
     },
     {
       "path": "environment/benchmarks/volleybots/__init__.py",
@@ -44789,8 +44789,8 @@
     },
     {
       "path": "environment/docs/agent-docker.md",
-      "sha256": "0bbc7f599a69107549b56425aac96a74aaa26a99ed7aca1283e69047cd056053",
-      "bytes": 2928
+      "sha256": "9dde88f5161565278c2e91178188291be59d91e97ce3e8b947daad2fe4ccb2d3",
+      "bytes": 2931
     },
     {
       "path": "environment/docs/architecture.md",
@@ -45044,8 +45044,8 @@
     },
     {
       "path": "environment/reports/behavior/README.md",
-      "sha256": "640c604a76be16683832c6b6ee33bef1c92e8bbd6e5fd5de40bdd7889c9dfa98",
-      "bytes": 2402
+      "sha256": "39335eb6bd93b1b2b92a3e06b226dd81c59025a981d649ca874fb062248c9975",
+      "bytes": 2340
     },
     {
       "path": "environment/reports/behavior/app.js",
@@ -45064,13 +45064,13 @@
     },
     {
       "path": "environment/reports/behavior/export.py",
-      "sha256": "bc84523ccaa2ebfc25a9590ae5a494ef7318668b6c2087d501b09b7f476a7370",
-      "bytes": 9883
+      "sha256": "685385f92f79c3755ef80db39b861751565dd0eb7766ce009fd21cbee5f30f90",
+      "bytes": 9868
     },
     {
       "path": "environment/reports/behavior/index.html",
-      "sha256": "9b2976587c34750c1ea15d5cbaa7d6b983a7c94aca4ad9f4690da7bf5914a68c",
-      "bytes": 5044
+      "sha256": "11cfdd7ee713ae053333d05d23fd90ddaa819549643b1448fa1e31e3a2df3ad6",
+      "bytes": 5035
     },
     {
       "path": "environment/reports/behavior/serve.py",
@@ -45354,8 +45354,8 @@
     },
     {
       "path": "environment/tests/test_api_retry.py",
-      "sha256": "bb55c79760738a73a3f6df041d3cdc99df0c5af4a4ee9b007a1ca02a4d83a3c3",
-      "bytes": 6430
+      "sha256": "48cf0772b463cc1c4175f6af6344d1389007d0460a9c75205a0dc1e167894e9a",
+      "bytes": 6426
     },
     {
       "path": "environment/tests/test_asset_centralization.py",
@@ -45369,8 +45369,8 @@
     },
     {
       "path": "environment/tests/test_behavior_adapter.py",
-      "sha256": "a867f4012a7143d3895bc681d7f5f59981943e7a2791cf7a67ab1beea0186b95",
-      "bytes": 12432
+      "sha256": "143e1fe3b5719e7d1422704630e16813710b270cefe0ddac2e46e06bf2f0f19d",
+      "bytes": 12428
     },
     {
       "path": "environment/tests/test_behavior_asset_subset.py",
@@ -45464,8 +45464,8 @@
     },
     {
       "path": "environment/tests/test_image_history.py",
-      "sha256": "c4f40475cbca29ad955dc5b25a26f66e4c2ebef712ad00a7c7580162e70481ff",
-      "bytes": 11054
+      "sha256": "de6d4c3c5367e49a06611358cd4e45e1314b94678efb185e8ef6fda65f65d2dd",
+      "bytes": 11050
     },
     {
       "path": "environment/tests/test_image_packet_order.py",
@@ -45544,8 +45544,8 @@
     },
     {
       "path": "environment/tests/test_robodojo_adapter.py",
-      "sha256": "adc1b5f4f6959827b2891f32028559049ad5175e321e75e07379001dd6e2243c",
-      "bytes": 4610
+      "sha256": "7945b381604cfc8b2a2bb2a24d260b30d8f462454f439721c596548a8d9e4ecb",
+      "bytes": 4606
     },
     {
       "path": "environment/tests/test_robodojo_diagnostic_marker.py",

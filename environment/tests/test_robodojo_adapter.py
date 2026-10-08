@@ -80,7 +80,7 @@ def test_deploy_uses_shared_request_window_and_rejects_invalid_audit(monkeypatch
     monkeypatch.setattr(Path, "home", lambda: tmp_path)
     (tmp_path / ".codex").mkdir()
     (tmp_path / ".codex/config.toml").write_text(
-        'model="gpt-6-astra-azure"\nmodel_provider="test"\n[model_providers.test]\nbase_url="http://unused"\n')
+        'model="fixture-model"\nmodel_provider="test"\n[model_providers.test]\nbase_url="http://unused"\n')
     adapter = SimpleNamespace(visual_history=SimpleNamespace(snapshot=lambda: {"policy": "test-window"}), video=None)
     monkeypatch.setattr(deploy, "RoboDojoAdapter", lambda *args, **kwargs: adapter)
     seen = {}
