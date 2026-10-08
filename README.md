@@ -30,14 +30,14 @@
 
 <a id="community"></a>
 
-## 💬 Join the RobotWorld WeChat Group
+## 💬 加入 RobotWorld 微信交流群
 
-Discuss robot use, embodied agents, benchmark reproduction, and new tasks with researchers and developers.
+交流 Robot Use、具身智能体、评测复现与任务扩展，欢迎研究者和开发者加入。也欢迎通过反馈、新任务或代码贡献，成为 RobotWorld 下一版本的贡献者。
 
 <p align="center">
-  <b>👇 Scan with WeChat to join</b><br>
-  <a href="docs/images/wechat-community-en.png"><img src="docs/images/wechat-community-en.png" alt="RobotWorld WeChat group QR code" width="320"></a><br>
-  QR code expires on October 15, 2026. Click the image for full size.
+  <b>👇 微信扫码加入</b><br>
+  <a href="docs/images/wechat-community.png"><img src="docs/images/wechat-community.png" alt="RobotWorld 微信群二维码" width="320"></a><br>
+  二维码有效期至 2026 年 10 月 15 日。无法扫码？点击图片查看原图。
 </p>
 
 ---
