@@ -1,14 +1,35 @@
-# RobotWorld
+<div align="center">
+
+# 🤖 RobotWorld
 
 **English** | [简体中文](README.zh-CN.md)
 
-**A benchmark for multimodal robot use across manipulation, locomotion, driving, and flight.**
+### Benchmarking Multimodal Agents for Robot Use Across Diverse Tasks and Embodiments
+
+[![Project Page](https://img.shields.io/badge/Project-Page-2563eb?style=for-the-badge)](https://robotworldai.github.io/)
+[![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2610.10409)
+[![Code](https://img.shields.io/badge/Code-GitHub-2ea44f?style=for-the-badge)](https://github.com/robotworldai/robotworld)
+[![Hugging Face Papers](https://img.shields.io/badge/Hugging_Face-Papers-ffd21e?style=for-the-badge)](https://huggingface.co/papers/2610.10409)
+
+🎬 **45-second video:** [English](https://robotworldai.github.io/showreel/en.html) · [中文](https://robotworldai.github.io/showreel/)
+
+🦾 [Tasks & Recordings](https://robotworldai.github.io/#gallery) · 📊 [Results](https://robotworldai.github.io/#leaderboard) · 🧪 [Protocol](https://robotworldai.github.io/#protocol)
+
+📝 **Analysis:** [English](https://robotworldai.github.io/blog/) · [中文](https://robotworldai.github.io/blog/zh/)
+
+**84 tasks · 20 benchmark integrations · Manipulation, locomotion, driving & flight**
+
+</div>
+
+---
+
+## ✨ What Is RobotWorld?
 
 RobotWorld connects a source-built multimodal agent runtime to robot simulators through explicit observation and action interfaces. Agents can analyse observations, issue bounded robot commands, and use execution feedback to revise their actions. Task evaluators assess the resulting trajectories independently of the agent's completion claims.
 
 This source snapshot registers **84 tasks across 20 benchmark integrations**. Registration does not imply that every task has a verified successful physical trajectory. The default batch protocol runs three rollouts per task with environment-side code control disabled. Simulation pauses during agent reasoning and workspace analysis.
 
-## Start here
+## 🧭 Start Here
 
 - **[Deployment guide](docs/DEPLOYMENT.md)** — host requirements, source restoration, assets, Docker images, runtime build, authentication, verification, and evaluation.
 - **[Assets](docs/ASSETS.md)** — pinned downloads, upstream asset sources, and restricted datasets.
@@ -18,7 +39,7 @@ This source snapshot registers **84 tasks across 20 benchmark integrations**. Re
 
 > **Prebuilt containers:** download the 20-image bundle from [RobotWorld Images](https://huggingface.co/datasets/visity/RobotWorld-Images). Access is currently restricted to authorised accounts. Follow the [download and import guide](docs/PREBUILT_IMAGES.md) before evaluation; some legacy task profiles need additional images.
 
-## Installation
+## 🛠️ Installation
 
 Run the simulator stack on Linux with an NVIDIA GPU, a compatible driver, Docker with Compose/Buildx and NVIDIA Container Toolkit, Git/Git LFS, Python 3.11 or later, Rust/rustup, and bubblewrap with user namespaces enabled. Simulator-specific hardware and software requirements also apply.
 
@@ -63,7 +84,7 @@ bash scripts/setup_handoff.sh codex
 
 Keep this variable set when running the evaluation. The relay selects direct tool exposure in a private model catalogue without changing the model ID or Codex source, and records `runtime-tool-mode.json`. This was used for the RoboCasa API smoke test. It does **not** enable environment-side `code_control`; action tools, observations, budgets and scoring remain unchanged. Record this interaction setting when comparing results. Other runtime entry points require separate verification.
 
-## Connect your model API
+## 🔌 Connect Your Model API
 
 After deploying the simulator and building the agent runtime, configure your model API. The endpoint must accept streaming **Responses API** requests with images and function calls; a Chat Completions-only endpoint is not sufficient. The examples assume the endpoint is reachable from the runtime.
 
@@ -82,7 +103,7 @@ The configuration stores the name of the credential environment variable, never 
 
 Evaluation inherits the configured model. Set `MODEL` or pass `--model` only when intentionally overriding it. Requests use the configured provider without model-name-based substitutions. See [API configuration](docs/MODELS.md).
 
-## Run an evaluation
+## 🚀 Run an Evaluation
 
 Run commands from the repository root with `WORLD_PYTHON` and `CODEX_AUTH_HOME` set as above.
 
@@ -138,7 +159,7 @@ Later CLI arguments override the corresponding script settings. RoboDojo, RoboCa
 
 BEHAVIOR uses `min(native_budget, 2000)`. `CountertopCleanup` has an explicit 600-step World budget because its official horizon is unverified in the pinned source. Other task budgets are recorded in the catalogue. Native termination conditions remain active.
 
-## Outputs and metrics
+## 📊 Outputs and Metrics
 
 ```text
 outputs/<benchmark>/<task>/run-<batch>-0001/
@@ -157,7 +178,7 @@ Per-task success rate is the mean of valid Boolean outcomes. Benchmark summaries
 
 A valid failure is `false`. Infrastructure errors and incomplete or indeterminate outcomes are unscored (`null`), with coverage reported explicitly. Incomplete coverage does not constitute a complete benchmark score. Copy the whole run directory when archiving results so that relative artifact links remain usable.
 
-## Repository layout
+## 🗂️ Repository Layout
 
 | Path | Contents |
 | --- | --- |
@@ -170,11 +191,11 @@ A valid failure is `false`. Infrastructure errors and incomplete or indeterminat
 | `Assets/` | Downloaded assets; created during installation. |
 | `var/`, `outputs/` | Local builds, authentication, caches, and run artifacts; excluded from source export. |
 
-## Release checks
+## 📋 Release Checks
 
 See [release review](docs/RELEASE_REVIEW.md) for the source/privacy scan and checks performed on this snapshot. The current full test suite is not entirely passing; API-backed simulator validation is pending.
 
-## Validation and provenance
+## 🔎 Validation and Provenance
 
 The source for this release is `visitworld123/RoboWorld_Scaffold`, branch `main`, commit `132972eec7ea4e9a5b59f8be7398f19d7681fc52`. Deployment instructions describe that snapshot. Historical reports and task notes remain in the repository; their recorded results are not new release-validation results.
 
@@ -182,7 +203,7 @@ Run the CPU tests with `python -m pytest`. Task-list and Docker-plan checks do n
 
 Third-party code and assets retain their respective licences and notices. BEHAVIOR assets and decryption keys are not redistributed. This snapshot has no top-level licence for RobotWorld-owned code; the maintainers need to select one before presenting it as a fully licensed open-source release.
 
-## Citation
+## 📚 Citation
 
 If you use RobotWorld in your research, please cite:
 

@@ -1,14 +1,35 @@
-# RobotWorld
+<div align="center">
+
+# 🤖 RobotWorld
 
 [English](README.md) | **简体中文**
 
-**面向操作、移动、驾驶和飞行的多模态机器人控制基准。**
+### 面向多种任务与机器人形态的通用多模态智能体评测
+
+[![项目主页](https://img.shields.io/badge/Project-Page-2563eb?style=for-the-badge)](https://robotworldai.github.io/zh/)
+[![论文](https://img.shields.io/badge/Paper-arXiv-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2610.10409)
+[![代码](https://img.shields.io/badge/Code-GitHub-2ea44f?style=for-the-badge)](https://github.com/robotworldai/robotworld)
+[![Hugging Face Papers](https://img.shields.io/badge/Hugging_Face-Papers-ffd21e?style=for-the-badge)](https://huggingface.co/papers/2610.10409)
+
+🎬 **45 秒介绍视频：**[中文](https://robotworldai.github.io/showreel/) · [英文](https://robotworldai.github.io/showreel/en.html)
+
+🦾 [任务与录像](https://robotworldai.github.io/zh/#gallery) · 📊 [评测结果](https://robotworldai.github.io/zh/#leaderboard) · 🧪 [评测协议](https://robotworldai.github.io/zh/#protocol)
+
+📝 **分析文章：**[中文](https://robotworldai.github.io/blog/zh/) · [英文](https://robotworldai.github.io/blog/)
+
+**84 项任务 · 20 个 benchmark 集成 · 操作、运动、驾驶与飞行**
+
+</div>
+
+---
+
+## ✨ RobotWorld 是什么？
 
 RobotWorld 将从本仓库源码构建的智能体运行时接入机器人模拟器。模型通过明确的观测与动作工具控制机器人，并根据执行反馈修正动作；任务是否完成由环境判据决定，而不是由模型的文字声明决定。
 
 当前发布版注册了 **20 个 benchmark、84 道题**。注册不代表所有任务都已有经过验证的成功轨迹。默认每道题执行 3 次 rollout，关闭环境内 `code_control`；模型推理和离线分析期间仿真暂停。
 
-## 文档导航
+## 🧭 文档导航
 
 - [完整部署流程](docs/DEPLOYMENT.md)：主机、源码、资产、Docker、运行时构建与验证。
 - [资产下载](docs/ASSETS.md)：固定版本、官方来源及需单独授权的数据。
@@ -19,7 +40,7 @@ RobotWorld 将从本仓库源码构建的智能体运行时接入机器人模拟
 
 上述详细文档目前以英文为主。本页提供完整的中文启动说明。
 
-## 1. 安装主机依赖和 Python 包
+## 🛠️ 1. 安装主机依赖和 Python 包
 
 使用 Linux、NVIDIA GPU、兼容的主机驱动，以及配置好 GPU 支持的 Docker、Compose/Buildx 和 NVIDIA Container Toolkit。还需要 Git/Git LFS、Python 3.11+、Rust/rustup、C/C++ 构建工具、bubblewrap（支持用户命名空间）、FFmpeg 和 zstd。不同模拟器的硬件要求以对应集成为准。
 
@@ -34,7 +55,7 @@ export WORLD_PYTHON="$PWD/.venv/bin/python"
 
 后续命令均在仓库根目录执行。新开终端时，重新激活虚拟环境并设置 `WORLD_PYTHON`。主机 Python 负责调度，模拟器依赖放在各自的 Docker 镜像中。
 
-## 2. 准备源码、资产和镜像
+## 📦 2. 准备源码、资产和镜像
 
 先恢复固定版本源码，再恢复资产，避免源码替换导致资产链接丢失：
 
@@ -75,7 +96,7 @@ bash scripts/setup_handoff.sh docker --bench robocasa
 
 大多数 Isaac 集成需要先准备 `world/robodojo:isaac6.0.1-local` 基础镜像，见[部署说明](docs/DEPLOYMENT.md)。本地已有的镜像、资产和安装可以复用，但需核对源码版本、资产哈希及镜像标签。实验性 Isaac 兼容版本不代表与上游物理行为完全等价。
 
-## 3. 构建本地智能体运行时
+## ⚙️ 3. 构建本地智能体运行时
 
 ```bash
 bash scripts/setup_handoff.sh codex
@@ -94,7 +115,7 @@ bash scripts/setup_handoff.sh codex
 
 评测时也保持该变量。转发层在私有模型目录配置中指定直接工具模式，不改变模型名或 Codex 源码，并记录 `runtime-tool-mode.json`。本次 RoboCasa API 冒烟测试使用此配置。它与环境内 `code_control` 是两个独立设置，不改变机器人动作工具、观测、预算或评分。对比成绩时应记录该配置；其他运行入口需要另行验证。
 
-## 4. 接入自己的模型 API
+## 🔌 4. 接入自己的模型 API
 
 默认 API 可从运行环境直接访问。接口需要支持流式 **Responses API**、图像输入、函数调用和工具结果回传；仅有 Chat Completions 接口不足以运行此发布版。
 
@@ -114,7 +135,7 @@ python scripts/check_api.py
 
 模型默认读取配置文件。只在需要覆盖时设置 `MODEL` 或 `--model`。切换服务可用 `--output var/auth/model-b` 新建配置，并将 `CODEX_AUTH_HOME` 指向该目录；原配置不会被自动覆盖。可用 `--key-env OTHER_API_KEY` 指定其他凭据环境变量。推理强度等参数见[模型配置](docs/MODELS.md)。
 
-## 5. 从一道题开始运行
+## 🚀 5. 从一道题开始运行
 
 ```bash
 # 查看选题和生效的步数、工具、评分配置。
@@ -171,7 +192,7 @@ BEHAVIOR 默认预算为 `min(原生预算, 2000)`。`CountertopCleanup` 的原�
 
 本发布版 RoboDojo、RoboCasa、RoboLab 不提供环境内代码控制，开启参数不会凭空增加该能力，结果中会记录实际为关闭。**关闭 `code_control` 不等于关闭离线计算工具**：模型仍可分析获准读取的观测，但不能绕过动作接口控制仿真。
 
-## 6. 结果、视频与统计
+## 📊 6. 结果、视频与统计
 
 ```text
 outputs/<benchmark>/<task>/run-<batch>-0001/
@@ -190,7 +211,7 @@ outputs/<benchmark>/summaries/<batch>-runs.csv
 
 有效任务失败记为 `false`。基础设施错误、中断或无法确定的结果记为 `null`，不计为模型失败，并单独报告覆盖率。覆盖不完整不能视作完成整个 benchmark。复制结果时保留完整 run 文件夹，以免视频和轨迹相对链接失效。
 
-## 7. 目录与验证范围
+## 🗂️ 7. 目录与验证范围
 
 | 目录 | 内容 |
 | --- | --- |
@@ -209,7 +230,7 @@ CPU 测试可执行 `python -m pytest`。列出任务、检查启动计划、API
 
 第三方源码与资产保留各自许可证和限制，BEHAVIOR 资产及解密密钥不分发。本快照尚无适用于 RobotWorld 自有代码的顶层许可证，维护者应在正式开源发布前选定。
 
-## 引用
+## 📚 引用
 
 如果你的研究使用了 RobotWorld，请引用：
 
