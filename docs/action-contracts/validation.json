@@ -1,7 +1,7 @@
 {
   "scope": "English system/tool action contract audit; no new model or physics rollouts",
   "benchmarks": 20,
-  "selected_tasks": 85,
+  "selected_tasks": 84,
   "regression_tests_passed": 127,
   "regression_test_failures": 0,
   "english_exports": 20,
