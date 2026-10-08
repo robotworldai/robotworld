@@ -30,7 +30,7 @@
 
 <a id="community"></a>
 
-## 💬 加入 RobotWorld 微信交流群
+## 💬 Join the RobotWorld WeChat Group
 
 交流 Robot Use、具身智能体、评测复现与任务扩展，欢迎研究者和开发者加入。也欢迎通过反馈、新任务或代码贡献，成为 RobotWorld 下一版本的贡献者。
 
