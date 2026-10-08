@@ -225,4 +225,4 @@ If you use RobotWorld in your research, please cite:
 
 ## 💬 Join the RobotWorld WeChat Group
 
-<a href="docs/images/wechat-community.png"><img src="docs/images/wechat-community.png" alt="RobotWorld WeChat group QR code" width="300"></a>
+<a href="docs/images/wechat-community-en.png"><img src="docs/images/wechat-community-en.png" alt="RobotWorld WeChat group QR code" width="300"></a>
