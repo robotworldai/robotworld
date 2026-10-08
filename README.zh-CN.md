@@ -28,6 +28,20 @@
 
 ---
 
+<a id="community"></a>
+
+## 💬 加入 RobotWorld 微信交流群
+
+交流 Robot Use、具身智能体、评测复现与任务扩展，欢迎研究者和开发者加入。
+
+<p align="center">
+  <b>👇 微信扫码加入</b><br>
+  <a href="docs/images/wechat-community.png"><img src="docs/images/wechat-community.png" alt="RobotWorld 微信群二维码" width="320"></a><br>
+  二维码有效期至 2026 年 10 月 15 日。无法扫码？点击图片查看原图。
+</p>
+
+---
+
 ## ✨ RobotWorld 是什么？
 
 RobotWorld 将从本仓库源码构建的智能体运行时接入机器人模拟器。模型通过明确的观测与动作工具控制机器人，并根据执行反馈修正动作；任务是否完成由环境判据决定，而不是由模型的文字声明决定。
@@ -247,9 +261,3 @@ CPU 测试可执行 `python -m pytest`。列出任务、检查启动计划、API
   url    = {https://github.com/robotworldai/robotworld}
 }
 ```
-
-<a id="community"></a>
-
-## 💬 欢迎加入 RobotWorld 社区
-
-<a href="docs/images/wechat-community.png"><img src="docs/images/wechat-community.png" alt="RobotWorld 微信群二维码" width="300"></a>

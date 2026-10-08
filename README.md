@@ -28,6 +28,20 @@
 
 ---
 
+<a id="community"></a>
+
+## 💬 Join the RobotWorld WeChat Group
+
+Discuss robot use, embodied agents, benchmark reproduction, and new tasks with researchers and developers.
+
+<p align="center">
+  <b>👇 Scan with WeChat to join</b><br>
+  <a href="docs/images/wechat-community-en.png"><img src="docs/images/wechat-community-en.png" alt="RobotWorld WeChat group QR code" width="320"></a><br>
+  QR code expires on October 15, 2026. Click the image for full size.
+</p>
+
+---
+
 ## ✨ What Is RobotWorld?
 
 RobotWorld connects a source-built multimodal agent runtime to robot simulators through explicit observation and action interfaces. Agents can analyse observations, issue bounded robot commands, and use execution feedback to revise their actions. Task evaluators assess the resulting trajectories independently of the agent's completion claims.
@@ -220,9 +234,3 @@ If you use RobotWorld in your research, please cite:
   url    = {https://github.com/robotworldai/robotworld}
 }
 ```
-
-<a id="community"></a>
-
-## 💬 Join the RobotWorld WeChat Group
-
-<a href="docs/images/wechat-community-en.png"><img src="docs/images/wechat-community-en.png" alt="RobotWorld WeChat group QR code" width="300"></a>
