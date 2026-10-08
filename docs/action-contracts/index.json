@@ -1,17 +1,16 @@
 {
   "benchmarks": 20,
-  "tasks": 85,
+  "tasks": 84,
   "language": "English",
   "scope": "prompt/control semantics audit, not simulation performance",
   "entries": [
     {
       "benchmark": "ai_cps",
-      "task_count": 4,
+      "task_count": 3,
       "tasks": [
         "22",
         "23",
-        "24",
-        "34"
+        "24"
       ],
       "contract": "ai_cps.md",
       "runtime_metadata_example_source": null

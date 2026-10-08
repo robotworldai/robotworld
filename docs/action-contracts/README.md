@@ -2,7 +2,7 @@
 
 Generated with `python scripts/export_action_contracts.py`.
 
-- [ai_cps](ai_cps.md) — 4 tasks
+- [ai_cps](ai_cps.md) — 3 tasks
 - [behavior_1k](behavior_1k.md) — 10 tasks
 - [bench2dex](bench2dex.md) — 9 tasks
 - [digit](digit.md) — 1 tasks
