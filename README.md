@@ -10,7 +10,7 @@
 [![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2610.10409)
 [![Code](https://img.shields.io/badge/Code-GitHub-2ea44f?style=for-the-badge)](https://github.com/robotworldai/robotworld)
 [![Hugging Face Papers](https://img.shields.io/badge/Hugging_Face-Papers-ffd21e?style=for-the-badge)](https://huggingface.co/papers/2610.10409)
-[![WeChat](https://img.shields.io/badge/WeChat-Community-07C160?style=for-the-badge)](#community)
+[![WeChat](https://img.shields.io/badge/WeChat-Community-07C160?style=for-the-badge&logo=wechat&logoColor=white)](#community)
 
 <a href="https://robotworldai.github.io/#showreel">
   <img src="https://robotworldai.github.io/assets/images/showreel-poster.png" alt="Watch RobotWorld in 45 seconds" width="800">
@@ -223,6 +223,6 @@ If you use RobotWorld in your research, please cite:
 
 <a id="community"></a>
 
-## Join the RobotWorld WeChat Group
+## 💬 Join the RobotWorld WeChat Group
 
 <a href="docs/images/wechat-community.png"><img src="docs/images/wechat-community.png" alt="RobotWorld WeChat group QR code" width="300"></a>

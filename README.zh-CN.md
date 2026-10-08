@@ -10,7 +10,7 @@
 [![论文](https://img.shields.io/badge/Paper-arXiv-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2610.10409)
 [![代码](https://img.shields.io/badge/Code-GitHub-2ea44f?style=for-the-badge)](https://github.com/robotworldai/robotworld)
 [![Hugging Face Papers](https://img.shields.io/badge/Hugging_Face-Papers-ffd21e?style=for-the-badge)](https://huggingface.co/papers/2610.10409)
-[![WeChat](https://img.shields.io/badge/WeChat-Community-07C160?style=for-the-badge)](#community)
+[![WeChat](https://img.shields.io/badge/WeChat-Community-07C160?style=for-the-badge&logo=wechat&logoColor=white)](#community)
 
 <a href="https://robotworldai.github.io/zh/#showreel">
   <img src="https://robotworldai.github.io/assets/images/showreel-poster.png" alt="点击观看：45 秒了解 RobotWorld" width="800">
@@ -250,6 +250,6 @@ CPU 测试可执行 `python -m pytest`。列出任务、检查启动计划、API
 
 <a id="community"></a>
 
-## 欢迎加入 RobotWorld 社区
+## 💬 欢迎加入 RobotWorld 社区
 
 <a href="docs/images/wechat-community.png"><img src="docs/images/wechat-community.png" alt="RobotWorld 微信群二维码" width="300"></a>
