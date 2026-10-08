@@ -11,7 +11,11 @@
 [![代码](https://img.shields.io/badge/Code-GitHub-2ea44f?style=for-the-badge)](https://github.com/robotworldai/robotworld)
 [![Hugging Face Papers](https://img.shields.io/badge/Hugging_Face-Papers-ffd21e?style=for-the-badge)](https://huggingface.co/papers/2610.10409)
 
-🎬 **45 秒介绍视频：**[中文](https://robotworldai.github.io/showreel/) · [英文](https://robotworldai.github.io/showreel/en.html)
+<a href="https://robotworldai.github.io/zh/#showreel">
+  <img src="https://robotworldai.github.io/assets/images/showreel-poster.png" alt="点击观看：45 秒了解 RobotWorld" width="800">
+</a>
+
+🎬 **[▶ 45 秒了解 RobotWorld](https://robotworldai.github.io/zh/#showreel)** · [English](https://robotworldai.github.io/#showreel)
 
 🦾 [任务与录像](https://robotworldai.github.io/zh/#gallery) · 📊 [评测结果](https://robotworldai.github.io/zh/#leaderboard) · 🧪 [评测协议](https://robotworldai.github.io/zh/#protocol)
 

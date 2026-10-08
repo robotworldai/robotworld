@@ -11,7 +11,11 @@
 [![Code](https://img.shields.io/badge/Code-GitHub-2ea44f?style=for-the-badge)](https://github.com/robotworldai/robotworld)
 [![Hugging Face Papers](https://img.shields.io/badge/Hugging_Face-Papers-ffd21e?style=for-the-badge)](https://huggingface.co/papers/2610.10409)
 
-🎬 **45-second video:** [English](https://robotworldai.github.io/showreel/en.html) · [中文](https://robotworldai.github.io/showreel/)
+<a href="https://robotworldai.github.io/#showreel">
+  <img src="https://robotworldai.github.io/assets/images/showreel-poster.png" alt="Watch RobotWorld in 45 seconds" width="800">
+</a>
+
+🎬 **[▶ Watch RobotWorld in 45 seconds](https://robotworldai.github.io/#showreel)** · [中文版](https://robotworldai.github.io/zh/#showreel)
 
 🦾 [Tasks & Recordings](https://robotworldai.github.io/#gallery) · 📊 [Results](https://robotworldai.github.io/#leaderboard) · 🧪 [Protocol](https://robotworldai.github.io/#protocol)
 
