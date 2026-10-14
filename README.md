@@ -60,7 +60,14 @@ This source snapshot registers **84 tasks across 20 benchmark integrations**. Re
 
 ## 🛠️ Installation
 
-Run the simulator stack on Linux with an NVIDIA GPU, a compatible driver, Docker with Compose/Buildx and NVIDIA Container Toolkit, Git/Git LFS, Python 3.11 or later, Rust/rustup, and bubblewrap with user namespaces enabled. Simulator-specific hardware and software requirements also apply.
+### Hardware and dependencies
+
+- **Current host reference:** NVIDIA L40S 48GB (8 GPUs, driver `580.105.08`); this describes the deployment host, not an eight-GPU minimum or certification of all 84 tasks.
+- **Other GPUs:** RTX 5090 has [historical partial-task validation](docs/native17/VALIDATION.md) with experimental Isaac Sim 6.0.1 profiles; older Isaac/CUDA stacks can be incompatible. RTX 4090, RTX A6000, RTX 6000 Ada and L40 are RT-capable candidates, not a verified support list.
+- **Isaac rendering:** use a GPU with RT Cores. A100/H100 are [not supported by Isaac Sim](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/requirements.html), although they can host a separate model inference service. With a remote model API, local GPUs primarily run simulation and rendering.
+- **Compatibility:** match the task's pinned image, driver and CUDA/Isaac versions, then run a smoke episode before scaling. No suite-wide minimum VRAM, RAM or disk requirement has been established.
+
+Host dependencies: Linux, a compatible NVIDIA driver, Docker with Compose/Buildx and NVIDIA Container Toolkit, Git/Git LFS, Python 3.11+, the pinned Rust toolchain, C/C++ build tools (CMake, Clang and OpenSSL headers), bubblewrap with user namespaces, FFmpeg/ffprobe and zstd. Provision the pinned simulator images and assets, including any required access or licences; see the [deployment guide](docs/DEPLOYMENT.md).
 
 ```bash
 git clone https://github.com/robotworldai/robotworld.git
