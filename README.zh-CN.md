@@ -63,8 +63,8 @@ RobotWorld 将从本仓库源码构建的智能体运行时接入机器人模拟
 
 ### 硬件与依赖
 
-- **当前主机参考：** NVIDIA L40S 48GB（8 卡，驱动 `580.105.08`）；这是部署主机配置，不代表最低需要 8 卡，也不代表全部 84 题均已在该配置上验证。
-- **其他显卡：** RTX 5090 在 Isaac Sim 6.0.1 实验兼容配置下有[部分任务历史验证](docs/native17/VALIDATION.md)，旧版 Isaac/CUDA 可能不兼容。RTX 4090、RTX A6000、RTX 6000 Ada 和 L40 具备 RT Core，可作为候选，但不是已验证支持名单。
+- **当前主机参考：** NVIDIA L40S 48GB（驱动 `580.105.08`）；这是部署主机配置，不代表全部 84 题均已在该配置上验证。
+- **其他显卡：** RTX 5090 在 Isaac Sim 6.0.1 实验兼容配置下有部分任务历史验证，旧版 Isaac/CUDA 可能不兼容。RTX 4090、RTX A6000、RTX 6000 Ada 和 L40 具备 RT Core，可作为候选，但不是已验证支持名单。
 - **Isaac 渲染：** 需要具备 RT Core 的显卡；A100/H100 [不受 Isaac Sim 支持](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/requirements.html)，但可用于独立的模型推理服务。使用远程模型 API 时，本机 GPU 主要承担仿真和渲染。
 - **兼容性：** 按任务匹配固定镜像、驱动及 CUDA/Isaac 版本，先跑短回合再批量评测。目前未建立整套环境统一的最低显存、内存和磁盘要求。
 

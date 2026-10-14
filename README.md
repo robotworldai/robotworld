@@ -62,8 +62,8 @@ This source snapshot registers **84 tasks across 20 benchmark integrations**. Re
 
 ### Hardware and dependencies
 
-- **Current host reference:** NVIDIA L40S 48GB (8 GPUs, driver `580.105.08`); this describes the deployment host, not an eight-GPU minimum or certification of all 84 tasks.
-- **Other GPUs:** RTX 5090 has [historical partial-task validation](docs/native17/VALIDATION.md) with experimental Isaac Sim 6.0.1 profiles; older Isaac/CUDA stacks can be incompatible. RTX 4090, RTX A6000, RTX 6000 Ada and L40 are RT-capable candidates, not a verified support list.
+- **Current host reference:** NVIDIA L40S 48GB (driver `580.105.08`); this describes the deployment host, not certification of all 84 tasks.
+- **Other GPUs:** RTX 5090 has historical partial-task validation with experimental Isaac Sim 6.0.1 profiles; older Isaac/CUDA stacks can be incompatible. RTX 4090, RTX A6000, RTX 6000 Ada and L40 are RT-capable candidates, not a verified support list.
 - **Isaac rendering:** use a GPU with RT Cores. A100/H100 are [not supported by Isaac Sim](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/requirements.html), although they can host a separate model inference service. With a remote model API, local GPUs primarily run simulation and rendering.
 - **Compatibility:** match the task's pinned image, driver and CUDA/Isaac versions, then run a smoke episode before scaling. No suite-wide minimum VRAM, RAM or disk requirement has been established.
 
