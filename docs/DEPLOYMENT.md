@@ -168,7 +168,18 @@ ls "var/build/codex/$RUNTIME_REV/debug/codex" \
 
 The builder uses `cargo build --locked`, writes outputs under `var/build/`, and requires a clean independent `codex/` checkout. Inspect `var/build/codex/<revision>/build.log` if it fails. A globally installed CLI is not used as the evaluation binary.
 
-When using Codex code mode, the build manifest must include `codex-code-mode-host` under `helpers`. Both supported agent sandboxes mount this verified helper read-only beside `codex-app-server`. This runtime helper executes Codex tool orchestration; it is separate from environment-side `CODE_CONTROL`. Disabling environment-side code control does not remove that helper requirement when Codex code mode is active. The explicit direct-tool option in the root README avoids the helper for the isolated runtime. When reusing a build, copy all manifest-listed helpers as well as the app-server.
+When using Codex code mode, the build manifest must include `codex-code-mode-host` under `helpers`. Both supported agent sandboxes mount this verified helper read-only beside `codex-app-server`. This runtime helper executes Codex tool orchestration; it is separate from environment-side `CODE_CONTROL`. Disabling environment-side code control does not remove that helper requirement when Codex code mode is active. The explicit direct-tool option below avoids the helper for the isolated runtime. When reusing a build, copy all manifest-listed helpers as well as the app-server.
+
+### Direct-tool runtime option
+
+If `codex-code-mode-host` cannot be built (for example, an unavailable upstream V8 archive), use direct tool calling for the isolated agent runtime:
+
+```bash
+export WORLD_CODEX_DISABLE_CODE_MODE=1
+bash scripts/setup_handoff.sh codex
+```
+
+Keep this variable set when running the evaluation. The relay selects direct tool exposure in a private model catalogue without changing the model ID or Codex source, and records `runtime-tool-mode.json`. This was used for the RoboCasa API smoke test. It does **not** enable environment-side `code_control`; action tools, observations, budgets and scoring remain unchanged. Record this interaction setting when comparing results. Other runtime entry points require separate verification.
 
 ## 7. Configure the API
 
