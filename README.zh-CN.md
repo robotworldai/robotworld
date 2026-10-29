@@ -37,7 +37,7 @@
 <p align="center">
   <b>👇 微信扫码加入</b><br>
   <a href="docs/images/wechat-community.png"><img src="docs/images/wechat-community.png" alt="RobotWorld 微信群二维码" width="200"></a><br>
-  二维码有效期至 2026 年 10 月 28 日。无法扫码？点击图片查看原图。
+  二维码有效期：2026 年 11 月 5 日前。无法扫码？点击图片查看原图。
 </p>
 
 ---
