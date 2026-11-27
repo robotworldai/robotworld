@@ -1,0 +1,6 @@
+{
+  "benchmark": "robolab",
+  "task": "WhiteMugInCenterOfTableTask",
+  "horizon": 450,
+  "scoring_profile": "native"
+}

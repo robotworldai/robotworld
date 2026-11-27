@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "pour_balls_into_vase",
+  "horizon": 600,
+  "scoring_profile": "native"
+}

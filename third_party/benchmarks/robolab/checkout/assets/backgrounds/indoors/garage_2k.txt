@@ -1,1 +1,0 @@
-garage,fluorescent,indoor,urban,high contrast,natural light

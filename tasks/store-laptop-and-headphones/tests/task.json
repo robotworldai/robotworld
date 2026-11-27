@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "store_laptop_and_headphones",
+  "horizon": 800,
+  "scoring_profile": "native"
+}

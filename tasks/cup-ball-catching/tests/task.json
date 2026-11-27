@@ -1,0 +1,6 @@
+{
+  "benchmark": "reflexbench",
+  "task": "cup_ball_catching",
+  "horizon": 100,
+  "scoring_profile": "native"
+}

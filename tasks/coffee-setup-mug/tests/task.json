@@ -1,0 +1,6 @@
+{
+  "benchmark": "robocasa",
+  "task": "CoffeeSetupMug",
+  "horizon": 600,
+  "scoring_profile": "native"
+}

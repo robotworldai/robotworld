@@ -1,0 +1,6 @@
+{
+  "benchmark": "ai_cps",
+  "task": "23",
+  "horizon": 300,
+  "scoring_profile": "native"
+}

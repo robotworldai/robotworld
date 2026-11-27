@@ -1,0 +1,9 @@
+# Third-party Responses API; no ChatGPT account or local account facade.
+model = "qwen3.8-max-0902"
+model_provider = "qwen"
+[model_providers.qwen]
+name = "Qwen third-party"
+base_url = "https://YOUR_PROVIDER_HOST/v1"
+env_key = "DASHSCOPE_API_KEY"
+wire_api = "responses"
+requires_openai_auth = false

@@ -1,6 +1,0 @@
-.vscode*
-*egg-info*
-*__pycache__*
-.idea
-gha-creds-*.json
-.aider*

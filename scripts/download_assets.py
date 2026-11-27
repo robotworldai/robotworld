@@ -31,6 +31,13 @@ def main():
         if rel.is_absolute() or '..' in rel.parts or len(rel.parts)<3 or rel.parts[0]!='Assets':raise ValueError('Unsafe asset path')
         if rel.parts[1] not in benches|{'_shared'}:continue
         src=source/rel;dst=ROOT/rel
+        if row.get('external') and not src.is_file():
+            from scripts.restore_runtime_supplement import restore, valid
+            if a.local_source and not valid(dst,row):
+                raise FileNotFoundError(f'Offline asset missing or invalid: {rel}')
+            restore(dst,row)
+            count+=1
+            continue
         if not src.is_file() or src.stat().st_size!=row['bytes'] or checksum(src)!=row['sha256']:raise ValueError('Asset checksum mismatch: '+str(rel))
         if dst.exists():
             if checksum(dst)!=row['sha256']:raise ValueError('Existing differing asset; refusing overwrite: '+str(dst))

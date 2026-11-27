@@ -1,0 +1,31 @@
+version = "1.0"
+artifacts = [{source = "/runs", destination = "simulation", service = "simulator"}]
+
+[metadata]
+name = "block-stacking-specified-order-task"
+category = "robot-control"
+tags = ["robolab", "native", "mcp"]
+
+[agent]
+timeout_sec = 43200
+
+[environment]
+cpus = 2
+memory_mb = 2048
+build_timeout_sec = 1200
+
+[[environment.mcp_servers]]
+name = "robotworld"
+transport = "stdio"
+command = "python"
+args = ["/opt/robotworld-client/environment/clients/harbor_entry.py", "mcp"]
+
+[verifier]
+timeout_sec = 60
+environment_mode = "separate"
+
+[[verifier.collect]]
+# Allow an in-flight action and video encoders to finish; this adds no control steps.
+timeout_sec = 310
+service = "simulator"
+command = "kill -USR1 1; for i in $(seq 1 300); do test -f /runs/finalized && exit 0; sleep 1; done; exit 1"

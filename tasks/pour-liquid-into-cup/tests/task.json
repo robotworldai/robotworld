@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "pour_liquid_into_cup",
+  "horizon": 400,
+  "scoring_profile": "native"
+}

@@ -1,0 +1,6 @@
+{
+  "benchmark": "behavior_1k",
+  "task": "clean_up_your_desk",
+  "horizon": 2000,
+  "scoring_profile": "native"
+}

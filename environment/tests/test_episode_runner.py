@@ -87,10 +87,11 @@ def test_text_completion_does_not_claim_success(monkeypatch, tmp_path):
     assert result['official_success'] is None
 
 
-def test_rejects_global_binary_manifest(tmp_path):
+def test_rejects_manifest_from_unselected_source(tmp_path, monkeypatch):
+    monkeypatch.setenv('WORLD_CODEX_SOURCE', str(tmp_path / 'selected'))
     manifest = tmp_path / 'build.json'
-    manifest.write_text(json.dumps({'source': '/tmp/another-codex', 'binary': '/usr/bin/codex'}))
-    with pytest.raises(ValueError, match='World/codex'):
+    manifest.write_text(json.dumps({'source': str(tmp_path / 'other'), 'binary': '/usr/bin/codex'}))
+    with pytest.raises(ValueError, match='selected Codex source checkout'):
         CodexSession.verify_build(manifest)
 
 

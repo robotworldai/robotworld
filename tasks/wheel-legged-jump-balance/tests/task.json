@@ -1,0 +1,6 @@
+{
+  "benchmark": "flamingo",
+  "task": "wheel_legged_jump_balance",
+  "horizon": 1000,
+  "scoring_profile": "world-state-v1"
+}

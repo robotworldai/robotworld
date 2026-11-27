@@ -28,9 +28,10 @@ def run(monkeypatch, tmp_path, messages):
     return result, adapter, waits
 
 
-def test_same_episode_recovery_does_not_replay_action(monkeypatch, tmp_path):
+@pytest.mark.parametrize('error', ['stream disconnected', 'Image processing blocked due to content policy violation'])
+def test_same_episode_recovery_does_not_replay_action(monkeypatch, tmp_path, error):
     result, adapter, waits = run(monkeypatch, tmp_path,
-        [call(1), failed('stream disconnected'), call(1), call(2), call(3)])
+        [call(1), failed(error), call(1), call(2), call(3)])
     assert len(adapter.calls) == 2 and waits == [10]
     assert result['termination'] == 'action_budget' and result['recoveries'] == 1
     starts = [params for method, params in (x for x in Session.last.sent if isinstance(x, tuple))
@@ -40,7 +41,7 @@ def test_same_episode_recovery_does_not_replay_action(monkeypatch, tmp_path):
     assert 0 < Session.last.last_timeout <= 300
 
 
-@pytest.mark.parametrize('error', ['Image processing blocked due to content policy violation',
+@pytest.mark.parametrize('error', ['Request blocked due to content policy violation',
                                  'Incomplete response returned, reason: content_filter',
                                  'request_too_large', 'invalid api key'])
 def test_terminal_error_never_recovers(monkeypatch, tmp_path, error):

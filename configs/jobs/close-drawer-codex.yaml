@@ -1,0 +1,9 @@
+# Credentials are inherited privately; do not put keys here.
+jobs_dir: outputs/harbor
+n_attempts: 3
+n_concurrent_trials: 1
+agents:
+  - import_path: agents.robotworld:RobotWorldCodexAgent
+    model_name: YOUR_MODEL_ID
+tasks:
+  - path: tasks/close-drawer

@@ -85,7 +85,7 @@ class Simulator:
         from environment.benchmarks.wheeledlab.camera import Camera
         return Camera
 
-    def __init__(self,task_id,seed,output,headless=True):
+    def __init__(self,task_id,seed,output,headless=True,*,skip_review_video=False):
         if task_id!='T02':raise ValueError(task_id)
         verify_assets()
         self.app=self.launch_app(headless)
@@ -152,6 +152,7 @@ class Simulator:
         self.prompt=instructions(task_id)
         self.policy_images={}
         self.camera=None
+        self.skip_review_video=skip_review_video
         self.metrics=ServeMetrics()
 
     def reset(self,seed):
@@ -164,9 +165,10 @@ class Simulator:
         self.done=False
         self.reward_sum=0.
         self.last_evaluation={}
-        Camera=self.camera_class()
-        self.camera=Camera(self,self.output/'video')
-        self.camera.capture()
+        if not self.skip_review_video:
+            Camera=self.camera_class()
+            self.camera=Camera(self,self.output/'video')
+            self.camera.capture()
         return self.observation()
 
     def observation(self):
@@ -190,7 +192,7 @@ class Simulator:
                               'post_step_events':{'paddle_hit':hit,'valid_return':returned,'serve_boundary':boundary},
                               'native_timeout':bool(self.env.time_out_buf[0]),'serve_metrics':self.metrics.report(),
                               'native_termination_checks':termination_checks(self.env.robot_pos[0].detach().cpu().tolist())}
-        self.camera.capture()
+        if self.camera:self.camera.capture()
         return self.observation()
 
     def result(self):
@@ -208,8 +210,9 @@ class Simulator:
     def close(self):
         if self.camera:self.camera.close()
         self.env.close()
-        self.app.close()
+        if not getattr(self, "_world_defer_app_shutdown", False):
+            self.app.close()
 
 
-def create_sim(task_id,seed,output,headless=True):
-    return Simulator(task_id,seed,output,headless)
+def create_sim(task_id,seed,output,headless=True,*,skip_review_video=False):
+    return Simulator(task_id,seed,output,headless,skip_review_video=skip_review_video)

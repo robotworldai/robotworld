@@ -1,0 +1,6 @@
+{
+  "benchmark": "behavior_1k",
+  "task": "putting_dishes_away_after_cleaning",
+  "horizon": 2000,
+  "scoring_profile": "native"
+}

@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "plug_in_charger",
+  "horizon": 400,
+  "scoring_profile": "native"
+}

@@ -6,8 +6,10 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--case',choices=['22','23','24','34'],required=True)
     p.add_argument('--steps',type=int,default=300);p.add_argument('--seed',type=int,default=7);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--disable-coding-control',action='store_true')
-    p.add_argument('--mode',choices=['codex','zero','recovery-check'],default='codex');p.add_argument('--model',default='gpt-6-astra');p.add_argument('--manifest',type=Path);p.add_argument('--timeout',type=int,default=7200);a=p.parse_args()
-    if a.disable_coding_control and a.mode!='codex':p.error('--disable-coding-control requires codex mode')
+    p.add_argument('--state-only-probe',action='store_true',help='Run a service probe without the external camera')
+    p.add_argument('--mode',choices=['codex','zero','recovery-check','service'],default='codex');p.add_argument('--model',default='gpt-6-astra');p.add_argument('--manifest',type=Path);p.add_argument('--timeout',type=int,default=7200);a=p.parse_args()
+    if a.disable_coding_control and a.mode not in {'codex','service'}:p.error('--disable-coding-control requires codex mode')
+    if a.state_only_probe and a.mode!='service':p.error('--state-only-probe requires service mode')
     a.output.mkdir(parents=True,exist_ok=True);root=Path(__file__).resolve().parents[2];bench=root/'third_party/benchmarks/ai_cps'
     sys.path.insert(0,str(root/'third_party/dependencies/omniisaacgymenvs/checkout'))
     from isaacsim import SimulationApp
@@ -21,9 +23,19 @@ def main():
         from environment.runtime.events import EventLog
         sim=Simulator(bench/'checkout',a.case,a.seed,a.output)
         if a.case=='34':sim.recovery=ContactRecovery()
-        sim.camera=camera=Camera(sim,a.output/'video');camera.capture()
-        from PIL import Image
-        Image.fromarray(camera.image).save(a.output/'initial.png')
+        if not a.state_only_probe:
+            sim.camera=camera=Camera(sim,a.output/'video');camera.capture()
+            from PIL import Image
+            Image.fromarray(camera.image).save(a.output/'initial.png')
+        if a.mode=='service':
+            from environment.service.ai_cps import AICPSAdapter
+            from environment.service.http import serve_episode
+            adapter=AICPSAdapter(sim,a.case,a.output,a.steps,bench/'checkout',state_only=a.state_only_probe)
+            try:
+                serve_episode(adapter,a.steps,a.output)
+            finally:
+                adapter.close();camera=None
+            return
         if a.mode=='codex':
             from environment.benchmarks.ai_cps.policy import Agent
             from environment.runtime.nonaction_budget import run_bounded, apply_result

@@ -1,0 +1,15 @@
+# Claude Code Messages -> third-party Chat Completions; no Codex backend.
+model_list:
+  - model_name: qwen3.8-max-0902
+    litellm_params:
+      model: openai/qwen3.8-max-0902
+      api_base: os.environ/WORLD_QWEN_BASE_URL
+      api_key: os.environ/DASHSCOPE_API_KEY
+      extra_body:
+        enable_thinking: true
+litellm_settings:
+  drop_params: false
+  num_retries: 0
+  telemetry: false
+general_settings:
+  master_key: os.environ/WORLD_LITELLM_KEY

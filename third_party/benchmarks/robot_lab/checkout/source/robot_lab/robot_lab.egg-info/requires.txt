@@ -1,5 +1,0 @@
-psutil
-lxml
-transformations
-pybullet
-colorama

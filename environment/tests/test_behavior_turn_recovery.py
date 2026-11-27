@@ -38,7 +38,9 @@ def setup(monkeypatch,tmp_path,session=RecoverySession):
     return p,waits
 
 
-def test_failed_turn_resumes_without_reset_or_extra_observation(monkeypatch,tmp_path):
+@pytest.mark.parametrize('error', ['stream disconnected before completion', 'Image processing blocked due to content policy violation'])
+def test_failed_turn_resumes_without_reset_or_extra_observation(monkeypatch, tmp_path, error):
+    monkeypatch.setattr(RecoverySession, 'error', {'message': error})
     p,waits=setup(monkeypatch,tmp_path)
     p.forward(obs());deadline=p.deadline
     p.forward(obs())
@@ -53,7 +55,7 @@ def test_failed_turn_resumes_without_reset_or_extra_observation(monkeypatch,tmp_
 
 
 def test_policy_refusal_does_not_recover(monkeypatch,tmp_path):
-    class Refusal(RecoverySession):error={'message':'Image processing blocked due to content policy violation'}
+    class Refusal(RecoverySession):error={'message':'Request blocked due to content policy violation'}
     p,waits=setup(monkeypatch,tmp_path,Refusal)
     p.forward(obs())
     with pytest.raises(RuntimeError,match='agent_failed'):p.forward(obs())

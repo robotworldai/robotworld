@@ -1,0 +1,47 @@
+[
+  {
+    "id": "behavior_1k",
+    "path": "third_party/benchmarks/behavior_1k/checkout",
+    "commit": "6cbf70b075816096e9be53958780769f3264d25d"
+  },
+  {
+    "id": "robocasa",
+    "path": "third_party/benchmarks/robocasa/checkout",
+    "commit": "456174f62b89b8fca99eaaf33949c29fec9cfc2a"
+  },
+  {
+    "id": "isaaclab6",
+    "path": "third_party/dependencies/isaaclab6/checkout",
+    "commit": "28a37cecdd433c22d9eabd6a5954add9f13a8951"
+  },
+  {
+    "id": "xpolicylab",
+    "path": "third_party/dependencies/xpolicylab/checkout",
+    "commit": "3f7823726fd0dd80705f009a94f59d9042ced56a"
+  },
+  {
+    "id": "curobo",
+    "path": "third_party/dependencies/curobo/checkout",
+    "commit": "895c6517243f8cb091c73c018c8167192d39599a"
+  },
+  {
+    "id": "robodojo",
+    "path": "third_party/benchmarks/RoboDojo",
+    "commit": "726e9aabfaa642203722eb126f5eaf0f37f3e1ad"
+  },
+  {
+    "id": "codex",
+    "path": "codex",
+    "commit": "8ae55c863db26d417e83390c5854f1144114276b"
+  },
+  {
+    "id": "robosuite",
+    "path": "third_party/dependencies/robosuite/checkout",
+    "commit": "5ce6643f3092639d08f7b0f90ed1c6a84f50552c"
+  },
+  {
+    "id": "robolab",
+    "path": "third_party/benchmarks/robolab/checkout",
+    "commit": "ad45d4f974725d020f82c2b0d77d78533aeba2b3"
+  }
+]

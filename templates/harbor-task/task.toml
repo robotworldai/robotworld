@@ -1,0 +1,22 @@
+version = "1.0"
+
+[metadata]
+name = "TODO-unimplemented-task"
+status = "authoring-template-not-runnable"
+
+[agent]
+timeout_sec = 43200
+
+[environment]
+build_timeout_sec = 1200
+
+[[environment.mcp_servers]]
+name = "robotworld"
+transport = "stdio"
+command = "python"
+args = ["-m", "environment.bridges.mcp"]
+
+[verifier]
+timeout_sec = 60
+environment_mode = "separate"
+# TODO: add trusted simulator collection/finalization and artifacts.

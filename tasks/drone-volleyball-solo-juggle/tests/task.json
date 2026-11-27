@@ -1,0 +1,6 @@
+{
+  "benchmark": "volleybots",
+  "task": "drone_volleyball_solo_juggle",
+  "horizon": 800,
+  "scoring_profile": "world-state-v1"
+}

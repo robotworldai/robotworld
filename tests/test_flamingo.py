@@ -38,9 +38,11 @@ def test_unmodified_zip_assets_and_correct_rev():
     assert 'gear_ratio=-1.5' in project.instruction('T15')
 
 def test_original_config_not_play(monkeypatch,tmp_path):
-    marker=object();cfg=SimpleNamespace(scene=SimpleNamespace(num_envs=4096,robot=SimpleNamespace(spawn=SimpleNamespace())),events=marker,observations=marker)
+    marker=object();cfg=SimpleNamespace(scene=SimpleNamespace(num_envs=4096,robot=SimpleNamespace(spawn=SimpleNamespace())),events=marker,observations=SimpleNamespace(stack_policy=marker,none_stack_policy=marker,stack_critic=marker,none_stack_critic=marker))
     monkeypatch.setattr(project,'SOURCE',P/'checkout')
     monkeypatch.setattr(project.importlib,'import_module',lambda _:SimpleNamespace(FlamingoFlatEnvCfg=lambda:cfg))
     got=project.build('T15',2,tmp_path)
-    assert got.events is marker and got.observations is marker and got.seed==2
+    assert got.events is marker and got.seed==2
+    assert got.observations.stack_policy is marker and got.observations.none_stack_policy is marker
+    assert got.observations.stack_critic is None and got.observations.none_stack_critic is None
     assert 'checkout' not in got.scene.robot.spawn.usd_path

@@ -1,0 +1,120 @@
+{
+  "id": "T04",
+  "title": "绳牵横梁上的小球抗扰定位",
+  "category": "间接动态操纵",
+  "source": "Aerial-Balance-Bench · Target Position / Disturbance",
+  "native": "environments/configs/template_eval_disturbance.yaml",
+  "stack": "Isaac Lab 1.4 / Isaac Sim 4.2",
+  "commit": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+  "setting": "选作者已经公开的 external_disturbance_enabled=true 评测 YAML。无人机受限于竖直运动，经绳子改变横梁角度；扰动作用于横梁另一端。不是一般飞行悬停。",
+  "new_feedback": "每个物理步加入新的 OU 随机扰动，使横梁另一端上下运动。实际梁角、球速和球位置决定下一次控制；未来扰动无法在起点编成确定的动作表。",
+  "deadline": "梁的倾斜会持续加速小球，偏差不是等一等就自动消失。纠正太晚会离开目标带甚至越过横梁可行范围，触发失败。",
+  "action": "原 velocity 接口是竖直速度增量；提供球位置/速度、梁角/角速度等 11 维状态。原策略步长约 1/60 s。原 YAML 同时有 15 步动作延迟，必须如实记录。",
+  "evaluation": "原评测报告目标带误差、收敛时间、稳态误差与 success_rate；本设置目标带 0.01 m、回合 10 s。代码 SR 统计未显式排除所有物理提前终止，也没有单独要求在带内至少保持一整秒，不能把它描述成更严格的验收。",
+  "caveat": "仅选 template_eval_disturbance.yaml。源码 evaluator 的目标区判断可能接受末尾单帧，需核对失败标记与持续保持口径；README 的描述不能代替实现。修改评分必须另记为 RobotWorld 评分。",
+  "media": "检查源码、官方说明及评测器；没有实际观看该配置的成功/失败视频。",
+  "refs": [
+    {
+      "label": "作者公开的扰动评测设置",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_disturbance.yaml#L1"
+    },
+    {
+      "label": "每物理步新采样扰动",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/robustness/robustness_manager.py#L137"
+    },
+    {
+      "label": "原评分的实际逻辑",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/evaluation/target_position_evaluator.py#L72"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "OU 扰动持续作用于横梁另一端，有直接的运行中新信息；但一个经典控制器可能就能解决，不能预先称圣杯难题。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "Wenminggong/aerial_balance_bench",
+  "runtime": "Isaac Sim 4.2.0 + Isaac Lab 1.4.0 + Python 3.10（作者 tested stack）",
+  "install_reference": "按 README 安装 conda_env.yml；在配置好的 Isaac Lab Python 中运行。先用 zero_action_policy_eval.py 核查接口。",
+  "entry_note": "不是 Gym ID：使用 environments/configs/template_eval_disturbance.yaml。默认 delay-free 配置不是本清单选择的题。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "无人机—绳—横梁—滚动物块系统",
+      "kind": "repository",
+      "location": "asserts/drone_rope_plank_horizontal_slide_block.usd",
+      "evidence_path": "environments/assets/drone_rope_plank.py",
+      "evidence_url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/assets/drone_rope_plank.py",
+      "note": "上游目录拼写就是 asserts。需保留该 USD 的层级/关节结构；不能用任意 drone+球示例替换。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/asserts/drone_rope_plank_horizontal_slide_block.usd",
+      "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+      "evidence_package_path": "sources/Wenminggong/aerial_balance_bench/environments/assets/drone_rope_plank.py"
+    }
+  ],
+  "required_setting_checks": [
+    "选作者已经公开的 external_disturbance_enabled=true 评测 YAML。无人机受限于竖直运动，经绳子改变横梁角度；扰动作用于横梁另一端。不是一般飞行悬停。",
+    "仅选 template_eval_disturbance.yaml。源码 evaluator 的目标区判断可能接受末尾单帧，需核对失败标记与持续保持口径；README 的描述不能代替实现。修改评分必须另记为 RobotWorld 评分。"
+  ],
+  "observation_note": "原 11 维状态：球位置/速度/加速度、梁角度/角速度/角加速度、drone z 位移/速度/加速度、目标与上一动作。是 state-based 设置。",
+  "source_snapshots": [
+    "sources/Wenminggong/aerial_balance_bench/LICENSE",
+    "sources/Wenminggong/aerial_balance_bench/README.md",
+    "sources/Wenminggong/aerial_balance_bench/baselines/base_policy.py",
+    "sources/Wenminggong/aerial_balance_bench/conda_env.yml",
+    "sources/Wenminggong/aerial_balance_bench/environments/__init__.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/aerial_balance_env.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/assets/__init__.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/assets/drone_rope_plank.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/target_position_balancing.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_15.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_30.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_45.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_60.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_free.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_disturbance.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_gain.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_mass.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/template_train.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/configs/trajectory_tracking.yaml",
+    "sources/Wenminggong/aerial_balance_bench/environments/evaluation/__init__.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/evaluation/target_position_evaluator.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/evaluation/trajectory_tracking_evaluator.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/interfaces/__init__.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/interfaces/position_interface.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/interfaces/thrust_interface.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/interfaces/velocity_interface.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/robustness/__init__.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/robustness/robustness_manager.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/tasks/__init__.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/tasks/target_position_task.py",
+    "sources/Wenminggong/aerial_balance_bench/environments/tasks/trajectory_tracking_task.py",
+    "sources/Wenminggong/aerial_balance_bench/scripts/cpid_policy_eval.py",
+    "sources/Wenminggong/aerial_balance_bench/scripts/zero_action_policy_eval.py",
+    "sources/Wenminggong/aerial_balance_bench/utils/__init__.py",
+    "sources/Wenminggong/aerial_balance_bench/utils/drone_models/__init__.py",
+    "sources/Wenminggong/aerial_balance_bench/utils/drone_models/geometry_se3_controller.py",
+    "sources/Wenminggong/aerial_balance_bench/utils/drone_models/propulsor_model.py",
+    "sources/Wenminggong/aerial_balance_bench/utils/io.py",
+    "sources/Wenminggong/aerial_balance_bench/utils/paths.py",
+    "sources/Wenminggong/aerial_balance_bench/utils/visualization.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "作者公开的扰动评测设置",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_disturbance.yaml#L1",
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_disturbance.yaml"
+    },
+    {
+      "label": "每物理步新采样扰动",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/robustness/robustness_manager.py#L137",
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/robustness/robustness_manager.py"
+    },
+    {
+      "label": "原评分的实际逻辑",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/evaluation/target_position_evaluator.py#L72",
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/evaluation/target_position_evaluator.py"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "id": "T03",
+  "title": "机械臂持杯接住随机发射的球",
+  "category": "动态拦截",
+  "source": "ReflexBench · Ball Catching",
+  "native": "BallCatching-Franka-IK-Abs-v0",
+  "stack": "Isaac Lab → Isaac Sim",
+  "commit": "8bb931485093c6d98f8729774ad01bf824964e16",
+  "setting": "使用原接球事件与发射分布；在发射前不向 agent 暴露内部 launch_pitch、launch_yaw、launch_timer。原 policy 观测没有这些未来发射参数。",
+  "new_feedback": "发射器在回合开始后才发球。发射延迟为 0.3–0.8 秒，俯仰角为 50–65°，偏航偏移为 −15–15°。必须观察实际发射后的球位置与运动方向，才能确定接球位置。",
+  "deadline": "来球在重力作用下经过接球区域后落地；程序不能让球停在空中等待下一次模型回答。速度配置为 3.4 m/s，属于有限飞行窗口的拦截。",
+  "action": "原环境同时提供关节与 EEF/IK 接口；此处选绝对 IK 版本。快速控制程序可以输出 EEF，不需要把“写代码”与“使用 EEF”对立起来。",
+  "evaluation": "原 task_phase 到达 4 判为 task_completed；已发射球低于 0.03 m 判落地。包括接住之后的阶段，不能把整题简化成抓手触碰球。",
+  "caveat": "杯子跟随 EEF 的运动由环境更新，并有捕获区/阻尼逻辑；不是完整自然抓握。原观测含预测拦截量，状态版可能明显简单，不能冒称纯视觉难题。",
+  "media": "实际查看 ReflexVLA 官方真实接球对比视频约 57.62 / 134.91 s 的片段；该真机示例与所选仿真捕获机制不同。",
+  "refs": [
+    {
+      "label": "随机发射、跟踪与捕获事件",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py#L125"
+    },
+    {
+      "label": "观测与事件绑定",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py#L88"
+    },
+    {
+      "label": "落地与完成判据",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py#L39"
+    },
+    {
+      "label": "官方接球演示",
+      "url": "https://reflexvla.github.io/"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "有限飞行时间提供强时限证据；接球程序可能只需快速估计一次再发动作段，不要求每个物理步重新规划。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "LxRoboticsLab/ReflexBench",
+  "runtime": "Isaac Lab → Isaac Sim；README 未锁精确版本，杯子引用 Isaac 5.1 资产，需先做版本探测",
+  "install_reference": "python -m pip install -e source/reflexbench；官方 planning 数据收集另需 cuRobo，不是构造任务的同义条件。",
+  "entry_note": "选择 BallCatching-Franka-IK-Abs-v0；保留运行中新发球。官方异步评估接口可参考，但 RobotWorld adapter 尚未实现。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "Franka Panda",
+      "kind": "external",
+      "location": "isaaclab_assets.robots.franka.FRANKA_PANDA_HIGH_PD_CFG → 当前匹配 Isaac 资产根目录",
+      "evidence_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py",
+      "evidence_url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py",
+      "note": "资产路径由匹配的 Isaac Lab 版本解析，不能把高 PD 伺服误认为接球策略。",
+      "binary_in_bundle": false,
+      "upstream_url": "",
+      "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+      "evidence_package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py"
+    },
+    {
+      "name": "接球杯",
+      "kind": "external",
+      "location": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/Mugs/SM_Mug_A2.usd",
+      "evidence_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py",
+      "evidence_url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py",
+      "note": "固定源码 scale=(0.015,0.015,0.015)，禁重力并有 virtual capture zone；须按原逻辑加载。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/Mugs/SM_Mug_A2.usd",
+      "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+      "evidence_package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py"
+    },
+    {
+      "name": "小球、桌面与发射器占位几何",
+      "kind": "procedural",
+      "location": "SphereCfg / CuboidCfg / CylinderCfg",
+      "evidence_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+      "evidence_url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+      "note": "",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+      "availability": "运行时由所列源码生成，没有独立资产包",
+      "evidence_package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py"
+    }
+  ],
+  "required_setting_checks": [
+    "使用原接球事件与发射分布；在发射前不向 agent 暴露内部 launch_pitch、launch_yaw、launch_timer。原 policy 观测没有这些未来发射参数。",
+    "杯子跟随 EEF 的运动由环境更新，并有捕获区/阻尼逻辑；不是完整自然抓握。原观测含预测拦截量，状态版可能明显简单，不能冒称纯视觉难题。"
+  ],
+  "observation_note": "原 policy 观测含球状态及预测拦截量，不等同于 RGB-only；区分直接给预测量与 agent 从传感器自行估计。",
+  "source_snapshots": [
+    "sources/LxRoboticsLab/ReflexBench/LICENSE",
+    "sources/LxRoboticsLab/ReflexBench/README.md",
+    "sources/LxRoboticsLab/ReflexBench/pyproject.toml",
+    "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/POLICY_SERVER.md",
+    "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/eval.py",
+    "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/policy_client.py",
+    "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/task_profiles.py",
+    "sources/LxRoboticsLab/ReflexBench/scripts/list_envs.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/config/extension.toml",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/README.md",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/__init__.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/__init__.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/__init__.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/data_collection_env_cfg.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_rel_env_cfg.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/__init__.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/observations.py",
+    "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "随机发射、跟踪与捕获事件",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py#L125",
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py"
+    },
+    {
+      "label": "观测与事件绑定",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py#L88",
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py"
+    },
+    {
+      "label": "落地与完成判据",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py#L39",
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py"
+    },
+    {
+      "label": "官方接球演示",
+      "url": "https://reflexvla.github.io/",
+      "package_path": null
+    }
+  ]
+}

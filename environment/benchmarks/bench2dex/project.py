@@ -61,8 +61,12 @@ class Simulator:
                 install()
         isaaclab.app.AppLauncher=CompatibleLauncher
         old=sys.argv
+        # SimulationApp owns the initial stage. The full Kit experience also
+        # schedules a replacement stage, which can invalidate live PhysX views.
+        kit_args = '--/isaac/startup/create_new_stage=false --/isaac/startup/ros_bridge_extension='
         sys.argv=['run_policy.py','--task','scenes/'+self.task_spec['id']+'.yaml',
-                  '--enable-rgb','--headless','--robot-key',self.robot_key,'--experience',experience]
+                  '--enable-rgb','--headless','--robot-key',self.robot_key,'--experience',experience,
+                  '--kit_args='+kit_args]
         try:self.up=importlib.import_module('run_policy')
         finally:sys.argv=old
         self.app=self.up.simulation_app
@@ -256,7 +260,8 @@ Complete the exact task sequence and final stable conditions. Preserve native st
             if writer.wait(timeout=60):raise RuntimeError('Video encoding failed')
         for log in self.logs:log.close()
         if self.rig:self.rig.close()
-        if self.app:self.app.close(skip_cleanup=True)
+        if self.app and not getattr(self, "_world_defer_app_shutdown", False):
+            self.app.close(skip_cleanup=True)
 
 
 def create_sim(task_id,seed,output,headless=True):return Simulator(task_id,seed,output,headless)

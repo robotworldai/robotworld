@@ -1,8 +1,11 @@
-# Prebuilt container images
+---
+license: other
+license_name: upstream-component-licenses
+---
+
+# RobotWorld Images
 
 Prebuilt simulation containers for [RobotWorld](https://github.com/robotworldai/robotworld). This repository contains the container bundle; simulation assets are distributed separately in [RobotWorld Assets](https://huggingface.co/datasets/visity/RobotWorld-Assets).
-
-This repository currently requires access granted by its maintainers. Use an authorised Hugging Face account.
 
 ## Host requirements
 
@@ -15,12 +18,11 @@ The containers include simulator and Python dependencies. Host kernel drivers mu
 
 ## Download and import
 
-Create a dedicated download environment and authenticate:
+Download the pinned image bundle and import it into Docker.
 
 ```bash
 python3 -m venv .venv-download
 .venv-download/bin/pip install huggingface_hub
-.venv-download/bin/hf auth login
 .venv-download/bin/hf download visity/RobotWorld-Images \
   --repo-type dataset \
   --revision 2f8c0e5f33d481c2dfa699dd523041c917a39273 \
@@ -48,15 +50,9 @@ The archive has four parts totalling **13,339,245,922 bytes (12.42 GiB)**. It wa
 
 ## Continue deployment
 
-Follow the code repository's [deployment guide](https://github.com/robotworldai/robotworld/blob/main/docs/DEPLOYMENT.md) to restore pinned sources, download assets, build the local agent runtime, and configure model authentication. Simulator containers do not supply the host-side evaluation setup.
+Run the task from the RobotWorld checkout after importing the archive. Harbor builds the agent and verifier containers from the task package. The simulator uses the imported image named in `tasks/<task>/environment/docker-compose.yaml`. All 84 task packages in this release reference tags present in the pinned bundle.
 
-From the code repository root, inspect the planned evaluations before running them:
-
-```bash
-bash scripts/run_all.sh run --dry-run --rollouts 1
-```
-
-Compare the requested runtime tags with `images.json`. If a task requests an image outside the bundle, check its runtime profile and integration instructions before building additional images.
+See the [RobotWorld quickstart](https://github.com/robotworldai/robotworld#run-a-task) for credentials, asset mounts and the Harbor command.
 
 ## Compatibility and scope
 

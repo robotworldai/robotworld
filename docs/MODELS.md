@@ -1,4 +1,8 @@
-# Connect a model API
+# Model credentials
+
+For Harbor, configure the built-in agent in the launch shell. See [Credentials](../README.md#credentials) for the environment variables and [Harbor agents](HARBOR_BUILTIN_AGENTS.md) for subscription login.
+
+## Legacy source-built runtime
 
 RobotWorld uses the source-built agent runtime to run a model through the benchmark's tools. The provider must support streaming Responses events, image input, function calls, and function-call results. Complete [deployment](DEPLOYMENT.md) first; an API key alone does not install the simulators or assets.
 

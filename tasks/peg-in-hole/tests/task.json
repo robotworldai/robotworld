@@ -1,0 +1,6 @@
+{
+  "benchmark": "ai_cps",
+  "task": "24",
+  "horizon": 300,
+  "scoring_profile": "peg-xy-z-window-v2"
+}

@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "pour_by_language",
+  "horizon": 800,
+  "scoring_profile": "native"
+}

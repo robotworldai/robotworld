@@ -1,0 +1,6 @@
+{
+  "benchmark": "robocasa",
+  "task": "MicrowaveCorrectMeal",
+  "horizon": 1500,
+  "scoring_profile": "native"
+}

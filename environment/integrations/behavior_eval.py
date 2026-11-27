@@ -36,13 +36,14 @@ def main():
     if hasattr(signal, "SIGUSR1"):
         faulthandler.register(signal.SIGUSR1, all_threads=False)
     parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--mode',choices=['codex','service'],default='codex')
     parser.add_argument('--isaac601-compat',action='store_true')
     parser.add_argument('--probe-only',action='store_true',help='Load/reset official scene and capture onboard observations; no model or action')
     parser.add_argument('--probe-steps',type=int,default=0)
     parser.add_argument('--task-name',default='carrying_in_groceries')
     parser.add_argument('--instance-index',type=int,default=10,help='Public split index; 10-19 for development')
     parser.add_argument('--output',type=Path,required=True)
-    parser.add_argument('--manifest',type=Path,required=True)
+    parser.add_argument('--manifest',type=Path)
     parser.add_argument('--model-catalog',type=Path)
     parser.add_argument('--model')
     parser.add_argument('--robot-config',type=Path,help='Probe defaults to the upstream robot; model runs use the World IK tool profile')
@@ -51,9 +52,17 @@ def main():
     parser.add_argument('--max-actions',type=int,default=100)
     parser.add_argument('--timeout',type=float,default=1800)
     args=parser.parse_args()
+    if args.mode=='codex' and args.manifest is None:parser.error('--manifest is required for codex mode')
+    if args.mode=='service' and args.probe_only:parser.error('--service and --probe-only are separate modes')
     if not 0<=args.instance_index<20: parser.error('Public instance index must be 0..19')
     if args.max_actions<=0 or args.timeout<=0 or (args.max_steps is not None and args.max_steps<=0): parser.error('Budgets must be positive')
     out=args.output.resolve(); out.mkdir(parents=True,exist_ok=True)
+    # OmniGibson copies this original upstream resource into the Isaac apps folder.
+    # Source snapshots must retain it even when documentation images are stripped.
+    logo = Path('/behavior-src/docs/assets/OmniGibson_logo.png')
+    if not logo.is_file():
+        raise FileNotFoundError('Incomplete BEHAVIOR source checkout: missing '+str(logo)+
+                                '. Restore the original upstream logo; scene assets are unrelated.')
     if args.isaac601_compat:
         from environment.benchmarks.behavior_1k.compat import activate
         activate(out)
@@ -82,16 +91,16 @@ def main():
     ids=resolve_instance_ids(args.task_name,[args.instance_index],mode='public_test')
     cfg=OmegaConf.create({'env_wrapper':{'_target_':'omnigibson.eval.wrappers.RGBDFullResWrapper'},
         'policy_name':'WorldCodex','model':{'_target_':'environment.benchmarks.behavior_1k.policy.WorldPolicy',
-        'output_dir':str(out),'manifest':str(args.manifest.resolve()),'task_name':args.task_name,'task_instruction':task_instruction,
+        'output_dir':str(out),'manifest':str(args.manifest.resolve()) if args.manifest else None,'task_name':args.task_name,'task_instruction':task_instruction,
         'max_actions':args.max_actions,'timeout':args.timeout,'model':args.model,
-        'step_budget':args.max_steps, 'coding_control_enabled':not args.disable_coding_control and not args.probe_only,
+        'step_budget':args.max_steps, 'coding_control_enabled':not args.disable_coding_control and not args.probe_only and args.mode!='service',
         'model_catalog':str(args.model_catalog.resolve()) if args.model_catalog else None},
         'headless':True,'partial_scene_load':True,'max_steps':args.max_steps,'write_video':True,
         'mode':'public_test','seed':seed,'num_envs':1,'task':{'name':args.task_name},'robot':config})
     (out/'evaluation-config.json').write_text(json.dumps({'task':args.task_name,'instance_index':args.instance_index,
         'instance_ids':ids,'max_steps_override':args.max_steps,'standard_step_budget':args.max_steps is None,
         'num_rollouts':1,'track':'onboard_rgb_depth_proprio','source_version':'v3.9.3','robot_config':config,
-        'probe_only':args.probe_only,'coding_control_enabled':not args.disable_coding_control and not args.probe_only,'robot_config_path':str(args.robot_config),
+        'probe_only':args.probe_only,'coding_control_enabled':not args.disable_coding_control and not args.probe_only and args.mode!='service','robot_config_path':str(args.robot_config),
         'isaac601_external_compat':args.isaac601_compat,'official_runtime':not args.isaac601_compat,
         'entrypoint':('official BatchedEvaluator._apply_actions via no-model diagnostic' if args.probe_only
                       else 'official BatchedEvaluator.run via external local policy')},indent=2))
@@ -113,6 +122,16 @@ def main():
         robot=evaluator.instance_eval_states[0].env_accessor.robot
         policy.bind(robot_profile(robot,config,observation_only=args.probe_only))
         (out/'progress.json').write_text(json.dumps({'phase':'resetting_scene'}))
+        if args.mode=='service':
+            from environment.service.behavior_1k import BehaviorAdapter
+            from environment.service.http import serve_episode
+            evaluator.load_batch({0:int(ids[0])},write_video=False)
+            adapter=BehaviorAdapter(evaluator,policy,out,args.task_name,policy.step_budget)
+            try:
+                serve_episode(adapter,policy.step_budget,out)
+            finally:
+                adapter.close()
+            return
         if args.probe_only:
             evaluator.load_batch({0:int(ids[0])},write_video=False)
             if args.isaac601_compat:

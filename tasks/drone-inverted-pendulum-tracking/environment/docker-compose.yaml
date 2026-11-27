@@ -1,0 +1,65 @@
+services:
+  main:
+    environment:
+      WORLD_EPISODE_URL: http://simulator:8765
+      WORLD_EPISODE_TOKEN: ${WORLD_EPISODE_TOKEN:?Set a random per-job token}
+      PYTHONPATH: /opt/robotworld-client
+      WORLD_AGENT_INTERFACE: ${WORLD_AGENT_INTERFACE:-native-feedback-v1}
+    depends_on:
+      simulator:
+        condition: service_healthy
+    command:
+    - python
+    - /opt/robotworld-client/environment/clients/harbor_entry.py
+    - initialize
+  simulator:
+    image: world/omnidrones:isaac6.0.1-experimental
+    gpus: all
+    shm_size: 4gb
+    entrypoint:
+    - python
+    working_dir: /opt/robotworld
+    environment:
+      NVIDIA_DRIVER_CAPABILITIES: all
+      ACCEPT_EULA: Y
+      OMNI_KIT_ACCEPT_EULA: 'YES'
+      PYTHONUNBUFFERED: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONPATH: /opt/robotworld:/opt/robotworld/third_party/benchmarks/omnidrones/checkout/.
+      WORLD_OMNIDRONES_ALLOW_FIXED_PATCH_FRICTION: '1'
+      WORLD_EPISODE_TOKEN: ${WORLD_EPISODE_TOKEN:?Set a random per-job token}
+      WORLD_CONTROL_STEP_LIMIT: ${WORLD_CONTROL_STEP_LIMIT:-}
+      WORLD_CODE_CONTROL: ${WORLD_CODE_CONTROL:-0}
+    volumes:
+    - ${WORLD_ROOT}:/opt/robotworld:ro
+    - ${WORLD_ASSETS:?Set Assets path}:/opt/robotworld/Assets:ro
+    command:
+    - -m
+    - environment.integrations.native_project_eval
+    - --project
+    - omnidrones
+    - --task
+    - T17
+    - --mode
+    - service
+    - --model
+    - unused
+    - --output
+    - /runs
+    - --runtime-profile
+    - isaac6
+    - --scoring-profile
+    - world-state-v1
+    - --steps
+    - '620'
+    - --seed
+    - '7'
+    - --disable-coding-control
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - test -f /runs/episode.json
+      interval: 5s
+      timeout: 3s
+      retries: 120
+      start_period: 30s

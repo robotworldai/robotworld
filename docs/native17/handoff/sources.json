@@ -1,0 +1,3093 @@
+{
+  "repositories": [
+    {
+      "repo": "AllenHuangGit/SteadyTray",
+      "runtime": "Isaac Sim 4.5 + 作者 IsaacLab_SteadyTray 分支；不可直接替换成官方同名版本",
+      "install_reference": "按 README 的作者 fork + Docker 流程安装，再安装 SteadyTray 扩展；依赖 fork 的 termination manager 已附固定版本证据。",
+      "entry_note": "G1-Steady-Object 是原 Stage 3 环境；作者训练 runner 使用残差训练。测试 agent 时，必须记录是接原完整关节动作还是接作者残差 runner，不能混为同一个 setting。",
+      "commit": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "url": "https://github.com/AllenHuangGit/SteadyTray",
+      "readme": "sources/AllenHuangGit/SteadyTray/README.md"
+    },
+    {
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.1.0；作者提示升级 Sim 5.0+ 会改变成绩",
+      "install_reference": "按 README 安装 legged_lab 与作者 runner；先核对资产，再用 t1_tt_eval。",
+      "entry_note": "t1_tt_eval 为作者任务名；直接从注册表构造。--predictor 是作者额外预测器，不应悄悄赠送给 agent；若使用需标注观测条件。",
+      "commit": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026",
+      "readme": "sources/purdue-tracelab/TTRL-ICRA2026/README.md"
+    },
+    {
+      "repo": "LxRoboticsLab/ReflexBench",
+      "runtime": "Isaac Lab → Isaac Sim；README 未锁精确版本，杯子引用 Isaac 5.1 资产，需先做版本探测",
+      "install_reference": "python -m pip install -e source/reflexbench；官方 planning 数据收集另需 cuRobo，不是构造任务的同义条件。",
+      "entry_note": "选择 BallCatching-Franka-IK-Abs-v0；保留运行中新发球。官方异步评估接口可参考，但 RobotWorld adapter 尚未实现。",
+      "commit": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench",
+      "readme": "sources/LxRoboticsLab/ReflexBench/README.md"
+    },
+    {
+      "repo": "Wenminggong/aerial_balance_bench",
+      "runtime": "Isaac Sim 4.2.0 + Isaac Lab 1.4.0 + Python 3.10（作者 tested stack）",
+      "install_reference": "按 README 安装 conda_env.yml；在配置好的 Isaac Lab Python 中运行。先用 zero_action_policy_eval.py 核查接口。",
+      "entry_note": "不是 Gym ID：使用 environments/configs/template_eval_disturbance.yaml。默认 delay-free 配置不是本清单选择的题。",
+      "commit": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench",
+      "readme": "sources/Wenminggong/aerial_balance_bench/README.md"
+    },
+    {
+      "repo": "thu-uav/VolleyBots",
+      "runtime": "Isaac Sim 2023.1.0-hotfix.1 + 作者 Orbit/依赖；独立旧版本容器",
+      "install_reference": "README 提供 jimmyzhangruize/isaac-sim:2023.1.0-hotfix.1 镜像；需按 README mount 克隆目录。镜像未在本机拉取。",
+      "entry_note": "Volleyball1v1；锁定对手与 checkpoint。checkpoint 目录有作者基线，先核对所用文件，不把分层 Serve/Attack 技能接为 agent 免费小脑。",
+      "commit": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "url": "https://github.com/thu-uav/VolleyBots",
+      "readme": "sources/thu-uav/VolleyBots/README.md"
+    },
+    {
+      "repo": "UWRobotLearning/WheeledLab",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.0.2 + Python 3.10；README 要求 numpy<2",
+      "install_reference": "从 source 目录 pip install -e wheeledlab / wheeledlab_tasks / wheeledlab_assets / wheeledlab_rl，四个扩展分别安装。",
+      "entry_note": "Isaac-MushrDriftRL-v0 / RSS_DRIFT_CONFIG；不要使用取消 reward/termination 的 Play 配置计分。",
+      "commit": "a5017ce0696032805190448b2addb8077e458387",
+      "url": "https://github.com/UWRobotLearning/WheeledLab",
+      "readme": "sources/UWRobotLearning/WheeledLab/README.md"
+    },
+    {
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "runtime": "作者开发版本：Isaac Sim 5.1.0 + Isaac Lab 2.3.2",
+      "install_reference": "在 Isaac Lab Python 内 python -m pip install -e source/wheel_legged_robot；URDF 在首次构造时转换。",
+      "entry_note": "Recovery 与 Terrain-Reactive 共用资产。若使用作者 play.py，核对 --eval_pushes 是否保留了原推扰；不是新建两个独立场景。",
+      "commit": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab",
+      "readme": "sources/zyicome/Wheel-Legged-Lab/README.md"
+    },
+    {
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "runtime": "Isaac Sim 5.1.0 + Isaac Lab 2.3.2.post1 + Python 3.11；README 另列 torch/rsl-rl 依赖",
+      "install_reference": "按 README pip 安装匹配的 Isaac Lab，再 pip install -e source/wheeled_quadruped。",
+      "entry_note": "必须 Wheeled-Quadruped-Balance-v0，非 Balance-Play-v0；后者移除 push。",
+      "commit": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot",
+      "readme": "sources/MickyasTA/wheeled_quadruped_robot/README.md"
+    },
+    {
+      "repo": "BrandoUlissi/isaaclab-go2-locomotion",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.1.1；README: rsl_rl 2.3.3",
+      "install_reference": "使用作者 train_pushrecovery wrapper 导入自定义注册，再在 Isaac Lab 环境运行。不要直接只安装官方 Go2 平地任务。",
+      "entry_note": "随机脉冲版本与作者 scheduled 120 N 演示是两个设置；课程初始最大 30 N，必须记录课程步数/强度。",
+      "commit": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion",
+      "readme": "sources/BrandoUlissi/isaaclab-go2-locomotion/README.md"
+    },
+    {
+      "repo": "agilexrobotics/robot_lab",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.0.0 + Python 3.10",
+      "install_reference": "按 README 安装 source/robot_lab 扩展；作者 scripts/rsl_rl/base 提供训练与可视化入口。",
+      "entry_note": "RobotLab-Isaac-Velocity-Flat-HandStand-Unitree-A1-v0；默认 back 指后腿抬起、以前腿支撑。",
+      "commit": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "url": "https://github.com/agilexrobotics/robot_lab",
+      "readme": "sources/agilexrobotics/robot_lab/README.md"
+    },
+    {
+      "repo": "TeleHuman/HumanoidSoccer",
+      "runtime": "Isaac Lab 2.1.1；对应 Isaac Sim 4.5 系列，按作者 README 安装",
+      "install_reference": "安装 whole_body_tracking 扩展；资产 URDF 在线转换，另准备 motions/soccer-standard。本地只有源码/目录核查，未运行转换。",
+      "entry_note": "Tracking-Flat-G1-SoccerMoving-RNN-v0；--motion_path motions/soccer-standard；作者 ONNX 是复现参考，不能直接作为被测 agent 的动作工具。",
+      "commit": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer",
+      "readme": "sources/TeleHuman/HumanoidSoccer/README.md"
+    },
+    {
+      "repo": "isaac-sim/IsaacLab",
+      "runtime": "固定源码 VERSION=2.3.2；README 支持 Sim 4.5/5.0/5.1，建议单独记录实际运行版本",
+      "install_reference": "按该 commit README 安装 Isaac Lab；任务随 isaaclab_tasks 注册，无额外第三方任务包。",
+      "entry_note": "Isaac-Tracking-LocoManip-Digit-v0；保持原全身动作接口，不调用外部训练好的 Digit walking controller。",
+      "commit": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "url": "https://github.com/isaac-sim/IsaacLab",
+      "readme": "sources/isaac-sim/IsaacLab/README.md"
+    },
+    {
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "runtime": "固定 README 要求 Isaac Sim 4.0.0；不是旧独立 Isaac Gym",
+      "install_reference": "使用 Isaac Sim 自带 python.sh；pip install -e .；按 README 的 rlgames_train 入口运行。",
+      "entry_note": "task=AnymalTerrain；保留原每 15 s push 与地形，20 s episode，记录是否发生推扰。",
+      "commit": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs",
+      "readme": "sources/isaac-sim/OmniIsaacGymEnvs/README.md"
+    },
+    {
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "runtime": "Isaac Sim 4.5 + Isaac Lab 2.0.0 + Python 3.10（README）",
+      "install_reference": "按 README 安装 lab.flamingo，手动解压指定资产 ZIP。不要按 README 示例下载另一个 rev 的机器人。",
+      "entry_note": "Isaac-TrackJUMP-Flat-Flamingo-v1-ppo；非 Play；TrackJump 使用 rev01_5_2，而不是 README 安装示例中的 rev01_4_1。",
+      "commit": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "readme": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/README.md"
+    },
+    {
+      "repo": "btx0424/OmniDrones",
+      "runtime": "固定 README 当前分支 Isaac Sim 4.1.0；不是旧 release 分支的 2022.2.0",
+      "install_reference": "按固定 README 和 docs 安装 OmniDrones；两个 task 共享 Hummingbird 模型与同一容器。",
+      "entry_note": "Hydra task=Payload/PayloadHover 或 task=InvPendulum/InvPendulumTrack；action_transform=null 为本次选择接口。",
+      "commit": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "url": "https://github.com/btx0424/OmniDrones",
+      "readme": "sources/btx0424/OmniDrones/README.md"
+    }
+  ],
+  "files": [
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/README.md",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "README.md",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/README.md",
+      "sha256": "b9f55f4c6dd2d196df385f588dd8c049d0e4e84d26fffd891bb4a1a3d152a5e5",
+      "bytes": 7035
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/pyproject.toml",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "pyproject.toml",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/pyproject.toml",
+      "sha256": "40874a358deaedf3f00d4a45cefcb23bde3f438a91876e8b7475f6be19bee613",
+      "bytes": 1776
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/__init__.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/__init__.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/__init__.py",
+      "sha256": "8681776f477440d1c87b56caa09315f493ca9d468face3b78e12b2c4c2567616",
+      "bytes": 1112
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/actor_critic.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/actor_critic.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/actor_critic.py",
+      "sha256": "aac474b226d40f7e5212883664165dfae6a2fbf1c42d77b346c19fb3ae2964b4",
+      "bytes": 50275
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/adapter.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/adapter.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/adapter.py",
+      "sha256": "dbc30c83fcd509c5d8f1e0ade9559dbe099150c2e98a74cc811208cc7a73f159",
+      "bytes": 5848
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/distillation.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/distillation.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/distillation.py",
+      "sha256": "1bd62653dac3e1dd677bc2e9acd26f87968ddeacde1aaa9dc273732feee02405",
+      "bytes": 21711
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/encoder.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/encoder.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/encoder.py",
+      "sha256": "e0b6fb3679d657e69f836d611c95eb373f36c2db6124e9ffd15342d982f77ab7",
+      "bytes": 10775
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/env_wrapper.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/env_wrapper.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/env_wrapper.py",
+      "sha256": "b8c456961c92637372cd7b19a2c9dfc931b0c8887ee7a4e58a5133f8efbee481",
+      "bytes": 10106
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/on_policy_runner.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/on_policy_runner.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/on_policy_runner.py",
+      "sha256": "deda0ff27bbe5d6b3553053270c0f1515b1633e9917b6fd19a750f5772de2a82",
+      "bytes": 37587
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/ppo.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/ppo.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/ppo.py",
+      "sha256": "e33415ccfea379a6032513285b18fd0f833e551a612ee39fa6c43bc322fa6ad0",
+      "bytes": 24540
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/rollout_storage.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/rollout_storage.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/rollout_storage.py",
+      "sha256": "d78f053f9daba6939b5e82c0d1dd3f0002727e73a4a76ab8c46cf7aeef70b76d",
+      "bytes": 17883
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/student_teacher.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/adapter/student_teacher.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/adapter/student_teacher.py",
+      "sha256": "bd07cf20d845b442a6129a52deb6bcfd93603513e63e99ee8f61ff75eced1860",
+      "bytes": 30029
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/base/__init__.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/base/__init__.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/base/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/base/on_policy_runner.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/base/on_policy_runner.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/base/on_policy_runner.py",
+      "sha256": "d0652dcea967dcb60b6964112b11d1ff5c38f4fb62ae46da6c6d54716b4caa7d",
+      "bytes": 25216
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/base/ppo.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/base/ppo.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/base/ppo.py",
+      "sha256": "5c3b9bb2a8bab31ef9285fad9c654259a0ae79fac6a15f4dbb1077c2b664d8ea",
+      "bytes": 23618
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/cli_args.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/cli_args.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/cli_args.py",
+      "sha256": "b8a8ffe8701cced8774cd760a3ccebe4a7325c911f2672079e862cc0c8a6a7d8",
+      "bytes": 3869
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/play.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/play.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/play.py",
+      "sha256": "b0481470fc2174eed3b5b37a9b72fbe032cc85a81a61aae8bba57bfc2ff57227",
+      "bytes": 11721
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/train.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/train.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/train.py",
+      "sha256": "e2ffbb22558c82c05a75fbaa48ab90880f18bc906c5bf70e652c335356591856",
+      "bytes": 11440
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/utils/inspect_checkpoint.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "scripts/rsl_rl/utils/inspect_checkpoint.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/scripts/rsl_rl/utils/inspect_checkpoint.py",
+      "sha256": "e0f0f6434a5bed971f5ccf620ff4eafc5d12a24fa0f3f4fc529a1691f4118d2a",
+      "bytes": 9174
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/assets/robots/g1_delay.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/assets/robots/g1_delay.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/assets/robots/g1_delay.py",
+      "sha256": "fc6b2f2112c5878fe763a218ed3e6301df1ff41411564700cd627df3466ebeae",
+      "bytes": 7649
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/assets/robots/unitree.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/assets/robots/unitree.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/assets/robots/unitree.py",
+      "sha256": "9b8fe8d0018b7cf70cd5f4451c8e398cd55df8ad5988c018f980ac333e0077ef",
+      "bytes": 4819
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/assets/robots/unitree_actuators.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/assets/robots/unitree_actuators.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/assets/robots/unitree_actuators.py",
+      "sha256": "eaf5bc562c345468fc6d9620c0bb0e050d03a12ca3b16e287fe23e152a09af9f",
+      "bytes": 6482
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/__init__.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/envs/__init__.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/__init__.py",
+      "sha256": "8f6fdd2b68746cebf55e36aab01f2fc11eb9e515adc171468af05c391b1e8f0f",
+      "bytes": 2172
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/locomotion_env_cfg.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/envs/locomotion_env_cfg.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/locomotion_env_cfg.py",
+      "sha256": "56e5c2718ee2c5bf91768b5d180b032f3698054277befac1353193fea8a4cea0",
+      "bytes": 16818
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/steady_object_distill_env_cfg.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/envs/steady_object_distill_env_cfg.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/steady_object_distill_env_cfg.py",
+      "sha256": "ee89a028e30c4d216b15668f460637302dd9af8b1977ed4ed3504ed518152a80",
+      "bytes": 5049
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py",
+      "sha256": "0e449f7d0f08c1175e9fb34b1168c2882149b020497873b14be65b9b42bb90e0",
+      "bytes": 15037
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/steady_tray_env_cfg.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/envs/steady_tray_env_cfg.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/steady_tray_env_cfg.py",
+      "sha256": "f90a81d0c3126243df97c3cfb3925f4f627d0239a62d40489985b195daeff242",
+      "bytes": 7987
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/__init__.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/mdp/__init__.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/mdp/__init__.py",
+      "sha256": "1f4c0484afb42a1bdceba5e5fe76dd1931a9a8fb24d079ea58df09529fb745e2",
+      "bytes": 412
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/commands.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/mdp/commands.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/mdp/commands.py",
+      "sha256": "34a4a604cb3d318330a47ef14e7a1d60ff7b16458774a085427ea48fe1aac208",
+      "bytes": 11719
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/curriculums.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/mdp/curriculums.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/mdp/curriculums.py",
+      "sha256": "9393ac21abbed0d73d2c5defc7f965afbc17220be0fa16f4ad96b19f825107c6",
+      "bytes": 2737
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/events.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/mdp/events.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/mdp/events.py",
+      "sha256": "81eaa3f4994025e0077b02c3e00bf3ff508e14a2e226915f01a3ff0d0098ff81",
+      "bytes": 19389
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/observations.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/mdp/observations.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/mdp/observations.py",
+      "sha256": "594ecb553728606a3be32b6375a56afb1f359817cf7a0efc7f56a9ac44eb9e22",
+      "bytes": 24062
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/rewards.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/mdp/rewards.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/mdp/rewards.py",
+      "sha256": "fdb920579e097075a418922392c123d6127754e49cea09c8acdb16b35c91ab3a",
+      "bytes": 19328
+    },
+    {
+      "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/terminations.py",
+      "repo": "AllenHuangGit/SteadyTray",
+      "commit_or_tag": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "upstream_path": "source/steadytray/steadytray/tasks/mdp/terminations.py",
+      "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/mdp/terminations.py",
+      "sha256": "cab9753a953fc0b5ebeea63bb15baa6fe8f131e805c39980b345471327f387fa",
+      "bytes": 1696
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/LICENSE",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "LICENSE",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/LICENSE",
+      "sha256": "ec85e9006366bb74d7ea893150c4ac7d0e37cb80d329a83f77fcf9b194f61f6d",
+      "bytes": 1072
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/LICENSE.txt",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "LICENSE.txt",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/LICENSE.txt",
+      "sha256": "ec85e9006366bb74d7ea893150c4ac7d0e37cb80d329a83f77fcf9b194f61f6d",
+      "bytes": 1072
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/README.md",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "README.md",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/README.md",
+      "sha256": "d9bab60fd6d3e9fd19f1a6e6efc150b530bd7bd638280b70104e19aafe058794",
+      "bytes": 6842
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/__init__.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/assets/__init__.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/__init__.py",
+      "sha256": "1561236f625d51f4fdc0c8d62ba1f5dd02c32827b98b6b9be29e60360bd66baf",
+      "bytes": 565
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/booster/booster.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/assets/booster/booster.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/booster/booster.py",
+      "sha256": "277d2484d4a18c59136527e011fc1554c90b161bf475dd09396e4214bc100b2e",
+      "bytes": 13027
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/__init__.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/assets/table_tennis/__init__.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/table_tennis/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/ball.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/assets/table_tennis/ball.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/table_tennis/ball.py",
+      "sha256": "b97b93200c3ab32227cb0148a2f964ea9c825a29397c6497a0bf735ec4a4cd8b",
+      "bytes": 1643
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/table.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/assets/table_tennis/table.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/table_tennis/table.py",
+      "sha256": "48c6efee0897c6e561f0f1201cc6e059623829dfdeef9f0bec54dadd6b0e5c88",
+      "bytes": 1295
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/base_config.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/envs/base/base_config.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/base_config.py",
+      "sha256": "b552cc251f0ba27c9fc78e57979af7432118f221f197399f6697eed80326a236",
+      "bytes": 4846
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/tt_env.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/envs/base/tt_env.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/tt_env.py",
+      "sha256": "34f92afd1c565d386d10f9bf2c0f64fa215aa8679edf9e2e3d373021d864c728",
+      "bytes": 58210
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/t1_tt/t1_tt_config.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/envs/t1_tt/t1_tt_config.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/t1_tt/t1_tt_config.py",
+      "sha256": "9e13e7288cbe5566e64df6de58a40cdf8910b51f451832fec146142b08592442",
+      "bytes": 10909
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/__init__.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/mdp/__init__.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/mdp/__init__.py",
+      "sha256": "15facd2f52f8f4f3dc99f12e507937fbbc11772732b313f7fb168ae4a52c8951",
+      "bytes": 619
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/curriculums.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/mdp/curriculums.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/mdp/curriculums.py",
+      "sha256": "eda8c33e5fd7bdc57850f77328a6d4a21f2c6f50f5dcd3ec96cb649d428e200c",
+      "bytes": 2578
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/events.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/mdp/events.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/mdp/events.py",
+      "sha256": "27e77defa18642881676884f46c88a1d92bfdf07586ab4096adcbf529755ec11",
+      "bytes": 4815
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/rewards.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/mdp/rewards.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/mdp/rewards.py",
+      "sha256": "59e17903af8052bed94939227d05e62885c8203dc6b4cfc8a3a188bf25c60a5e",
+      "bytes": 35751
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/eval.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/scripts/eval.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/scripts/eval.py",
+      "sha256": "713070608e6834574e3373cad18ff0eafab230f5b3e69cbdff7605ec6f1c2af3",
+      "bytes": 18053
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/play.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/scripts/play.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/scripts/play.py",
+      "sha256": "05853d09b3ad5ab3cbc1778f915aca54624ae4bd7180e5ced3e0eea182170976",
+      "bytes": 11813
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/plot_action.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/scripts/plot_action.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/scripts/plot_action.py",
+      "sha256": "09ec07efd8dd5b57597a8d1b794cd80364df048763275c3f789acf46461d639b",
+      "bytes": 2056
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/preview.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/scripts/preview.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/scripts/preview.py",
+      "sha256": "1d45454355344ef8cf134488197a28d74a464152641e7fd5470623f57f41dbd4",
+      "bytes": 2450
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/train.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "legged_lab/scripts/train.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/scripts/train.py",
+      "sha256": "54a7b4c871af0f4e35c9b7d46db1f8524fd095cb168234968093ba14a62e244f",
+      "bytes": 3962
+    },
+    {
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/setup.py",
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "commit_or_tag": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "upstream_path": "setup.py",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/setup.py",
+      "sha256": "6c90ed9f7fc75ee6cb958937b61ecc3b5e74e8b5223d940887d5d9efd83ee6f6",
+      "bytes": 675
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/LICENSE",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "LICENSE",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/LICENSE",
+      "sha256": "5fdc61e51b14454de5c38da3e170528df038e0e762d772761832a400e91b124a",
+      "bytes": 1521
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/README.md",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "README.md",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/README.md",
+      "sha256": "ffa9f40150d9bab43d64803603ecbb2f19b9a18c29f48fa1067abb99fd42761d",
+      "bytes": 18807
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/pyproject.toml",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "pyproject.toml",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/pyproject.toml",
+      "sha256": "e6a44ab2957336047e988aab5004dbba6374d3fcc072e6f1e2228927a58cf1d1",
+      "bytes": 3906
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/POLICY_SERVER.md",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "scripts/evaluation/POLICY_SERVER.md",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/scripts/evaluation/POLICY_SERVER.md",
+      "sha256": "a1bf53328de733035cec02ac86b1c9678e851b58077a88b49f6de0bfab336104",
+      "bytes": 4879
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/eval.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "scripts/evaluation/eval.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/scripts/evaluation/eval.py",
+      "sha256": "a4edd66f2c6b0bb99c0d5276b7b7d916311530445f85af27d5f3b77889f239df",
+      "bytes": 109428
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/policy_client.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "scripts/evaluation/policy_client.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/scripts/evaluation/policy_client.py",
+      "sha256": "831f788cb55ef38b2d0a706be83aadfc60bf4eda8007be2739243c2563521d74",
+      "bytes": 4877
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/task_profiles.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "scripts/evaluation/task_profiles.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/scripts/evaluation/task_profiles.py",
+      "sha256": "0096017cab8fc2533bdd56ab6a2e3bd63301ad04802611ecb9bde91af25424d0",
+      "bytes": 10146
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/scripts/list_envs.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "scripts/list_envs.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/scripts/list_envs.py",
+      "sha256": "ba8471f939d423fe7f181af4ed92e1f210e684c0c8f0b04b8303ca04c210b46e",
+      "bytes": 2564
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/config/extension.toml",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/config/extension.toml",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/config/extension.toml",
+      "sha256": "7f56ebe44ac3bd98cfd2a51b592103d89318c7502ee88b750b4a447613ea691e",
+      "bytes": 603
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/README.md",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/README.md",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/README.md",
+      "sha256": "fe770e55beda815f067d0209886691383c339edf7070b21ce82dd4d67a6b9adc",
+      "bytes": 2135
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/__init__.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/__init__.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/__init__.py",
+      "sha256": "ba64facae31d09578a3214ba96d5d87ed96c07f1535836bb951745d745bafbe9",
+      "bytes": 1558
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env.py",
+      "sha256": "008152bfc121390c9e926da00910ce0123fa4d3298c19e40ceee973815f9eb4b",
+      "bytes": 5789
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+      "sha256": "109de147d9c4db1d371761de006d3bf37ec96341967adf35db0fb132d220953a",
+      "bytes": 7456
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/__init__.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/__init__.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/__init__.py",
+      "sha256": "3b5e6719ce9bb1348409ac63eb6105dc78c9bf6920a772af0232462325e1b165",
+      "bytes": 126
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/__init__.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/__init__.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/__init__.py",
+      "sha256": "1fdfd5bd5e416f559af44a51973241358d79aba9251a536e590516c1f0ad1ae9",
+      "bytes": 618
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/data_collection_env_cfg.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/data_collection_env_cfg.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/data_collection_env_cfg.py",
+      "sha256": "14cc51ab719cdf8ce090f8cbc487eb3b05c19cbc14d5bb8ecacbf3b0ccc92a39",
+      "bytes": 2764
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py",
+      "sha256": "2e2612151ee56d2e808fe1305816cb3a9e30ea18e2da3c5b7e1056e661609bb0",
+      "bytes": 1281
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_rel_env_cfg.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_rel_env_cfg.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_rel_env_cfg.py",
+      "sha256": "d96d69d98c6f01499abd6bb81b803eeed8d933d0e0a5575431b0c2d387466b84",
+      "bytes": 1304
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py",
+      "sha256": "51b3d8bd835160b6d5963a77cf568bd15eecad5adb1130f4e62a83797de51b1e",
+      "bytes": 6555
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/__init__.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/__init__.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/__init__.py",
+      "sha256": "1cf73465f83b368f74b371d644b42f33ca83235c56fe0b3a5ded80d1d9bb2e45",
+      "bytes": 270
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py",
+      "sha256": "f77fdcd6d1a8dcd9a45c65d7e0e009eec40229035ea467acd478ce80e60e4599",
+      "bytes": 18005
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/observations.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/observations.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/observations.py",
+      "sha256": "5b333cbda934810a407f8d067c3f28c54442e112de84ac7cc9cc09bbcebbcb3e",
+      "bytes": 3491
+    },
+    {
+      "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py",
+      "repo": "LxRoboticsLab/ReflexBench",
+      "commit_or_tag": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "upstream_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py",
+      "sha256": "5b7076a0f4b194f48ef337bc30794d710b1c28a9e28fa820a71e01db51b2b09c",
+      "bytes": 1780
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/LICENSE",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "LICENSE",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/LICENSE",
+      "sha256": "5c9817c129b98e7bb966bca028c43c19107102ef8e03fe799bffb4354f4ef015",
+      "bytes": 11356
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/README.md",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "README.md",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/README.md",
+      "sha256": "d1278fed40d728e9029b03fb003b768d8e29a8135c8e5a032823eb771cbd7f8a",
+      "bytes": 17097
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/baselines/base_policy.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "baselines/base_policy.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/baselines/base_policy.py",
+      "sha256": "ed4004751d6fd0c630d0c7b99edc6cd30d82f5c9c882b254cbcaada6547f3863",
+      "bytes": 2120
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/conda_env.yml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "conda_env.yml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/conda_env.yml",
+      "sha256": "7e723e0ddef910436b241401b310532883d5fb0f5b3c1d5a192718b452b90189",
+      "bytes": 651
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/__init__.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/__init__.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/__init__.py",
+      "sha256": "8ebd559ad248d8c91122d0008842e72cc2762b8783018e14b5e65c824961658d",
+      "bytes": 423
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/aerial_balance_env.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/aerial_balance_env.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/aerial_balance_env.py",
+      "sha256": "88227a8b4ea9e1446c20c29374a640153e64bdaa4b31c192752eb7b4f4adfa49",
+      "bytes": 20998
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/assets/__init__.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/assets/__init__.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/assets/__init__.py",
+      "sha256": "35a00b7e9f3b7071bdd31e88aeb19a49937bebf8ee281533778854fcd6cd991e",
+      "bytes": 152
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/assets/drone_rope_plank.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/assets/drone_rope_plank.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/assets/drone_rope_plank.py",
+      "sha256": "32d78bd6b2c46c7818cb7eb2df2d338014914d15275545fb671f04ca54d5afd8",
+      "bytes": 2071
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/target_position_balancing.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/target_position_balancing.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/target_position_balancing.yaml",
+      "sha256": "3bfc64f2f979eafd0b75f169f83589205ec49fa8242dc4a27248a952d89c7a53",
+      "bytes": 1150
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_15.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/template_eval_delay_15.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_delay_15.yaml",
+      "sha256": "d2c28430f499dfdf302ef581da7026cdec822ae80242f6268f78a93cd965c9ad",
+      "bytes": 1148
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_30.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/template_eval_delay_30.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_delay_30.yaml",
+      "sha256": "b4a412b48e2c3fd5ec004b2016c798ec5f105dd83a949724acb8d85674003b7a",
+      "bytes": 1148
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_45.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/template_eval_delay_45.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_delay_45.yaml",
+      "sha256": "58162b1e45ca4daa93c40625ee06c79b9539cb2d83742e4992ce61a202ee9c66",
+      "bytes": 1148
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_60.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/template_eval_delay_60.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_delay_60.yaml",
+      "sha256": "ea60c5ad8dc474095e07cda349804ca547f2ed4f72d0f3017c6a80753963a8bc",
+      "bytes": 1148
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_free.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/template_eval_delay_free.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_delay_free.yaml",
+      "sha256": "cef9911acc282814b2061a335ff39e117e290a3749f2c0700e13adcc86250254",
+      "bytes": 1150
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_disturbance.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/template_eval_disturbance.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_disturbance.yaml",
+      "sha256": "2a2d3e7323cced30ca4d045968f792fa94c943246c5918869762221d6a7468b1",
+      "bytes": 1147
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_gain.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/template_eval_gain.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_gain.yaml",
+      "sha256": "8193f87f7dc37774f31a5c643b434771c0e16b7a6accddeec6ba9a58497697d8",
+      "bytes": 1147
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_mass.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/template_eval_mass.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_mass.yaml",
+      "sha256": "bac643956ce4ac82d3d597abd5e30870812be64c5b5f8ac9d6846797a92a9141",
+      "bytes": 1147
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_train.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/template_train.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_train.yaml",
+      "sha256": "64368a8779a5da76f1b95a76f275e217b1c9a46952eb8cb24327f57a7d871e7c",
+      "bytes": 1150
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/trajectory_tracking.yaml",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/configs/trajectory_tracking.yaml",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/trajectory_tracking.yaml",
+      "sha256": "abd95a383ddf1365722b4752e1aa475d292a41bb96182b029311187e935d8c50",
+      "bytes": 1131
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/evaluation/__init__.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/evaluation/__init__.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/evaluation/__init__.py",
+      "sha256": "4693968a1105d4d063419ea8018f5263ec3dd776a8863065fe1a42aa6e1288fe",
+      "bytes": 399
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/evaluation/target_position_evaluator.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/evaluation/target_position_evaluator.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/evaluation/target_position_evaluator.py",
+      "sha256": "cd8ca5a8d1045cb084488f8df51380ef7e4e41f4f0f23bf1c2c95224c908e392",
+      "bytes": 6917
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/evaluation/trajectory_tracking_evaluator.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/evaluation/trajectory_tracking_evaluator.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/evaluation/trajectory_tracking_evaluator.py",
+      "sha256": "faae2cc725ab9f8ffe531ab5d80b9cded117130648568c07878b3a2eeccb789d",
+      "bytes": 3659
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/interfaces/__init__.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/interfaces/__init__.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/interfaces/__init__.py",
+      "sha256": "426e88d8cd219e782a9cf34f538293921ff63078d34a9c139d4b3f9bcbc3aa0b",
+      "bytes": 432
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/interfaces/position_interface.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/interfaces/position_interface.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/interfaces/position_interface.py",
+      "sha256": "86aa4036874172522c09b281dd68cf3490b1e0c3ff0af6a3fb76f598a2352bad",
+      "bytes": 8995
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/interfaces/thrust_interface.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/interfaces/thrust_interface.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/interfaces/thrust_interface.py",
+      "sha256": "12b091c160e336a041d12bedf561af07ce813a88c7c1d476c652ae6c3703cef1",
+      "bytes": 11684
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/interfaces/velocity_interface.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/interfaces/velocity_interface.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/interfaces/velocity_interface.py",
+      "sha256": "411380ecfcd25e73b00c3479d0a6da994f0707980807221178a48d5bf905fb34",
+      "bytes": 8087
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/robustness/__init__.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/robustness/__init__.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/robustness/__init__.py",
+      "sha256": "4e95f3949853729fd2e2b408a6ce3a3416d27e84f40a679bfeb1534431d98af5",
+      "bytes": 219
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/robustness/robustness_manager.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/robustness/robustness_manager.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/robustness/robustness_manager.py",
+      "sha256": "a441cfdac5e61277da1c9c80d7834cf4abb101279fbe8f3fe44e7bd6a5b01062",
+      "bytes": 16536
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/tasks/__init__.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/tasks/__init__.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/tasks/__init__.py",
+      "sha256": "7e92f92fffefd8697dd534b346346780c4154e2bab8b9330b306cf56e3fce8dd",
+      "bytes": 347
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/tasks/target_position_task.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/tasks/target_position_task.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/tasks/target_position_task.py",
+      "sha256": "4a89ca78b025fbadc63e02318c5be9892af828967320d9a9d3c4010c64245393",
+      "bytes": 5193
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/environments/tasks/trajectory_tracking_task.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "environments/tasks/trajectory_tracking_task.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/tasks/trajectory_tracking_task.py",
+      "sha256": "24210c8c604d622d52380dfebc9b5d69d16e4fa5cd23ec7968b884fb35b56b14",
+      "bytes": 7902
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/scripts/cpid_policy_eval.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "scripts/cpid_policy_eval.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/scripts/cpid_policy_eval.py",
+      "sha256": "bf2f8cf867d0eade8f1eb4bcfb07340fee1d4b7980ef97f0647e2641ab0f4851",
+      "bytes": 22346
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/scripts/zero_action_policy_eval.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "scripts/zero_action_policy_eval.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/scripts/zero_action_policy_eval.py",
+      "sha256": "38642c0df00da867ed181de82dfe2e057460e79a08e968f0a63ee2427d11fec8",
+      "bytes": 15576
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/utils/__init__.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "utils/__init__.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/utils/__init__.py",
+      "sha256": "da7c64b00ec51ef306ed8aeb5daddc2e836858d37831bdaa3d72eefe96de52c2",
+      "bytes": 50
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/utils/drone_models/__init__.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "utils/drone_models/__init__.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/utils/drone_models/__init__.py",
+      "sha256": "6a1d1f794a0d733415248a29a878989c9ddd5160a707c5c42d2ce3a1c312678f",
+      "bytes": 301
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/utils/drone_models/geometry_se3_controller.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "utils/drone_models/geometry_se3_controller.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/utils/drone_models/geometry_se3_controller.py",
+      "sha256": "a50383ad9f16366eaadc925d0e4dfc0f0e1d18e7bf166d4b9dfc59465a1875b4",
+      "bytes": 46761
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/utils/drone_models/propulsor_model.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "utils/drone_models/propulsor_model.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/utils/drone_models/propulsor_model.py",
+      "sha256": "9fdfe33a9496ba7bf5aa2ce26d1a9619eebb974b4a8fd8100fcc07a250d115e0",
+      "bytes": 3538
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/utils/io.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "utils/io.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/utils/io.py",
+      "sha256": "e7d8806f4ae0a42ec55ffec7c56d986473e25572e86bf2f300502aba7435b234",
+      "bytes": 1395
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/utils/paths.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "utils/paths.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/utils/paths.py",
+      "sha256": "fd1ece7d002a630382ffbe384e9692ebaeb88994fa4cb353b70273359a67cb13",
+      "bytes": 339
+    },
+    {
+      "package_path": "sources/Wenminggong/aerial_balance_bench/utils/visualization.py",
+      "repo": "Wenminggong/aerial_balance_bench",
+      "commit_or_tag": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "upstream_path": "utils/visualization.py",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/utils/visualization.py",
+      "sha256": "686828d774a0a209adbb7a3bf767bdd9bed92bf814c8b460c89145cf83e374da",
+      "bytes": 13219
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/LICENSE",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "LICENSE",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/LICENSE",
+      "sha256": "6f4b58b0ca0f41d51df6c24b03cb2844edc32a23b88d8afb8d0a25f629525f3e",
+      "bytes": 1076
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/README.md",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "README.md",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/README.md",
+      "sha256": "4ea9598c4da1019d680290b57317a4550b6766b043255d3fe60d73447623fe91",
+      "bytes": 13478
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/cfg/base/env_base.yaml",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "cfg/base/env_base.yaml",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/cfg/base/env_base.yaml",
+      "sha256": "bcaaa3a9cdfbf3f3f1cd9f31c18ff9d461cdd2cded331775854681b7126c0e0d",
+      "bytes": 89
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/cfg/base/sim_base.yaml",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "cfg/base/sim_base.yaml",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/cfg/base/sim_base.yaml",
+      "sha256": "c7eb9b1c0e5b4cc8f4fc0ada83c68784a4a0f6067281be7885d99f10afde7778",
+      "bytes": 828
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/cfg/task/Volleyball1v1.yaml",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "cfg/task/Volleyball1v1.yaml",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/cfg/task/Volleyball1v1.yaml",
+      "sha256": "67e3a104a73f315d5afd679e98cd3e3a3d78865cf1787eaf8be3ae05ec988b15",
+      "bytes": 1235
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/evaluation_shell/volleyball3v3_crossplay.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/evaluation_shell/volleyball3v3_crossplay.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/evaluation_shell/volleyball3v3_crossplay.sh",
+      "sha256": "6e28d3aa25fede6f24327b6670037b69331e18e3f39b0a9f1e3aa9d026e4c72b",
+      "bytes": 655
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/evaluation_shell/volleyball3v3_hier.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/evaluation_shell/volleyball3v3_hier.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/evaluation_shell/volleyball3v3_hier.sh",
+      "sha256": "072d80b790b64681cd4b83a90906d97e044fc9586c72ca2954358c71e7ab0026",
+      "bytes": 1471
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/evaluation_shell/volleyball3v3_psro_br.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/evaluation_shell/volleyball3v3_psro_br.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/evaluation_shell/volleyball3v3_psro_br.sh",
+      "sha256": "f9241a68f8c50b748894460285f96ca971fb246fa32c5474cbe4ad579fcd4b5f",
+      "bytes": 544
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/train.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/train.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/train.py",
+      "sha256": "9d8bda32ec6f7300d8f927a70faa1760579508cca40a664855b761ba232fe7de",
+      "bytes": 19405
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/train_hier.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/train_hier.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/train_hier.py",
+      "sha256": "dd6d0e06c9a4f05385ea5fcc262504203993f0e8ce4e8ddcd5723f70e1ec3df5",
+      "bytes": 12942
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/train_psro.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/train_psro.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/train_psro.py",
+      "sha256": "4d6cdd15520a1c350e98541b098baad84dcc80b64cbdee246a32f4c46976746b",
+      "bytes": 20558
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/train_psro_br.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/train_psro_br.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/train_psro_br.py",
+      "sha256": "75edd809c0eee5598b8017633d7a110ce102f408fe5f93965a3e61dae135da16",
+      "bytes": 21474
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/train_psro_cross_play.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/train_psro_cross_play.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/train_psro_cross_play.py",
+      "sha256": "24592a36816f3661df05b30ef5597776185ace7b78f13778256545bdc329e3cf",
+      "bytes": 9336
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/back_and_forth.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/back_and_forth.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/back_and_forth.sh",
+      "sha256": "a70a36ccd583da002e2a3e3e92d911ea6423fd67fcc24d964f8f428fba90bfdc",
+      "bytes": 649
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/hover.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/hover.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/hover.sh",
+      "sha256": "b48d1779a24a9be595de81e771d09bf17566940ea4049259d0dbf3072e7bc72d",
+      "bytes": 559
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/multiattack_easy.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/multiattack_easy.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/multiattack_easy.sh",
+      "sha256": "9185c018143088bd6403e28b109a1e3a617271c432eabd89cc96b8447605097c",
+      "bytes": 633
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/multiattack_hard.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/multiattack_hard.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/multiattack_hard.sh",
+      "sha256": "a00aefd27fe2cfa7370c356d86dd420002eff88ad4d6ab74d0b60b3bd3c435ab",
+      "bytes": 633
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/multijuggle.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/multijuggle.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/multijuggle.sh",
+      "sha256": "a005a691a68c322666fd3cb1570ff18ab812d44b16269cf65a31f1d4d6bcf782",
+      "bytes": 457
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/singlehit.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/singlehit.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/singlehit.sh",
+      "sha256": "e6173213605d5e654f8c45845864572c078485044a61a7970e378ede4caec8a8",
+      "bytes": 680
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/singlejuggle.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/singlejuggle.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/singlejuggle.sh",
+      "sha256": "b1e76cc3bf6997301b8a0e12f079dd73bc54a1e7eb63c3039d258aaedda16c37",
+      "bytes": 645
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball1v1_psro.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/volleyball1v1_psro.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/volleyball1v1_psro.sh",
+      "sha256": "f2d5cf001466648de8af7c2a73fbad513ff065a9f7bbacd3b40f51db402c4a32",
+      "bytes": 518
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball1v1_sp.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/volleyball1v1_sp.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/volleyball1v1_sp.sh",
+      "sha256": "38a37658277633be42d5117d28b4a15347ca6f2e48d37cc8b8e0c21c0b3057c9",
+      "bytes": 470
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball3v3_psro.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/volleyball3v3_psro.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/volleyball3v3_psro.sh",
+      "sha256": "e4eac1cc3690e4c952fe19b0d03606e769de9c18a1ab5f85af51fbcba41450d6",
+      "bytes": 507
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball3v3_sp.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/volleyball3v3_sp.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/volleyball3v3_sp.sh",
+      "sha256": "14094dd8b56cf6c2df5972521ea4a5087dcfc274fae5fcff06aa3297efd94dbc",
+      "bytes": 443
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball6v6_psro.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/volleyball6v6_psro.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/volleyball6v6_psro.sh",
+      "sha256": "a2d12d55e8f45ed7ce819c6643e6e6b6806ca0482c30b8ee021d0cf29ca029a9",
+      "bytes": 519
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball6v6_sp.sh",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "scripts/training_shell/volleyball6v6_sp.sh",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/scripts/training_shell/volleyball6v6_sp.sh",
+      "sha256": "e9529171dcacdc9fed26f9dabc3cabf9740cef0fb74dbd8790d6dd781c4481a8",
+      "bytes": 444
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/setup.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "setup.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/setup.py",
+      "sha256": "1235ea91b136d9beb35e251aa94bd76487ac9953b92378e51c373e4ed1f265b2",
+      "bytes": 519
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/utils/rules.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "volley_bots/envs/competitive/utils/rules.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/utils/rules.py",
+      "sha256": "3409b7c62204503a26329a214041b16afd856d0d4be182270c1edea84b7a733a",
+      "bytes": 9490
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/volleyball_1v1.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "volley_bots/envs/competitive/volleyball_1v1.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py",
+      "sha256": "e490e40010853ae3d9ca61e690f1f0b21640d6640d1947dfca01f869caa1dd5f",
+      "bytes": 40649
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/volley_bots/robots/drone/iris.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "volley_bots/robots/drone/iris.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/robots/drone/iris.py",
+      "sha256": "4e66b94f0ba088c0b69060c0d8439a354768f9d02628c7ea727ae7796d755c56",
+      "bytes": 379
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/volley_bots/robots/drone/iris_racket.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "volley_bots/robots/drone/iris_racket.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/robots/drone/iris_racket.py",
+      "sha256": "5e57c820235d839b68f8cdc11aa389de82655d19b4a3d8ca28c29c64c6ab8aa0",
+      "bytes": 402
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/volley_bots/robots/drone/multirotor.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "volley_bots/robots/drone/multirotor.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/robots/drone/multirotor.py",
+      "sha256": "2aff39e0c72474f1293ed3e43ac0601935aa6b20f9d660a40fd246d277004ebe",
+      "bytes": 19247
+    },
+    {
+      "package_path": "sources/thu-uav/VolleyBots/volley_bots/robots/robot.py",
+      "repo": "thu-uav/VolleyBots",
+      "commit_or_tag": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "upstream_path": "volley_bots/robots/robot.py",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/robots/robot.py",
+      "sha256": "ba1a6670cff0f05b6a620a1a6fae857214d27a0aec31718b57916605f5173374",
+      "bytes": 8419
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/LICENSE",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "LICENSE",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/LICENSE",
+      "sha256": "72eb275ec4fd6349b75611702ad02393de50340fad1f2476ad1bfcb5f60a6999",
+      "bytes": 1565
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/README.md",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "README.md",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/README.md",
+      "sha256": "4411fae0997dbb024ea964760639569e8c418fb2787f9f00a424092749cd35f0",
+      "bytes": 9824
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/__init__.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_assets/wheeledlab_assets/__init__.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_assets/wheeledlab_assets/__init__.py",
+      "sha256": "82f45b825d400b7ccd11d06ada370f30595ea461a135a0f55f4b6a43e7fee3c8",
+      "bytes": 673
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/f1tenth.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_assets/wheeledlab_assets/f1tenth.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_assets/wheeledlab_assets/f1tenth.py",
+      "sha256": "babca61067d8df6247ef2e20d6ba17642f5d4b1ad0e9a5488f7ee9afe32ec6c6",
+      "bytes": 2247
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/hound.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_assets/wheeledlab_assets/hound.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_assets/wheeledlab_assets/hound.py",
+      "sha256": "32580f7f835e81be3deea771f4cbf38af5e9b75829ab0d75067ed126494eceff",
+      "bytes": 1498
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/mushr.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_assets/wheeledlab_assets/mushr.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_assets/wheeledlab_assets/mushr.py",
+      "sha256": "9c9aa2a26324dc13efc4ca073dc69f6b3fbfea99aa23df5d7bea9cb1e616610f",
+      "bytes": 2012
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_rl/scripts/train_rl.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_rl/scripts/train_rl.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_rl/scripts/train_rl.py",
+      "sha256": "946e99f5faa28a0af29e76e0f4ee9970934052cb985b168e6a7e1f3b90ad1fda",
+      "bytes": 4011
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py",
+      "sha256": "9f387e6c590f8fb9550a29f021bd554c6d7b65491c682777c868d9ebc7945d31",
+      "bytes": 1264
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/common/__init__.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/common/__init__.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/common/__init__.py",
+      "sha256": "0bbd0104eb92e427d12d3e4e23da0b66131c1c9086f93fc7c5788eb3609afae6",
+      "bytes": 50
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/common/actions.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/common/actions.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/common/actions.py",
+      "sha256": "b8ed91095d159326e3c45afc0902a7d17942849d0c413911907b6d8bcb891269",
+      "bytes": 1878
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/common/observations.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/common/observations.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/common/observations.py",
+      "sha256": "034a451749e65c74d4220891358bfe755d7da7d406954f91b7c342e18085dda7",
+      "bytes": 1583
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/__init__.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/__init__.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/__init__.py",
+      "sha256": "040371706339cdfe1125ef137e25e6140b7e55ac97a2a9385565548729692d85",
+      "bytes": 129
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/__init__.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/__init__.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/f1tenth/rsl_rl_ppo_cfg.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/f1tenth/rsl_rl_ppo_cfg.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/f1tenth/rsl_rl_ppo_cfg.py",
+      "sha256": "abd343392017aeb57f6015caa3bc19f2ed93687b1e6d7665a76a7cf24c1adecc",
+      "bytes": 1045
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/mushr/rsl_rl_ppo_cfg.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/mushr/rsl_rl_ppo_cfg.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/mushr/rsl_rl_ppo_cfg.py",
+      "sha256": "e2e9458047bb4bdb67cead6f677c3b1400d425f199b37e4f9171d6d56a9fd7bf",
+      "bytes": 889
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/disable_lidar.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/disable_lidar.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/disable_lidar.py",
+      "sha256": "43c0527befea6e51e9323f1a66716c96c7103b05c5dde06029616255c37bbaa3",
+      "bytes": 523
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/f1tenth_drift_env_cfg.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/f1tenth_drift_env_cfg.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/f1tenth_drift_env_cfg.py",
+      "sha256": "1f2910003ba3f75d53b994f29477db53d93562ae7825dad27fa10cbbc11fd655",
+      "bytes": 6325
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/__init__.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/__init__.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/__init__.py",
+      "sha256": "c4a95159afd3b1c44953ebec7beeafcd0da2c46fbef6b39faecaf7ee3b703f4f",
+      "bytes": 21
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/events.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/events.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/events.py",
+      "sha256": "dd6e19c63560986c8ed8f3c293e079b7827816ff05c4b1be03041b37facb111a",
+      "bytes": 6071
+    },
+    {
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py",
+      "repo": "UWRobotLearning/WheeledLab",
+      "commit_or_tag": "a5017ce0696032805190448b2addb8077e458387",
+      "upstream_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py",
+      "sha256": "d48bd62ae468d303d4599610bb9117dcaaefc0945e01eb56d805399f3978ffa0",
+      "bytes": 13135
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/README.md",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "README.md",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/README.md",
+      "sha256": "eff4523adc7550aa87fd373c46e34c35825856e3beb1b985ecbaf8a340a95761",
+      "bytes": 37196
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/pyproject.toml",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "pyproject.toml",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/pyproject.toml",
+      "sha256": "e6a44ab2957336047e988aab5004dbba6374d3fcc072e6f1e2228927a58cf1d1",
+      "bytes": 3906
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/cli_args.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "scripts/rsl_rl/cli_args.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/scripts/rsl_rl/cli_args.py",
+      "sha256": "610ecd0a51bac90c206e57578c7789c8cf5dfd5ebd0096c3ca398f9bd2f2b42d",
+      "bytes": 3722
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/play.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "scripts/rsl_rl/play.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/scripts/rsl_rl/play.py",
+      "sha256": "b5190805b3284908ea5341b34c633a834c3113a6523f9a9cc192594d450eb13d",
+      "bytes": 29456
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/train.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "scripts/rsl_rl/train.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/scripts/rsl_rl/train.py",
+      "sha256": "c82495d3ab82b19dacd86760a709d632132e43242768f2034332f215960378b4",
+      "bytes": 21556
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/train_staged.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "scripts/rsl_rl/train_staged.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/scripts/rsl_rl/train_staged.py",
+      "sha256": "905c42ba8d7f9e19f2cf1334d147022a231f43c9c2ac4dfaf995c59c2497b737",
+      "bytes": 15961
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/config/extension.toml",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/config/extension.toml",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/config/extension.toml",
+      "sha256": "385fa4cae7841a84ce9b3ab3526bfa462b4c88b21e28dfcb68db31db9fe590c6",
+      "bytes": 1018
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py",
+      "sha256": "fd34a0d4b2ac08a618e02b705d194acbd99b551a296fa17e97538139b98fb97e",
+      "bytes": 6010
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/__init__.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/__init__.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/__init__.py",
+      "sha256": "e72b43071221e271f69574d1d5e6116c5d71b41727973bf00560cb667d766435",
+      "bytes": 191
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/cusrl_ppo_cfg.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/cusrl_ppo_cfg.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/cusrl_ppo_cfg.py",
+      "sha256": "7fdc08ff7bba88df82e79e3aa8e881c3d91c931c1d556331f46aec3b6af2074c",
+      "bytes": 1761
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/rsl_rl_ppo_cfg.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/rsl_rl_ppo_cfg.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/rsl_rl_ppo_cfg.py",
+      "sha256": "48f01f27df8b80525d66f8bd5a5273ad07f360a527fade18bfb86016d6526ee8",
+      "bytes": 6505
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/__init__.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/__init__.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/__init__.py",
+      "sha256": "2ff7ba226c8f5126d990179dda2fb305d06b674b10dc14a665475d8462a9801a",
+      "bytes": 166
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+      "sha256": "75d13b1550ce11362d895536b92ee370bfc1b73b250a3c9853d16dc0fe63127b",
+      "bytes": 3038
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/ASSET_LICENSE.md",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/ASSET_LICENSE.md",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/ASSET_LICENSE.md",
+      "sha256": "7c3843f9c9b73a0ccacf1cbb231063e4efc32174b0337ad325410e94826bd6e2",
+      "bytes": 1398
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/__init__.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/__init__.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/__init__.py",
+      "sha256": "f5addd725f5d597f6b2888e03d798eb892f62ef2c050aefdaba91e2f1cabfd5d",
+      "bytes": 681
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py",
+      "sha256": "ce32bfb25a8a1f3872ce048e55917ecd7ce5fb8469e6ac627e2d8f5018e01df1",
+      "bytes": 16677
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/commonds.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/commonds.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/commonds.py",
+      "sha256": "2aeb42e8cccc99b2f11e0acaa9dddd22d590081978c16a7ac2b1a952bcc3bec2",
+      "bytes": 10310
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/curriculums.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/curriculums.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/curriculums.py",
+      "sha256": "eb67e3eb1a86de3a12a9bbc90afde4a6c0e99516de53d2a97b587c1b39184dc7",
+      "bytes": 22639
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/events.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/events.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/events.py",
+      "sha256": "e2e67d3aeb39de95b49ada8ef3527a8694b74015633285750f70ab8687cd70b1",
+      "bytes": 2965
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/jump.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/jump.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/jump.py",
+      "sha256": "76c36ccef932d2be4391dabb188658c6918527093072f3871583e44dc42baf26",
+      "bytes": 29766
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/observations.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/observations.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/observations.py",
+      "sha256": "13d6edfdf2f61971378e7c989a8ec8971fa28be019f57650963e136ce932abd2",
+      "bytes": 9693
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/power_on.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/power_on.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/power_on.py",
+      "sha256": "cbbbd0caafd41dc1ce23edec9d6016e7920d53c75b3f191890a585d26d5288fd",
+      "bytes": 10145
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/rewards.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/rewards.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/rewards.py",
+      "sha256": "ccc035e83491c998594e2aa60177a1a38900856dae4e8675a299f13428bd8288",
+      "bytes": 11449
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_flat_env_cfg.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_flat_env_cfg.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_flat_env_cfg.py",
+      "sha256": "8487a50afa1879b7295f7732715d015ee0e5813919e1167f8600e93eafb6c175",
+      "bytes": 45992
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_jump_env_cfg.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_jump_env_cfg.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_jump_env_cfg.py",
+      "sha256": "db81dcae42e8bd81d3ede48a74ca0243b5da7f0ddce8ea769d8074e75639c0aa",
+      "bytes": 105331
+    },
+    {
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "commit_or_tag": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "upstream_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+      "sha256": "601ca3af73043337fdf8b9f5fd8e2ab4eba0e9504cfba929634900a0fc6bdf7c",
+      "bytes": 18370
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/LICENSE",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "LICENSE",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/LICENSE",
+      "sha256": "65b0fd2521e0d12227d8e44906153d16817478b8c04a3920e46086faf1c07d55",
+      "bytes": 1577
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/README.md",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "README.md",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/README.md",
+      "sha256": "895800804cba5d3b15b8316b8f79f793f06fc0293e36065fa11151fa8e81d941",
+      "bytes": 29889
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/scripts/rsl_rl/cli_args.py",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "scripts/rsl_rl/cli_args.py",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/scripts/rsl_rl/cli_args.py",
+      "sha256": "46af5aa68ddbd4375fdf3a11bcb63127cdcc80d3f035e86fd4cddef735cb8f6a",
+      "bytes": 3616
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/scripts/rsl_rl/play.py",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "scripts/rsl_rl/play.py",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/scripts/rsl_rl/play.py",
+      "sha256": "d9d41716eb1a77df499abf7ea3853083c648f8e0ffc1190e1ce81935b067acc8",
+      "bytes": 8081
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/scripts/rsl_rl/train.py",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "scripts/rsl_rl/train.py",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/scripts/rsl_rl/train.py",
+      "sha256": "8c9a556a2d80d9ab35e107d5b158150897cd75d4c09948f4693628454defca8a",
+      "bytes": 9189
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/assets/__init__.py",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "source/wheeled_quadruped/wheeled_quadruped/assets/__init__.py",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/assets/__init__.py",
+      "sha256": "cd9874b5c483693ebd8acabe5fb959c0025278cbe710be143c9a52f97faf37dc",
+      "bytes": 3305
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/__init__.py",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/__init__.py",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/__init__.py",
+      "sha256": "8a083353fdb4c71c279cae7937e9be64daeaf03f6369a26487ca64e64cc653cb",
+      "bytes": 2884
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/__init__.py",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/__init__.py",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/__init__.py",
+      "sha256": "5824d07bf4e31d7065f27d7865049cff927229036d8cb9d9ad6c89e215c1f08c",
+      "bytes": 126
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rl_games_ppo_cfg.yaml",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rl_games_ppo_cfg.yaml",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rl_games_ppo_cfg.yaml",
+      "sha256": "47749acdb08ea33ae8d4e2de8f1dbefa15cf48b510d9f6fd5f46d9e74302b9fc",
+      "bytes": 1843
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rsl_rl_ppo_cfg.py",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rsl_rl_ppo_cfg.py",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rsl_rl_ppo_cfg.py",
+      "sha256": "d88425c49d7845dc41abb62489f37e12cc40c9a3d19a2faa7292eb7d1e119738",
+      "bytes": 1704
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/sb3_ppo_cfg.yaml",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/sb3_ppo_cfg.yaml",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/sb3_ppo_cfg.yaml",
+      "sha256": "502aa932ebc7741cdd6a7c71cb16edb793247f245d561e704124b656baadc09a",
+      "bytes": 645
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/skrl_ppo_cfg.yaml",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/skrl_ppo_cfg.yaml",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/skrl_ppo_cfg.yaml",
+      "sha256": "64b7c20114583de2a048b1099dd3296d3238cbb172260a2fc1bfcd280f1b2270",
+      "bytes": 2294
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/balance_env_cfg.py",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/balance_env_cfg.py",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/balance_env_cfg.py",
+      "sha256": "4bcb227e44b388164ba886c7b5eb36a1d747d9bd3ed7b12754e86b311d3a4c44",
+      "bytes": 9291
+    },
+    {
+      "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/rough_env_cfg.py",
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "commit_or_tag": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "upstream_path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/rough_env_cfg.py",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/rough_env_cfg.py",
+      "sha256": "3fb3c6f00229634deb95815d74dbe36e579db9c6a10e218a86b36d40ac7c9c60",
+      "bytes": 2603
+    },
+    {
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/README.md",
+      "repo": "BrandoUlissi/isaaclab-go2-locomotion",
+      "commit_or_tag": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "upstream_path": "README.md",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/README.md",
+      "sha256": "45bf3b305dd2e260c0b5c9c7be09f3644ce48df213f255b81909d3827ce74975",
+      "bytes": 8722
+    },
+    {
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/scripts/play_scheduled_pushes.py",
+      "repo": "BrandoUlissi/isaaclab-go2-locomotion",
+      "commit_or_tag": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "upstream_path": "scripts/play_scheduled_pushes.py",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/scripts/play_scheduled_pushes.py",
+      "sha256": "4706150da290095a0659538b3f52d272d740a2712a227c1e237460a7122d08df",
+      "bytes": 8205
+    },
+    {
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/scripts/train_pushrecovery.py",
+      "repo": "BrandoUlissi/isaaclab-go2-locomotion",
+      "commit_or_tag": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "upstream_path": "scripts/train_pushrecovery.py",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/scripts/train_pushrecovery.py",
+      "sha256": "effe08c68d02d511f29f7d6d9c74a8ed3330eeabacb9477eaf954a1fd65366ea",
+      "bytes": 6229
+    },
+    {
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/__init__.py",
+      "repo": "BrandoUlissi/isaaclab-go2-locomotion",
+      "commit_or_tag": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "upstream_path": "src/isaaclab_go2_pushrecovery/__init__.py",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/__init__.py",
+      "sha256": "33a4be6b2c987a937c42a9a8148e3a58d8ad43036dbd2ccd97703ee51eb93c3a",
+      "bytes": 1194
+    },
+    {
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/curriculum.py",
+      "repo": "BrandoUlissi/isaaclab-go2-locomotion",
+      "commit_or_tag": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "upstream_path": "src/isaaclab_go2_pushrecovery/curriculum.py",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/curriculum.py",
+      "sha256": "7877d910d89b1eee715baf1e4bd80ad907ad9f84f12f2ebb682a0d0130d64641",
+      "bytes": 5344
+    },
+    {
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/env_cfg.py",
+      "repo": "BrandoUlissi/isaaclab-go2-locomotion",
+      "commit_or_tag": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "upstream_path": "src/isaaclab_go2_pushrecovery/env_cfg.py",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/env_cfg.py",
+      "sha256": "c64959c1eaf49315becf6f84f230fafcd6b1df2a4fff0b7cf697de50cc840d66",
+      "bytes": 8165
+    },
+    {
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/push_events.py",
+      "repo": "BrandoUlissi/isaaclab-go2-locomotion",
+      "commit_or_tag": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "upstream_path": "src/isaaclab_go2_pushrecovery/push_events.py",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/push_events.py",
+      "sha256": "11728ef625715d37b54ef672fa01abc67d7f92a2683065df7e96b7f8e9166ea9",
+      "bytes": 8790
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/README.md",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "README.md",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/README.md",
+      "sha256": "28d97e554d21b2a8da4831abc4abc60e8cda964eedfba3fe3f8f0f840a2b943b",
+      "bytes": 15507
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/pyproject.toml",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "pyproject.toml",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/pyproject.toml",
+      "sha256": "75e8577f2016d25bf77a517e6f01b65e24e06900ae886d325aedcd8cecce12f8",
+      "bytes": 1775
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/scripts/rsl_rl/base/play.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "scripts/rsl_rl/base/play.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/scripts/rsl_rl/base/play.py",
+      "sha256": "2d8d120ed0e658d2813f4ee462b90f1db383c84a11f0d2c9a81826f727c8ed8a",
+      "bytes": 7771
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/scripts/rsl_rl/base/train.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "scripts/rsl_rl/base/train.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/scripts/rsl_rl/base/train.py",
+      "sha256": "5a5493bfbaf3ecbd1c85c60351c4ee7add6515fa9e71455b54d3f8023ff86739",
+      "bytes": 6047
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/assets/__init__.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/assets/__init__.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/assets/__init__.py",
+      "sha256": "2051dcf7b85cf7717324bce00c9e7b442db519f19a24aaa4d39ed331d960b5da",
+      "bytes": 972
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/assets/unitree.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/assets/unitree.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/assets/unitree.py",
+      "sha256": "961270505e9b5586d8575224fcfbaeee01b57dbc526a3779c9469e869f65fe33",
+      "bytes": 9372
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/__init__.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/__init__.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/__init__.py",
+      "sha256": "7e45b732649440ff698e0114ae03e624a72f5a6a6497beb5e19e6b7fc7a111ce",
+      "bytes": 910
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/__init__.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/__init__.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/__init__.py",
+      "sha256": "cd2c29e050076ebb417c37f4a9da2e2fbc2b052aa96cffc7746a7c894acde209",
+      "bytes": 73
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/rsl_rl_ppo_cfg.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/rsl_rl_ppo_cfg.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/rsl_rl_ppo_cfg.py",
+      "sha256": "6be286f0ad758b89ccca0b114608b5f11932c2f22864e95d4c15d5e64e4ae1a5",
+      "bytes": 1374
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/env/rewards.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/env/rewards.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/env/rewards.py",
+      "sha256": "ea2471bcaf1f26b516f771794fda129ea179f6a9301c82dbc103c08aafe1e073",
+      "bytes": 2383
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py",
+      "sha256": "249b813263d86a6107c25762b6c30d9dbc051ceb62ce0e0218e5dc0d77d37e77",
+      "bytes": 998
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py",
+      "sha256": "dca137cdf5bbcd03ef626040d7398a651a69a3ef76cbbc60c23bd62e00a26326",
+      "bytes": 9699
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/__init__.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/__init__.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/__init__.py",
+      "sha256": "4b4126b327778636dc44f6ddf96f36b6fbdf9dc306e14e87625ec502fd379e01",
+      "bytes": 661
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/commands.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/commands.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/commands.py",
+      "sha256": "1577b614c8d2db7c1594fd3d55e94cc9901a9c72cc81b8ae5b6cad98953e0a42",
+      "bytes": 4398
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/curriculums.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/curriculums.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/curriculums.py",
+      "sha256": "74f7ee421f02b1eff29e88fff213dcfbd83695b043c519c6b6d4dbe671585273",
+      "bytes": 2061
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/events.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/events.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/events.py",
+      "sha256": "91369e0285bdc067e76773498d240c1f5ee0015d9b2320f9fc38a312b21b1ec2",
+      "bytes": 7927
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/observations.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/observations.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/observations.py",
+      "sha256": "b2806a06c5a097531cd282f448f7f754955b6c28980034267a441a617e1f8f39",
+      "bytes": 1389
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/rewards.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/rewards.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/rewards.py",
+      "sha256": "2fc6e9eeb87be6d8aadc7582b84ff203abfc39f40bc2e9e9678590692ca84689",
+      "bytes": 28580
+    },
+    {
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py",
+      "repo": "agilexrobotics/robot_lab",
+      "commit_or_tag": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "upstream_path": "source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py",
+      "sha256": "c7a39376223e936b7b58283d993afb6cb657b4c2db05f448b6ada8acd2ee4bd3",
+      "bytes": 24323
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/LICENSE.md",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "LICENSE.md",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/LICENSE.md",
+      "sha256": "2b275bb77aa698dcc5f2d05e2c02d5669da12f55459f26dc68995e5adcf22f9d",
+      "bytes": 17688
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/README.md",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "README.md",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/README.md",
+      "sha256": "1a24808603d0b63d06231cc0542481565cc3bca9f6572af00c4892bb0e04bd70",
+      "bytes": 5680
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/pyproject.toml",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "pyproject.toml",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/pyproject.toml",
+      "sha256": "0e112d575d8a14bdcc8cafd53acde7da6cb2abafc395e4cb82672c6b1f0e41ca",
+      "bytes": 2292
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/scripts/rsl_rl/play_multi.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "scripts/rsl_rl/play_multi.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/scripts/rsl_rl/play_multi.py",
+      "sha256": "53b72cdd1daee815d516099d67814edb7988df47b810c2bc715bdc3d02b030d6",
+      "bytes": 10723
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/scripts/rsl_rl/train_multi.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "scripts/rsl_rl/train_multi.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/scripts/rsl_rl/train_multi.py",
+      "sha256": "298c554b6c875a1bf98203bfd60b34191a71ffd8fbecc1553953de5bb2174c9a",
+      "bytes": 7132
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/__init__.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/__init__.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/__init__.py",
+      "sha256": "860dbead5fb0f58128d3399e1ac4b3827829e5e3f54fc7766d475720f9f367cf",
+      "bytes": 114
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/assets/__init__.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/assets/__init__.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/assets/__init__.py",
+      "sha256": "d8a22be14aab09b6abf8c4598012e0b9297d08c83e06bc1434f8300fcf6cb4e1",
+      "bytes": 128
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/robots/actuator.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/robots/actuator.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/robots/actuator.py",
+      "sha256": "b095687e937f2d4a6daee7727d8ff234072abd8755b2539fee85647bad41f3ea",
+      "bytes": 3769
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/robots/g1.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/robots/g1.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/robots/g1.py",
+      "sha256": "8d99890be4b67a4ef6a2601f8c4fa8e8795b6d178df6209162be4f8bcb9f65b4",
+      "bytes": 7455
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/robots/smpl.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/robots/smpl.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/robots/smpl.py",
+      "sha256": "9528cb712378638539e11a994aa05230c336cb970953c78d170c50042012df8d",
+      "bytes": 1200
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/__init__.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/__init__.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/__init__.py",
+      "sha256": "36a4f4b382bb6e2f91a7582ffc62b5585592c4dd687147bacab94cad822e0c61",
+      "bytes": 347
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/__init__.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/__init__.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/__init__.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/config/__init__.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/config/__init__.py",
+      "sha256": "fac06b7d10d76561e72e471a8acfc996fc6937814d5934641298a5adec2832ba",
+      "bytes": 240
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/__init__.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/config/g1/__init__.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/config/g1/__init__.py",
+      "sha256": "deec0d3602ada51aeca03b33fadadd60ad395f095e0a7a6f90a2aefc1be62a14",
+      "bytes": 4855
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/agents/__init__.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/config/g1/agents/__init__.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/config/g1/agents/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/agents/rsl_rl_ppo_cfg.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/config/g1/agents/rsl_rl_ppo_cfg.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/config/g1/agents/rsl_rl_ppo_cfg.py",
+      "sha256": "6585d9c6a62ce75debba6bea71d402d4ab742955712c3ce91b6fe9d21d8671f2",
+      "bytes": 2692
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/flat_env_cfg.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/config/g1/flat_env_cfg.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/config/g1/flat_env_cfg.py",
+      "sha256": "5b44884ef11062c776be47f03b9571d234c7bf132678384dba49149bce15a51e",
+      "bytes": 1708
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py",
+      "sha256": "b8c1a94d0384492c0a64dac8e1234936bdfb9070e341f7a6ede8004efe8bee5d",
+      "bytes": 15365
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/__init__.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/mdp/__init__.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/__init__.py",
+      "sha256": "5fa2b4f433baa67aea4dcda3960fc7341d94d35629e656d7477fdb618628c744",
+      "bytes": 527
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/commands.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/mdp/commands.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/commands.py",
+      "sha256": "8f5e78e8b16368f8eb795c90af01b41dc949f221aba933e0fec5a5ae116d7bc1",
+      "bytes": 17254
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/commands_multi_motion.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/mdp/commands_multi_motion.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/commands_multi_motion.py",
+      "sha256": "4ed80fa7bf430f3a813d422f73c3cbd529b48771883e067c9f08a57029cef671",
+      "bytes": 23773
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/commands_multi_motion_soccer.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/mdp/commands_multi_motion_soccer.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/commands_multi_motion_soccer.py",
+      "sha256": "a1f60c6a677e0f0c0a371cb5450b1bd49d3be00b655af611c4c20335c85e404f",
+      "bytes": 42410
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/events.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/mdp/events.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/events.py",
+      "sha256": "18be893b40233c6f6da0af50f064f18888b7f6d4fa270b5881a99e4e88c0f39e",
+      "bytes": 3562
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/kick_detection.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/mdp/kick_detection.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/kick_detection.py",
+      "sha256": "9583a30787a0f91c1c09cd668a39faa3f7a0c17e2d0e32f62fc9c91569526df8",
+      "bytes": 12584
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/observations.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/mdp/observations.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/observations.py",
+      "sha256": "d4bbe9cc48caf4d9c14c9259075ce59e68ce30cd5dbf7fc22e28d06661d54a33",
+      "bytes": 10925
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/rewards.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/mdp/rewards.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/rewards.py",
+      "sha256": "ec35f97346b7643991860730decb6cde7c6148b972451ccc0c01556755605416",
+      "bytes": 23945
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/terminations.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/mdp/terminations.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/terminations.py",
+      "sha256": "8fbae804c0f8942337607c41f4f41478827f2b4336f66ec481d1c386b959eafb",
+      "bytes": 2731
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/tracking_env_cfg.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/tasks/tracking/tracking_env_cfg.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/tracking_env_cfg.py",
+      "sha256": "f27e0e78509f9334a0936155cde541113274fd16cc389c89d860440fa2b8d1c5",
+      "bytes": 11517
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/utils/__init__.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/utils/__init__.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/utils/exporter.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/utils/exporter.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/utils/exporter.py",
+      "sha256": "32ee5d0fe9499797e0f0a9795de6a1f91f87e87bf0d63f5fdfd0fdbd140306a7",
+      "bytes": 7739
+    },
+    {
+      "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/utils/my_on_policy_runner.py",
+      "repo": "TeleHuman/HumanoidSoccer",
+      "commit_or_tag": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "upstream_path": "source/whole_body_tracking/soccer/utils/my_on_policy_runner.py",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/utils/my_on_policy_runner.py",
+      "sha256": "cace1b8b81c50ba76a49749d7b49c89b140f27019ea5c4edb7d782c59cc11dda",
+      "bytes": 2031
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/__init__.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/__init__.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/__init__.py",
+      "sha256": "3be19bd191a2d8780967a91b0d6e6fe4c6d74ad8b54efef94c33f6c2ebd6078b",
+      "bytes": 192
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/__init__.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/__init__.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/__init__.py",
+      "sha256": "3be19bd191a2d8780967a91b0d6e6fe4c6d74ad8b54efef94c33f6c2ebd6078b",
+      "bytes": 192
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/__init__.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/__init__.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/__init__.py",
+      "sha256": "e8b24fb22c7fa3dfbbb6d3e9804a653cce95fb8c94ce90e29d3b0591015d4fcf",
+      "bytes": 977
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+      "sha256": "6efb90bb80972bd12ef1399a3d98806c67ca68c17bd282c083a5598bdbfdbfb9",
+      "bytes": 8209
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/__init__.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/__init__.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/__init__.py",
+      "sha256": "65ebcd3f4d2fffb65d6d7dd6606c0fa0a1e73cfdf55e764a14716a6d4cac028d",
+      "bytes": 1605
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/flat_env_cfg.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/flat_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/flat_env_cfg.py",
+      "sha256": "9e764626768b971b1342eec86c9393e7d45a8e7c6313cc0ebad1cd117fbe0cb4",
+      "bytes": 1194
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+      "sha256": "6221849c70f763efd6e1db06be3b5029fc14e3c343cddc16b6e78f8adcfe4bb9",
+      "bytes": 9330
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+      "sha256": "8bc788ece76116f238e4469542a9320710090d8dc2801f4380134158aa64cc6a",
+      "bytes": 11100
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/LICENSE",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "LICENSE",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/LICENSE",
+      "sha256": "df351ebfa8af317bf5a9ad83df63a8b68e4f5c04b71f30767cdb27aa434eac62",
+      "bytes": 1630
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/README.md",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "README.md",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/README.md",
+      "sha256": "fa7bc112d6d65a4e156f444281e0b18579575ddddb8aa9c9e11d89b194ed45c5",
+      "bytes": 9951
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/VERSION",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "VERSION",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/VERSION",
+      "sha256": "e1d31f14bed34a1c7e6227931673f0bb4ec1e26ee4278d00dac169809c4d9539",
+      "bytes": 6
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab/isaaclab/utils/assets.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab/isaaclab/utils/assets.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab/isaaclab/utils/assets.py",
+      "sha256": "d238b246bce0f6d31f71a138f4a7d60009b24f92010b347d33342ae8f0daab67",
+      "bytes": 7885
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/unitree.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_assets/isaaclab_assets/robots/unitree.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_assets/isaaclab_assets/robots/unitree.py",
+      "sha256": "6cb64bee3e04c9c4d46d78ad8e1d6f231115a646d35ef15f7335c15d3694ce26",
+      "bytes": 21017
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/franka.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_assets/isaaclab_assets/robots/franka.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_assets/isaaclab_assets/robots/franka.py",
+      "sha256": "d7129235b7095b6dc75fd24b359395ad1cc7a13b1e964606309d4624d820fc19",
+      "bytes": 5182
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/agility.py",
+      "repo": "isaac-sim/IsaacLab",
+      "commit_or_tag": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "upstream_path": "source/isaaclab_assets/isaaclab_assets/robots/agility.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_assets/isaaclab_assets/robots/agility.py",
+      "sha256": "48ac80936bcc051b4f0570f8aeacef298744b3ea655698d879e8e7e3e69d1974",
+      "bytes": 1016
+    },
+    {
+      "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/cfg/task/AnymalTerrain.yaml",
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "commit_or_tag": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "upstream_path": "omniisaacgymenvs/cfg/task/AnymalTerrain.yaml",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/cfg/task/AnymalTerrain.yaml",
+      "sha256": "45c3a5da938ca7276800712b7e9fb8ee1f405d61b65bf42ac9a05ea394998324",
+      "bytes": 4346
+    },
+    {
+      "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/anymal_terrain.py",
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "commit_or_tag": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "upstream_path": "omniisaacgymenvs/tasks/anymal_terrain.py",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/anymal_terrain.py",
+      "sha256": "823d43dc9153e1b7ccaddfd5b1fa467128f4fbe4993bf4f3395084ca297b3aba",
+      "bytes": 29313
+    },
+    {
+      "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/base/rl_task.py",
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "commit_or_tag": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "upstream_path": "omniisaacgymenvs/tasks/base/rl_task.py",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/base/rl_task.py",
+      "sha256": "930602894eacd5b57acd5b24c2302123142c4e139d7ff6cc531c40d9fe0fd2c0",
+      "bytes": 16184
+    },
+    {
+      "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/utils/anymal_terrain_generator.py",
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "commit_or_tag": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "upstream_path": "omniisaacgymenvs/tasks/utils/anymal_terrain_generator.py",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/utils/anymal_terrain_generator.py",
+      "sha256": "b4ad807d5c8cedb3ba82e5e0ae3166c8d0039428283dfca7601f6793fb005429",
+      "bytes": 8852
+    },
+    {
+      "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/utils/usd_utils.py",
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "commit_or_tag": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "upstream_path": "omniisaacgymenvs/tasks/utils/usd_utils.py",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/utils/usd_utils.py",
+      "sha256": "fc4540703847fc961140fef3f6deba2ddb81c66c35a9a48c455a4e164367f312",
+      "bytes": 3403
+    },
+    {
+      "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/README.md",
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "commit_or_tag": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "upstream_path": "README.md",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/README.md",
+      "sha256": "e43fd7dd14a60bf88ee6a6e2cac8476d138dc936c136b065235146ef9e8c51c6",
+      "bytes": 20193
+    },
+    {
+      "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/LICENSE.txt",
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "commit_or_tag": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "upstream_path": "LICENSE.txt",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/LICENSE.txt",
+      "sha256": "915595f18b86982733cecc72a1cb19764b870930576bf0467ea44a7735eba206",
+      "bytes": 1777
+    },
+    {
+      "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/robots/articulations/anymal.py",
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "commit_or_tag": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "upstream_path": "omniisaacgymenvs/robots/articulations/anymal.py",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/robots/articulations/anymal.py",
+      "sha256": "d014b127d9d1f501577de36c96069c104b2af9366626feee611544be8ff2b6b2",
+      "bytes": 4262
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/README.md",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "README.md",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/README.md",
+      "sha256": "2c742d4f9daa98a0c130c60ce2000ba014e83f0dae923b81dbf475b11d42f2dc",
+      "bytes": 4782
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/__init__.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/__init__.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/__init__.py",
+      "sha256": "f658542bf6ee8a6f7e358cbdfedc82d398df4a345a49777306aaa5676afc4561",
+      "bytes": 7431
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/__init__.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/__init__.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/__init__.py",
+      "sha256": "2a07365981650f1769cfd434ff3824f45f163a6ac877c6384e8713d9c9b969d0",
+      "bytes": 254
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py",
+      "sha256": "ac8bffd6925b16035651e7a1c6d0a247679258555e019b122af9897b23563cd4",
+      "bytes": 11493
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/jump_rewards.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/jump_rewards.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/jump_rewards.py",
+      "sha256": "ebdab9845f1aed442f41a8ab21af2bb3c5d0258b23aa398547d0e6c7f562e93e",
+      "bytes": 12724
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/velocity_env_cfg.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/velocity_env_cfg.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/velocity_env_cfg.py",
+      "sha256": "a00133f866455e573360bf6e10dce867351f3b02b65dfabd150c6180dc2bb096",
+      "bytes": 24557
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/__init__.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/__init__.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/__init__.py",
+      "sha256": "f7fddb9734ee56b6a784637a91a7373e3c9034ca3fbbd595826c33e4a4332955",
+      "bytes": 699
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/curriculums.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/curriculums.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/curriculums.py",
+      "sha256": "123e30165e4fcaece8c0ac580d4befc4913329b3e986779b835993a5bbc80290",
+      "bytes": 3123
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/event_command.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/event_command.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/event_command.py",
+      "sha256": "6f2d4a6379d2dc6f60cf7f06f422808199145dab73d3519759eb9118b7954fe8",
+      "bytes": 7546
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/events.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/events.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/events.py",
+      "sha256": "5385afea4505dd070412ee2632b79fc3e933e8b8a5c9ae4a7274a2bef297c649",
+      "bytes": 26953
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/observations.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/observations.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/observations.py",
+      "sha256": "eff6cc7f1d47f53a006500382a00842b0ecf5c585395668916b965bab36f47d8",
+      "bytes": 13550
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/position_command.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/position_command.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/position_command.py",
+      "sha256": "7101c884e19cc49ee564e3d08329b28c2b1932ca3965e0fd660b3825945202bb",
+      "bytes": 6924
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/rewards.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/rewards.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/rewards.py",
+      "sha256": "c32caacb372ddd22151c2085ba1ca7d1e399e304e71648c561e36fa354082e1f",
+      "bytes": 61236
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/terminations.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/terminations.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/terminations.py",
+      "sha256": "2a398b7d4ddf40f6a19ab41add6d8e5281c927a7dee5d56a1d801b5f552a6bcd",
+      "bytes": 2741
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/velocity_command.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/velocity_command.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/velocity_command.py",
+      "sha256": "a91d7bbb748d2af5c0f0d2c2ceba041d0d5bc6bdc683d07e8e0344ba15cd99c9",
+      "bytes": 7866
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/yk_command.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/yk_command.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/yk_command.py",
+      "sha256": "3843e0e49904a0e00b615c48b4e75e3391d3f199814e7e5098f0687dfaf2a657",
+      "bytes": 8269
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/assets/flamingo/__init__.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/assets/flamingo/__init__.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/assets/flamingo/__init__.py",
+      "sha256": "ecf90b4bbfa3816f1cf698f3ccad6b438974b2af65982cd18a971847ba0d5cae",
+      "bytes": 1313
+    },
+    {
+      "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/assets/flamingo/flamingo_rev01_5_2.py",
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "commit_or_tag": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "upstream_path": "lab/flamingo/assets/flamingo/flamingo_rev01_5_2.py",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/assets/flamingo/flamingo_rev01_5_2.py",
+      "sha256": "71fb34f7afc8b95c16af15333df5adeeb15f8ee0f1f6b6e014d7b68156271ebd",
+      "bytes": 4300
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/cfg/base/env_base.yaml",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "cfg/base/env_base.yaml",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/cfg/base/env_base.yaml",
+      "sha256": "7805dcc8359adb3e84685f133253b65ebb774a028b3d5bfef91fc4f30a6e5ec7",
+      "bytes": 65
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/cfg/base/randomization_base.yaml",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "cfg/base/randomization_base.yaml",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/cfg/base/randomization_base.yaml",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/cfg/base/sim_base.yaml",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "cfg/base/sim_base.yaml",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/cfg/base/sim_base.yaml",
+      "sha256": "20fe701372a0dd851c09cc48a013d45806a38650573a855bce3ff0b9278e3377",
+      "bytes": 828
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/cfg/task/InvPendulum/InvPendulumTrack.yaml",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "cfg/task/InvPendulum/InvPendulumTrack.yaml",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/cfg/task/InvPendulum/InvPendulumTrack.yaml",
+      "sha256": "3a08b42628bc8afccfad56e645cbe5bb34763c7d2e531badbe3d013f1b3742db",
+      "bytes": 560
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/cfg/task/Payload/PayloadHover.yaml",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "cfg/task/Payload/PayloadHover.yaml",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/cfg/task/Payload/PayloadHover.yaml",
+      "sha256": "1d20865ba76c950aa527422f34c4dd02a3274594d14bc0e6c6493bc6aa88de7b",
+      "bytes": 558
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/inv_pendulum_track.py",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "omni_drones/envs/inv_pendulum/inv_pendulum_track.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/inv_pendulum/inv_pendulum_track.py",
+      "sha256": "9b18ce4cfa058e8d82bbc4783f5e64eb4b6a0cc8e54fcd3249615e092f72f8c4",
+      "bytes": 16165
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/utils.py",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "omni_drones/envs/inv_pendulum/utils.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/inv_pendulum/utils.py",
+      "sha256": "65c5d3de2b01164067ac0eecfc4a9a27e37b4081e0155f0e7c5c142476799b91",
+      "bytes": 2813
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/omni_drones/envs/payload/payload_hover.py",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "omni_drones/envs/payload/payload_hover.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/payload_hover.py",
+      "sha256": "8c10976762493399607bb366a01f8898c7c7ddfb4ebc793112b6d4e435f9772c",
+      "bytes": 14327
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/omni_drones/envs/payload/utils.py",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "omni_drones/envs/payload/utils.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/utils.py",
+      "sha256": "ac0c82bca8450656609181f2ce3998730f1d4ce569aee44eb14f9b143fe328bd",
+      "bytes": 3854
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/omni_drones/robots/assets/usd/hummingbird.yaml",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "omni_drones/robots/assets/usd/hummingbird.yaml",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/assets/usd/hummingbird.yaml",
+      "sha256": "5a89f4ed4f3426ca89bd481cfea57243937708a6c7e1c36d494b4a58d0962a35",
+      "bytes": 659
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/omni_drones/robots/drone/hummingbird.py",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "omni_drones/robots/drone/hummingbird.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/drone/hummingbird.py",
+      "sha256": "6163f16ab862868c8721fcfe33b24a0b2ab1c669a4b820c2996d19ca22c53600",
+      "bytes": 1528
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/omni_drones/robots/drone/multirotor.py",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "omni_drones/robots/drone/multirotor.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/drone/multirotor.py",
+      "sha256": "f5ea889071cebac1c16fa7ad9960707f7b4f8f385d7aaf6d14456274b680ed0a",
+      "bytes": 18597
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/omni_drones/robots/robot.py",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "omni_drones/robots/robot.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/robot.py",
+      "sha256": "0dcf755c2a290d761a5d7ba67a6699df30b765c20a911c26c3232320a486b60d",
+      "bytes": 9542
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/LICENSE",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "LICENSE",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/LICENSE",
+      "sha256": "5b7ed6fd7d4d8d00e99ca3d29e9000ff15ba2bc3c4815aa4157ec8bbeaf618c2",
+      "bytes": 1087
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/README.md",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "README.md",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/README.md",
+      "sha256": "171c94ffeec3d0be3232f0ed46e607c84d1b292626b8d13aa863a49a5e3c48be",
+      "bytes": 3354
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/scripts/play.py",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "scripts/play.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/scripts/play.py",
+      "sha256": "2daa5771be5d4806ce7c455ab8b81cf26b3a96c9a13ff152cbeae3b91608e605",
+      "bytes": 4157
+    },
+    {
+      "package_path": "sources/btx0424/OmniDrones/scripts/train.py",
+      "repo": "btx0424/OmniDrones",
+      "commit_or_tag": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "upstream_path": "scripts/train.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/scripts/train.py",
+      "sha256": "2d6c7386b7278c244c01b29239e9a6a0a7e2c2b8c42464e639763992e2f57b2f",
+      "bytes": 7801
+    },
+    {
+      "package_path": "sources/AllenHuangGit/IsaacLab_SteadyTray/source/isaaclab/isaaclab/managers/termination_manager.py",
+      "repo": "AllenHuangGit/IsaacLab_SteadyTray",
+      "commit_or_tag": "3e14846319ac07b5c430c8b6982745a8e7d1d95e",
+      "upstream_path": "source/isaaclab/isaaclab/managers/termination_manager.py",
+      "url": "https://github.com/AllenHuangGit/IsaacLab_SteadyTray/blob/3e14846319ac07b5c430c8b6982745a8e7d1d95e/source/isaaclab/isaaclab/managers/termination_manager.py",
+      "sha256": "a73f1dd80672aee369dafe0b4cf62290e6735e50cc91380e53b512b6bc79cf99",
+      "bytes": 15005
+    },
+    {
+      "package_path": "sources/isaac-sim/IsaacLab-v2.1.1/source/isaaclab_assets/isaaclab_assets/robots/unitree.py",
+      "repo": "isaac-sim/IsaacLab-v2.1.1",
+      "commit_or_tag": "v2.1.1",
+      "upstream_path": "source/isaaclab_assets/isaaclab_assets/robots/unitree.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/v2.1.1/source/isaaclab_assets/isaaclab_assets/robots/unitree.py",
+      "sha256": "d755f6806e5f559bc151d9160d482a97734596af74b0d3455f352cf275d214c2",
+      "bytes": 12878
+    }
+  ]
+}

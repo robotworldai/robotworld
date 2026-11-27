@@ -1,0 +1,6 @@
+{
+  "benchmark": "robocasa",
+  "task": "OrganizeMugsByHandle",
+  "horizon": 1350,
+  "scoring_profile": "native"
+}

@@ -1,0 +1,92 @@
+{
+  "id": "T16",
+  "title": "无人机吊载悬停并抑制受扰摆动",
+  "category": "吊载耦合控制",
+  "source": "OmniDrones",
+  "native": "Payload/PayloadHover.yaml",
+  "stack": "Isaac Sim 生态；精确依赖见固定版本源码",
+  "commit": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+  "setting": "原 PayloadHover 存在运行中载荷随机力；push_interval 参数按实现解释，不能直接读成“固定每 2 秒”。",
+  "new_feedback": "载荷新受力后的摆角/速度与机体状态决定推力分配；仅稳定机体不足以保证载荷稳定。",
+  "deadline": "负载与机体的耦合运动持续发展，失高/大幅摆动需要在碰地前处理。",
+  "action": "选原 action_transform=null 的转子动作；配置里出现 Lee 控制器名字，不代表已自动调用悬停控制器。",
+  "evaluation": "机体或载荷高度 <0.2 m 失败，另有悬停与载荷状态奖励；完整任务达标不能只判断没落地。",
+  "caveat": "属于空中任务，但与排球、梁球系统有不同受控对象；同系列不同机型不额外计数。",
+  "media": "已核查原始源码；本次未实际观看该固定版本的完整成功/失败视频。",
+  "refs": [
+    {
+      "label": "omni_drones/envs/payload/payload_hover.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/payload_hover.py"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "运行中新随机载荷力明确，经典耦合控制能否轻松通过尚未验证。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "btx0424/OmniDrones",
+  "runtime": "固定 README 当前分支 Isaac Sim 4.1.0；不是旧 release 分支的 2022.2.0",
+  "install_reference": "按固定 README 和 docs 安装 OmniDrones；两个 task 共享 Hummingbird 模型与同一容器。",
+  "entry_note": "Hydra task=Payload/PayloadHover 或 task=InvPendulum/InvPendulumTrack；action_transform=null 为本次选择接口。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "Hummingbird 四旋翼",
+      "kind": "repository",
+      "location": "omni_drones/robots/assets/usd/hummingbird.usd",
+      "evidence_path": "omni_drones/robots/drone/hummingbird.py",
+      "evidence_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/drone/hummingbird.py",
+      "note": "两个原 task 都配置 Hummingbird，不是 Iris；local cache 本次主要为代码，需从原仓库拿完整 USD。",
+      "binary_in_bundle": false,
+      "companion_files": "同目录 hummingbird.yaml 以及 referenced assets",
+      "upstream_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/assets/usd/hummingbird.usd",
+      "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+      "evidence_package_path": "sources/btx0424/OmniDrones/omni_drones/robots/drone/hummingbird.py"
+    },
+    {
+      "name": "吊杆、载荷与关节",
+      "kind": "procedural",
+      "location": "omni_drones/envs/payload/utils.py: attach_payload",
+      "evidence_path": "omni_drones/envs/payload/utils.py",
+      "evidence_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/utils.py",
+      "note": "",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/utils.py",
+      "availability": "运行时由所列源码生成，没有独立资产包",
+      "evidence_package_path": "sources/btx0424/OmniDrones/omni_drones/envs/payload/utils.py"
+    }
+  ],
+  "required_setting_checks": [
+    "原 PayloadHover 存在运行中载荷随机力；push_interval 参数按实现解释，不能直接读成“固定每 2 秒”。",
+    "属于空中任务，但与排球、梁球系统有不同受控对象；同系列不同机型不额外计数。"
+  ],
+  "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+  "source_snapshots": [
+    "sources/btx0424/OmniDrones/cfg/base/env_base.yaml",
+    "sources/btx0424/OmniDrones/cfg/base/randomization_base.yaml",
+    "sources/btx0424/OmniDrones/cfg/base/sim_base.yaml",
+    "sources/btx0424/OmniDrones/cfg/task/InvPendulum/InvPendulumTrack.yaml",
+    "sources/btx0424/OmniDrones/cfg/task/Payload/PayloadHover.yaml",
+    "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/inv_pendulum_track.py",
+    "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/utils.py",
+    "sources/btx0424/OmniDrones/omni_drones/envs/payload/payload_hover.py",
+    "sources/btx0424/OmniDrones/omni_drones/envs/payload/utils.py",
+    "sources/btx0424/OmniDrones/omni_drones/robots/assets/usd/hummingbird.yaml",
+    "sources/btx0424/OmniDrones/omni_drones/robots/drone/hummingbird.py",
+    "sources/btx0424/OmniDrones/omni_drones/robots/drone/multirotor.py",
+    "sources/btx0424/OmniDrones/omni_drones/robots/robot.py",
+    "sources/btx0424/OmniDrones/LICENSE",
+    "sources/btx0424/OmniDrones/README.md",
+    "sources/btx0424/OmniDrones/scripts/play.py",
+    "sources/btx0424/OmniDrones/scripts/train.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "omni_drones/envs/payload/payload_hover.py",
+      "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/payload_hover.py",
+      "package_path": "sources/btx0424/OmniDrones/omni_drones/envs/payload/payload_hover.py"
+    }
+  ]
+}

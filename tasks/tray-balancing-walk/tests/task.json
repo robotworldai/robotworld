@@ -1,0 +1,6 @@
+{
+  "benchmark": "steadytray",
+  "task": "tray_balancing_walk",
+  "horizon": 1000,
+  "scoring_profile": "world-state-v1"
+}

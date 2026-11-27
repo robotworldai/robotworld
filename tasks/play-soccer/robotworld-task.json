@@ -1,0 +1,27 @@
+{
+  "benchmark": "humanoid_soccer",
+  "task": "play-soccer",
+  "task_key": "play-soccer",
+  "name": "play-soccer",
+  "title": "人形机器人抗扰平衡并踢移动足球",
+  "budget_override_reason": "Selected World fixed protocol: 20 seconds at 50 Hz; upstream CLI default is 6 seconds.",
+  "native_steps": 300,
+  "horizon": 1000,
+  "scoring_profile": "native",
+  "budget_source": "HumanoidSoccer/exp/mujoco_soccer/cli.py: sim_time=6s, control_dt=0.02s",
+  "runtime_profile": "default",
+  "seed": 2,
+  "scene_selection": {
+    "seed": 2
+  },
+  "scene_seed_fixed": false,
+  "harbor_status": "adapter_ready",
+  "runtime_validation": "harbor_native_terminal_verified",
+  "validation_evidence": "soccer-probe01: 1000/1000 steps; 1001 frames; verifier reward 0",
+  "reason": "Episode adapter implemented; runtime validation tracked separately.",
+  "assets_validation": "not_checked_at_export",
+  "code_control": false,
+  "legacy_code_control_supported": true,
+  "template": "tasks/robocasa-close-drawer",
+  "schema_version": "robotworld.harbor-task.v1"
+}

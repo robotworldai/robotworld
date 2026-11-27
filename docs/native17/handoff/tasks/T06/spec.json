@@ -1,0 +1,122 @@
+{
+  "id": "T06",
+  "title": "小车在随机扰动下连续漂移过弯",
+  "category": "车辆动态控制",
+  "source": "WheeledLab",
+  "native": "Isaac-MushrDriftRL-v0 / RSS_DRIFT_CONFIG",
+  "stack": "Isaac Lab 2.0.2 → Isaac Sim 4.5",
+  "commit": "a5017ce0696032805190448b2addb8077e458387",
+  "setting": "原生 DriftEventsRandomCfg：0.1–0.4 s 小幅速度/角速度扰动，0.8–1.2 s 较大 yaw 扰动；摩擦和执行器增益随机化。5 s 回合，物理 200 Hz、动作 50 Hz。",
+  "new_feedback": "转弯时实际侧滑、偏航速度和赛道偏差受运行中扰动改变，预先固定油门与转角不能针对新偏差作修正。",
+  "deadline": "任务速度目标 3 m/s，内外侧赛道约束半径为 0.3 / 2 m；迟到的纠正会使车辆越界或失去漂移状态。50 Hz 是原策略周期，不是已测得的最低频率。",
+  "action": "油门/轮速与转向接口。底层轮速伺服不负责赛道跟踪与侧滑稳定，程序仍需根据车辆状态选择动作。",
+  "evaluation": "原环境越界终止，并用速度、侧滑角、赛道偏差和进展奖励；不能只用存活时间作为成功率，否则停车会作弊。Play 把 rewards/terminations 置空，不能用于评分。",
+  "caveat": "原生 reward 不等于现成二值 SR。接入时保留原指标；另定 SR 需明确披露。固定控制/慢闭环在该设置下的成绩仍未实测。",
+  "media": "实际抽查官网实车漂移、仿真车群以及 baseline 视频：baseline 约 0.17 s 与 3.47 s 两个位置；没有完整数圈或由视频计算成绩。",
+  "refs": [
+    {
+      "label": "原生扰动",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py#L121"
+    },
+    {
+      "label": "奖励、终止和 Play 差异",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py#L243"
+    },
+    {
+      "label": "运行配置入口",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py#L8"
+    },
+    {
+      "label": "官方视频",
+      "url": "https://uwrobotlearning.github.io/WheeledLab/"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "有运行中高频扰动、非零速度和赛道限制；可避免静止保持这一类简单解，是新增的优先任务。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "UWRobotLearning/WheeledLab",
+  "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.0.2 + Python 3.10；README 要求 numpy<2",
+  "install_reference": "从 source 目录 pip install -e wheeledlab / wheeledlab_tasks / wheeledlab_assets / wheeledlab_rl，四个扩展分别安装。",
+  "entry_note": "Isaac-MushrDriftRL-v0 / RSS_DRIFT_CONFIG；不要使用取消 reward/termination 的 Play 配置计分。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "后驱悬挂 MuSHR",
+      "kind": "repository",
+      "location": "source/wheeledlab_assets/data/Robots/UWRLL/mushr_nano_v2.usd",
+      "evidence_path": "source/wheeledlab_assets/wheeledlab_assets/mushr.py",
+      "evidence_url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_assets/wheeledlab_assets/mushr.py",
+      "note": "实际为 MUSHR_SUS_2WD_CFG，继承 v2 悬挂模型；不是 UWPRL/mushr_nano.usd。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_assets/data/Robots/UWRLL/mushr_nano_v2.usd",
+      "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+      "file_bytes": 30139111,
+      "evidence_package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/mushr.py"
+    },
+    {
+      "name": "平地与赛道约束",
+      "kind": "procedural",
+      "location": "DriftTerrainImporterCfg + track_radius/straight 参数",
+      "evidence_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py",
+      "evidence_url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py",
+      "note": "赛道由状态与约束定义；不需要寻找整套室内场景 USD。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py",
+      "availability": "运行时由所列源码生成，没有独立资产包",
+      "evidence_package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py"
+    }
+  ],
+  "required_setting_checks": [
+    "原生 DriftEventsRandomCfg：0.1–0.4 s 小幅速度/角速度扰动，0.8–1.2 s 较大 yaw 扰动；摩擦和执行器增益随机化。5 s 回合，物理 200 Hz、动作 50 Hz。",
+    "原生 reward 不等于现成二值 SR。接入时保留原指标；另定 SR 需明确披露。固定控制/慢闭环在该设置下的成绩仍未实测。"
+  ],
+  "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+  "source_snapshots": [
+    "sources/UWRobotLearning/WheeledLab/LICENSE",
+    "sources/UWRobotLearning/WheeledLab/README.md",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/__init__.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/f1tenth.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/hound.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/mushr.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_rl/scripts/train_rl.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/common/__init__.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/common/actions.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/common/observations.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/__init__.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/__init__.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/f1tenth/rsl_rl_ppo_cfg.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/mushr/rsl_rl_ppo_cfg.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/disable_lidar.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/f1tenth_drift_env_cfg.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/__init__.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/events.py",
+    "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "原生扰动",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py#L121",
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py"
+    },
+    {
+      "label": "奖励、终止和 Play 差异",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py#L243",
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py"
+    },
+    {
+      "label": "运行配置入口",
+      "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py#L8",
+      "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py"
+    },
+    {
+      "label": "官方视频",
+      "url": "https://uwrobotlearning.github.io/WheeledLab/",
+      "package_path": null
+    }
+  ]
+}

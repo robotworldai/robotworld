@@ -1,0 +1,6 @@
+{
+  "benchmark": "humanoid_soccer",
+  "task": "play-soccer",
+  "horizon": 1000,
+  "scoring_profile": "native"
+}

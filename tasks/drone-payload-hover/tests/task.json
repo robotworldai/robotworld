@@ -1,0 +1,6 @@
+{
+  "benchmark": "omnidrones",
+  "task": "drone_payload_hover",
+  "horizon": 500,
+  "scoring_profile": "world-state-v1"
+}

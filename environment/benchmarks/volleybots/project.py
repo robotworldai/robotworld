@@ -103,7 +103,9 @@ class Simulator:
 
     def close(self):
         if self.writer:self.writer.close()
-        self.env.close();self.app.close()
+        self.env.close()
+        if not getattr(self, "_world_defer_app_shutdown", False):
+            self.app.close()
 
 
 def create_sim(task_id,seed,output,headless=True):return Simulator(task_id,seed,output,headless)

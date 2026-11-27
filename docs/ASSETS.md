@@ -12,7 +12,7 @@ bash scripts/setup_handoff.sh assets --local-source /path/to/upload-hf
 
 The downloader verifies each file's SHA-256 and restores runtime paths. Explicit `--repo-id` and `--revision` overrides are available; the asset manifest must still match the code. Restricted BEHAVIOR assets are excluded. Every upstream asset retains its own terms.
 
-Anonymous access to the pinned manifest returned HTTP 401 during the release check. Authenticate with `hf auth login` and obtain repository access if required before running the downloader. A model API key does not grant Hugging Face access.
+The asset and image datasets are public. The current asset revision adds OmniDrones ground textures and the checksummed NVIDIA sources for the remaining ground and RoboLab material dependencies. For the standalone updater, see the [dataset card](https://huggingface.co/datasets/visity/RobotWorld-Assets#download-and-restore).
 
 ## Layout and restoration
 

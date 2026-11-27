@@ -1,1 +1,0 @@
-bed,tv,table,chair,mirror,window,curtain,lamp,hotel,indoor,urban,high contrast,natural light,artificial light

@@ -1,0 +1,6 @@
+{
+  "benchmark": "robolab",
+  "task": "PutTwoMugsOnShelfTask",
+  "horizon": 2700,
+  "scoring_profile": "native"
+}

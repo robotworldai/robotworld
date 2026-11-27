@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "deposit_coin",
+  "horizon": 300,
+  "scoring_profile": "native"
+}

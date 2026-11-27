@@ -1,1 +1,0 @@
-machine,industrial,workshop,wind tunnel,window,indoor,urban,morning-afternoon,medium contrast,natural light,artificial light

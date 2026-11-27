@@ -1,0 +1,6 @@
+{
+  "benchmark": "robolab",
+  "task": "RubiksCubeLeftOfBowlTask",
+  "horizon": 450,
+  "scoring_profile": "native"
+}

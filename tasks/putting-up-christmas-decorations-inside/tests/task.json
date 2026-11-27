@@ -1,0 +1,6 @@
+{
+  "benchmark": "behavior_1k",
+  "task": "putting_up_Christmas_decorations_inside",
+  "horizon": 2000,
+  "scoring_profile": "native"
+}

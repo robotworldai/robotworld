@@ -1,0 +1,6 @@
+{
+  "benchmark": "robocasa",
+  "task": "CloseDrawer",
+  "horizon": 450,
+  "scoring_profile": "native"
+}

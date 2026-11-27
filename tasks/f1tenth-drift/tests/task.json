@@ -1,0 +1,6 @@
+{
+  "benchmark": "wheeledlab",
+  "task": "f1tenth-drift",
+  "horizon": 400,
+  "scoring_profile": "world-state-v1"
+}

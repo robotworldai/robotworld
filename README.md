@@ -1,163 +1,92 @@
-<div align="center">
+# RobotWorld
 
-# 🤖 RobotWorld
+[Project](https://robotworldai.github.io/) · [Task videos](https://robotworldai.github.io/#gallery) · [Paper](https://arxiv.org/abs/2610.10409) · [简体中文](README.zh-CN.md)
 
-**English** | [简体中文](README.zh-CN.md)
+RobotWorld packages 84 robot-control tasks from 20 simulators for Harbor. An agent observes the scene and sends robot commands over MCP. The simulator advances the episode and records the outcome. Harbor runs a separate verifier to score the trajectory.
 
-### Benchmarking Multimodal Agents for Robot Use Across Diverse Tasks and Embodiments
+## Installation
 
-[![Project Page](https://img.shields.io/badge/Project-Page-2563eb?style=for-the-badge)](https://robotworldai.github.io/)
-[![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2610.10409)
-[![Code](https://img.shields.io/badge/Code-GitHub-2ea44f?style=for-the-badge)](https://github.com/robotworldai/robotworld)
-[![Hugging Face Papers](https://img.shields.io/badge/Hugging_Face-Papers-ffd21e?style=for-the-badge)](https://huggingface.co/papers/2610.10409)
-[![WeChat](https://img.shields.io/badge/WeChat-Community-07C160?style=for-the-badge&logo=wechat&logoColor=white)](#community)
-
-<a href="https://robotworldai.github.io/#showreel">
-  <img src="https://robotworldai.github.io/assets/images/showreel-poster.png" alt="Watch RobotWorld in 45 seconds" width="800">
-</a>
-
-🎬 **[▶ Watch RobotWorld in 45 seconds](https://robotworldai.github.io/#showreel)** · [中文版](https://robotworldai.github.io/zh/#showreel)
-
-🦾 [Tasks & Recordings](https://robotworldai.github.io/#gallery) · 📊 [Results](https://robotworldai.github.io/#leaderboard) · 🧪 [Protocol](https://robotworldai.github.io/#protocol)
-
-📝 **Analysis:** [English](https://robotworldai.github.io/blog/) · [中文](https://robotworldai.github.io/blog/zh/)
-
-**84 tasks · 20 benchmark integrations · Manipulation, locomotion, driving & flight**
-
-</div>
-
----
-
-<a id="community"></a>
-
-## 💬 Join the RobotWorld WeChat Group
-
-交流 Robot Use、具身智能体、评测复现与任务扩展，欢迎研究者和开发者加入。也欢迎通过反馈、新任务或代码贡献，成为 RobotWorld 下一版本的贡献者。
-
-<p align="center">
-  <b>👇 微信扫码加入</b><br>
-  <a href="docs/images/wechat-community.png"><img src="docs/images/wechat-community.png" alt="RobotWorld 微信群二维码" width="200"></a><br>
-  二维码有效期：2026 年 11 月 5 日前。无法扫码？点击图片查看原图。
-</p>
-
----
-
-## ✨ What Is RobotWorld?
-
-RobotWorld connects a source-built multimodal agent runtime to robot simulators through explicit observation and action interfaces. Agents can analyse observations, issue bounded robot commands, and use execution feedback to revise their actions. Task evaluators assess the resulting trajectories independently of the agent's completion claims.
-
-This source snapshot registers **84 tasks across 20 benchmark integrations**. Registration does not imply that every task has a verified successful physical trajectory. The default batch protocol runs three rollouts per task with environment-side code control disabled. Simulation pauses during agent reasoning and workspace analysis.
-
-## Quick Start
-
-Start with one RoboCasa task before provisioning the full suite. You need a Linux/NVIDIA host, Docker with NVIDIA Container Toolkit, Python 3.11+, and the pinned build dependencies. **L40S 48GB is the current host reference, not an all-task compatibility guarantee.** See the [deployment guide](docs/DEPLOYMENT.md) for prerequisites and troubleshooting.
-
-<details>
-<summary>GPU compatibility and host dependencies</summary>
-
-### Hardware and dependencies
-
-- **Current host reference:** NVIDIA L40S 48GB (driver `580.105.08`); this describes the deployment host, not certification of all 84 tasks.
-- **Other GPUs:** RTX 5090 has historical partial-task validation with experimental Isaac Sim 6.0.1 profiles; older Isaac/CUDA stacks can be incompatible. RTX 4090, RTX A6000, RTX 6000 Ada and L40 are RT-capable candidates, not a verified support list.
-- **Isaac rendering:** use a GPU with RT Cores. A100/H100 are [not supported by Isaac Sim](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/requirements.html), although they can host a separate model inference service. With a remote model API, local GPUs primarily run simulation and rendering.
-- **Compatibility:** match the task's pinned image, driver and CUDA/Isaac versions, then run a smoke episode before scaling. No suite-wide minimum VRAM, RAM or disk requirement has been established.
-
-Host dependencies: Linux, a compatible NVIDIA driver, Docker with Compose/Buildx and NVIDIA Container Toolkit, Git/Git LFS, Python 3.11+, the pinned Rust toolchain, C/C++ build tools (CMake, Clang and OpenSSL headers), bubblewrap with user namespaces, FFmpeg/ffprobe and zstd. Provision the pinned simulator images and assets, including any required access or licences; see the [deployment guide](docs/DEPLOYMENT.md).
-
-</details>
-
-### 1. Prepare one environment
-
-Run these commands from the repository root after cloning. Restore pinned sources **before** assets.
+Use an amd64 Linux host with Docker, NVIDIA Container Toolkit, a compatible GPU driver and `zstd`. Run the commands below from the repository root.
 
 ```bash
 git clone https://github.com/robotworldai/robotworld.git
 cd robotworld
-python3 -m venv .venv
+python3.13 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[test]' huggingface_hub
-export WORLD_PYTHON="$PWD/.venv/bin/python"
-
-bash scripts/setup_handoff.sh sources
-# Authenticate with your own account if asset access requires it.
-hf auth login
-bash scripts/setup_handoff.sh assets --bench robocasa
-bash scripts/setup_handoff.sh docker --bench robocasa --dry-run
-bash scripts/setup_handoff.sh docker --bench robocasa
-bash scripts/setup_handoff.sh codex
+python -m pip install 'harbor==0.24.0' PyYAML huggingface_hub
 ```
 
-You can [import prebuilt images](docs/PREBUILT_IMAGES.md) instead of building them; access currently requires authorisation, and some legacy profiles need additional images. For runtime helper build failures, see the [direct-tool option](docs/DEPLOYMENT.md#direct-tool-runtime-option). Other environments may require additional assets, base images and licences.
+## Assets and simulator images
 
-### 2. Connect a model and run one task
+The drawer example uses RoboCasa assets. Download the assets for each additional benchmark with `--bench`. The image archive is shared across tasks (12.42 GiB compressed). Import it once per Docker host. For restricted repositories, use a Hugging Face account with read access.
 
-Use a reachable streaming **Responses API** endpoint with image and function-call support. A Chat Completions-only endpoint is not sufficient.
+Some tasks bind-mount upstream source code. Before downloading their assets, restore the matching checkout from `sources.lock.json`. For the two-task example below, run `python scripts/fetch_sources.py humanoid_soccer` followed by `python scripts/download_assets.py --bench humanoid_soccer`. For all pinned checkouts, use `python scripts/fetch_sources.py --all`.
 
 ```bash
-python scripts/configure_api.py \
-  --base-url https://YOUR_API_HOST/v1 \
-  --model YOUR_MULTIMODAL_MODEL_ID
-export CODEX_AUTH_HOME="$PWD/var/auth/api"
-# Read the key without echoing it or saving it in shell history.
-read -rsp "Model API key: " WORLD_MODEL_API_KEY; printf '\n'
-export WORLD_MODEL_API_KEY
-python scripts/check_api.py
-
-bash scripts/run_robocasa.sh list
-bash scripts/run_robocasa.sh run --tasks CloseDrawer --rollouts 1 --dry-run
-bash scripts/run_robocasa.sh run --tasks CloseDrawer --rollouts 1 --batch drawer-smoke
+python scripts/download_assets.py --bench robocasa
+hf download visity/RobotWorld-Images --repo-type dataset \
+  --revision 2f8c0e5f33d481c2dfa699dd523041c917a39273 --local-dir var/image-bundle
+bash var/image-bundle/import_images.sh var/image-bundle
 ```
 
-Replace the endpoint and model placeholders with your provider's values. The API check makes two small paid model requests, but does not start a simulator. Configuration stores the credential variable's name, not its value. In a new shell, reactivate the virtual environment and restore the environment variables.
+The asset downloader checks the manifest and file hashes. The image importer checks the archive parts and loaded image IDs. Harbor builds the agent and verifier images from the Dockerfiles in each task. Some benchmarks require additional setup, including the upstream data agreement for BEHAVIOR-1K. [Asset guide](docs/ASSETS.md) · [Image bundle](docs/PREBUILT_IMAGES.md)
 
-### 3. Inspect results, then scale up
+OmniIsaacGymEnvs needs the original Isaac Sim 4.0 Gym extension, including its license archive. Use the [extension extraction script](third_party/benchmarks/omniisaacgymenvs/compat/extract_gym.py) with the pinned image. 
 
-Inspect `run.json`, videos and events under `outputs/robocasa/CloseDrawer/`. A valid task failure is `false`; infrastructure or indeterminate outcomes are unscored (`null`). Preserve the whole run directory, including `artifacts/`, when archiving.
+The [asset release](https://huggingface.co/datasets/visity/RobotWorld-Assets/tree/c7fcb40e7c503cc137a24ce53e5198b7222d0798) includes a runtime supplement for OmniDrones and RoboLab. Five files come directly from NVIDIA. The downloader checks their SHA-256 before installation. The [image bundle](https://huggingface.co/datasets/visity/RobotWorld-Images) contains the simulator images used by the task packages.
+
+## Credentials
+
+Set credentials in the shell where you launch Harbor, or inject them from your secret manager. For Claude Code in Bash:
 
 ```bash
-# Run all RoboCasa tasks, three trials per task.
-ROLLOUTS=3 bash scripts/run_robocasa.sh run --batch model-a-01
-# Retry unfinished slots with the same settings.
-ROLLOUTS=3 bash scripts/run_robocasa.sh run --batch model-a-01 --resume
+read -rp 'Model ID: ' MODEL_ID
+read -rsp 'Anthropic API key: ' ANTHROPIC_API_KEY
+echo
+export ANTHROPIC_API_KEY
 ```
 
-**Current defaults:** 3 rollouts per task, environment-side `code_control=off`, per-task control-step budgets, and `--timeout=43200` (12 hours). Simulation pauses during reasoning; offline analysis is still allowed. Native termination conditions remain active. `--resume` starts unfinished rollouts from the initial state, not a saved physics state. Use a new batch ID when changing evaluation conditions.
+Set `MODEL_ID` to the model identifier on your account. Claude Code uses `ANTHROPIC_API_KEY` and optionally `ANTHROPIC_BASE_URL` for a Messages-compatible endpoint. To run Codex, set `OPENAI_API_KEY`, use `--agent codex` and pass `--model "openai/$MODEL_ID"`. Codex also supports subscription login. The Hugging Face CLI stores download credentials separately. The launcher creates the simulator episode token for each job. [Agent configuration](docs/HARBOR_BUILTIN_AGENTS.md)
 
-## Documentation
+## Run a task
 
-| Guide | Contents |
-| --- | --- |
-| [Deployment](docs/DEPLOYMENT.md) | Host setup, sources, runtime builds and troubleshooting |
-| [Assets](docs/ASSETS.md) / [Prebuilt images](docs/PREBUILT_IMAGES.md) | Pinned downloads, access and licences |
-| [Model API](docs/MODELS.md) | Providers, credentials and model configuration |
-| [Evaluation](scripts/ROLLOUTS.md) | Task budgets, control modes, full-suite runs, resume and metrics |
-| [Repository layout](DIRECTORY_GUIDE.md) | Source and output directory map |
-| [Release boundaries](docs/HANDOFF.md) / [Checks](docs/RELEASE_REVIEW.md) | Reproducibility limits and recorded validation |
+```bash
+export WORLD_ASSETS="$PWD/Assets"
+bash scripts/harbor_run.sh --path tasks/close-drawer --agent claude-code \
+  --model "anthropic/${MODEL_ID:?Set MODEL_ID to your provider model ID}" \
+  --n-attempts 1 --n-concurrent 1 --jobs-dir "$PWD/outputs/harbor"
+```
 
-## Release Status
+## Run multiple tasks
 
-The release documentation records outstanding full-suite test failures and pending API-backed simulator validation. Historical trajectories are not a fresh validation of this source release; validate your chosen environment before scaling.
+```bash
+python scripts/make_harbor_job.py --agent claude-code --model "anthropic/$MODEL_ID" \
+  --task close-drawer --task play-soccer --attempts 1 --concurrency 1 \
+  --output var/jobs/two-tasks.yaml
+bash scripts/harbor_run.sh --config var/jobs/two-tasks.yaml
+```
 
-Third-party code and assets retain their own licences. BEHAVIOR assets and decryption keys are not redistributed. **A top-level licence for RobotWorld-owned code has not yet been selected.**
+Use `--task all` to select the full suite. Each trial writes its agent trace to `agent/`, simulation state and video to `artifacts/simulation/`, and score to `verifier/reward.txt` under the job directory. The job-level `result.json` reports scores and trial exceptions. [Task catalog](docs/TASK_NAMES.md) · [Task development](docs/HARBOR_DEVELOPMENT.md)
 
-<details>
-<summary>Source provenance and validation scope</summary>
+## Tasks and results
 
-The source for this release is `visitworld123/RoboWorld_Scaffold`, branch `main`, commit `132972eec7ea4e9a5b59f8be7398f19d7681fc52`. Run CPU tests with `python -m pytest`. Task lists, dry runs and API checks do not replace GPU rollout validation. Experimental Isaac compatibility layers are recorded in run metadata and do not establish equivalence to the original simulator.
+Task directory names are the IDs accepted by Harbor. Browse [tasks/](tasks/) to find a task, or list them locally:
 
-</details>
+```bash
+ls tasks
+```
 
-## 📚 Citation
+Each task specifies the robot interface and native step limit in `instruction.md`. Simulation pauses between actions. A successful episode can end before its limit. Check the trial's `result.json` for exceptions, then read `artifacts/simulation/episode.json` for the control-step count and termination reason.
 
-If you use RobotWorld in your research, please cite:
+The task packages are ready to run once their runtime dependencies are installed. To regenerate a package from an upstream benchmark, restore its pinned sources first. The [development guide](docs/HARBOR_DEVELOPMENT.md) covers generation and verification. Simulator code and data retain their upstream licenses.
+
+## Citation
 
 ```bibtex
 @misc{yang2026robotworld,
   title  = {{RobotWorld}: Benchmarking Multimodal Agents for Robot Use Across Diverse Tasks and Embodiments},
   author = {Yang, Zhiqin and Li, Chenxin and Hu, Xiaomeng and Liu, Yibin and Huang, Weidong and Sun, Jiankai and Li, Haitao and Wu, Zijian and Huang, Yuzhi and Huang, Fanding and Sun, Hanwen and Liu, Jiashun and Tong, Jingqi and Huang, Mingxin and Hu, Shaoli and Huang, Shijue and Bai, Tianyi and Wang, Xinyuan and Lin, Yunlong and Tang, Zhengyang and Zhang, Zhexin and Chen, Zhuo and Song, Xierui and Dai, Juntao and Chen, Boyuan and Ji, Jiaming and Zhan, Fangneng and Hu, Mengkang and Xue, Wei and Zhang, Yonggang and Hu, Han and Ho, Tsung-Yi and Guo, Yike},
   year   = {2026},
-  eprint = {2610.10409},
-  archivePrefix = {arXiv},
-  url    = {https://arxiv.org/abs/2610.10409}
+  url    = {https://github.com/robotworldai/robotworld}
 }
 ```

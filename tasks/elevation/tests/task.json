@@ -1,0 +1,6 @@
+{
+  "benchmark": "wheeledlab",
+  "task": "elevation",
+  "horizon": 200,
+  "scoring_profile": "native"
+}
