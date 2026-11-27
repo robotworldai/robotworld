@@ -80,6 +80,12 @@ Each task specifies the robot interface and native step limit in `instruction.md
 
 The task packages are ready to run once their runtime dependencies are installed. To regenerate a package from an upstream benchmark, restore its pinned sources first. The [development guide](docs/HARBOR_DEVELOPMENT.md) covers generation and verification. Simulator code and data retain their upstream licenses.
 
+## Community
+
+Scan to join the RobotWorld WeChat group. This invitation is valid before December 4, 2026.
+
+<a href="docs/images/robotworld-community.png"><img src="docs/images/robotworld-community.png" width="300" alt="RobotWorld community invitation QR code"></a>
+
 ## Citation
 
 ```bibtex

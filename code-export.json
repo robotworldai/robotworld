@@ -19,13 +19,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "c513387eea1b6c32a1967425636bb4f04c74f29f35ed57ee292953578ae14a22",
-      "bytes": 6008
+      "sha256": "d487aa777c388cf2ec7c45b2f15c446af38ccdcb679a3ead739816477d64ffa5",
+      "bytes": 6274
     },
     {
       "path": "README.zh-CN.md",
-      "sha256": "c602d5cbdb4733dd89267eadf2b8b3314ce45f90a4dbdaf4449f636c293ce29d",
-      "bytes": 5615
+      "sha256": "cdd8bd5a64527900cb8af954933ee52d158416c2e7c4903ff9829178c30ad463",
+      "bytes": 5877
     },
     {
       "path": "RELEASE_NOTES.md",
@@ -461,6 +461,11 @@
       "path": "docs/harness-protocol.md",
       "sha256": "cb07e6eb6f40fcf402a089d500e548b1fcecdb5d666415eb6eeb919757ea59fc",
       "bytes": 15260
+    },
+    {
+      "path": "docs/images/robotworld-community.png",
+      "bytes": 290484,
+      "sha256": "112f9b93e7f543e70c54396a8c3da0ce5c48ae59d2cbb4a54bd30480f2cdcb75"
     },
     {
       "path": "docs/native17/ASSETS.md",
@@ -5119,8 +5124,8 @@
     },
     {
       "path": "scripts/package_code.py",
-      "sha256": "c5e949aef7c8f9b64d3fadcae0e952fe5cb2715a510efe42802c5a9c81a06052",
-      "bytes": 6857
+      "sha256": "f7e505d157a71b5b2278c6692a0cb50a60476690a040d67f85056027e011ee5e",
+      "bytes": 6905
     },
     {
       "path": "scripts/prepare_behavior_assets.py",

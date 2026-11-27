@@ -28,7 +28,7 @@ def main():
    if any(x in rel.parts for x in ('dex2bench_dataset','anchors','shared-assets')):dirs[:]=[];continue
    for name in files:
     f=path/name;r=str(f.relative_to(ROOT))
-    if (f.suffix.lower() in {'.png','.jpg','.jpeg','.gif','.webp','.pptx','.pdf'} and set(f.relative_to(ROOT).parts)&{'docs','media','_static','figures'}) or name in {'assets.local.json','image-inspect.json','provenance.json'}:continue
+    if (f.suffix.lower() in {'.png','.jpg','.jpeg','.gif','.webp','.pptx','.pdf'} and r != 'docs/images/robotworld-community.png' and set(f.relative_to(ROOT).parts)&{'docs','media','_static','figures'}) or name in {'assets.local.json','image-inspect.json','provenance.json'}:continue
     if r in PRIVATE_DIAGNOSTICS or rel.is_relative_to('scripts/local_multi_roll'):continue
     if f.suffix.lower() in {'.key','.pem','.p12','.pfx'} or name in {'credentials.json','.netrc','.npmrc','id_rsa','id_ed25519'}:continue
     if f.is_symlink() or r in excluded or f.suffix.lower() in BIN|{'.log','.webm','.mov','.mkv'} or name.startswith('events.out.tfevents.') or name in ('.git','auth.json','omnigibson.key','.env'):continue

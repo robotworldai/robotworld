@@ -74,6 +74,12 @@ Harbor 使用 [tasks/](tasks/) 下的目录名作为任务 ID，可用 `ls tasks
 
 使用已生成的任务包时，安装该任务的运行依赖即可。重新生成任务包前需恢复对应的上游源码。[开发指南](docs/HARBOR_DEVELOPMENT.zh-CN.md) 介绍任务生成与验证。模拟器代码和数据各自遵循上游许可。
 
+## 社区交流
+
+扫码加入 RobotWorld 社区微信群。此群码在 2026 年 12 月 4 日前有效。
+
+<a href="docs/images/robotworld-community.png"><img src="docs/images/robotworld-community.png" width="300" alt="RobotWorld 社区微信群二维码"></a>
+
 ## 引用
 
 ```bibtex
