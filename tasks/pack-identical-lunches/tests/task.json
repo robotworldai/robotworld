@@ -1,0 +1,6 @@
+{
+  "benchmark": "robocasa",
+  "task": "PackIdenticalLunches",
+  "horizon": 3900,
+  "scoring_profile": "native"
+}

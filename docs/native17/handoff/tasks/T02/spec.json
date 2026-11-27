@@ -1,0 +1,136 @@
+{
+  "id": "T02",
+  "title": "人形机器人连续接回随机乒乓来球",
+  "category": "动态拦截",
+  "source": "PACE / TTRL · Humanoid Table Tennis",
+  "native": "t1_tt_eval",
+  "stack": "Isaac Lab 2.1 / Isaac Sim 4.5（仓库说明）",
+  "commit": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+  "setting": "保留原多次发球逻辑与随机来球速度；使用完整的人形机器人关节控制，不能把作者整套乒乓球策略包装成 agent 的工具。",
+  "new_feedback": "同一身体回合内，球落地或球回合超时后只重置球，新球速度重新采样。之后的来球不包含在第一张观测里；需要根据新来球决定移动、挥拍与击球时机。",
+  "deadline": "评测配置的来球 x 方向速度为 −6.5 至 −5.2 m/s；球越过可击区域就错失这一球。挥拍时还要保持身体稳定。等待模型慢慢处理，不能把已经错过的来球补回来。",
+  "action": "直接输出动作关节的位置目标；物理步长 0.002 s，decimation=10，即原策略更新 50 Hz。这个频率是源码配置，不是已实测的最低必要频率。",
+  "evaluation": "reward_table_success 使用“已经碰过球拍”和“刚接触对面球台”；身体过低或越界终止。复用回球成功事件统计每次发球的回球率；不能把 dense reward 直接叫任务成功率。",
+  "caveat": "保留 t1_tt_eval 的来球分布与重发机制。不能把“碰到球”当成回球成功，也不能向 agent 提供现成乒乓 policy。",
+  "media": "找到作者仿真片段和 YouTube 演示入口；本次没有完成视频观看，不将其记作已观测的成功轨迹。",
+  "refs": [
+    {
+      "label": "连续回合中重新采样并发球",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/tt_env.py#L657"
+    },
+    {
+      "label": "原评测来球速度",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/t1_tt/t1_tt_config.py#L296"
+    },
+    {
+      "label": "实际回球到对面球台的判定",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/mdp/rewards.py#L613"
+    },
+    {
+      "label": "作者演示入口",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "来球在一个身体 episode 中重新采样，反馈截止时间明确；全身平衡与回球耦合。具体难度需要同接口基线验证。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "purdue-tracelab/TTRL-ICRA2026",
+  "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.1.0；作者提示升级 Sim 5.0+ 会改变成绩",
+  "install_reference": "按 README 安装 legged_lab 与作者 runner；先核对资产，再用 t1_tt_eval。",
+  "entry_note": "t1_tt_eval 为作者任务名；直接从注册表构造。--predictor 是作者额外预测器，不应悄悄赠送给 agent；若使用需标注观测条件。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "带乒乓配置的 Booster T1",
+      "kind": "repository",
+      "location": "legged_lab/assets/booster/T1_TT/T1_TT.usd",
+      "evidence_path": "legged_lab/assets/booster/booster.py",
+      "evidence_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/booster/booster.py",
+      "note": "t1_tt_eval 使用 BOOSTER_T1_TT_P2_CFG；保留同目录 mesh/material 引用。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/booster/T1_TT/T1_TT.usd",
+      "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+      "file_bytes": 3190,
+      "evidence_package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/booster/booster.py"
+    },
+    {
+      "name": "乒乓球桌",
+      "kind": "repository",
+      "location": "legged_lab/assets/table_tennis/table/pp_table_ver2.usd",
+      "evidence_path": "legged_lab/assets/table_tennis/table.py",
+      "evidence_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/table_tennis/table.py",
+      "note": "",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/table_tennis/table/pp_table_ver2.usd",
+      "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+      "file_bytes": 3743,
+      "evidence_package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/table.py"
+    },
+    {
+      "name": "球及预测位置标记",
+      "kind": "procedural",
+      "location": "SphereCfg / legged_lab/assets/table_tennis/ball.py",
+      "evidence_path": "legged_lab/envs/base/tt_env.py",
+      "evidence_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/tt_env.py",
+      "note": "预测器权重随作者训练 checkpoint 保存；本轮未拿到匹配 checkpoint。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/tt_env.py",
+      "availability": "运行时由所列源码生成，没有独立资产包",
+      "evidence_package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/tt_env.py"
+    }
+  ],
+  "required_setting_checks": [
+    "保留原多次发球逻辑与随机来球速度；使用完整的人形机器人关节控制，不能把作者整套乒乓球策略包装成 agent 的工具。",
+    "保留 t1_tt_eval 的来球分布与重发机制。不能把“碰到球”当成回球成功，也不能向 agent 提供现成乒乓 policy。"
+  ],
+  "observation_note": "原机器人/球状态及作者 predictor 的使用方式要分别记录；本包不将 cuRobo/球预测器/全身策略自动作为 agent 可用工具。",
+  "source_snapshots": [
+    "sources/purdue-tracelab/TTRL-ICRA2026/LICENSE",
+    "sources/purdue-tracelab/TTRL-ICRA2026/LICENSE.txt",
+    "sources/purdue-tracelab/TTRL-ICRA2026/README.md",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/__init__.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/booster/booster.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/__init__.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/ball.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/table.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/base_config.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/tt_env.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/t1_tt/t1_tt_config.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/__init__.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/curriculums.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/events.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/rewards.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/eval.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/play.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/plot_action.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/preview.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/train.py",
+    "sources/purdue-tracelab/TTRL-ICRA2026/setup.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "连续回合中重新采样并发球",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/tt_env.py#L657",
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/tt_env.py"
+    },
+    {
+      "label": "原评测来球速度",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/t1_tt/t1_tt_config.py#L296",
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/t1_tt/t1_tt_config.py"
+    },
+    {
+      "label": "实际回球到对面球台的判定",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/mdp/rewards.py#L613",
+      "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/rewards.py"
+    },
+    {
+      "label": "作者演示入口",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026",
+      "package_path": null
+    }
+  ]
+}

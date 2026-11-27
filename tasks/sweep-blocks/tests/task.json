@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "sweep_blocks",
+  "horizon": 1000,
+  "scoring_profile": "native"
+}

@@ -1,165 +1,92 @@
-<div align="center">
+# RobotWorld
 
-# 🤖 RobotWorld
+[项目主页](https://robotworldai.github.io/) · [任务录像](https://robotworldai.github.io/zh/#gallery) · [论文](https://arxiv.org/abs/2610.10409) · [English](README.md)
 
-[English](README.md) | **简体中文**
+RobotWorld 将 20 个仿真环境中的 84 个机器人控制任务封装为 Harbor 任务。智能体通过 MCP 获取观测并发出动作，模拟器记录轨迹和终止原因，Harbor 在独立容器中评分。
 
-### 面向多种任务与机器人形态的通用多模态智能体评测
+## 安装
 
-[![项目主页](https://img.shields.io/badge/Project-Page-2563eb?style=for-the-badge)](https://robotworldai.github.io/zh/)
-[![论文](https://img.shields.io/badge/Paper-arXiv-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2610.10409)
-[![代码](https://img.shields.io/badge/Code-GitHub-2ea44f?style=for-the-badge)](https://github.com/robotworldai/robotworld)
-[![Hugging Face Papers](https://img.shields.io/badge/Hugging_Face-Papers-ffd21e?style=for-the-badge)](https://huggingface.co/papers/2610.10409)
-[![WeChat](https://img.shields.io/badge/WeChat-Community-07C160?style=for-the-badge&logo=wechat&logoColor=white)](#community)
-
-<a href="https://robotworldai.github.io/zh/#showreel">
-  <img src="https://robotworldai.github.io/assets/images/showreel-poster.png" alt="点击观看：45 秒了解 RobotWorld" width="800">
-</a>
-
-🎬 **[▶ 45 秒了解 RobotWorld](https://robotworldai.github.io/zh/#showreel)** · [English](https://robotworldai.github.io/#showreel)
-
-🦾 [任务与录像](https://robotworldai.github.io/zh/#gallery) · 📊 [评测结果](https://robotworldai.github.io/zh/#leaderboard) · 🧪 [评测协议](https://robotworldai.github.io/zh/#protocol)
-
-📝 **分析文章：**[中文](https://robotworldai.github.io/blog/zh/) · [英文](https://robotworldai.github.io/blog/)
-
-**84 项任务 · 20 个 benchmark 集成 · 操作、运动、驾驶与飞行**
-
-</div>
-
----
-
-<a id="community"></a>
-
-## 💬 加入 RobotWorld 微信群
-
-交流 Robot Use、具身智能体、评测复现与任务扩展，欢迎研究者和开发者加入。也欢迎通过反馈、新任务或代码贡献，成为 RobotWorld 下一版本的贡献者。
-
-<p align="center">
-  <b>👇 微信扫码加入</b><br>
-  <a href="docs/images/wechat-community.png"><img src="docs/images/wechat-community.png" alt="RobotWorld 微信群二维码" width="200"></a><br>
-  二维码有效期：2026 年 11 月 5 日前。无法扫码？点击图片查看原图。
-</p>
-
----
-
-## ✨ RobotWorld 是什么？
-
-RobotWorld 将从本仓库源码构建的智能体运行时接入机器人模拟器。模型通过明确的观测与动作工具控制机器人，并根据执行反馈修正动作；任务是否完成由环境判据决定，而不是由模型的文字声明决定。
-
-当前发布版注册了 **20 个 benchmark、84 道题**。注册不代表所有任务都已有经过验证的成功轨迹。默认每道题执行 3 次 rollout，关闭环境内 `code_control`；模型推理和离线分析期间仿真暂停。
-
-## 快速开始
-
-建议先跑通一道 RoboCasa 任务，再准备完整任务集。需要 Linux/NVIDIA 主机、Docker 与 NVIDIA Container Toolkit、Python 3.11+ 及固定版本的构建依赖。**L40S 48GB 是当前主机参考，不代表全部任务的兼容性保证。** 完整准备流程见[部署指南](docs/DEPLOYMENT.md)。
-
-<details>
-<summary>显卡兼容性与主机依赖</summary>
-
-### 硬件与依赖
-
-- **当前主机参考：** NVIDIA L40S 48GB（驱动 `580.105.08`）；这是部署主机配置，不代表全部 84 题均已在该配置上验证。
-- **其他显卡：** RTX 5090 在 Isaac Sim 6.0.1 实验兼容配置下有部分任务历史验证，旧版 Isaac/CUDA 可能不兼容。RTX 4090、RTX A6000、RTX 6000 Ada 和 L40 具备 RT Core，可作为候选，但不是已验证支持名单。
-- **Isaac 渲染：** 需要具备 RT Core 的显卡；A100/H100 [不受 Isaac Sim 支持](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/requirements.html)，但可用于独立的模型推理服务。使用远程模型 API 时，本机 GPU 主要承担仿真和渲染。
-- **兼容性：** 按任务匹配固定镜像、驱动及 CUDA/Isaac 版本，先跑短回合再批量评测。目前未建立整套环境统一的最低显存、内存和磁盘要求。
-
-主机依赖：Linux、兼容的 NVIDIA 驱动、Docker（Compose/Buildx）和 NVIDIA Container Toolkit、Git/Git LFS、Python 3.11+、固定版本的 Rust 工具链、C/C++ 构建工具（CMake、Clang、OpenSSL 开发头文件）、支持用户命名空间的 bubblewrap、FFmpeg/ffprobe 和 zstd。另需准备固定版本的模拟器镜像和资产，获取必要访问权限并接受相应许可，详见[部署指南](docs/DEPLOYMENT.md)。
-
-</details>
-
-### 1. 准备一个环境
-
-克隆后在仓库根目录执行。先恢复固定版本源码，**再恢复资产**。
+需要 Linux amd64、Docker、NVIDIA Container Toolkit、兼容的 GPU 驱动及 `zstd`。以下命令均在仓库根目录执行。
 
 ```bash
 git clone https://github.com/robotworldai/robotworld.git
 cd robotworld
-python3 -m venv .venv
+python3.13 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[test]' huggingface_hub
-export WORLD_PYTHON="$PWD/.venv/bin/python"
-
-bash scripts/setup_handoff.sh sources
-# 资产库需要权限时，使用自己的账户登录。
-hf auth login
-bash scripts/setup_handoff.sh assets --bench robocasa
-bash scripts/setup_handoff.sh docker --bench robocasa --dry-run
-bash scripts/setup_handoff.sh docker --bench robocasa
-bash scripts/setup_handoff.sh codex
+python -m pip install 'harbor==0.24.0' PyYAML huggingface_hub
 ```
 
-也可[导入预构建镜像](docs/PREBUILT_IMAGES.md)，代替本地构建；当前需要授权，部分旧配置还需额外镜像。运行时 helper 构建失败时，参见[直接工具调用模式](docs/DEPLOYMENT.md#direct-tool-runtime-option)。其他环境可能需要额外资产、基础镜像及许可。
+## 准备资产和镜像
 
-### 2. 接入模型，运行一道题
+关抽屉任务使用 RoboCasa 资产。运行其他环境时，用 `--bench` 选择相应资产。20 个模拟器镜像共用一份 12.42 GiB 的压缩归档，每台 Docker 主机导入一次。访问受限仓库时，使用已有读取权限的 Hugging Face 账号登录。
 
-接口须能从运行环境访问，并支持流式 **Responses API**、图像和函数调用；仅支持 Chat Completions 的接口不足以运行此发布版。
+部分任务会挂载上游源码。先按 `sources.lock.json` 恢复相应 checkout，再下载资产。下方双任务示例还需要依次运行 `python scripts/fetch_sources.py humanoid_soccer` 和 `python scripts/download_assets.py --bench humanoid_soccer`。需要全部上游源码时使用 `python scripts/fetch_sources.py --all`。
 
 ```bash
-python scripts/configure_api.py \
-  --base-url https://YOUR_API_HOST/v1 \
-  --model YOUR_MULTIMODAL_MODEL_ID
-export CODEX_AUTH_HOME="$PWD/var/auth/api"
-# 隐藏输入，不将 key 写入命令历史。
-read -rsp "Model API key: " WORLD_MODEL_API_KEY; printf '\n'
-export WORLD_MODEL_API_KEY
-python scripts/check_api.py
-
-bash scripts/run_robocasa.sh list
-bash scripts/run_robocasa.sh run --tasks CloseDrawer --rollouts 1 --dry-run
-bash scripts/run_robocasa.sh run --tasks CloseDrawer --rollouts 1 --batch drawer-smoke
+python scripts/download_assets.py --bench robocasa
+hf download visity/RobotWorld-Images --repo-type dataset \
+  --revision 2f8c0e5f33d481c2dfa699dd523041c917a39273 --local-dir var/image-bundle
+bash var/image-bundle/import_images.sh var/image-bundle
 ```
 
-将接口地址和模型名替换为服务商提供的值。API 检查会发起两次小型付费请求，但不启动模拟器；配置只保存凭据变量名，不保存 key。新开终端时需重新激活虚拟环境并设置环境变量。
+下载脚本校验资产清单和文件哈希，镜像导入脚本校验分卷和镜像 ID。Harbor 从任务目录构建智能体和评分容器。BEHAVIOR-1K 需要单独接受上游许可并获取数据。[资产说明](docs/ASSETS.md) · [镜像说明](docs/PREBUILT_IMAGES.md)
 
-### 3. 查看结果，再扩大评测
+OmniIsaacGymEnvs 需要原版 Isaac Sim 4.0 Gym 扩展及许可归档。使用[扩展提取脚本](third_party/benchmarks/omniisaacgymenvs/compat/extract_gym.py)从固定版本的镜像准备该依赖。
 
-查看 `outputs/robocasa/CloseDrawer/` 下的 `run.json`、录像和事件。有效任务失败记为 `false`，基础设施错误或无法确定的结果不计分（`null`）。归档时保留整个 run 目录，包括 `artifacts/`。
+[资产版本](https://huggingface.co/datasets/visity/RobotWorld-Assets/tree/c7fcb40e7c503cc137a24ce53e5198b7222d0798) 包含 OmniDrones 和 RoboLab 的补充资源，其中 5 个文件由下载器从 NVIDIA 获取并校验 SHA-256。[镜像仓库](https://huggingface.co/datasets/visity/RobotWorld-Images) 提供任务包引用的模拟器镜像。
+
+## 配置凭据
+
+在启动 Harbor 的终端设置环境变量，也可以通过密钥管理器注入。使用 Claude Code 时，可在 Bash 中隐藏输入：
 
 ```bash
-# 全部 RoboCasa 任务，每题三次。
-ROLLOUTS=3 bash scripts/run_robocasa.sh run --batch model-a-01
-# 相同配置下重试未完成的 rollout。
-ROLLOUTS=3 bash scripts/run_robocasa.sh run --batch model-a-01 --resume
+read -rp '模型 ID: ' MODEL_ID
+read -rsp 'Anthropic API key: ' ANTHROPIC_API_KEY
+echo
+export ANTHROPIC_API_KEY
 ```
 
-**当前默认值：** 每题 3 次 rollout、环境内 `code_control=off`、每题独立的控制步数预算，以及 `--timeout=43200`（12 小时）。模型推理时仿真暂停，仍允许离线分析；原生终止条件继续生效。`--resume` 从初始状态重跑未完成回合，不恢复中途物理状态。改变评测条件时请使用新 batch 名称。
+将 `MODEL_ID` 设为账号可用的模型 ID。Claude Code 读取 `ANTHROPIC_API_KEY`，自定义 Messages 服务可另设 `ANTHROPIC_BASE_URL`。使用 Codex 时，设置 `OPENAI_API_KEY`，将运行参数改为 `--agent codex --model "openai/$MODEL_ID"`。Codex 也支持订阅账号登录。Hugging Face CLI 单独管理下载凭据，模拟器使用的回合令牌由启动脚本生成。[智能体配置](docs/HARBOR_BUILTIN_AGENTS.zh-CN.md)
 
-## 文档
+## 运行单个任务
 
-| 文档 | 内容 |
-| --- | --- |
-| [部署指南](docs/DEPLOYMENT.md) | 主机准备、源码、运行时构建与排错 |
-| [资产](docs/ASSETS.md) / [预构建镜像](docs/PREBUILT_IMAGES.md) | 固定版本下载、访问权限和许可 |
-| [模型 API](docs/MODELS.md) | 服务接入、凭据和模型配置 |
-| [评测指南](scripts/ROLLOUTS.md) | 每题预算、控制模式、全套运行、续跑及统计 |
-| [目录说明](DIRECTORY_GUIDE.md) | 源码与输出目录 |
-| [发布范围](docs/HANDOFF.md) / [核查记录](docs/RELEASE_REVIEW.md) | 可复现边界与已记录的验证 |
+```bash
+export WORLD_ASSETS="$PWD/Assets"
+bash scripts/harbor_run.sh --path tasks/close-drawer --agent claude-code \
+  --model "anthropic/${MODEL_ID:?Set MODEL_ID to your provider model ID}" \
+  --n-attempts 1 --n-concurrent 1 --jobs-dir "$PWD/outputs/harbor"
+```
 
-详细文档目前以英文为主。
+## 批量运行
 
-## 发布状态
+```bash
+python scripts/make_harbor_job.py --agent claude-code --model "anthropic/$MODEL_ID" \
+  --task close-drawer --task play-soccer --attempts 1 --concurrency 1 \
+  --output var/jobs/two-tasks.yaml
+bash scripts/harbor_run.sh --config var/jobs/two-tasks.yaml
+```
 
-发布文档仍记录有全量测试未通过项，真实 API 与模拟器联调验证待完成。历史轨迹不能替代本发布版的重新验证，批量运行前请先验证选定环境。
+用 `--task all` 选择全部任务。在作业目录下，每次试验的 `agent/` 保存智能体轨迹，`artifacts/simulation/` 保存仿真状态与录像，`verifier/reward.txt` 保存分数。作业根目录的 `result.json` 汇总评分与异常。[任务列表](docs/TASK_NAMES.md) · [任务开发](docs/HARBOR_DEVELOPMENT.zh-CN.md)
 
-第三方源码与资产保留各自许可；BEHAVIOR 资产和解密密钥不分发。**RobotWorld 自有代码的顶层许可证尚未选定。**
+## 任务与结果
 
-<details>
-<summary>源码来源与验证范围</summary>
+Harbor 使用 [tasks/](tasks/) 下的目录名作为任务 ID，可用 `ls tasks` 列出任务。每个目录的 `instruction.md` 说明机器人接口和原生步数上限。智能体思考时仿真暂停，任务成功后可提前终止。检查试验目录中的 `result.json` 可确认是否发生异常，`artifacts/simulation/episode.json` 记录实际步数和终止原因。
 
-本发布版源码来自 `visitworld123/RoboWorld_Scaffold` 的 `main` 分支，提交 `132972eec7ea4e9a5b59f8be7398f19d7681fc52`。CPU 测试可执行 `python -m pytest`。任务列表、启动计划和 API 检查不能替代 GPU rollout 验证；实验性 Isaac 兼容层在运行元数据中记录，不代表与原生模拟器等价。
+使用已生成的任务包时，安装该任务的运行依赖即可。重新生成任务包前需恢复对应的上游源码。[开发指南](docs/HARBOR_DEVELOPMENT.zh-CN.md) 介绍任务生成与验证。模拟器代码和数据各自遵循上游许可。
 
-</details>
+## 社区交流
 
-## 📚 引用
+扫码加入 RobotWorld 社区微信群。此群码在 2026 年 12 月 4 日前有效。
 
-如果你的研究使用了 RobotWorld，请引用：
+<a href="docs/images/robotworld-community.png"><img src="docs/images/robotworld-community.png" width="300" alt="RobotWorld 社区微信群二维码"></a>
+
+## 引用
 
 ```bibtex
 @misc{yang2026robotworld,
   title  = {{RobotWorld}: Benchmarking Multimodal Agents for Robot Use Across Diverse Tasks and Embodiments},
   author = {Yang, Zhiqin and Li, Chenxin and Hu, Xiaomeng and Liu, Yibin and Huang, Weidong and Sun, Jiankai and Li, Haitao and Wu, Zijian and Huang, Yuzhi and Huang, Fanding and Sun, Hanwen and Liu, Jiashun and Tong, Jingqi and Huang, Mingxin and Hu, Shaoli and Huang, Shijue and Bai, Tianyi and Wang, Xinyuan and Lin, Yunlong and Tang, Zhengyang and Zhang, Zhexin and Chen, Zhuo and Song, Xierui and Dai, Juntao and Chen, Boyuan and Ji, Jiaming and Zhan, Fangneng and Hu, Mengkang and Xue, Wei and Zhang, Yonggang and Hu, Han and Ho, Tsung-Yi and Guo, Yike},
   year   = {2026},
-  eprint = {2610.10409},
-  archivePrefix = {arXiv},
-  url    = {https://arxiv.org/abs/2610.10409}
+  url    = {https://github.com/robotworldai/robotworld}
 }
 ```

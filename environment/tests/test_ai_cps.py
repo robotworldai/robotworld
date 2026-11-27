@@ -52,7 +52,7 @@ def test_contact_requires_real_sustained_force_cancel_and_release():
         with pytest.raises(ValueError):r.contact(bad,100)
 
 def test_specs_and_suite(tmp_path):
-    assert [r['id'] for r in selected('ai_cps',None)]==['22','23','24','34']
+    assert [r['id'] for r in selected('ai_cps',None)]==['22','23','24']
     assert {r['name'] for r in specs('24')}=={'observe','move_joints','coding_control'}
     assert 'cancel_action' in {r['name'] for r in specs('34')}
     args=SimpleNamespace(model='model-b',seed=9,steps=None,timeout=42)

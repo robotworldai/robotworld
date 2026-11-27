@@ -1,0 +1,1804 @@
+{
+  "repository": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot.git",
+  "commit": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+  "verification": "File hashes checked against pinned upstream Git blobs; LFS payloads checked against pointer SHA256",
+  "files": [
+    {
+      "path": ".flake8",
+      "sha256": "d7a07fe5c9a7b9a9c55bedf951f7b46a10d4cd95a3a7620e62b6a3d9fff1e6f0",
+      "git_blob": "5de2609c5d61aa306302179466773716295b83f0",
+      "kind": "git_blob"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "0f010f91c5d76f084d297e2f1d5710ea582dc14549d2da5821090823719d90f9",
+      "git_blob": "26d3c1567bd29225489be6e388db15104601f9b1",
+      "kind": "git_blob"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "a422b0c2507f3a3f6134856364e92251f030882e064618e4ae1346839d9ef70d",
+      "git_blob": "7c36264290699ef1ab02d3e76b01b6b9ad800ad7",
+      "kind": "git_blob"
+    },
+    {
+      "path": ".gitmodules",
+      "sha256": "be0b9b38275cf0ad8bffa9224470a13c3e75332d48e1e761ff853b3e2d83c7d0",
+      "git_blob": "374fecce29e82910413cb38eaa7d575ed711e49b",
+      "kind": "git_blob"
+    },
+    {
+      "path": ".vscode/.gitignore",
+      "sha256": "b7edf29ad1312a761e395c3cc51ba64cadec2338bae90a8e854ba23969a4de10",
+      "git_blob": "28ad0eaad583630711a68168afbe8244dd907be7",
+      "kind": "git_blob"
+    },
+    {
+      "path": ".vscode/tools/setup_vscode.py",
+      "sha256": "fa41977562bbc870cbcb25e6b899bf384d62898a46d44929ef420ee3ca0b48a7",
+      "git_blob": "7f50860b9f5c770fc18c125fe5082dd0b74c73ef",
+      "kind": "git_blob"
+    },
+    {
+      "path": "LICENCE",
+      "sha256": "463316faa7909583ac08fe540ec483abb02041e48cc6fba00f0612e5ec19c513",
+      "git_blob": "405763c7974b04e207364fc2a0252b4672566551",
+      "kind": "git_blob"
+    },
+    {
+      "path": "README.md",
+      "sha256": "2c742d4f9daa98a0c130c60ce2000ba014e83f0dae923b81dbf475b11d42f2dc",
+      "git_blob": "a0f1b5248db0fa2f9d28f68c19660b485b34be3b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "config/extension.toml",
+      "sha256": "2f28208f09fea013233dd7d62991a09fa7569459bff1833b735a03a671e10ecd",
+      "git_blob": "b33ef665f74d9623fe781e23ea158eae1c7f5577",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "615307f8c8d346cfa4f64ff1fd0549e0e622b5625bdc9154ca8113a88be15766",
+      "git_blob": "82299ee25f1332b3e683ba45d67b093737a38d2c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/__init__.py",
+      "sha256": "a15764567d9829a8894cf7a667aa838de34b6c406433d9c459f63810ac2b8b5f",
+      "git_blob": "a25d0affb42857e212d2046397cc6613ab086186",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/config/extension.toml",
+      "sha256": "0fad197b593ebebf965b9784f675be4f39ce0d35e13b3be31f6d3a15d414ae31",
+      "git_blob": "debae744262fb4f3cbdfb16459607541ad32e790",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/ActuatorNets/Flamingo/kan/wheel/symbolic_formula.txt",
+      "sha256": "88a934d84a02ff7b6f509a0481e1d1cab5f4f582968aa3c53518d6f06710d119",
+      "git_blob": "dbe3689bf9bc3de1ab625d98c489f12568e8290e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo/flamingo_4w4l_rev_01_0_0/config.yaml",
+      "sha256": "b7804bb22f0eee89921247c7d6fbfad74fdd7cd145b22cf667bcd2d4518276f1",
+      "git_blob": "99b60b63bbc78b59adbf5092c1ae411e0aa583d3",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo/flamingo_4w4l_rev_02_0_4/assets/config.yaml",
+      "sha256": "2396abed8a8c2a855873209a81780c6dd3071f8e7eefd74ab6d4310717372cdf",
+      "git_blob": "d4e46cd92722b7b3c2e6b24624b538388a61ee37",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo/flamingo_light_v01_2_2/config.yaml",
+      "sha256": "749302441beddd1113b93fc8b378ecfed8c20016ad02f067f56e39025f6d9213",
+      "git_blob": "3bb5bc9b3d5c8add921bd2f986f319411279f8d7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev01_5_2/config.yaml",
+      "sha256": "f3b61876dc26662320b2df29d1909a2a7aefd56fd5a3ff7a05552cd4adf997ed",
+      "git_blob": "c0a6c5ddda5d4a3f6374947f5baba68bacfb593d",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev03_2_0/assets/config.yaml",
+      "sha256": "bfdf8d845297d2d09cbfbf7d353ca85c6d6ba116658968596527263d46c03b04",
+      "git_blob": "9537ed7a75e6d9ad6613120f134a281ba5987f15",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo/humanoid_rev_2_0_0/config.yaml",
+      "sha256": "db89fb359c549abf5815f97d5216b82c2452378708bd03a9890cc5494fbe0b43",
+      "git_blob": "a66ba70b8da292f41085a3b3879b744f2dacdfba",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo/humanoid_rev_2_1_0/config.yaml",
+      "sha256": "2789e5ee8e0baa68abc04687393814cc4cba6962ccfc1b40dd1739747f6bb36a",
+      "git_blob": "2e1c1116b185ab3f00f3661371f1b7cf223f5855",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/CMakeLists.txt",
+      "sha256": "195be60dae503015582b8f97d4c11965cb3230bdefe75528ad9da1759eefeb3c",
+      "git_blob": "291deac8377068e3da63fe28bfd88cf9853bbb95",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/config/joint_names_6AXIS V2_B_RE0_CO_v13.yaml",
+      "sha256": "b280292e38c5e79bd5f1a7c9cd5255a926e5539471cb9de2400490d827cc3c56",
+      "git_blob": "d043a2a03475efc0894edf2e75efe1f9443d1cef",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/launch/display.launch",
+      "sha256": "1324d12e08993f514d5bbb3f530b2413370a437754de1f4a922e782cf6fb0752",
+      "git_blob": "16e59b499c97a8aba9b29cc06cda0f6f6d295b0b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/launch/gazebo.launch",
+      "sha256": "b80e91dfb9f49ef911844df6ec5b9085d2cc16a5062a41929cef4bffc41cd684",
+      "git_blob": "2e00e40015989cb3f451fda623d9136f5d6138db",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/base_link.STL",
+      "sha256": "825ca33b9bc19bce5e3ca258cbd009913cbbf829e7a7145f3d79087e61a3f4c7",
+      "git_blob": "245e645ad14a2507e863f4a5b6613c11ffb4214e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/dof1_link.STL",
+      "sha256": "33801352586b75e96db243b517454211a956704ab7f649585818479f7763ebb5",
+      "git_blob": "7d4041b83b945ca070b3ff28260d35b12ad049cc",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/dof2_link.STL",
+      "sha256": "96442f6b0a6857e37bbc0fda3783d100ea893d8d4310401741bb0a080cc71862",
+      "git_blob": "34fdd4c3dc89e1fc63af98048e180938b252ac44",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/dof3_link.STL",
+      "sha256": "8a249a39e8c5330b458d98f48cef34895b5e9468ceea4278e49f9e06bb2fd839",
+      "git_blob": "52c3986b39d8c5cd2862aa7f31d3c0ac93b50614",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/dof4_link.STL",
+      "sha256": "797480590567e3565caf1011e2a57656aa8a9c623ab502cb7ecdcb6095ce9038",
+      "git_blob": "affe2babac7c5db9c9ccf8878115b2c754cce388",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/dof5_link.STL",
+      "sha256": "8f968b4420af6cd42de0370baa029072c61723fd366642b018c9b2966114f64d",
+      "git_blob": "9023f55dffad610be90bf0922b13747cffc2f976",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/dof6_link.STL",
+      "sha256": "61313c441dfd77c7ef1070973d589af6e3c7c8338069cf77c16caab808ae6f42",
+      "git_blob": "8fd30ba36d712797f99ad1e36f1f91fab66242ab",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/gripper_link.STL",
+      "sha256": "6ca5750ed7aab45e1bc4879ebfc69fd50660aff377460741273c9e272d39fc42",
+      "git_blob": "9ddc91f5241bd643f75ad05f5b1b5379e16764f9",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/left_gripper_link.STL",
+      "sha256": "06a7860423af5a770fb7f349a7727e7d51698cf7b8f9248a5a8b275382925593",
+      "git_blob": "a8be1bd25d5863cbe1c8dcbcb521d9d11d684e49",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/meshes/right_gripper_link.STL",
+      "sha256": "379db95914459bcca87bd4af597365d3b2f3c006fbfe03afbce361ae1eb0d5b6",
+      "git_blob": "11ca941911299f1f51e27ec06243972a86a45577",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/package.xml",
+      "sha256": "e2e902bd7428f24a10ecfd5d50c0fb3d4bf10163b84ce9b6847f745942796a46",
+      "git_blob": "aa220a0ee458bf68b76648cb6f278f5e79740ebc",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/config.yaml",
+      "sha256": "7ffa17c7eeb6cc085673bb2133b9c6108c6896474c2f7c2459ba26b63ca05e3d",
+      "git_blob": "df4cbac499161d06b861fcd886c8e8cb114a3f7c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/asset/config.yaml",
+      "sha256": "97fdd9314e781f21b239461e4e30191c9ee9aef8c9f627aa6aeaf47585445483",
+      "git_blob": "4cc0f4cda1b2a1fdbbbb7479023191f844fd8091",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/follower.urdf",
+      "sha256": "9d74cd522802d3122cd73784cbf0e9eef82228153e2752819be6b54a23f02200",
+      "git_blob": "9c0046cea4a450cf415c60f43776cb007721b7f3",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/base_link.STL",
+      "sha256": "318319a694d56d5e1689165e0be0fe8cdc3a8e6f0e24f49debbe4d3acbf3b9b1",
+      "git_blob": "765f0197aacfaf8cc1d866c42e98c61884f7d35c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/base_link_motor.STL",
+      "sha256": "f390555ae4aa13b6689c841b02de45b3ba65cb0c07b1434231c586e8facd55cc",
+      "git_blob": "dab439818ce86d21f5c40ddae1cc872554303d88",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/gripper_link.STL",
+      "sha256": "7c8fe847a51a4d21cf3686402d74dc3207a56040bba935171d58721882b500d1",
+      "git_blob": "d622f3393d288be43febc880842156b3141f6d0b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_1.STL",
+      "sha256": "ec57e078e4ce10e458d536029dbdac04178e19fe1d8fd9d5ad6a6b2532ed15d2",
+      "git_blob": "04278892311a3db9aacacb2c168055271fd05f03",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_1_motor.STL",
+      "sha256": "01c550ce4c8885e1d220bd3b1c5047ce2bd733bd9dce3e44f6d66a18b9ca92f2",
+      "git_blob": "20d8e86b367ba011e343ea95e347d29a23f93220",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_2.STL",
+      "sha256": "3c0fbd8fe25b8f6aa04eab34c069cb782ca44bce8d339654ebe3e69cd18f50d3",
+      "git_blob": "8d7cf91cafb3def4be852319ca4de7f76fb271a0",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_2_motor.STL",
+      "sha256": "a19788b5f401782a1bf9ffe88e771593009f5e8191aff6ef17f184ee0122453a",
+      "git_blob": "33055e8180ed8f132670a2a7edc56cd401364821",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_3.STL",
+      "sha256": "f0a7a6df9c9615e3851f45473e529cb0bd211a43c2b7d810f06a0a51a25272c4",
+      "git_blob": "575bb848d5c3cfa55bf81ee96d24b6d2701e9456",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_3_motor.STL",
+      "sha256": "d1095089609f2751bfc9f9b2c05dc79df5f18fc0fcb1e7ec531f8544c1c12e1e",
+      "git_blob": "9d93608b8632550e1efce21a4d16245e30dc85d0",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_4.STL",
+      "sha256": "556baf0946adc733fe3d9e34426d15d7113fbe68d179a29740c890e9dc797eff",
+      "git_blob": "719d5a71751aa88506e13438313be79c27d03f65",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_4_motor.STL",
+      "sha256": "90ffe8a2c0f6829d755cfd1cfab533de60d51c02dc4ae6cd150883b35313a8d6",
+      "git_blob": "023225974e73ffd6acf8abc81337145a3945b339",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_5.STL",
+      "sha256": "e0dd1cd95f81daa6e390e00cefb67d862794496c7b91f19ad190f88cad6728df",
+      "git_blob": "6354c6f3b92ef9c5ddfb18976a77ddc2d4449f50",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/meshes/link_5_motor.STL",
+      "sha256": "77397afcc8265c702744daeb9614b3140f717bf6efef29102beb1e7799e86732",
+      "git_blob": "851c0c64e39e84409456a3ccdc32a6b1018688ae",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/data/Robots/Wolf/wolf_rev_01_0_0/asset/config.yaml",
+      "sha256": "b19ef0729d228bc8740111d754239a65cb86baeb8de460e73f6e7cd445c9bebe",
+      "git_blob": "9c68e2b4d70f715ca890c51f1bdc99eea8d177db",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/__init__.py",
+      "sha256": "ecf90b4bbfa3816f1cf698f3ccad6b438974b2af65982cd18a971847ba0d5cae",
+      "git_blob": "d9a9abe958f31e31ab895d734dca2ca1816c5908",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/a1_rev03_3_0.py",
+      "sha256": "1dd6c76c8a20b96748875daa967ff389831d1fd45121946258ff30e2f32a5f91",
+      "git_blob": "abefd3faf8d6eef260548f8497f43f8d9c04fdf6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/flamingo_4w4l_rev01_0_0.py",
+      "sha256": "41929cc4b0150cfd2978b467a13f7fd2fab152866ab18b0a225592c39a9cb574",
+      "git_blob": "85182e3fee8741c49480ca2d245478bb91fc0fb5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/flamingo_4w4l_rev02_0_4.py",
+      "sha256": "0b716c2147b362e07e9f0c357cd2a879939ff839467e65674a50a7ba6bf2b7fc",
+      "git_blob": "a98bb5fa70db57c009e6451f173d405a9c3b8bf9",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/flamingo_edu_v1.py",
+      "sha256": "f0a763097b9e2e34041e21fb7e67075c9622e88146a3a0f29456d3b95d555145",
+      "git_blob": "3383c64a685aca6ffe4f7f4b87c902ae2d355cc4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/flamingo_light_v1.py",
+      "sha256": "03bd5bd28440578b8486fa7b401aba9cd66d396411342dfe79d905ecc955d0b8",
+      "git_blob": "1d5b8b671c71eb4ed8d71ce699255b9f965d7a6e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/flamingo_rev01_4_3.py",
+      "sha256": "26f8960208f39864c50496e36cbe68ce85033c983a6fec15292ce46091dd0078",
+      "git_blob": "5b1f29514361f5482f28ec17cb2fb83ad1acca68",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/flamingo_rev01_5_1.py",
+      "sha256": "f67ff2777014c6c30f0efa487e26d65d6b03bb2b58d90e8edd522ee4857599b3",
+      "git_blob": "2391edef7a4870d304a03d26d4f3c665e427af69",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/flamingo_rev01_5_2.py",
+      "sha256": "71fb34f7afc8b95c16af15333df5adeeb15f8ee0f1f6b6e014d7b68156271ebd",
+      "git_blob": "2d65b441d0b50d697596d7bedac76684e13a0419",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/flamingo_rev03_1_1.py",
+      "sha256": "7c8ab176dc53b5e1615ec415025341b26a6af06de45640076a5e4be94f25250f",
+      "git_blob": "e26b35ce4d8ed5e628d957f3368acee1a01f53d7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/flamingo_rev03_2_0.py",
+      "sha256": "4250a15c661d419972164b59faf39c4608f95b3f7bdbf545b74ac3ac09c8c196",
+      "git_blob": "0e6722cce916678b46bb3afd7e81ea9f6f01b7eb",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/humanoid_rev2_0_0.py",
+      "sha256": "a1292fea19214f970c5fa6b8197b79f6fb2b8dfc849be4c90d9e89793331632e",
+      "git_blob": "5db8372e63dad610db0bac4dc43ba06f613c7c5f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/humanoid_rev2_1_0.py",
+      "sha256": "f6b737e544b5b7ac0874736d769dfac5c942f23345e8527d9fa0cb5299febf8a",
+      "git_blob": "6989009df4771f20c1863c06f918d42d0c62e8a7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/koch_rev01_0_0.py",
+      "sha256": "14c32b87e3cd0923c1912e47df8ab48f798d04624e49958254fea0aee3890385",
+      "git_blob": "1f13f9a6fa6435b7c325f32abbf971a8a29d4ba9",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/assets/flamingo/wolf_rev01_0_0.py",
+      "sha256": "a9575c8bd91e4fe32e3541746ac692f913f808c0d837654e895d103bfeccd694",
+      "git_blob": "37bedea4ddda8a8999b0796e86446dce576f8e18",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/isaaclab/isaaclab/envs/__init__.py",
+      "sha256": "1f03792ddf636908f49ad099c6f85d41f6cf2c9d77a95c7f1deeafc354d62fb0",
+      "git_blob": "5458f421eb6a822ac70d94112aab5f5b716532d4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/isaaclab/isaaclab/envs/manager_based_constraint_rl_env.py",
+      "sha256": "4119d0238295a51dffc51bd342176273110d655bdfddf2629f8fed3239c71b90",
+      "git_blob": "925a4d724abefaef041cc231b83c038922300d86",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/isaaclab/isaaclab/envs/manager_based_constraint_rl_env_cfg.py",
+      "sha256": "3b35a8601bcf70a06c607c862cf1fb89b56feb7d4f1514763a3303bbebaa14fb",
+      "git_blob": "9217d5891783556c13549dac6fcebddd1aa64c9d",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/isaaclab/isaaclab/managers/__init__.py",
+      "sha256": "9b085b42d1a71695ed2b448b7dde78a9849d876885250792569c911f7c7fa43f",
+      "git_blob": "7760049574eea7ea03d9a269fd3ac505911bb69c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/isaaclab/isaaclab/managers/constraint_manager.py",
+      "sha256": "9c7946672f27a8894f4897771c8f578c78d9d435931f7b5536f8780b8592b3b1",
+      "git_blob": "86885b7fb3d26cecc14f031bef76f3550b4b486f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/isaaclab/isaaclab/managers/constraint_term_cfg.py",
+      "sha256": "410761c2946ee2638eff4ac15a575ef221bd194785f95d00ef0d26d809187dd9",
+      "git_blob": "73d1fe847ae85d3dfbf00698718698916d5ba3b5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/__init__.py",
+      "sha256": "1ea6a011aad58207d9adec968f06f28ef78f11da0c3f7db12616c96856f7f11b",
+      "git_blob": "cd2518d87bd9b8a41a18a2b3756bb09f6aff63f7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/__init__.py",
+      "sha256": "68d6dad5ae825bf236201aab47298206bccac74da95ca09b513389c485afad58",
+      "git_blob": "06580c1568b066fb2bf158f1ffdfe36d76a28689",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/__init__.py",
+      "sha256": "703936024cafc2c9fb5c67ca176c9fa99023255b98b3f272d7861dd9a643c0f0",
+      "git_blob": "54fe12ab47b1b9cfedc139650224728c411770b9",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/__init__.py",
+      "sha256": "da42e14d8d49b1e8a9d33b36e71746141cc27d243e9ee4dcaeb86286513cb453",
+      "git_blob": "19b29dfaec7061c020302981391192f4fb2e591f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/actuators/__init__.py",
+      "sha256": "0b71329f1c43529fb62981776ca79d5d4d0494143c45ffffb0949d88d5662bca",
+      "git_blob": "f335963a01bebd121b97bbe06c1e0c21ba04d6e2",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/actuators/actuator_cfg.py",
+      "sha256": "d5aa0d27af73a42774114f0146ca91462d983b005acd6553fea41608bed7b114",
+      "git_blob": "c20177c8aa5b995a97db02d6b84ed1402df482c6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/actuators/actuator_force_zero.py",
+      "sha256": "2667beccfe31d8258eaba4b4e7b741eff5a1b3b192d0f68d70f7a116f5820dd8",
+      "git_blob": "a81ef7988280b3e43222b5ff164e1318319f5d10",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/actuators/actuator_net.py",
+      "sha256": "6a032860d8a23f0130007c2ab5d61bda3222669a6434d988f52a781fe707e1cf",
+      "git_blob": "7431ab8aca134b9bad36c67effa3d1fffb2a1533",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/config/__init__.py",
+      "sha256": "608e312a71c6181e7aed51cac5223d0c69522f0ef2bd185ae3f334a03f680b82",
+      "git_blob": "3466df96020f0195d9a04975177f4d15514e471b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_edu_env/__init__.py",
+      "sha256": "0dbb2d0cff1b6e652470c77f836a0b634e420c670340eb834fc1f5ef93d4e30f",
+      "git_blob": "ccf600a35d52262fba4a003bbcc01a316cf81564",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_edu_env/agents/__init__.py",
+      "sha256": "f7321c0fd7b5763b9bf8afacb454ab9a8cd6d4be58c5e450e4a58757fcbc9781",
+      "git_blob": "4c32c3c3ca37381d2563ad0091d728d0624cebf4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_edu_env/agents/co_rl_cfg.py",
+      "sha256": "03d1a7aa0aa81e72501914a7439e0e63e4294da8650839f119cdce50746fac12",
+      "git_blob": "7c63d44dbe69b5920fd8671e7af01e94e85de027",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_edu_env/agents/rl_games_ppo_cfg.yaml",
+      "sha256": "96394f934de4934ad352a8f797b71f09701f80b56605a7d07b47dd58382382d8",
+      "git_blob": "dc1e12982c2d6317afc7ef46f9cf184110a1bb07",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_edu_env/flat_env/__init__.py",
+      "sha256": "b4c5ff988d4554890baf64ee0b0128e4d45902649b62b9b90315e8dacd6ea733",
+      "git_blob": "987f92c24f48f6383b9ba48e7e2a088855dd0713",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_edu_env/flat_env/stand_drive/flat_env_stand_drive_cfg.py",
+      "sha256": "ada57b8335357b1c050274a278d0317229bac661db321346179262bdbdbeffe7",
+      "git_blob": "101d39fef7e948ba3452b05ddd809d5cab024711",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_env/__init__.py",
+      "sha256": "d3cb185041012a169cb2bda8201c7836c2eada3f34398ab12d1fe79df4ed39a6",
+      "git_blob": "96d93135f945c3c75556ddc3d30e73ddd416db29",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_env/agents/__init__.py",
+      "sha256": "f7321c0fd7b5763b9bf8afacb454ab9a8cd6d4be58c5e450e4a58757fcbc9781",
+      "git_blob": "4c32c3c3ca37381d2563ad0091d728d0624cebf4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_env/agents/co_rl_cfg.py",
+      "sha256": "03d1a7aa0aa81e72501914a7439e0e63e4294da8650839f119cdce50746fac12",
+      "git_blob": "7c63d44dbe69b5920fd8671e7af01e94e85de027",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_env/agents/rl_games_ppo_cfg.yaml",
+      "sha256": "96394f934de4934ad352a8f797b71f09701f80b56605a7d07b47dd58382382d8",
+      "git_blob": "dc1e12982c2d6317afc7ef46f9cf184110a1bb07",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_env/flat_env/__init__.py",
+      "sha256": "818cdae089ae246af1abd68ff5a1f5740319a8c77554655bfa838047af9d84b7",
+      "git_blob": "428fedead34db452a52f1b51c45172007c31cda7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_env/flat_env/back_flip/flat_env_back_flip_cfg.py",
+      "sha256": "dfdcde97f9981a044ed4d2c90d871221114f4f85c399b8522cb7c7a1c5a61c9b",
+      "git_blob": "80e2f85084248a2d127902db5d1da1bbbbc1b857",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_env/flat_env/back_flip/rewards.py",
+      "sha256": "3d43ab05bfe65c702aa7d319587905df1b7113fa91fc7008e297ad02352fda32",
+      "git_blob": "3eefbec53a1a9c2e3fd23bda775edac2d9780e8c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/flamingo_env/flat_env/stand_drive/flat_env_stand_drive_cfg.py",
+      "sha256": "9c4187ccc1e1103c80adbd6a639aca37586523724e95b4db26f94be0021784cb",
+      "git_blob": "9008f2c2df2b4c0258a9f1d4ea5d5ef18fd1acca",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/mdp/__init__.py",
+      "sha256": "20f2d15cebc935b1e368729bef10cee779a931e619ccc479544fd1fcb0ece040",
+      "git_blob": "43832e79a7d187176dae232961c9196e4f56a0ad",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/mdp/backflip_command.py",
+      "sha256": "0829ffc2119289f7383304749ed07da4c5f3eab00ac68fabb8e552bc4f0004d1",
+      "git_blob": "c28efdfbd147d1457592f4d3aa6069043f5f4196",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/mdp/constraints.py",
+      "sha256": "a70cb5276f12c17e56a8642390d19a421d8e38e3bf10e19b87554c6d1d53297a",
+      "git_blob": "3710f4c933dab3d4896e3d5f89be2ef716e05ead",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/mdp/curriculums.py",
+      "sha256": "67ac4b13f9fad8ff8174e6c4b391c4333092643e1573419729b9efe9fbcd6613",
+      "git_blob": "e75dceb0101a445dcc49072e53cef54fd7f11648",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/mdp/events.py",
+      "sha256": "c9e8e8c5b7d25a11c39b2435467744fdf1e4a216602c9b5757db71208155c8c9",
+      "git_blob": "e2cea165642d47d294185d2c121de1fd7ae8eed8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/mdp/observations.py",
+      "sha256": "c8f68cb47353e710648bf31064ad918e3f4006a74051c383cdd3d2637483bcb5",
+      "git_blob": "7ed48959573923791a70726896dfe2308b769c72",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/mdp/position_command.py",
+      "sha256": "7101c884e19cc49ee564e3d08329b28c2b1932ca3965e0fd660b3825945202bb",
+      "git_blob": "c3b2f495d3fe83adbdf6d2317d233fc33af1d6e1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/mdp/rewards.py",
+      "sha256": "4093ddcf0b5cd76a235aec57db5436b6e2ee49131331d9530b96ea07dd381fb2",
+      "git_blob": "cf6f82a09c9a50e7f21f79171a76c85872cf4900",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/mdp/velocity_command.py",
+      "sha256": "97cb662bcaa03784017165f8bab4600bfe896f4a430777a7e570589dd51962ed",
+      "git_blob": "27f4df48c5b6a849cd27950effb1f71413ec5b0b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/sensors/__init__.py",
+      "sha256": "7dba1cdf18a109f9d6dd9bf6a461bb329335c648a55463edadc9fda8a64e21d5",
+      "git_blob": "8f4a2acc027bb56899b1399f1a28a4d5e48c505f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/sensors/lift_mask.py",
+      "sha256": "23f780ed9cc77a5e28409e7a419fac9fb036c61f27ac890218bf6cc7e0da7874",
+      "git_blob": "c7e6e1aa59274f6572c4122e8682bcdb13fa8af6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/sensors/lift_mask_cfg.py",
+      "sha256": "6a6566ec4ca6273414b357208b9bb06d4aa982bb39078290bd4c86024a5488c2",
+      "git_blob": "507b950dacc82cf2b794442c4438c3f3949e741a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/terrain_config/rough_config.py",
+      "sha256": "e3ccf7ff279a5e9f8e92da4b6accc3a408ea64bb06a53aa861c4af71d047e32f",
+      "git_blob": "33fe3553ec316da6b1f9d42d932145a940a9f4db",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/constraint_based/locomotion/velocity/velocity_env_cfg.py",
+      "sha256": "bca224c54ebcd8f0418f5d6f254f7e037bbe49fcbd974d7c616e64225ea7d071",
+      "git_blob": "b7311a1fe9abc01be649557bb17d315b8dd1d543",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/__init__.py",
+      "sha256": "68d6dad5ae825bf236201aab47298206bccac74da95ca09b513389c485afad58",
+      "git_blob": "06580c1568b066fb2bf158f1ffdfe36d76a28689",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/__init__.py",
+      "sha256": "c3ce503a9a7222fde12f3fda0158e654b066ef66e2992f990d0b0558151848b8",
+      "git_blob": "9d07b33c273dec355ea3a55197f12f4dbab6c436",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/__init__.py",
+      "sha256": "da42e14d8d49b1e8a9d33b36e71746141cc27d243e9ee4dcaeb86286513cb453",
+      "git_blob": "19b29dfaec7061c020302981391192f4fb2e591f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/actuators/__init__.py",
+      "sha256": "0b71329f1c43529fb62981776ca79d5d4d0494143c45ffffb0949d88d5662bca",
+      "git_blob": "f335963a01bebd121b97bbe06c1e0c21ba04d6e2",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/actuators/actuator_cfg.py",
+      "sha256": "d5aa0d27af73a42774114f0146ca91462d983b005acd6553fea41608bed7b114",
+      "git_blob": "c20177c8aa5b995a97db02d6b84ed1402df482c6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/actuators/actuator_force_zero.py",
+      "sha256": "2667beccfe31d8258eaba4b4e7b741eff5a1b3b192d0f68d70f7a116f5820dd8",
+      "git_blob": "a81ef7988280b3e43222b5ff164e1318319f5d10",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/actuators/actuator_net.py",
+      "sha256": "3ad81ba5172b7e902b28f1db8e7ea8a50c851ea895c12971e61c341f5d9865ab",
+      "git_blob": "7d5271d22d0f7bfda2c729b26a2f5e2ad75ae296",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/config/__init__.py",
+      "sha256": "608e312a71c6181e7aed51cac5223d0c69522f0ef2bd185ae3f334a03f680b82",
+      "git_blob": "3466df96020f0195d9a04975177f4d15514e471b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/flamingo_env/__init__.py",
+      "sha256": "88655de81774fd08b336fae486784feee2b1ec479e2dd5f7add10fe1aad5a704",
+      "git_blob": "c7de3b2afcb195ef39ba5726df04fd588c340b57",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/flamingo_env/agents/__init__.py",
+      "sha256": "8996ea922d3604b2db20f1b80bd8dea2e0a7173ba491399771a8bb5a5639f22d",
+      "git_blob": "52b6f29f89357c7d7a32eb6c754683c630d33da7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/flamingo_env/agents/co_rl_cfg.py",
+      "sha256": "fed9b4f14444bba3d446b31397abf6bb25a3542b0793802439986ce115026bdc",
+      "git_blob": "178cc6b67b05a82ac58b2138b3c29650237fbcf8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/flamingo_env/flat_env/__init__.py",
+      "sha256": "f8c6e4afa711ada89c9fe6bc591336ec44eb07ecc107278575fb0500442ac5de",
+      "git_blob": "0f5438faa079accb60268b3e625ee7c1da68d878",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/flamingo_env/flat_env/position_env_cfg.py",
+      "sha256": "0b4cd72d39043ebaba85751941d1168602b04167c95d44b962ebaf4d3cde9034",
+      "git_blob": "f90edbc2ee6adcc98807459d5d08eedecba0dc8e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/flamingo_env/flat_env/stand_drive/flat_env_stand_drive_cfg.py",
+      "sha256": "2ef6710663066af8527584bee5c9183eca214f8ad94e3096fbd6736851ae72e2",
+      "git_blob": "0a1b31a984ed586de665726e53a1b3424501cce8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/flamingo_env/rough_env/__init__.py",
+      "sha256": "16589aa3966bb37cbe15157804969cc04dcf725dc08a98294cfcc8133136f673",
+      "git_blob": "053838c9cb6ef425efcfab27be1273774ce04cb9",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/flamingo_env/rough_env/position_rough_env_cfg.py",
+      "sha256": "5e5aee5a846d7205285e87070d153352bf7c775dbc8e4a25ad013d9dbe5ac0a7",
+      "git_blob": "ff41f110758265cec44c95e6e8227f0be3f783a2",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/flamingo_env/rough_env/stair/stair_env_cfg.py",
+      "sha256": "2607185b99123bbc7c6f463b986e0b73fdbcda8279885341dbaa2fd1cd0a4600",
+      "git_blob": "8d3c76201c730280d5e44d14dd7aad5c961199f5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/__init__.py",
+      "sha256": "3f28dcca7c7a1a4b7e250d2853e95d0169ed3eb172e83715948816ea6a100228",
+      "git_blob": "9a480ca96ef6b02fff8baed9845b088911d9c4f2",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/commands/__init__.py",
+      "sha256": "008e42b305ff6290f106df8540ad40b79f3b7a0dcfe9d25f88861259691e7b2c",
+      "git_blob": "58a43e8710ac7fb8d7d84669d5fc33c557bad4ba",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/commands/commands_cfg.py",
+      "sha256": "a73898c6549ec73f4c2a06e2086c3baff6e16c9e3e6dd058b4114e1058336fd4",
+      "git_blob": "bb5f582a0cc5dbeef54086678b127138197ca812",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/commands/pose_2d_command.py",
+      "sha256": "3d1cab9e37dbe1f73ee6d99dbbc5c8948892b450d14760d75a673bba4db5520a",
+      "git_blob": "6c37a1146490a33995cd3ac0258d55c247f51f0a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/curriculums.py",
+      "sha256": "123e30165e4fcaece8c0ac580d4befc4913329b3e986779b835993a5bbc80290",
+      "git_blob": "ee5d8d34f9e6e3cc31713044c7317935ee3a6eb4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/event_command.py",
+      "sha256": "41f18e45b9675b2d97521d018cf2f5ac005ea0ff327c44d243721f248125142c",
+      "git_blob": "e4b016c27e7ea1a905736ac82d91cb8d565c0689",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/events.py",
+      "sha256": "5385afea4505dd070412ee2632b79fc3e933e8b8a5c9ae4a7274a2bef297c649",
+      "git_blob": "ea7f87d76302bd2bb0cab193a27a1dcef982b5c5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/observations.py",
+      "sha256": "48b6c848bfa07a92cc1d14c54ca31f3afe4533d92243b833a5750095f53775c7",
+      "git_blob": "ed06b58cc5abd44c44172d9c6ef54e1469843358",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/position_command.py",
+      "sha256": "7101c884e19cc49ee564e3d08329b28c2b1932ca3965e0fd660b3825945202bb",
+      "git_blob": "c3b2f495d3fe83adbdf6d2317d233fc33af1d6e1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/rewards.py",
+      "sha256": "31d19981dc4440296f3baa925b1f358103ef3501a9b051101d1a691117e0c7bb",
+      "git_blob": "51421c8281598d9dbe6481295142491fbd5e2880",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/terminations.py",
+      "sha256": "5405105ec612ad6a0faa9e0e861230fa3068235c33d371f1169bdb3b8fa45126",
+      "git_blob": "334b65e27a1c6fa553163365906850a951bd0145",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/velocity_command.py",
+      "sha256": "97cb662bcaa03784017165f8bab4600bfe896f4a430777a7e570589dd51962ed",
+      "git_blob": "27f4df48c5b6a849cd27950effb1f71413ec5b0b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/mdp/xyz_posistion_command.py",
+      "sha256": "3d5e5bf7e47fe20dac631378a5fd2f4677b28e847cb36e603c1e19a819974047",
+      "git_blob": "f5d243343bb85ff155a1ad3f040de2bd6c3c3af8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/sensors/__init__.py",
+      "sha256": "7dba1cdf18a109f9d6dd9bf6a461bb329335c648a55463edadc9fda8a64e21d5",
+      "git_blob": "8f4a2acc027bb56899b1399f1a28a4d5e48c505f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/sensors/lift_mask.py",
+      "sha256": "23f780ed9cc77a5e28409e7a419fac9fb036c61f27ac890218bf6cc7e0da7874",
+      "git_blob": "c7e6e1aa59274f6572c4122e8682bcdb13fa8af6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/sensors/lift_mask_cfg.py",
+      "sha256": "6a6566ec4ca6273414b357208b9bb06d4aa982bb39078290bd4c86024a5488c2",
+      "git_blob": "507b950dacc82cf2b794442c4438c3f3949e741a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/terrain_config/rough_config.py",
+      "sha256": "4540bbc124546ac8b0aea9c70b8757994531d441c76b59adf8b5ad0d7b313f3a",
+      "git_blob": "9a2228682d160e148838806cc6d11f28484ea992",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/position/terrain_config/stair_config.py",
+      "sha256": "762544536768c5451b4f955f2774703082bc87291985d2d9f916206b2a2b350b",
+      "git_blob": "c41a00d9fbfd03edd6e75983b78defbe39564f8a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/__init__.py",
+      "sha256": "da42e14d8d49b1e8a9d33b36e71746141cc27d243e9ee4dcaeb86286513cb453",
+      "git_blob": "19b29dfaec7061c020302981391192f4fb2e591f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/actuators/__init__.py",
+      "sha256": "51c12a63027bf5318f794af69888fae7438cc97b84fb1ce36237c4673d010c5d",
+      "git_blob": "fffc5174571a87f3ba2a5aef1c35a3076b42aff8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/actuators/actuator_cfg.py",
+      "sha256": "8161d36aa20b6b3c4cc413c85e721943e0881b5bf18b1ba73b36c972e6783c5b",
+      "git_blob": "44fa6afed3a4904ad1068955b9575b0398911887",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/actuators/actuator_force_zero.py",
+      "sha256": "2667beccfe31d8258eaba4b4e7b741eff5a1b3b192d0f68d70f7a116f5820dd8",
+      "git_blob": "a81ef7988280b3e43222b5ff164e1318319f5d10",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/actuators/actuator_net.py",
+      "sha256": "e4e9ab770db37100c41b136be279baaff74063db48cb4f153da6d995087615d0",
+      "git_blob": "50b63abdebad3691af9abb97ae325d8266a53182",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/actuators/gear_actuator.py",
+      "sha256": "70dd56581d223cad93373c742eb39b56b5d3e31a640849672b06e032dc240f9d",
+      "git_blob": "fc5b1cb610f2bdcbf0e0659828c70b25f611354f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/config/__init__.py",
+      "sha256": "608e312a71c6181e7aed51cac5223d0c69522f0ef2bd185ae3f334a03f680b82",
+      "git_blob": "3466df96020f0195d9a04975177f4d15514e471b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_4w4l_env/__init__.py",
+      "sha256": "341b94f9a50e9d8508c95e646e77ddeb27a0e81e6a1ac3de6657d5e562efcc8d",
+      "git_blob": "53c8689c6a4a4c0c965fd2d70f845e3c43592000",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_4w4l_env/agents/__init__.py",
+      "sha256": "f7321c0fd7b5763b9bf8afacb454ab9a8cd6d4be58c5e450e4a58757fcbc9781",
+      "git_blob": "4c32c3c3ca37381d2563ad0091d728d0624cebf4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_4w4l_env/agents/co_rl_cfg.py",
+      "sha256": "56497fad69053e01d09614b1a8bbaa342b7a2ab47aa5473a24316c306d1ccece",
+      "git_blob": "9e239152a71a17200a217558d5a970b43994f6de",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_4w4l_env/rough_env/__init__.py",
+      "sha256": "a5bcd63a219c8ff4ed8094059dfc1170297897e53f4501833f1ad62f5e89598c",
+      "git_blob": "15af38beed8d1327d75e0bf3fab421baaf50a52a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_4w4l_env/rough_env/stand_drive/rough_env_stand_drive_cfg.py",
+      "sha256": "374299430bd299c8fc9924da0e1c56db1d8ba21346c39d3b36f12845ad803b76",
+      "git_blob": "4dd54fa8ff9d175d82efe2e917a6882540eb0576",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_4w4l_env/rough_env/stand_drive/rough_rewards.py",
+      "sha256": "5d500c4a2e18f2beb2ca534365756791add4ce19ce846edc71215b4ed5f28574",
+      "git_blob": "52002588ef4cf0f3399f80f4680b5a2794002aee",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_4w4l_env/velocity_env_cfg.py",
+      "sha256": "2c94a57532b9af5b734f4e46d130e7a6e7dac92fe0c5b995a304082928bfe9c3",
+      "git_blob": "5de72613de79d49848b2b7652373e0700cfc3884",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_4w4l_env/velocity_env_oracle_cfg.py",
+      "sha256": "5526421d6aef95ed972ac22c8253cb0c2bcdc55352c8f3cee06fb5f31d4ce750",
+      "git_blob": "4b92658a707fa1d581d600cdd6ba4e677395cddf",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/__init__.py",
+      "sha256": "f658542bf6ee8a6f7e358cbdfedc82d398df4a345a49777306aaa5676afc4561",
+      "git_blob": "e69642c9eb609d4f3a302acbfdd60da218350745",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/agents/__init__.py",
+      "sha256": "f7321c0fd7b5763b9bf8afacb454ab9a8cd6d4be58c5e450e4a58757fcbc9781",
+      "git_blob": "4c32c3c3ca37381d2563ad0091d728d0624cebf4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/agents/co_rl_cfg.py",
+      "sha256": "5952bb93c99d6dfcd50dc15c2e4d24fcbc14acd89e05b186236c7da1c50c76c9",
+      "git_blob": "c8454ac57a34beeb80dd66e9700e2b1aeec8e1f5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/__init__.py",
+      "sha256": "2a07365981650f1769cfd434ff3824f45f163a6ac877c6384e8713d9c9b969d0",
+      "git_blob": "704ff43d4b83758da8a1ee644e5754ade1babad8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/stand_drive/flat_env_stand_drive_cfg.py",
+      "sha256": "80be261841dde15e9aa459e3ea16a608f232799f5ccdc11cf3e5c67f1a0db744",
+      "git_blob": "2c4b59e51a774fdc97dd5a7370595e2e6f8e2a93",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py",
+      "sha256": "ac8bffd6925b16035651e7a1c6d0a247679258555e019b122af9897b23563cd4",
+      "git_blob": "13ec00aa7c707ea064638a73227dcd8f098d220a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/jump_rewards.py",
+      "sha256": "ebdab9845f1aed442f41a8ab21af2bb3c5d0258b23aa398547d0e6c7f562e93e",
+      "git_blob": "dc6ba3e5a5c13fe8d23678fe2b72581860943082",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_rp/flat_env_track_rp_cfg.py",
+      "sha256": "1fe68c089f27fdf6fc0565337996c4f02f4983aa077e3c91fa562dce85cf9316",
+      "git_blob": "de7208270f3cec6b534fe8cee300fe8736c7e757",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_yk/flat_env_track_yk_cfg.py",
+      "sha256": "08e3c5c513428a70a1daa2cf34a330335cd813a6053b4bf5e5c0df4db01f483c",
+      "git_blob": "6c5479feceb142ca917e20c83b1db94ff0fffd77",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_yk/yk_rewards.py",
+      "sha256": "a56fc09ce8f8b899803f562933423ea8c9eb094f8e9fe7e051639b0372cd8578",
+      "git_blob": "ff1355dcfa0fbf2ef31f49cd994d4ebf35c24d9e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_z/flat_env_track_z_cfg.py",
+      "sha256": "ccc33d26be17edb76e8f063fbf177bd78eb36f76fef2774b8971b999c5d640b6",
+      "git_blob": "fc4bb54f89ebaaf98743d4df225246382209fafd",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/rough_env/__init__.py",
+      "sha256": "a5bcd63a219c8ff4ed8094059dfc1170297897e53f4501833f1ad62f5e89598c",
+      "git_blob": "15af38beed8d1327d75e0bf3fab421baaf50a52a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/rough_env/stand_drive/drive_rewards.py",
+      "sha256": "9b538676f7c821cdf8644a63705a818711abd4a20609571b300c3ba1d291279a",
+      "git_blob": "d407c01c2a67ca83afe19cfc1efba3849b2c9701",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/rough_env/stand_drive/rough_env_stand_drive_cfg.py",
+      "sha256": "700f56c45d5140c56facf09bd03f7cfda7a3f2ed2a7c3d18aa5545df3fe8854f",
+      "git_blob": "b8879d81ca1a579c2ed5822857f3fd01e82951ae",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/velocity_env_cfg.py",
+      "sha256": "a00133f866455e573360bf6e10dce867351f3b02b65dfabd150c6180dc2bb096",
+      "git_blob": "6c446b857107d3691ec58eec816c26391a469038",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_light_env/__init__.py",
+      "sha256": "440354fbf531926fd4564ba7e75529d00a45f2757955be281b1cf823cdd6f8a3",
+      "git_blob": "9aad7db5edb9668d57e3b4f2a871c3c515889cf4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_light_env/agents/__init__.py",
+      "sha256": "f7321c0fd7b5763b9bf8afacb454ab9a8cd6d4be58c5e450e4a58757fcbc9781",
+      "git_blob": "4c32c3c3ca37381d2563ad0091d728d0624cebf4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_light_env/agents/co_rl_cfg.py",
+      "sha256": "1616117b7afa3ccd03e9a493ad5cfd23ee1b360201eb33480a98a7c4dbdebc1f",
+      "git_blob": "8550773a07fbe7151f45c8122932aed23fe2357b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_light_env/flat_env/__init__.py",
+      "sha256": "b4c5ff988d4554890baf64ee0b0128e4d45902649b62b9b90315e8dacd6ea733",
+      "git_blob": "987f92c24f48f6383b9ba48e7e2a088855dd0713",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_light_env/flat_env/stand_drive/flat_env_stand_drive_cfg.py",
+      "sha256": "dce36ab6d215ee16c2365262666d0d73d1767907d06880582c264d5120f2bccc",
+      "git_blob": "c8ea7293ef60224126851df997a6a4fce670fc2d",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_light_env/velocity_env_cfg.py",
+      "sha256": "b7ca8248cbe993bba70cbd3dffbcfab372271c82a6f617c3e972d2bdb3bdf0c5",
+      "git_blob": "fc79d0f2d4553445bd62a6a09bd5c422fa05b3b0",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/humanoid_env/__init__.py",
+      "sha256": "ef2dcefd4d969153eb040ac4b6c09170ee396d809f3e9529ec5c2d11e137394d",
+      "git_blob": "6fc259e6ec2ccd70ef38da9ea284c1c8abc3bce2",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/humanoid_env/agents/__init__.py",
+      "sha256": "f7321c0fd7b5763b9bf8afacb454ab9a8cd6d4be58c5e450e4a58757fcbc9781",
+      "git_blob": "4c32c3c3ca37381d2563ad0091d728d0624cebf4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/humanoid_env/agents/co_rl_cfg.py",
+      "sha256": "6afe8201e645e868e187d8e9e94b1c367e99c23ee048c7fcc24749fad8a34063",
+      "git_blob": "890025b8011dc84edb48d971ef4af8ed33195987",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/humanoid_env/flat_env/__init__.py",
+      "sha256": "687bf546aa9e0b33805b40b3f9b63aae2f96e37843dcab09718d8ff68112cc16",
+      "git_blob": "e0f4eb33fc72fea0fc4acbac849e18c2bb92d9df",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/humanoid_env/flat_env/stand_walk/flat_env_stand_walk_cfg.py",
+      "sha256": "9b0246109d7b29f9995f09fc168c1e35bf78388e5841762311b154b682ff538b",
+      "git_blob": "3f3a7fa5266975528af951f2bdfcbdb71bf7f5a1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/humanoid_env/rough_env/__init__.py",
+      "sha256": "f5ee13dc9ba18222dd97528a379898060070a61e5597d76151b477248379c08c",
+      "git_blob": "2ae5c5c885edcf284c52d287a66c20b00eb7ae66",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/humanoid_env/rough_env/stand_walk/drive_rewards.py",
+      "sha256": "f734063629f81548b465cc16fad5fe7d7cd1cc7b8841d1def2dd40da81e9c415",
+      "git_blob": "76f777de6a2947659e383e79cc69b84997688077",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/humanoid_env/rough_env/stand_walk/rough_env_stand_walk_cfg.py",
+      "sha256": "5724ecc6f3b0376fe0addfdb648e8728e6b8afc643f8a3f22ce8a880ae825020",
+      "git_blob": "65a2f9c5a57d5fbb95ca1d401826f4868d303904",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/humanoid_env/velocity_env_cfg.py",
+      "sha256": "cec3c6971a02e6ac9924ee66adc5a9d0c8ef6d6b3c0bbad67c9080c6349a1b26",
+      "git_blob": "1e64f41542399024e6970b2cd6b070ac7944d7ee",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/__init__.py",
+      "sha256": "f7fddb9734ee56b6a784637a91a7373e3c9034ca3fbbd595826c33e4a4332955",
+      "git_blob": "a073d0158c9e4f55f721f12da10007ea3b50be65",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/curriculums.py",
+      "sha256": "123e30165e4fcaece8c0ac580d4befc4913329b3e986779b835993a5bbc80290",
+      "git_blob": "ee5d8d34f9e6e3cc31713044c7317935ee3a6eb4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/event_command.py",
+      "sha256": "6f2d4a6379d2dc6f60cf7f06f422808199145dab73d3519759eb9118b7954fe8",
+      "git_blob": "30783eb4a1340f338caa9c3685f305a9370ba035",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/events.py",
+      "sha256": "5385afea4505dd070412ee2632b79fc3e933e8b8a5c9ae4a7274a2bef297c649",
+      "git_blob": "ea7f87d76302bd2bb0cab193a27a1dcef982b5c5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/observations.py",
+      "sha256": "eff6cc7f1d47f53a006500382a00842b0ecf5c585395668916b965bab36f47d8",
+      "git_blob": "f32c7f59e0c8f7e8d605165db298234f8814d13f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/position_command.py",
+      "sha256": "7101c884e19cc49ee564e3d08329b28c2b1932ca3965e0fd660b3825945202bb",
+      "git_blob": "c3b2f495d3fe83adbdf6d2317d233fc33af1d6e1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/rewards.py",
+      "sha256": "c32caacb372ddd22151c2085ba1ca7d1e399e304e71648c561e36fa354082e1f",
+      "git_blob": "d889881f7c22f0ec4f41ac07421ffd487d8cb898",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/terminations.py",
+      "sha256": "2a398b7d4ddf40f6a19ab41add6d8e5281c927a7dee5d56a1d801b5f552a6bcd",
+      "git_blob": "76db39e262daa7604ef0f34c95528fda30a70fbb",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/velocity_command.py",
+      "sha256": "a91d7bbb748d2af5c0f0d2c2ceba041d0d5bc6bdc683d07e8e0344ba15cd99c9",
+      "git_blob": "2da274514adfa7c77a970da226d48d7d7e3d982b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/yk_command.py",
+      "sha256": "3843e0e49904a0e00b615c48b4e75e3391d3f199814e7e5098f0687dfaf2a657",
+      "git_blob": "9209d07b70664924cc855870e69b9f56f5cf54e9",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/sensors/__init__.py",
+      "sha256": "7dba1cdf18a109f9d6dd9bf6a461bb329335c648a55463edadc9fda8a64e21d5",
+      "git_blob": "8f4a2acc027bb56899b1399f1a28a4d5e48c505f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/sensors/lift_mask.py",
+      "sha256": "23f780ed9cc77a5e28409e7a419fac9fb036c61f27ac890218bf6cc7e0da7874",
+      "git_blob": "c7e6e1aa59274f6572c4122e8682bcdb13fa8af6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/sensors/lift_mask_cfg.py",
+      "sha256": "6a6566ec4ca6273414b357208b9bb06d4aa982bb39078290bd4c86024a5488c2",
+      "git_blob": "507b950dacc82cf2b794442c4438c3f3949e741a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/terrain_config/rough_config.py",
+      "sha256": "a30c0709d6e0aa4e6cc2ac60de1718e5212b15e7a8db10d65ce18857d9661d0e",
+      "git_blob": "5d462872bef4e774d3197866208b0da730259f2c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/terrain_config/stair_config.py",
+      "sha256": "bd7049a4886267937e8096ba22ef1995aa2fc8fac013e0048460dbcd30c7be82",
+      "git_blob": "6801ebd392b521272558c18e11c6c30600616b97",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/wolf_env/__init__.py",
+      "sha256": "66b2162aa14f6f8b823e21abeebc09a0f23da5a5488a637283daa24e9e22c681",
+      "git_blob": "38ce52296d84c9d7c3eab84cfe1864b2c0cb0745",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/wolf_env/agents/__init__.py",
+      "sha256": "f7321c0fd7b5763b9bf8afacb454ab9a8cd6d4be58c5e450e4a58757fcbc9781",
+      "git_blob": "4c32c3c3ca37381d2563ad0091d728d0624cebf4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/wolf_env/agents/co_rl_cfg.py",
+      "sha256": "7c16ea6fa77330bad1ca2e49cbe3902ca8f77cefa112107a2e03e6bc05f9975e",
+      "git_blob": "ccbf29284d1b207704642b77667c02cc3d21edf5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/wolf_env/flat_env/__init__.py",
+      "sha256": "b4c5ff988d4554890baf64ee0b0128e4d45902649b62b9b90315e8dacd6ea733",
+      "git_blob": "987f92c24f48f6383b9ba48e7e2a088855dd0713",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/wolf_env/flat_env/stand_drive/flat_env_stand_drive_cfg.py",
+      "sha256": "6c25ea3e8e211ebb2ba6e853fcbe82256ba789ee6af77200724e8bb2c4f85525",
+      "git_blob": "d208e642811dccd111360b66fd0fbe726e75b51e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/wolf_env/rough_env/__init__.py",
+      "sha256": "a5bcd63a219c8ff4ed8094059dfc1170297897e53f4501833f1ad62f5e89598c",
+      "git_blob": "15af38beed8d1327d75e0bf3fab421baaf50a52a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/wolf_env/rough_env/stand_drive/drive_rewards.py",
+      "sha256": "1e38ed08f5d6f675eb15237d15e855b3512453787ea563a42632624af481578f",
+      "git_blob": "eb8d99677e673baca7410bc63a669b6355eeb388",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/wolf_env/rough_env/stand_drive/rough_env_stand_drive_cfg.py",
+      "sha256": "67ed0d868c9a208de3646ac81755128c823d8ce02c4235c6781543b1c5f0ab0d",
+      "git_blob": "d2bd21acd9064b82a90f01df9d536830c6c29e4d",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/locomotion/velocity/wolf_env/velocity_env_cfg.py",
+      "sha256": "7818abea81177558129f3901e453741c805102eb4476a6bce455a42fb73dea72",
+      "git_blob": "e95251106f412b60f09ea85370330b6dcb29d31c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/.vscode/settings.json",
+      "sha256": "c74dd1197d9ef2b301d48d4469af31ab7d625c903c92ab35292501ef916f781d",
+      "git_blob": "a8c200329368ddfdbe180fdbc2deda24ed7a9ce4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/__init__.py",
+      "sha256": "d071aab7a21c0d186b895efc2a3dc3c81c1060bb2de2ca07a6ca4b422e58676c",
+      "git_blob": "12965b638fc5f49e823a4d4d0401762733b01921",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/__init__.py",
+      "sha256": "3c58852d85a35be1ad4947055785ebd11ef217a2ba125bcd4bc93d405e368db1",
+      "git_blob": "fd33aacd3a5b61eb87b8c300bdd3140a6bbd71cd",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/A1/__init__.py",
+      "sha256": "1ccf9c500aefc369848686357d8e64e1ef8a889abe5b55e0bdb1f3d0fb105486",
+      "git_blob": "9952a2ab3cc8efcdee2a4e8923704e1f7bd22f92",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/A1/agents/__init__.py",
+      "sha256": "7c04bb1dfa20bae29e36a50c08d7aa632aecdf48e0e63359426d0dac9732f35b",
+      "git_blob": "56e2b4fc5986cda779fb44d0e8d0f4bc1c07a536",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/A1/agents/co_rl_cfg.py",
+      "sha256": "5c9dedeb7a8d7de3ced8182eacc9bd89e6888d23e9b0a129b4ffbb95d023554b",
+      "git_blob": "e464e874c03e721f07117369afb518c8573a987b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/A1/agents/robomimic/bc.json",
+      "sha256": "d26d771f949c8721c0b91fb1e791e8e5ea6441e3dee6bab87f001807d9f4bf67",
+      "git_blob": "e96f7f7e194ab6a4b6766f6341bb7e4a0205d16f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/A1/agents/robomimic/bcq.json",
+      "sha256": "acf6be2624594587eb0a385b4f11d507f064876ec6960ce4a9a3ab8115347f0e",
+      "git_blob": "1d80b50d2873ac5465d5fda3b2ad05cf16fa0bf7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/A1/agents/rsl_rl_ppo_cfg.py",
+      "sha256": "3d4d05935cc68285cf865a27e8ab092b15389202b5cdd61a19ab2f91cdb31127",
+      "git_blob": "e3fb13e1d1f792402de4ca00f8a3bbf0e7ae5076",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/A1/ik_abs_env_cfg.py",
+      "sha256": "e43a6ab786445925a39b55b5b6274df0efaa348b600629aecbbb9377094b44da",
+      "git_blob": "0313ca8601391f8e67f4d833390943782aeb542f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/A1/ik_rel_env_cfg.py",
+      "sha256": "6302e71c663212d94df0ca81973113dbc181db222a3b29b651fb0ab144b75c55",
+      "git_blob": "0eff0eae3be390eb284c53d1cef236f09cdea473",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/A1/joint_pos_env_cfg.py",
+      "sha256": "6db717153d4a302a35360d1cec34d4f32468eb86503f2ff9f8a611c7ab683869",
+      "git_blob": "7c0042f50c7cf9cb4b35070b02c2a9fda1c83b83",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/config/__init__.py",
+      "sha256": "3c58852d85a35be1ad4947055785ebd11ef217a2ba125bcd4bc93d405e368db1",
+      "git_blob": "fd33aacd3a5b61eb87b8c300bdd3140a6bbd71cd",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/lift_env_cfg.py",
+      "sha256": "c0456b94908c6eeda170b2e04921d89f526b9b27ef52edceba83878d7839340a",
+      "git_blob": "8f4c29752c3e04a46a6b4f47c83119ff85122877",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/mdp/__init__.py",
+      "sha256": "21003408e76a458d8b43473cd3f7c6c542b71ee4dec3a392f5c3617f661ae048",
+      "git_blob": "97290d8b52e89be0a9429f6f8cbf983cb0a8efcf",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/mdp/events.py",
+      "sha256": "768e4330c54608c26f8790bb977dfd94445bd0bf7ac23b58565491ce4495dc11",
+      "git_blob": "012416e0d787108292849041eb40979ae9c033c8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/mdp/observations.py",
+      "sha256": "77d6a1deddef5c69f8997463c520413e23408ea18a47957bd1869df71024d130",
+      "git_blob": "8ccb1a5ed916f5763a9c602efd00516aca621686",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/mdp/reverse_commands.py",
+      "sha256": "4191e666fdaab312e0831bda8749d325398cfbc3827f228c8ef4ec986ccbb53a",
+      "git_blob": "a5c8235de807a66dcc597e4c47a422f6e6b94d59",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/mdp/rewards.py",
+      "sha256": "40b04ac57e9001fd6caf3122e0c4f8c2c0edacede1abb6fc4da8cf2365545708",
+      "git_blob": "42970c1b702b15c97ad153c02b7ea95503a5b49e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/lift/mdp/terminations.py",
+      "sha256": "d448c9aa6863b90c04b42233173c73a3b9dc9df600004f88b8cb04a34a35bf7b",
+      "git_blob": "841cf9f43346b794227a12ce79aa17c7aef90684",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/cbf/eval.py",
+      "sha256": "5ce8cd8239bdb9d56b0953355a3cefe202d29eb2076059ac59b521a0715a5b1c",
+      "git_blob": "31d107562108b2174d06e1c231d7acaa385ab7e2",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/cbf/network/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/cbf/network/model.py",
+      "sha256": "44ee3c897a8547cb3d3d7dd341259f4d378777d1767c0d84c17c3991a1a8874f",
+      "git_blob": "59f4670ff4f7bd0fe7b9ca88903bf1d8f61c2f64",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/cbf/network/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/cbf/network/utils/dataset_loader.py",
+      "sha256": "c2500524565b7ae77e28b241c372e3153a99bccb7e9eb98cf3a3e5a8aa8c2e8e",
+      "git_blob": "597dd911da97f99da52a69dfc872f808e0971848",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/cbf/network/utils/zarr_utils.py",
+      "sha256": "bfa645199fc39efa28c84cd3152b3bbadf7e63b13405c13c60d77336edec550b",
+      "git_blob": "7e196b4e69a305287f713929fd97059f99ec2e0b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/cbf/train.py",
+      "sha256": "012b41a26bf8dbd12b6db772531135aaf5107086a947a6bbf32b0a9ca0c0e1e1",
+      "git_blob": "88c73715e41f1512cf3bb050c07ec2ba9fa2c0b7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/dataset/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/dataset/base_dataset.py",
+      "sha256": "bbcbd132cfe60e1b47ac8586733ac35752e7c2e2d6777d0a12e0cb17dd3d8e00",
+      "git_blob": "ffce5924afa0dce30f7fdd2057a8295446bccf63",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/dataset/sequencedata_storage.py",
+      "sha256": "48c1842882a3a968bd49d3edf7d73cac354d7e980bcbc78710b39508ffac5d38",
+      "git_blob": "d82aac45975ea523e7fc2283f0f2fda7ca5ecee5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/dataset/split_dataset.py",
+      "sha256": "f5401f36b4f41fefbe8951fbd4f564e5a723c559c59723607821b68105b6e4e9",
+      "git_blob": "3c55705a2c65dc58003d9a7735da1171390810da",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/dataset/trajectory_dataset.py",
+      "sha256": "988c4012c6856e15d3c6ee3048e465e3a5e186559bcacb4a50fd8ef2ac029ecc",
+      "git_blob": "022b9053c55a026bd9b9907443afa8d6422fff2a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/dataset/utils.py",
+      "sha256": "9192d530187e883f2566ef8582866219e7be47711d3bd77543fc4db0ea1f42a8",
+      "git_blob": "021bd37976681a30e246fc2d5e924ad817f0b43d",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/lift_cube_sm_opt.py",
+      "sha256": "67a47297713647f06eafc49d9663b097a3689c46104648e41ec3e70efdb56597",
+      "git_blob": "c48c934a0f2cc42c0201aa1f02f19349aabe8c65",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/tutorial/lift_cube_sm.py",
+      "sha256": "b3649cef5578f1144b2606b2e6fa4c17906a4fa68c3a8b4d8e3cba87a278a88e",
+      "git_blob": "583b2ba91607146e99076ee2e66e3c56ddf09106",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/tutorial/run_diff_ik_abs.py",
+      "sha256": "04f7dc205e242ba88fdc9a49fbdce9941615be0951c63b87390e7d22924d97e9",
+      "git_blob": "6c23ee43a3dfe1f2c3d7b79e179eba45e0cd0f20",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/tutorial/run_diff_ik_rel.py",
+      "sha256": "a008944eb3ddbb28022751f538b9a241000c24f8fef87f8a5c7a0f5f6817131b",
+      "git_blob": "24791413ef9807b5c571beade39c1c0bfa679c60",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/tutorial/run_osc.py",
+      "sha256": "75db772e60ecd8ccfc1f22989a2d7e1b7611f250d3eccea63f983420c6ff1fdb",
+      "git_blob": "56b3a8921f5391a6126603f0e55091d21da756d5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/utils/cli_args.py",
+      "sha256": "f6d964b186012a9f4c04245dbd79ca3450bd041f0859035b66054697a82e0971",
+      "git_blob": "96f87c1dcea4ebebbae28e4ed8b18f5fe5397ff7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "lab/flamingo/tasks/manager_based/manipulation/test/utils/utils.py",
+      "sha256": "88080f2efa7b2fa2d7d375de8c976b762b13fc8cbae78689d33e0808fb2f47c1",
+      "git_blob": "769b7276db9b3f759e3b2b5192ed857e39bc1018",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "be4fc164ae7aee815ba37933907992710a6293e211e259c5866ca04b66a612a4",
+      "git_blob": "17397afb6ac920171fd02026ee2e4baa68f0e2b0",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/cli_args.py",
+      "sha256": "f6d964b186012a9f4c04245dbd79ca3450bd041f0859035b66054697a82e0971",
+      "git_blob": "96f87c1dcea4ebebbae28e4ed8b18f5fe5397ff7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/__init__.py",
+      "sha256": "ce3071d98689821da23fb8893a12247a946f8d108778fc8faba92b89bca7dc3b",
+      "git_blob": "8b1a0720fc91d2245e744b5afd17cbccd6269b40",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/algorithms/__init__.py",
+      "sha256": "f6a2fecca59cc71a2de06f616916121836e0bd57fe5caa0df8114294d09cbf27",
+      "git_blob": "4af44768a025725f5b885124c1300390bdc68170",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/algorithms/networks/sac_network.py",
+      "sha256": "af323d85a876c8dab527f95326d2e66176d41f38ad8e47de5e108ae3d98cae80",
+      "git_blob": "92477f952ef6fd1164b34c931fadd3e95a40300b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/algorithms/networks/taco_network.py",
+      "sha256": "625b73878fb1f16162547ad90bb140d53521b1e07188e5e2ce1c779d625bb037",
+      "git_blob": "b490bd68f91e3094d0debbf32a38d28177d57447",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/algorithms/networks/tqc_network.py",
+      "sha256": "610587fc355d873a0df7bff2d310b015348e8a3e3bd72a04036c871251fb1197",
+      "git_blob": "c235ef96970c797923bd7fc717c7248da22eb8d3",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/algorithms/ppo.py",
+      "sha256": "8fb37af122a19540f3582be832e795514b7fec49ce81ac98524326a9c3c34e5e",
+      "git_blob": "e648982cb361fc67f1df987e373b70f3c93c2323",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/algorithms/sac.py",
+      "sha256": "9ab07457d11d5ce5ef5f3cd7f6b98c6cc67f520716cd9aca4924ae57db436a9a",
+      "git_blob": "eaf9ea8bd9c708282c53ad0c395958f1275faf17",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/algorithms/srmppo.py",
+      "sha256": "61d25218ddb46b1b1dda40ab8382164c7860efe25596f0c417fe69f2c4e64c37",
+      "git_blob": "ae8a92253d6236f7a56560bd78bfbbcf74c030d8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/algorithms/taco.py",
+      "sha256": "03b699f44cac2a8001fa54bdefa24d29cf11268c914c20142f8c594de25b84dd",
+      "git_blob": "723a395cab35b14fd130bd783272e6bfdf0d6b03",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/algorithms/tqc.py",
+      "sha256": "2d8ceef27e23661928c8b80801cc2d3d41ebe230878f7e11cc3a4caa93f1a429",
+      "git_blob": "1520dc9fcef771896fb7af34baf6e6539cbfa027",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/env/__init__.py",
+      "sha256": "d60a8ad8c47bc097efbf7dc82cc9edcd6fa06acfdea836dee934663e44287170",
+      "git_blob": "54c6491507a9aa9251401f37ffe3aef1580909dc",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/env/vec_env.py",
+      "sha256": "1fd86b7b4fbd4d5262c8bb431a94a3efe339f93ca578c4bca134682123d9e087",
+      "git_blob": "a7af015a19866cdbd82ebded6dcade92dc216ea7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/modules/__init__.py",
+      "sha256": "cac3cf803b8dac0728100489d701740b0d923c2667095343bc23235a0596cd42",
+      "git_blob": "37968dba07aa701b6f0bc4c68b4b1cb8f2c431ed",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/modules/actor_critic.py",
+      "sha256": "2f021ebdc0ec449dd86865ac02d00092f7cb6b24fd71e96871828f7a6ed994ac",
+      "git_blob": "cdb77e1bbfc9f2e6a633a7822e2baa18ec6bccc1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/modules/actor_critic_recurrent.py",
+      "sha256": "8aa652e015656571b5a03ec5658a31d2f631040d5294c4272ac1afab41231bbf",
+      "git_blob": "983b38fb6945c9a5707b4ead7d7de40caacb472b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/modules/normalizer.py",
+      "sha256": "bd4dd1cb61278c7b26eb7868b5dbf108ecdd3283c5cdf53d19b74712eb236a41",
+      "git_blob": "771efcfba51baeb5d441443a6ccf150b18ba76d7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/modules/replay_memory.py",
+      "sha256": "f487c1c7f7b11529c341da615e23ad43eec157966932d0fe2791ed0c47e8fad4",
+      "git_blob": "ca633e75f8a1622312622b253bdc1b0b76a9e509",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/runners/__init__.py",
+      "sha256": "25da4b0a371e8847a770775300e58076fa5ebb7cabf2d587b2c96ed20fdec6cc",
+      "git_blob": "9afc9f6456809d48ffa66f52e2f6b828ee3f7ead",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/runners/off_policy_runner.py",
+      "sha256": "1f91370b0b9f8a9f59a4302833d5cd60aec59ade99a25721ae9d24663b9a7b52",
+      "git_blob": "9081081e9145c9635525dd41c51b63169c9aea4b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/runners/on_policy_runner.py",
+      "sha256": "3ba2f8eb00c7ec69008b1b25fa5ee673b7e420d29489bd849f50e6661f04d6bf",
+      "git_blob": "6f33a6876511f6986cf82ba7b54f3f9afee073e4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/runners/srm_on_policy_runner.py",
+      "sha256": "ad8f78f557b28251294d66a8d9b6273cf3022d215c345ff839963063cee1df11",
+      "git_blob": "e69653b858a4b2f3de99f5e4786fded4a3d2579e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/storage/__init__.py",
+      "sha256": "7ec37f4cbb84fecfc9676c99a8a6025040776a9cd5169bcb4a294dda0d091fa5",
+      "git_blob": "aad61164126437a522aab1701d5780f756237edc",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/storage/rollout_storage.py",
+      "sha256": "69b6f9a787d004909c878a8e05245eaf2b1da1964528f5989bfba0154b93d9ee",
+      "git_blob": "bf31c10c540c671c87f17d9f748a2a4f4125ebb7",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/storage/srm_rollout_storage.py",
+      "sha256": "1a94ca4c13389da3fff98d5d5f6d81ca2cd0a5bd4a382297c56d0dfa9c00703d",
+      "git_blob": "d710f462b8997f24cd883ac4e4cbe1ae68d800bc",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/utils/__init__.py",
+      "sha256": "24c70e9255fe80eab92708e46f5b4abbd5fb5037be5636151791b81301d37184",
+      "git_blob": "4e8491d4e9f05cf898403be4dbcdaad91da199f3",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/utils/analyzer.py",
+      "sha256": "52417ec98287764660c69ad64dad62948bffe3528bf1afb86263f42fd35e5e4d",
+      "git_blob": "38f00d57e51e2ba9fb62a1fe59f37edde68a215f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/utils/neptune_utils.py",
+      "sha256": "e47f782dbe3a5e3f3579d7d657cbc3fe51cbacd692f0427576e085aeb8ee481d",
+      "git_blob": "f06cc625b8cfccec504f72083537acd69eeef9e1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/utils/state_handler.py",
+      "sha256": "19f88a00eda5448adde7f7abb76974bc7cf7f4fa7fbbe686c420edb435888687",
+      "git_blob": "263c338d715b49cc0125c4998dcd61a9a0820979",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/utils/str2bool.py",
+      "sha256": "290067cd0e3364544d2162b9fbf1243f2796731867672fe655fab5991f8e36cd",
+      "git_blob": "bdcd71b90d4bcaaf0120d327a48155cbb98d68e5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/utils/utils.py",
+      "sha256": "e92ec98156057c7e773a50fe72e32cc3025c981a6629fd64f286330cc6380191",
+      "git_blob": "922277876e887a137ca79bbdf8553bdcdcc11cc1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/utils/wandb_utils.py",
+      "sha256": "e3b11b094f08c5916fdf343d1a8ee935b4d608cdc5955419eb3c2de736984461",
+      "git_blob": "2868ce912a9f1f8c04df66f1569fd8377cf990c4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/wrapper/__init__.py",
+      "sha256": "c765eacd1bb9cbb78a90507e33635b4cada7fe647e297b3038c2104f83b18e67",
+      "git_blob": "5e79b682c2629b69a6370a9076cf2ed4fab40dc1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/wrapper/exporter.py",
+      "sha256": "15b244ce74e94c3c0b6a18a95791eda87018c5d2e1932a8aaf944fb8536c059f",
+      "git_blob": "2681f1cdcacb67cbb9925fb0b4e2d4b65e87db5b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/wrapper/rl_cfg.py",
+      "sha256": "348d1e67d632b301dd6c2fa151566d87480ce907542bac665713673abe57da9f",
+      "git_blob": "4178cb6d75f1142c95bcca568562fc25085c89f4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/core/wrapper/vecenv_wrapper.py",
+      "sha256": "801b79a7751bb4aa2bcf29134e9bfe750502813b42d007334cdc1316b66e91db",
+      "git_blob": "bf072229c31ed1b776f690e1cea04d4ebcbfc0dc",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/play.py",
+      "sha256": "93a378abd274e609f95be78432c1c39ae62dff15a07a7abfedb25748d67dfc34",
+      "git_blob": "79b0a8c8de75db521d6d3d500370868440f642f0",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/play_dep.py",
+      "sha256": "3f56d481a2d977475fd808648c89fec5054325856a583e8ac76861fe351c8ef0",
+      "git_blob": "1f6091a2291b81c38fd89fe3ce2b1dce7fc6a6cb",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/co_rl/train.py",
+      "sha256": "13b55d6d2e6019cd7eda9feff586e5afe9e72e888e51cb595af1cb938df83095",
+      "git_blob": "9eb582f21bc256c0088720e74532a55496d92f1f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "setup.py",
+      "sha256": "8cb9dda4a4e1d67d1a8a3c3decbcc202ae3ac1cfbff9fe6d047dc01935b4f812",
+      "git_blob": "8925bcd8a6e2083f51da9ce2480878c92873e0d3",
+      "kind": "git_blob"
+    }
+  ],
+  "omissions": [
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_4w4l_rev_01_0_0/flamingo_4w4l_rev_01_0_0.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_4w4l_rev_02_0_4/assets.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_edu_v1/flamingo_edu_v1.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_light_v01_2_1/flamingo_light_v01_2_1.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_light_v01_2_2/flamingo_light_v01_2_2.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_light_v1_1/flamingo_light_v1.1.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev01_4_3/flamingo_rev_01_4_3_merge_joints.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev01_5_1/flamingo_rev01_5_1_merge_joints.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev01_5_2/flamingo_rev01_5_2_merge_joints.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev03_1_1/flamingo_rev03_1_1.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev03_2_0/assets.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/humanoid_rev_2_0_0/humanoid_rev_2_0_0.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/humanoid_rev_2_1_0/humanoid_rev_2_1_0.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo/humanoid_rev_2_1_0/urdf.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets.zip",
+    "lab/flamingo/assets/data/Robots/Flamingo_Arm/A1_rev_3_3_0/assets/6AXIS_V2_B_RE0_CO_v13/export.log",
+    "lab/flamingo/assets/data/Robots/Flamingo_Arm/KOCH_rev_1_0_0/asset.zip",
+    "lab/flamingo/assets/data/Robots/Wolf/wolf_rev_01_0_0/asset.zip"
+  ],
+  "nonruntime_differences": []
+}

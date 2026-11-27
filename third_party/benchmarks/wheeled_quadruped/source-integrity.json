@@ -1,0 +1,697 @@
+{
+  "repository": "https://github.com/MickyasTA/wheeled_quadruped_robot.git",
+  "commit": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+  "verification": "Compared against pinned upstream Git blobs and LFS hashes",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "3c553ea43665f4de212cc0c43ba6cf2966033b58b7dc14bba4eadfbd8b371627",
+      "git_blob": "7372591ff1667e3499ecf2f5338d15f960598e32",
+      "kind": "git_blob"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "0462c86dab12934c32199319182139491455bd28d0b75273b43389d2485c23f3",
+      "git_blob": "2a584b63d019e9fdab079fe038cff1366e3c999c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "CITATION.cff",
+      "sha256": "6252685b42b205be1af2e725426693b423a0f1c040e1d0fe0e9b3726edca6317",
+      "git_blob": "d0444a635fc58444dd5e203f1c149fceb5e658d8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "65b0fd2521e0d12227d8e44906153d16817478b8c04a3920e46086faf1c07d55",
+      "git_blob": "5962fb1601d7395f78823fcba561e228621ee9e6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "README.md",
+      "sha256": "895800804cba5d3b15b8316b8f79f793f06fc0293e36065fa11151fa8e81d941",
+      "git_blob": "05c7630155c8c49352bfd18b2d4cf4727f59bf17",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/SETUP_WINDOWS.md",
+      "sha256": "4c1fb96c8ea4c95c7ee2829d9d860a606f2690072af7b8f653b9d6010d68ce66",
+      "git_blob": "5d6f847aea463b593b115619a587b4004ed3eee8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/TRAINING.md",
+      "sha256": "35c9a88a3706fe1d042145f3a330560986916719753afe7385cf8bd4e571a667",
+      "git_blob": "658fa7453452c5ed9620ed85e731f0551465dbde",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/01-Overview.md",
+      "sha256": "acf4571d4fca065a82fa5ceead34a6f5ee89db1ac9bff16bf81f1cb0fcf34ad3",
+      "git_blob": "f61a350badb51e11d8c03e2c7bde3c0fdc8bdb89",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/02-The-Robot.md",
+      "sha256": "b2137257b79d73ac0aca76b57da38198c084027d5f37d0b069fb083af3b770aa",
+      "git_blob": "cb37dea2e8b32916a55f9d073d9a1bc813fbb516",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/03-RL-and-MDP-Foundations.md",
+      "sha256": "620cbbd895488cef845ba18ee236098d2d7c761ea9e87436585bbe869aede3a2",
+      "git_blob": "2cea14b2a756a7fa3332494507d387225232e459",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/04-Isaac-Lab-Architecture.md",
+      "sha256": "27a60d4d63571cb9c71a254ee9a018cfec9926c92f5aac6e8126b5c92362a985",
+      "git_blob": "ce03fcf395257767b2d3a7a758c94a17eeb6992e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/05-Balance-Task.md",
+      "sha256": "628146e8aedf6676723381ef40f93bf1c1f0b31fde0fe1e4b87f41b1e18073ce",
+      "git_blob": "434f1b35cb76ea5ba4f8e094f10abd1c0f6d8e55",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/06-Velocity-Task.md",
+      "sha256": "f2d39caaf434eb2989c5de7f54f41a2610ce5ec5b2c02f5b7c89cc1f295a3fd8",
+      "git_blob": "906b65a8e6d1f88c0900fb4f2f0c7d04413fc0d9",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/07-PPO-Algorithm.md",
+      "sha256": "4750f179123d1c1d440118a49f18bad63d94fcff8be7fc1491105c7e008c8590",
+      "git_blob": "dfb131979265eb72356034d262e65d96bed6eb48",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/08-Asymmetric-Actor-Critic-and-Sim2Real.md",
+      "sha256": "12cbd95fabbdbac4afb820883d053b1bcb1bf65a1002494fdff65d6561b7887c",
+      "git_blob": "17d4aaa602cf28d12f7100671517431778dda9fd",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/09-Code-Architecture.md",
+      "sha256": "5420b9c7c7b25b5939dd84f2826425114cbf03716b22ee3c95b7fd4081662285",
+      "git_blob": "a4554ce4d4007abf34073da6f2d5a3172ee7e420",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/10-Training-and-Reproducing.md",
+      "sha256": "c946426213a1a84ec8dde6e70025072e5522f88ec8dae9e870e53c231bdb5cef",
+      "git_blob": "ccf7ae71d8bb297190e3b07661b98ddfbc8d54b8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/11-Sim-to-Sim-Validation.md",
+      "sha256": "d8df2e5c688f458d5ce2b8138263a4788aa059653a53f72592ebb3a3bfa272f5",
+      "git_blob": "14835f3ada66c43823b170769aaa848bda0b0f51",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/Home.md",
+      "sha256": "64357eee32e984df357256f5d21fdfa837b8f975a81bcd29e98f703af977e47f",
+      "git_blob": "e8957f422d2d229a0e8eec932507bc23461ea56f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "docs/wiki/README.md",
+      "sha256": "140fb45d53c14adff1a7b76d99f873557d1cbaa0aa3758e2ae7e1fca07aa0a44",
+      "git_blob": "785848e197619335a1cc7a6fb7f738771ac02991",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/README.md",
+      "sha256": "37e4b4b77b91429921342e572d5ebceb0a0cdadf2a4eb8b868da976aead37b07",
+      "git_blob": "2854b9583565fb338cc44fa7493329374dfa2e92",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/balance/model_1399.pt",
+      "sha256": "71a2f9f418c1cdec650b56bbdbfd59b889be573add159b29f886660392c1047e",
+      "git_blob": "e8520044591dd94e3445fe27ac0a13554462de58",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/balance/policy.onnx",
+      "sha256": "55a472877cc51c4b04f8e624616d7a69d3c9e1f3304eb6733e00f005de980d65",
+      "git_blob": "4f7da179a96d5ac94baa4b01e49c8fd62d72538b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/balance/policy_torchscript.pt",
+      "sha256": "c119aabd1e1e773d738bdb8e543c2cfdea1391925bb2180c914de1dedc424fca",
+      "git_blob": "db8447365650ce9c9039b590f1af07e70bb5909e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/balance_rough/model_1499.pt",
+      "sha256": "9f47e76d722f07684e99f52e44ad08557c48893aba16cbbdee21f5fac9533070",
+      "git_blob": "ec1ffbab9c8d3cc68480d8bc9968b3869e0f94ae",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/balance_rough/policy.onnx",
+      "sha256": "0b77f2b99881d7e84a0ff6355ca97180df5a8e259adc2c683f0bd9cdc1bc371e",
+      "git_blob": "1274613fc68675148881285b26203956f5cc6b46",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/balance_rough/policy_torchscript.pt",
+      "sha256": "9bb6e0e6372df70e50f9e3d1f17d55c842975b03d3ebee23f00ee23bd2ed6c68",
+      "git_blob": "b340452d9d94b26a1f1302ca327b6f2ac4331c69",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/velocity/model_2999.pt",
+      "sha256": "61ec774d4293ce9e5d558ec6f92a10f530b9b7493f2a11630e5b42645791dae9",
+      "git_blob": "63c41c4ef27670c66a257583e332c60713b1073e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/velocity/policy.onnx",
+      "sha256": "d13d78cadc6d9100bffc931777866ad6531494bfb61a7a10be5a2d321910fbaa",
+      "git_blob": "75167e99be93aee19f26e38f2629cd2fe3069668",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/velocity/policy_torchscript.pt",
+      "sha256": "b751e4bd7bc2f0f24f3e3ab1c9d6583a03f56a29e102eff34c0c219f7547381c",
+      "git_blob": "012bf7a1e63b32cb97c3b2ba2549cae5f7bdacd1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/velocity_rough/model_2999.pt",
+      "sha256": "dab5b993e642b791dacaf31e5396fe2d4b0adac7579f521b4eb0714e640229ad",
+      "git_blob": "f0b93eaa0f28e4f483bb9dd96c5e1fc8f566c4cf",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/velocity_rough/policy.onnx",
+      "sha256": "e07d533edccc4b00347c76bde75216fd69b2fe93678c9a6a11ec9f1719db961f",
+      "git_blob": "31eefb875f4dd7c1370270ca7acedd6597e767b8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "pretrained/velocity_rough/policy_torchscript.pt",
+      "sha256": "ec80a48deb0b67b6315f79f4a62296d00c6b046de8594e95cfe6d9406b0debdb",
+      "git_blob": "a87e8441bd54110b29b6cb1d81016cf47e951527",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/eval_tracking.py",
+      "sha256": "3eee86b95e2393927296fa6b190ed80c53359acdb27b021e4331b35477ca7885",
+      "git_blob": "5fa26289bc6fdb4997a3a54304a94e61c8ae9b2a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/list_envs.py",
+      "sha256": "89baafd949f908c09562e19c7cfa8f232bfda90bbfc3fff971220a5becb61bf3",
+      "git_blob": "724be8b1ba95d068be92f7658a3e27f60e8c3584",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/rsl_rl/cli_args.py",
+      "sha256": "46af5aa68ddbd4375fdf3a11bcb63127cdcc80d3f035e86fd4cddef735cb8f6a",
+      "git_blob": "51cf868b5cd51953d4514458f8e7e9c70cfbf72a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/rsl_rl/play.py",
+      "sha256": "d9d41716eb1a77df499abf7ea3853083c648f8e0ffc1190e1ce81935b067acc8",
+      "git_blob": "d8869762fe73fd6d38b8e66329f4f6d053fd26d4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/rsl_rl/train.py",
+      "sha256": "8c9a556a2d80d9ab35e107d5b158150897cd75d4c09948f4693628454defca8a",
+      "git_blob": "dcd27174ea85c453a386baa606bb57812c2b9dd4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "scripts/verify_env.py",
+      "sha256": "1e8d5c8b179c9e5123bae05379edc33d6778227e1bbf3b9ca795a5d5448d4a50",
+      "git_blob": "d4cd37742df3783a7a00f1e76f0df894a8a6325b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/README.md",
+      "sha256": "249537832232b2bc82874c771ef2d254200ae4b345584abed995aa2cd446345c",
+      "git_blob": "899f137ea581713cd301d73d5e272e06cf19998d",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/export_policies.py",
+      "sha256": "e7f5174fe2bd2e3a1fd3e438dfe9fcd857699d42d3dd4038c1e322f1f492282d",
+      "git_blob": "7499321d53c1685c35554b94112335f3d1a07c85",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/make_model.py",
+      "sha256": "109cff11abb58e642a98fb2e59b4ad412e447ec31dd3d77aa891021ae0035e83",
+      "git_blob": "779979ad65325f6e17036fbb3adbb4a88a6a1490",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/meshes/body.stl",
+      "sha256": "58be957669d4d1aafed76c33a1dd4a49a31f84e4ce6293cea24275f0754dcadc",
+      "git_blob": "edb23f57fc03237120d2827b5c81827f344ce7ba",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/meshes/left_thigh.stl",
+      "sha256": "f12e83f50100058a752ef876bd1a13d7f0da9cf8b95a4f6731d6f721e5995241",
+      "git_blob": "acd968ee1faafe117191fae5c9ec0bf37d118dad",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/meshes/leg_joint.stl",
+      "sha256": "9faf9ba34c38bc8af46de20408f7fc21b625c377e76c8ecffa298627fd0f13f4",
+      "git_blob": "11fcbeb46f51382f1c763f9f61747bdcbc79716f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/meshes/right_thigh.stl",
+      "sha256": "67a60479d4653e4eea69e1a5385710e1ca1e364beb999c26bb481d25a8baaad5",
+      "git_blob": "6f3bcbc619b5ff34a86ef9b71bd9b77dcdc66c01",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/meshes/shin.stl",
+      "sha256": "c580a44f66ba303cb71b598158928dcbc75d0f8c5cb1108a05063a0a05465f94",
+      "git_blob": "906e2e04a5ec06785f735ca1d04383815403165a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/meshes/wheel.stl",
+      "sha256": "886e00ec08d061ad15f640cfdae8c1b313b0bf11e406fad5dfa36d00e2ece2b8",
+      "git_blob": "c7cec95887e4adec362aeb8d7dbd0629081af2e3",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/policies/balance.npz",
+      "sha256": "2693e8334374a8231bfe771599661c92611e82d5d1273a0a427014a0b63cb913",
+      "git_blob": "60c89438712dcdaa5dd693de318b370abb214d88",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/policies/balance_rough.npz",
+      "sha256": "06b31957f94c8353a8dbf9622d0078825d06c2e633b85553088760fafe6b47ab",
+      "git_blob": "e191ece5e6b48123850f4c5b769aec3e315eb467",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/policies/velocity.npz",
+      "sha256": "8a5f613362ff73d20a2256c4e535e5abf49400095bffff922337d41c1377c9dd",
+      "git_blob": "4943b2a6343e82d1f08a154ed99c1a1d662d9ce2",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/policies/velocity_rough.npz",
+      "sha256": "95bf0382a0aa63cb3222223a4be202db27a1623620268ed476a98947fec223b4",
+      "git_blob": "d11c0f22d2d400af1978785da1cd0993cf64b40e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/sim2sim.py",
+      "sha256": "901145e9dd85af2edd6ffd2fae371330909641cc9e8034898dd952ee33719093",
+      "git_blob": "83bef247cb91d9ca8435a39e8ed33b3ea147566e",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/wheeled_quadruped.xml",
+      "sha256": "4b57495cbfd5f6df859294b5734c87e6e3aca89f04e941450f9e4d8b993921e5",
+      "git_blob": "01984cccdf00f276cf3898deb3b75366c7f3d842",
+      "kind": "git_blob"
+    },
+    {
+      "path": "sim2sim_mujoco/wheeled_quadruped_rough.xml",
+      "sha256": "296a7e07c4d57ac30b12d738d1a588008f24b135bbce055035abff4bb26bd47c",
+      "git_blob": "623195b2382f75fd557dee76008cf60dde56db90",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/pyproject.toml",
+      "sha256": "8cebc366438b6f6d1fdeeac5e0f147c5751dcc70b6fd3cbb15ab7e0c1ed58049",
+      "git_blob": "6f6aa88df8610680ebadf5eb75aca3df4b7749df",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/__init__.py",
+      "sha256": "f90cbca9420ee8ddfb3bc9f3ae12a9a4e9228ff39e445860500754cd92e5c61e",
+      "git_blob": "90d7429c6cf4ab88c05990dd16462ba4e701bec6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/assets/__init__.py",
+      "sha256": "cd9874b5c483693ebd8acabe5fb959c0025278cbe710be143c9a52f97faf37dc",
+      "git_blob": "4dca7f72dc73a1e9ba4bcbbd30bf58af254d62df",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/assets/quadruped_robot.usd",
+      "sha256": "205bd17dc2dd899c30a4e24ee4575fcd18d068b0139cfa5f563e19719b3f0e36",
+      "git_blob": "138fd79f22bf9aa331ee07c7eea7d3310574916c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/__init__.py",
+      "sha256": "d726beca1aef33b85f7f4cc05f8bd1ad9d2b14b0f16f9d23e0b787792b93da53",
+      "git_blob": "7e272b424ba961d7f7db2501f224935a045ca0a0",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/__init__.py",
+      "sha256": "8a083353fdb4c71c279cae7937e9be64daeaf03f6369a26487ca64e64cc653cb",
+      "git_blob": "dfc2018beb4bf0d562b3d559aa3bbaec59a78268",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/__init__.py",
+      "sha256": "5824d07bf4e31d7065f27d7865049cff927229036d8cb9d9ad6c89e215c1f08c",
+      "git_blob": "c3ee65705208b03c2984ca7ea7a1cce70cfb0be6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rl_games_ppo_cfg.yaml",
+      "sha256": "47749acdb08ea33ae8d4e2de8f1dbefa15cf48b510d9f6fd5f46d9e74302b9fc",
+      "git_blob": "52f471f28da6daf5c4824acd4747755c07883e80",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rsl_rl_ppo_cfg.py",
+      "sha256": "d88425c49d7845dc41abb62489f37e12cc40c9a3d19a2faa7292eb7d1e119738",
+      "git_blob": "985ff3904141ddd001177a878df6209919f634bf",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/sb3_ppo_cfg.yaml",
+      "sha256": "502aa932ebc7741cdd6a7c71cb16edb793247f245d561e704124b656baadc09a",
+      "git_blob": "f407a56a915038022ce7d33e360df5b6139a87ea",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/skrl_ppo_cfg.yaml",
+      "sha256": "64b7c20114583de2a048b1099dd3296d3238cbb172260a2fc1bfcd280f1b2270",
+      "git_blob": "2d6b384fd99040bab8a3f09f66e22cf5e0fa4c43",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/balance_env_cfg.py",
+      "sha256": "4bcb227e44b388164ba886c7b5eb36a1d747d9bd3ed7b12754e86b311d3a4c44",
+      "git_blob": "b296504c7880e05ea1e034d45ba1da6946857d68",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/balance/rough_env_cfg.py",
+      "sha256": "3fb3c6f00229634deb95815d74dbe36e579db9c6a10e218a86b36d40ac7c9c60",
+      "git_blob": "870468a654640f0f738fc4c24b0d6df4f85f6abc",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/velocity/__init__.py",
+      "sha256": "8aaf6cbac014ef9eaebd7e541b15c28509b7ce6bab025dec6c513db6cc08514c",
+      "git_blob": "56347b786f89f41af9e0f6211e7f088786fb23d4",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/velocity/agents/__init__.py",
+      "sha256": "5824d07bf4e31d7065f27d7865049cff927229036d8cb9d9ad6c89e215c1f08c",
+      "git_blob": "c3ee65705208b03c2984ca7ea7a1cce70cfb0be6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/velocity/agents/rsl_rl_ppo_cfg.py",
+      "sha256": "f17967e4710a7275738c9e4b037f969db28491fa15269e6a49d5b08607c63eb5",
+      "git_blob": "3ac0675d615e4e692ec9382c15d8815384bf4b4a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/velocity/rough_env_cfg.py",
+      "sha256": "c92e71501528252df0977ef5d514871e074312626f8486c27e6df5e4f4af7819",
+      "git_blob": "a2fac434ed8fb9563d11d85c5c953ac59e943038",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/tasks/velocity/velocity_env_cfg.py",
+      "sha256": "020da68be2a3bf3d6eb6df209df8ba1e5ce2c02b7585a2237b29e4ee6368f154",
+      "git_blob": "7c0528a06bddde313fef783155712e64bd773ed0",
+      "kind": "git_blob"
+    },
+    {
+      "path": "source/wheeled_quadruped/wheeled_quadruped/terrains/__init__.py",
+      "sha256": "5fd4cf0325071290b5c80d0ddd9d5785c2ce4e0c7420c4de6150c521783120e5",
+      "git_blob": "c2963b5f4dcc412914fc856ed68a0ba395e7df7d",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/CMakeLists.txt",
+      "sha256": "70c480daa524d293f4f709666db9a644921fde73f074d18215495f0d5f97dd9e",
+      "git_blob": "cea97a4c9ddf33b514e2864153a141d80c202ac5",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/config/robot1_controller.yaml",
+      "sha256": "279177ed3f0d6277d64322a00c87acce32ef43fc92c26511d34dfe1333af084e",
+      "git_blob": "b2f2a2fec8b377bd8b6b2a5f16afceb32b7b57f3",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/launch/robot_state_publisher.launch.py",
+      "sha256": "0349b13c1166b0daf027fe479daefbd04bf5fbfe1dbda3690e9ab5426279be4e",
+      "git_blob": "236a1beaead20697cb628798ac53de72cac205f1",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/DAE/body/body.dae",
+      "sha256": "594846e29621c99fa62d8f7f0d0ecbe08921835fb601e0f726386bbe8b84c439",
+      "git_blob": "c472045ac63e582caecd4c3c410588b20460de95",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/DAE/left_thigh/left_thigh.dae",
+      "sha256": "bcfc397c7b5ce8f0fdcebc7ff7e27bd5d25e9721a935050b6df1553c6f37a73f",
+      "git_blob": "a6c12badc67f74842daa4b27e711496371504311",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/DAE/leg_joint/leg_joint.dae",
+      "sha256": "4a211ed6ef482ef97b8f4952027009dc8a35272cd89b0b5060f7a498fb5cafa7",
+      "git_blob": "54aaf3f21ca02ebfaea61efb517e85f7dcfda982",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/DAE/right_thigh/right_thigh.dae",
+      "sha256": "9ae05f09df843b997c490f54017cc9f31aec74c6a3d94ebd1c6b285f0172166f",
+      "git_blob": "0db997f34647aa8491b31051f6cd8187552a35c8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/DAE/shin/shin.dae",
+      "sha256": "6b4ad7a7773472d58fae11390872bc5d00addf8a3540a3eb4c50b1de1dff3c6f",
+      "git_blob": "d78d2cdbb3225b07e59b6a8f8fb079be5070b4ef",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/DAE/wheel/wheel.dae",
+      "sha256": "8c18917355c6ffc2d97c783298ccfbf547bcbbfbd911b3c103707a39632e3965",
+      "git_blob": "12283e45772b5e02f0f2dee49a54c39992b8896f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/STL/body/body.stl",
+      "sha256": "58be957669d4d1aafed76c33a1dd4a49a31f84e4ce6293cea24275f0754dcadc",
+      "git_blob": "edb23f57fc03237120d2827b5c81827f344ce7ba",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/STL/left_thigh/left_thigh.stl",
+      "sha256": "f12e83f50100058a752ef876bd1a13d7f0da9cf8b95a4f6731d6f721e5995241",
+      "git_blob": "acd968ee1faafe117191fae5c9ec0bf37d118dad",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/STL/leg_joint/leg_joint.stl",
+      "sha256": "9faf9ba34c38bc8af46de20408f7fc21b625c377e76c8ecffa298627fd0f13f4",
+      "git_blob": "11fcbeb46f51382f1c763f9f61747bdcbc79716f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/STL/right_thigh/right_thigh.stl",
+      "sha256": "67a60479d4653e4eea69e1a5385710e1ca1e364beb999c26bb481d25a8baaad5",
+      "git_blob": "6f3bcbc619b5ff34a86ef9b71bd9b77dcdc66c01",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/STL/shin/shin.stl",
+      "sha256": "c580a44f66ba303cb71b598158928dcbc75d0f8c5cb1108a05063a0a05465f94",
+      "git_blob": "906e2e04a5ec06785f735ca1d04383815403165a",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/meshes/STL/wheel/wheel.stl",
+      "sha256": "886e00ec08d061ad15f640cfdae8c1b313b0bf11e406fad5dfa36d00e2ece2b8",
+      "git_blob": "c7cec95887e4adec362aeb8d7dbd0629081af2e3",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/package.xml",
+      "sha256": "fab43eebf356f90616d79e5bf94074355755a38d84a94f71cea0953658a62b4c",
+      "git_blob": "68360a85530c95375b58b709d311420a5d5f9208",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/base/base.gazebo.xacro",
+      "sha256": "418e0fea0dfbfb9cdfd3336a43af44da5072eed446e4db6926ffee07f03cc9af",
+      "git_blob": "47e12fd17d1571a142be124ed730e70cff5c43da",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/base/base.xacro",
+      "sha256": "16dd41407d3bbe265970c5778f5b34cd8b79e5a18062ed5397b0e50342c26b5e",
+      "git_blob": "53c6de0277a4eb894188c1c0c08c49f375a8eb89",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/front_left_thigh/front_left_thigh.gazebo.xacro",
+      "sha256": "93b55bde6f405be43c71cd54c7550674fb2cb04ffb3037f3161054f70efd7742",
+      "git_blob": "3ee2d9980074580ceeed315e96cc8ac747fc6a24",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/front_left_thigh/front_left_thigh.xacro",
+      "sha256": "e6ed31f34b41b25ac1f3e2b0191429fb3e5cadaa77c6747dc4fd8e2780030ea1",
+      "git_blob": "19d97d03496c9769c5260c4dfcdf71a465b26fc6",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/front_right_thigh/front_right_thigh.gazebo.xacro",
+      "sha256": "10bc581f7de290a40a9807f8c69a616d712a5375df01767f4954f51d99d67890",
+      "git_blob": "783d4f410a07665ccc8b8a79db8886c8c218a25d",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/front_right_thigh/front_right_thigh.xacro",
+      "sha256": "8ebe2b70c1a12ec6ea5fdde1751f4fbaa33675bac0dcc844efc35f812f880376",
+      "git_blob": "908f7580af344d851af237f95f3915dd79ee7b83",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/front_wheel/front_wheel.gazebo",
+      "sha256": "7bdbdf685cc62fc7a9cd086b21a6e10e291c45e348c2e1f12f0f3144dc30698a",
+      "git_blob": "e2c2fd64599f97c25dae72d7074dc8506e872fba",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/front_wheel/front_wheel.xacro",
+      "sha256": "5c0ce1841241894c0c54eb935ad89eecf6f2bf0d981c034f9ebbb6c6f205db79",
+      "git_blob": "585527a13da0b6812ffac6484d67fa3795bb2d7f",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/leg_joint/leg_joint.gazebo.xacro",
+      "sha256": "3eb5adefb9a6f961998b834074d69fa8be25a232f009c312983f1aa5e7f1e0cd",
+      "git_blob": "56acbb08ebefec25e90fb6f5f411163b6609773b",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/leg_joint/leg_joint.xacro",
+      "sha256": "9a0dc911f57970c6f1ff77408f062232b7dcd74f024e284ad0c117373fd89821",
+      "git_blob": "afdeb023f86b98ebe5fb389d73d46fc87f2ee826",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/rear_left_thigh/rear_left_thigh.gazebo.xacro",
+      "sha256": "902532140729e1a7a8195b1b7d85f093297fef47d7c616f75bdae8ac388d0175",
+      "git_blob": "6a588aa1411e01179803d277fd8764a44a917021",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/rear_left_thigh/rear_left_thigh.xacro",
+      "sha256": "d7f678b1acf9badd3f12cb977d0e0b4807b042df7236341923a0bd189fda4102",
+      "git_blob": "85212592a1f210fd2931ba52b5c29c7683d22fc8",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/rear_right_thigh/rear_right_thigh.gazebo.xacro",
+      "sha256": "3d9f117e28ce6e776d4daddcf2b584707c70ede65b9a768b9201375d8051cd82",
+      "git_blob": "5e2c816f014fab54d83eff7abfd1cd97fc3d6d02",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/rear_right_thigh/rear_right_thigh.xacro",
+      "sha256": "bb5943e85738b0bfe4fd9cfbce7f0bd2deb3011b5ded94430a9ba71fedb3a937",
+      "git_blob": "da72cb107405c8ff5d5e6bb0dd5b3df4d71809f2",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/rear_wheel/rear_wheel.gazebo",
+      "sha256": "7bdbdf685cc62fc7a9cd086b21a6e10e291c45e348c2e1f12f0f3144dc30698a",
+      "git_blob": "e2c2fd64599f97c25dae72d7074dc8506e872fba",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/rear_wheel/rear_wheel.xacro",
+      "sha256": "07c1391e2b965a9f7cced408da9d945bb145a03d9940ef5be6c76f1d89c23bae",
+      "git_blob": "960be0d9be3954697b03f12df8dce79be90b05ec",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/shin/shin.gazebo.xacro",
+      "sha256": "33bea56b7b62a6b1a33feaebdeed6930b06501754b454e4910b639b772492dd0",
+      "git_blob": "9d907da77f3d8809eb16a6ed88e46e1765352904",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/parts/shin/shin.xacro",
+      "sha256": "91b9d43dc95f5a377c4003bfb70fe4a9aba97abe899a0506751ca30d9552e6ee",
+      "git_blob": "4434ead364833df0cadbeb00084ee9ebbdd1d05c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/quadruped_robot.urdf",
+      "sha256": "c0c28a4cf836b1912aca334b81921219f9d540dc6cd0ced7691507e537749f5f",
+      "git_blob": "851f18a4af48cccfbb2b154de72815fd2f5ab382",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/quadruped_robot.xacro",
+      "sha256": "45e85ad01a46f0708a356fc0dd8aab74f4fb9e6a6ee1ab5549fb2ea43a65bcc8",
+      "git_blob": "c1c1e1da7c458db2bd140b2c22d8d34f28d3cb6c",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/quadruped_robot/quadruped_robot.usd",
+      "sha256": "c8b828c4ab0a81099332111a3a2922d46b7adc1ec805890b3574519665ee0b75",
+      "git_blob": "2e3d59a2d472dce6ddefa16527288f06e53be9bd",
+      "kind": "git_blob"
+    },
+    {
+      "path": "src/robot_description/robot/robot_control_gazebo.xacro",
+      "sha256": "ec02a2b077b369cbf697341fe8ec76ad876dad23d7bab120743b1ce144cb612c",
+      "git_blob": "57d0a971818866c62986a54dcc457d86c47a3f89",
+      "kind": "git_blob"
+    }
+  ],
+  "omissions": [
+    "docs/images/balance_demo.gif",
+    "docs/images/balance_rough_demo.gif",
+    "docs/images/hero_demo.gif",
+    "docs/images/robot.png",
+    "docs/images/robot_balancing.png",
+    "docs/images/robot_collision.png",
+    "docs/images/sim2sim_demo.gif",
+    "docs/images/velocity_demo.gif",
+    "docs/images/velocity_rough_demo.gif",
+    "docs/videos/balance_demo.mp4",
+    "docs/videos/balance_rough_demo.mp4",
+    "docs/videos/hero_demo.mp4",
+    "docs/videos/sim2sim_demo.mp4",
+    "docs/videos/velocity_demo.mp4",
+    "docs/videos/velocity_rough_demo.mp4"
+  ],
+  "nonruntime_differences": []
+}

@@ -1,7 +1,7 @@
 {
   "repo_id": "visity/RobotWorld-Assets",
-  "revision": "635aa4da034d82fa4a679398bf5f966454b71670",
+  "revision": "c7fcb40e7c503cc137a24ce53e5198b7222d0798",
   "url": "https://huggingface.co/datasets/visity/RobotWorld-Assets",
   "note": "Pinned uploaded asset release. BEHAVIOR must be downloaded separately from the official source after accepting its license.",
-  "manifest_sha256": "a822df2c824dc755b3b39dc799bda20c772ca475a3d468867f6c151eaa824d17"
+  "manifest_sha256": "7c831813bca217227289ad8ee8ee2fe36641c1c494d2543d2e1c69a3aa270e4b"
 }

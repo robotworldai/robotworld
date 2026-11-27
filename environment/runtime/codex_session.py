@@ -28,9 +28,9 @@ class CodexSession:
     @staticmethod
     def verify_build(path):
         manifest = json.loads(Path(path).read_text())
-        expected = Path(__file__).resolve().parents[2] / "codex"
+        expected = Path(os.environ.get("WORLD_CODEX_SOURCE", str(Path(__file__).resolve().parents[2] / "codex"))).resolve()
         if Path(manifest["source"]).resolve() != expected:
-            raise ValueError("Only the World/codex source checkout is allowed")
+            raise ValueError("Build manifest must match the explicitly selected Codex source checkout")
         commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=expected, text=True).strip()
         if commit != manifest["commit"]:
             raise ValueError("Source revision differs from the binary build record")

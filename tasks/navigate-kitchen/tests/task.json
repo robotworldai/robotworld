@@ -1,0 +1,6 @@
+{
+  "benchmark": "robocasa",
+  "task": "NavigateKitchen",
+  "horizon": 450,
+  "scoring_profile": "native"
+}

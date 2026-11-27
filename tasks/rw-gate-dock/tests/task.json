@@ -1,0 +1,6 @@
+{
+  "benchmark": "wheeledlab",
+  "task": "rw-gate-dock",
+  "horizon": 2000,
+  "scoring_profile": "native"
+}

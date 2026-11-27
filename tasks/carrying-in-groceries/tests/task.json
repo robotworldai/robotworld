@@ -1,0 +1,6 @@
+{
+  "benchmark": "behavior_1k",
+  "task": "carrying_in_groceries",
+  "horizon": 2000,
+  "scoring_profile": "native"
+}

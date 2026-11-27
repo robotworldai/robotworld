@@ -1,0 +1,51 @@
+services:
+  main:
+    environment:
+      WORLD_EPISODE_URL: http://simulator:8765
+      WORLD_EPISODE_TOKEN: ${WORLD_EPISODE_TOKEN:?Set a random per-job token}
+      PYTHONPATH: /opt/robotworld-client
+      WORLD_AGENT_INTERFACE: ${WORLD_AGENT_INTERFACE:-native-feedback-v1}
+    depends_on:
+      simulator:
+        condition: service_healthy
+    command:
+    - python
+    - /opt/robotworld-client/environment/clients/harbor_entry.py
+    - initialize
+  simulator:
+    image: world/robocasa:1.0.1
+    gpus: all
+    shm_size: 2gb
+    environment:
+      WORLD_EPISODE_TOKEN: ${WORLD_EPISODE_TOKEN:?Set a random per-job token}
+      WORLD_CONTROL_STEP_LIMIT: ${WORLD_CONTROL_STEP_LIMIT:-}
+      WORLD_CODE_CONTROL: ${WORLD_CODE_CONTROL:-0}
+    volumes:
+    - ${WORLD_ROOT}/environment:/world/environment:ro
+    - ${WORLD_ASSETS:?Set Assets path}/robocasa/data:/opt/robocasa/robocasa/models/assets
+    command:
+    - python
+    - -m
+    - environment.service.server
+    - --host
+    - 0.0.0.0
+    - --output
+    - /runs
+    - --task
+    - CountertopCleanup
+    - --seed
+    - '7'
+    - --horizon
+    - '600'
+    - --seed-protocol
+    - legacy-task-index
+    healthcheck:
+      test:
+      - CMD
+      - python
+      - -c
+      - import socket; socket.create_connection(('localhost',8765),timeout=2).close()
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 30s

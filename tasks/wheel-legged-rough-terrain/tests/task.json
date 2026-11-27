@@ -1,0 +1,6 @@
+{
+  "benchmark": "wheel_legged",
+  "task": "wheel_legged_rough_terrain",
+  "horizon": 2000,
+  "scoring_profile": "world-state-v1"
+}

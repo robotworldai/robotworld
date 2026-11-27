@@ -21,7 +21,7 @@ Follow original commanded body linear/yaw velocity over native procedurally gene
 
 
 class Simulator:
-    def __init__(self,task_id,seed,output,headless=True):
+    def __init__(self,task_id,seed,output,headless=True,*,skip_review_video=False):
         if task_id!='T14':raise ValueError(task_id)
         preflight()
         import torch
@@ -55,7 +55,8 @@ class Simulator:
         self.task=SingleEpisode(name=cfg_dict['task_name'],sim_config=sim_config,env=self.env)
         self.env.set_task(task=self.task,sim_params=sim_config.get_physics_params(),backend='torch',init_sim=True,
                           rendering_dt=sim_config.get_physics_params()['rendering_dt'])
-        self.env._render=True  # Spectator recording only; no new policy sensor.
+        self.env._render=not skip_review_video  # Spectator recording only; no new policy sensor.
+        self.skip_review_video=skip_review_video
         self.dt=float(cfg.task.sim.dt)*(int(self.task.decimation)+int(self.task.control_frequency_inv))
         self.nominal_dt=float(self.task.dt)
         self.action_metadata={'dim':12,'names':list(self.task.dof_names),'lower':[None]*12,'upper':[None]*12,
@@ -75,6 +76,8 @@ class Simulator:
         return self.observation()
 
     def _capture(self):
+        if self.skip_review_video:
+            return
         import imageio.v2 as imageio
         frame=self.env.render(mode='rgb_array')
         if frame is not None and frame.size:
@@ -114,7 +117,12 @@ class Simulator:
 
     def close(self):
         if self.writer:self.writer.close()
-        self.env.close()
+        if getattr(self, '_world_defer_app_shutdown', False):
+            # VecEnv.close() also exits Kit before Harbor can collect the episode.
+            self.env.world.stop()
+        else:
+            self.env.close()
 
 
-def create_sim(task_id,seed,output,headless=True):return Simulator(task_id,seed,output,headless)
+def create_sim(task_id,seed,output,headless=True,*,skip_review_video=False):
+    return Simulator(task_id,seed,output,headless,skip_review_video=skip_review_video)

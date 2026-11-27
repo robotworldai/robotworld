@@ -1,0 +1,6 @@
+{
+  "benchmark": "robot_lab",
+  "task": "a1_front_leg_handstand",
+  "horizon": 500,
+  "scoring_profile": "world-state-v1"
+}

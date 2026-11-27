@@ -8,10 +8,9 @@ def test_all_selected_runtime_profiles_have_recipes():
     recipes, selected = MODULE['recipes']()
     assert len(selected) == 20
     tags = {tag for group in selected.values() for tag in group}
-    assert len(tags) == 21
+    assert len(tags) == 20
     assert tags <= recipes.keys()
     assert set(selected['volleybots']) == {
-        'world/volleybots:isaac2023.1.0-hotfix1',
         'world/volleybots:isaac6.0.1-experimental',
     }
 

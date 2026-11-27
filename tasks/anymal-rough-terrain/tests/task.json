@@ -1,0 +1,6 @@
+{
+  "benchmark": "omniisaacgymenvs",
+  "task": "anymal_rough_terrain",
+  "horizon": 800,
+  "scoring_profile": "world-state-v1"
+}

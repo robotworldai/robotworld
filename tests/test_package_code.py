@@ -17,14 +17,22 @@ spec.loader.exec_module(package_code)
 class PackageCodeTests(unittest.TestCase):
     def test_codex_assets_survive_export_without_leaking_runtime_files(self):
         keep = [
+            'tasks/example/task.toml',
+            'tasks/example/environment/Dockerfile',
+            'configs/jobs/example.yaml',
             'codex/codex-rs/core/assets/agent/agent_names.txt',
             'codex/codex-rs/core/assets/tools/apply_patch.lark',
             'codex/codex-rs/login/src/assets/success.html',
             'codex/codex-rs/skills/src/assets/samples/imagegen/SKILL.md',
             'codex/codex-rs/skills/src/assets/samples/imagegen/assets/imagegen.png',
             'codex/codex-rs/tui/assets/themes/ada.tmTheme',
+            'third_party/benchmarks/steadytray/isaaclab_checkout/source/isaaclab/isaaclab/assets/__init__.py',
         ]
         exclude = [
+            'third_party/upstream/private.txt',
+            'scripts/local_multi_roll/private.py',
+            'tasks/example/demo.key',
+            'configs/credentials.json',
             'third_party/benchmarks/example/assets/scene.usd',
             'third_party/benchmarks/example/assets/metadata.json',
             'third_party/benchmarks/example/checkout/assets/object.usdz',
@@ -40,6 +48,7 @@ class PackageCodeTests(unittest.TestCase):
                 path = root/rel
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_bytes(b'fixture\n')
+            (root/'sources.lock.json').write_text(json.dumps([{'path':'third_party/upstream'}]))
             with patch.object(package_code, 'ROOT', root), patch('sys.argv', [
                     'package_code.py', '--output', str(output)]), contextlib.redirect_stdout(io.StringIO()):
                 package_code.main()

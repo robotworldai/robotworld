@@ -1,0 +1,66 @@
+services:
+  main:
+    environment:
+      WORLD_EPISODE_URL: http://simulator:8765
+      WORLD_EPISODE_TOKEN: ${WORLD_EPISODE_TOKEN:?Set a random per-job token}
+      PYTHONPATH: /opt/robotworld-client
+      WORLD_AGENT_INTERFACE: ${WORLD_AGENT_INTERFACE:-native-feedback-v1}
+    depends_on:
+      simulator:
+        condition: service_healthy
+    command:
+    - python
+    - /opt/robotworld-client/environment/clients/harbor_entry.py
+    - initialize
+  simulator:
+    image: world/behavior:isaac6.0.1-experimental
+    gpus: all
+    shm_size: 8gb
+    entrypoint:
+    - python
+    working_dir: /opt/robotworld
+    environment:
+      PYTHONPATH: /opt/robotworld:/behavior-src/OmniGibson:/behavior-src/bddl3:/behavior-src/joylo:/opt/world-control-libs
+      NVIDIA_DRIVER_CAPABILITIES: all
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONUNBUFFERED: '1'
+      OMNI_KIT_ACCEPT_EULA: 'YES'
+      WORLD_EPISODE_TOKEN: ${WORLD_EPISODE_TOKEN:?Set a random per-job token}
+      WORLD_CONTROL_STEP_LIMIT: ${WORLD_CONTROL_STEP_LIMIT:-}
+      WORLD_BEHAVIOR_RENDERER: upstream
+      TORCHINDUCTOR_CACHE_DIR: /tmp/cache/torchinductor
+      TRITON_CACHE_DIR: /tmp/cache/triton
+      OMP_NUM_THREADS: '8'
+      MKL_NUM_THREADS: '8'
+      OMNIGIBSON_DATA_PATH: /data
+      OMNIGIBSON_APPDATA_PATH: /tmp/cache/appdata
+      OMNIGIBSON_HEADLESS: '1'
+      WORLD_CODE_CONTROL: ${WORLD_CODE_CONTROL:-0}
+    volumes:
+    - ${WORLD_ROOT}:/opt/robotworld:ro
+    - ${WORLD_ASSETS:?Set Assets path}:/opt/robotworld/Assets:ro
+    - ${WORLD_ROOT}/third_party/benchmarks/behavior_1k/checkout:/behavior-src:ro
+    - ${WORLD_ASSETS}/behavior_1k/data:/data:ro
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - test -f /runs/episode.json
+      interval: 5s
+      timeout: 3s
+      retries: 240
+      start_period: 30s
+    command:
+    - -m
+    - environment.integrations.behavior_eval
+    - --mode
+    - service
+    - --output
+    - /runs
+    - --isaac601-compat
+    - --task-name
+    - setting_the_table
+    - --instance-index
+    - '10'
+    - --max-steps
+    - '2000'
+    - --disable-coding-control

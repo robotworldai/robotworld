@@ -1,0 +1,67 @@
+services:
+  main:
+    environment:
+      WORLD_EPISODE_URL: http://simulator:8765
+      WORLD_EPISODE_TOKEN: ${WORLD_EPISODE_TOKEN:?Set a random per-job token}
+      PYTHONPATH: /opt/robotworld-client
+      WORLD_AGENT_INTERFACE: ${WORLD_AGENT_INTERFACE:-native-feedback-v1}
+    depends_on:
+      simulator:
+        condition: service_healthy
+    command:
+    - python
+    - /opt/robotworld-client/environment/clients/harbor_entry.py
+    - initialize
+  simulator:
+    image: world/robodojo:isaac6.0.1-local
+    runtime: ${WORLD_NVIDIA_RUNTIME:-}
+    gpus: all
+    shm_size: 8gb
+    entrypoint:
+    - python
+    working_dir: /opt/robotworld
+    environment:
+      PYTHONPATH: /opt/robotworld:/opt/world-control-libs:/home/descfly/zqy/RoboDojo:/home/descfly/zqy/RoboDojo/XPolicyLab
+      NVIDIA_DRIVER_CAPABILITIES: all
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONUNBUFFERED: '1'
+      OMNI_KIT_ACCEPT_EULA: 'YES'
+      WORLD_EPISODE_TOKEN: ${WORLD_EPISODE_TOKEN:?Set a random per-job token}
+      WORLD_CONTROL_STEP_LIMIT: ${WORLD_CONTROL_STEP_LIMIT:-}
+      LD_LIBRARY_PATH: /opt/world-system-libs:/usr/local/nvidia/lib:/usr/local/nvidia/lib64
+      WORLD_CODE_CONTROL: ${WORLD_CODE_CONTROL:-0}
+    volumes:
+    - ${WORLD_ROOT}:/opt/robotworld:ro
+    - ${WORLD_ASSETS:?Set Assets path}:/opt/robotworld/Assets:ro
+    - ${WORLD_ROOT}/third_party/benchmarks/RoboDojo/env:/home/descfly/zqy/RoboDojo/env:ro
+    - ${WORLD_ROOT}/third_party/benchmarks/RoboDojo/src:/home/descfly/zqy/RoboDojo/src:ro
+    - ${WORLD_ROOT}/third_party/benchmarks/RoboDojo/task:/home/descfly/zqy/RoboDojo/task:ro
+    - ${WORLD_ROOT}/third_party/benchmarks/RoboDojo/utils:/home/descfly/zqy/RoboDojo/utils:ro
+    - ${WORLD_ROOT}/third_party/benchmarks/RoboDojo/env_cfg:/home/descfly/zqy/RoboDojo/env_cfg:ro
+    - ${WORLD_ASSETS}/robodojo/scenes/make_toast/Assets:/home/descfly/zqy/RoboDojo/Assets:ro
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - test -f /runs/episode.json
+      interval: 5s
+      timeout: 3s
+      retries: 120
+      start_period: 30s
+    command:
+    - -m
+    - environment.integrations.robodojo_smoke
+    - --mode
+    - service
+    - --output
+    - /runs
+    - --root
+    - /home/descfly/zqy/RoboDojo
+    - --task
+    - make_toast
+    - --eval-seed
+    - '0'
+    - --layout
+    - '0'
+    - --headless
+    - --enable_cameras
+    - --isaac601-compat

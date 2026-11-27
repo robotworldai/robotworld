@@ -1,0 +1,6 @@
+{
+  "benchmark": "wheeledlab",
+  "task": "rw-twin-beam",
+  "horizon": 2000,
+  "scoring_profile": "native"
+}

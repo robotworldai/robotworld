@@ -4,7 +4,7 @@ from . import project as native
 
 
 class Simulator(native.Simulator):
-    def __init__(self, task_id, seed, output, headless=True):
+    def __init__(self, task_id, seed, output, headless=True, *, skip_review_video=False):
         from .compat_isaac6 import install, install_python, configure_report
         configure_report(Path(output) / 'compatibility.json')
         install_python()
@@ -23,7 +23,7 @@ class Simulator(native.Simulator):
             return app
         omni_drones.init_simulation_app = start
         try:
-            super().__init__(task_id, seed, output, headless)
+            super().__init__(task_id, seed, output, headless, skip_review_video=skip_review_video)
         finally:
             omni_drones.init_simulation_app = original
         from .force_compat_isaac6 import NativeWrenchBatch
@@ -89,6 +89,8 @@ class Simulator(native.Simulator):
                 'Original rotor/base/payload link wrenches transformed to world frame and submitted once per articulation per tick; same link-origin application points, no controller',
                 'Spectator requests anti_aliasing=0, effective SDK setting recorded separately; initial32/subsequent4 render-only refreshes; images never policy input']},indent=2))
     def _capture(self):
+        if self.skip_review_video:
+            return
         from environment.benchmarks.native_project.review_scene import aerial_review
         with aerial_review(self):
             return self._capture_review()
@@ -140,8 +142,8 @@ class Simulator(native.Simulator):
         return result
 
 
-def create_sim(task_id, seed, output, headless=True):
-    return Simulator(task_id, seed, output, headless)
+def create_sim(task_id, seed, output, headless=True, *, skip_review_video=False):
+    return Simulator(task_id, seed, output, headless, skip_review_video=skip_review_video)
 
 
 def probe_action(task_id, sim):

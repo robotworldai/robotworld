@@ -45,7 +45,7 @@ Native policy measurements are simulator-state observations (not pure vision). W
 
 
 class Simulator:
-    def __init__(self, task_id, seed, output, headless=True):
+    def __init__(self, task_id, seed, output, headless=True, *, skip_review_video=False):
         if task_id not in TASKS:
             raise ValueError(task_id)
         import torch
@@ -68,7 +68,8 @@ class Simulator:
         self.app = init_simulation_app(cfg)
         from omni_drones.envs.isaac_env import IsaacEnv
         self.env = IsaacEnv.REGISTRY[cfg.task.name](cfg, headless=headless)
-        self.env.enable_render(True)
+        self.env.enable_render(not skip_review_video)
+        self.skip_review_video = skip_review_video
         self.configured_physics_dt = float(cfg.sim.dt)
         # Native Core4.1 converts 1/cfg_dt to integer Hz: .016 -> 62 Hz.
         # Report the actual engine dt used by the original env, not cfg rounding.
@@ -92,6 +93,8 @@ class Simulator:
         return self.observation()
 
     def _capture(self):
+        if self.skip_review_video:
+            return
         import imageio.v2 as imageio
         frame = self.env.render(mode='rgb_array')
         if frame is not None and frame.size:
@@ -138,8 +141,9 @@ class Simulator:
             self.writer.close()
             self.writer = None
         self.env.close()
-        self.app.close()
+        if not getattr(self, "_world_defer_app_shutdown", False):
+            self.app.close()
 
 
-def create_sim(task_id, seed, output, headless=True):
-    return Simulator(task_id, seed, output, headless)
+def create_sim(task_id, seed, output, headless=True, *, skip_review_video=False):
+    return Simulator(task_id, seed, output, headless, skip_review_video=skip_review_video)

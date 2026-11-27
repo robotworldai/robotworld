@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "make_kong",
+  "horizon": 600,
+  "scoring_profile": "native"
+}

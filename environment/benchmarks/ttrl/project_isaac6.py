@@ -14,10 +14,10 @@ class Simulator(original.Simulator):
     def launch_app(self, headless):
         if not headless:
             raise ValueError('This isolated experimental profile is headless')
-        actual = subprocess.check_output(['git', '-c', 'safe.directory='+str(LAB), '-C', str(LAB), 'rev-parse', 'HEAD'], text=True).strip()
-        dirty = subprocess.check_output(['git', '-c', 'safe.directory='+str(LAB), '-C', str(LAB), 'status', '--porcelain'], text=True)
-        if actual != LAB_COMMIT or dirty or (LAB/'VERSION').read_text().strip() != '2.1.0':
-            raise RuntimeError('Experimental TTRL must retain clean original pinned IsaacLab2.1.0')
+        from environment.runtime.source_archive import verify_archive
+        verify_archive(LAB, Path(__file__).with_name('isaaclab21-source-manifest.json'), LAB_COMMIT)
+        if (LAB/'VERSION').read_text().strip() != '2.1.0':
+            raise RuntimeError('Expected pinned IsaacLab 2.1.0')
         import isaacsim
         return compat.launch_app(str(Path(isaacsim.__file__).parent/'apps/isaacsim.exp.full.kit'))
 
@@ -44,5 +44,5 @@ class Simulator(original.Simulator):
         }, indent=2))
 
 
-def create_sim(task_id, seed, output, headless=True):
-    return Simulator(task_id, seed, output, headless)
+def create_sim(task_id, seed, output, headless=True, *, skip_review_video=False):
+    return Simulator(task_id, seed, output, headless, skip_review_video=skip_review_video)

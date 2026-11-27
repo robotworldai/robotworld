@@ -1,0 +1,6 @@
+{
+  "benchmark": "wheel_legged",
+  "task": "wheel_legged_upright_recovery",
+  "horizon": 2000,
+  "scoring_profile": "world-state-v1"
+}

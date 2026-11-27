@@ -1,0 +1,6 @@
+{
+  "benchmark": "omnidrones",
+  "task": "drone_inverted_pendulum_tracking",
+  "horizon": 620,
+  "scoring_profile": "world-state-v1"
+}

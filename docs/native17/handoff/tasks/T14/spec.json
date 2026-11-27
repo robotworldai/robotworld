@@ -1,0 +1,82 @@
+{
+  "id": "T14",
+  "title": "四足崎岖地形行走并抵抗推扰",
+  "category": "地形与动态接触",
+  "source": "OmniIsaacGymEnvs",
+  "native": "AnymalTerrain",
+  "stack": "Isaac Sim 生态；精确依赖见固定版本源码",
+  "commit": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+  "setting": "AnymalTerrain 原配置为 20 s episode；运行中每 15 s 改变水平基座速度，地形影响落脚与身体状态。",
+  "new_feedback": "脚与地形接触及推扰后的速度必须进入下一步关节控制；预设步态不能对运行中新扰动反应。",
+  "deadline": "走动中的支撑变化与失衡存在时间窗口；如果 agent 获得作者训练好的 gait，快反馈已经被外包。",
+  "action": "关节位置目标与 PD；不是“前进一米”这种已含行走控制的 API。",
+  "evaluation": "身体/膝部接触等终止项，另有速度跟踪奖励；站住不倒并不完成行走任务。",
+  "caveat": "旧 OmniIsaacGymEnvs 基于 Isaac Sim，区别于独立旧 IsaacGymEnvs。需按旧依赖容器复现，不能直接假定兼容当前 Isaac Lab。",
+  "media": "已核查原始源码；本次未实际观看该固定版本的完整成功/失败视频。",
+  "refs": [
+    {
+      "label": "omniisaacgymenvs/tasks/anymal_terrain.py",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/anymal_terrain.py"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "机制清楚但属于成熟 locomotion 问题；和轮足地形题需控制权重，避免排行榜被步态题主导。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "isaac-sim/OmniIsaacGymEnvs",
+  "runtime": "固定 README 要求 Isaac Sim 4.0.0；不是旧独立 Isaac Gym",
+  "install_reference": "使用 Isaac Sim 自带 python.sh；pip install -e .；按 README 的 rlgames_train 入口运行。",
+  "entry_note": "task=AnymalTerrain；保留原每 15 s push 与地形，20 s episode，记录是否发生推扰。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "ANYmal",
+      "kind": "external",
+      "location": "get_assets_root_path() + /Isaac/Robots/ANYbotics/anymal_instanceable.usd",
+      "evidence_path": "omniisaacgymenvs/robots/articulations/anymal.py",
+      "evidence_url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/robots/articulations/anymal.py",
+      "note": "使用 Isaac Sim 4.0 的资产服务或缓存根，保留 instanceable 引用。",
+      "binary_in_bundle": false,
+      "upstream_url": "",
+      "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+      "evidence_package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/robots/articulations/anymal.py"
+    },
+    {
+      "name": "崎岖地形",
+      "kind": "procedural",
+      "location": "AnymalTerrain 配置与 terrain_utils",
+      "evidence_path": "omniisaacgymenvs/tasks/anymal_terrain.py",
+      "evidence_url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/anymal_terrain.py",
+      "note": "",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/anymal_terrain.py",
+      "availability": "运行时由所列源码生成，没有独立资产包",
+      "evidence_package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/anymal_terrain.py"
+    }
+  ],
+  "required_setting_checks": [
+    "AnymalTerrain 原配置为 20 s episode；运行中每 15 s 改变水平基座速度，地形影响落脚与身体状态。",
+    "旧 OmniIsaacGymEnvs 基于 Isaac Sim，区别于独立旧 IsaacGymEnvs。需按旧依赖容器复现，不能直接假定兼容当前 Isaac Lab。"
+  ],
+  "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+  "source_snapshots": [
+    "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/cfg/task/AnymalTerrain.yaml",
+    "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/anymal_terrain.py",
+    "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/base/rl_task.py",
+    "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/utils/anymal_terrain_generator.py",
+    "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/utils/usd_utils.py",
+    "sources/isaac-sim/OmniIsaacGymEnvs/README.md",
+    "sources/isaac-sim/OmniIsaacGymEnvs/LICENSE.txt",
+    "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/robots/articulations/anymal.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "omniisaacgymenvs/tasks/anymal_terrain.py",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/anymal_terrain.py",
+      "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/anymal_terrain.py"
+    }
+  ]
+}

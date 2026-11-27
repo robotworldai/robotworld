@@ -1,0 +1,6 @@
+{
+  "benchmark": "ttrl",
+  "task": "humanoid_table_tennis_return",
+  "horizon": 1500,
+  "scoring_profile": "world-state-v1"
+}

@@ -52,7 +52,9 @@ class Capture:
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--mode',choices=['baseline','hybrid','direct'],required=True)
+    parser.add_argument('--mode',choices=['baseline','hybrid','direct','service'],required=True)
+    parser.add_argument('--service-control-mode',choices=['direct','hybrid'],default='direct')
+    parser.add_argument('--service-host',default='0.0.0.0');parser.add_argument('--service-port',type=int,default=8765)
     parser.add_argument('--model',default='gpt-6-astra');parser.add_argument('--manifest',type=Path)
     parser.add_argument('--agent-timeout',type=float,default=7200)
     parser.add_argument('--scenery',choices=['plain','training-pitch'],default='plain')
@@ -63,6 +65,13 @@ def main():
     cfg=config_from_args(build_arg_parser().parse_args(rest))
     if cfg.num_trials!=1 or cfg.control_dt!=.02:raise ValueError('One episode per launch; native control_dt=0.02 required')
     cfg.output_dir.mkdir(parents=True,exist_ok=True)
+    if args.mode=='service':
+        from environment.service.humanoid_soccer import HumanoidSoccerAdapter
+        from environment.service.http import serve_episode
+        adapter=HumanoidSoccerAdapter(cfg,args)
+        (cfg.output_dir/'evaluation-config.json').write_text(json.dumps({**adapter.describe(),'seed':cfg.seed,'scenery':args.scenery,'coding_control_enabled':False},indent=2))
+        serve_episode(adapter,adapter.horizon,cfg.output_dir,args.service_host,args.service_port)
+        return
     xml=make_experiment_xml(cfg.mjcf,cfg.output_dir,cfg.goal_width)
     env_type=MujocoSoccer
     if args.balance_assist=='ankle-com':

@@ -1,0 +1,119 @@
+{
+  "id": "T08",
+  "title": "轮足机器人在起伏与台阶地形中抗扰行进",
+  "category": "地形与动态接触",
+  "source": "Wheel-Legged-Lab",
+  "native": "Wheel-Legged-Terrain-Reactive-v0",
+  "stack": "Isaac Lab → Isaac Sim",
+  "commit": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+  "setting": "使用 Reactive 原生地形设置；actor 没有前方高度扫描。推扰间隔 5–9 s、最大平面速度 0.55；速度命令前后 ±0.6、转向 ±1.2。",
+  "new_feedback": "台阶/斜坡接触后的姿态与轮腿受力需由即时本体反馈反映；运行中推扰进一步改变接触和速度。",
+  "deadline": "双轮支撑在离地、落地和倾斜时会继续失稳，等模型下一轮可能已触发倾倒。配置的动作频率不能当成延迟实测。",
+  "action": "与 Recovery 相同 VMC 目标接口；程序承担动态平衡和轮腿协同，不能提供现成全身行走 policy。",
+  "evaluation": "原倾角 >1 rad 或高度 <0.09 m 失败；同时评速度跟踪/位移，存活并不等于完成行进。",
+  "caveat": "与恢复题共用平台，不能称两个独立资产；需求区别是“限时恢复”与“通过接触变化的地形”。若最后缩题，可二选一。",
+  "media": "源代码核查；未实际观看该精确配置的 rollout。",
+  "refs": [
+    {
+      "label": "Reactive 地形、推扰和动作",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py#L377"
+    },
+    {
+      "label": "任务注册",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py"
+    },
+    {
+      "label": "执行层实现",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "保留不同需求，但与其他 locomotion 题相关性高；不是靠换机器人型号增加独立覆盖。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "zyicome/Wheel-Legged-Lab",
+  "runtime": "作者开发版本：Isaac Sim 5.1.0 + Isaac Lab 2.3.2",
+  "install_reference": "在 Isaac Lab Python 内 python -m pip install -e source/wheel_legged_robot；URDF 在首次构造时转换。",
+  "entry_note": "Recovery 与 Terrain-Reactive 共用资产。若使用作者 play.py，核对 --eval_pushes 是否保留了原推扰；不是新建两个独立场景。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "开链轮足机器人 URDF",
+      "kind": "repository",
+      "location": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/urdf/wl_dealed.urdf",
+      "evidence_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+      "evidence_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+      "note": "Isaac URDF importer 转换；两个任务共享同一资产。",
+      "binary_in_bundle": false,
+      "companion_files": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/ 与 ASSET_LICENSE.md",
+      "upstream_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/urdf/wl_dealed.urdf",
+      "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+      "evidence_package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py"
+    },
+    {
+      "name": "Reactive 斜坡/起伏/台阶",
+      "kind": "procedural",
+      "location": "WheelLeggedTerrainReactiveEnvCfg 中 terrain generator",
+      "evidence_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+      "evidence_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+      "note": "地形难度与随机种子是评测 setting 的一部分。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+      "availability": "运行时由所列源码生成，没有独立资产包",
+      "evidence_package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+    }
+  ],
+  "required_setting_checks": [
+    "使用 Reactive 原生地形设置；actor 没有前方高度扫描。推扰间隔 5–9 s、最大平面速度 0.55；速度命令前后 ±0.6、转向 ±1.2。",
+    "与恢复题共用平台，不能称两个独立资产；需求区别是“限时恢复”与“通过接触变化的地形”。若最后缩题，可二选一。"
+  ],
+  "observation_note": "选 Reactive 版本：actor 无前方地形高度扫描，不要混成 Perceptive 版本。其余 proprioception 按原配置。",
+  "source_snapshots": [
+    "sources/zyicome/Wheel-Legged-Lab/README.md",
+    "sources/zyicome/Wheel-Legged-Lab/pyproject.toml",
+    "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/cli_args.py",
+    "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/play.py",
+    "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/train.py",
+    "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/train_staged.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/config/extension.toml",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/__init__.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/cusrl_ppo_cfg.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/rsl_rl_ppo_cfg.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/__init__.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/ASSET_LICENSE.md",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/__init__.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/commonds.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/curriculums.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/events.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/jump.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/observations.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/power_on.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/rewards.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_flat_env_cfg.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_jump_env_cfg.py",
+    "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "Reactive 地形、推扰和动作",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py#L377",
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+    },
+    {
+      "label": "任务注册",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py",
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py"
+    },
+    {
+      "label": "执行层实现",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py",
+      "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py"
+    }
+  ]
+}

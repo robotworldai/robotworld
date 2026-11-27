@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "fill_egg_holder",
+  "horizon": 700,
+  "scoring_profile": "native"
+}

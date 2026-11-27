@@ -29,3 +29,13 @@ The previous RayTracedLighting + customized IK short turn is only a historical c
 There are already BEHAVIOR-1K warehouses local clone from the machine, which are not redownloaded or copied untraceed assets, caches, output. Git shares hard links with non-variable objects, and the source work tree is independent; alternates does not depend on the original directory. Fixed source recorded at [sources.local.json](../../sources.local.json). Do not edit checkout files or inject World descriptions or compatible patches into them.
 
 The current checkout is ignored by the parent directory Git, which simply means that a source code must be arranged for release and does not mean that there is no local code. `World/upload-github/` is the old release snapshot, not the current development directory. This time, there is no transmission and no copy of another source code or asset.
+
+## Required upstream runtime resource
+
+Keep `checkout/docs/assets/OmniGibson_logo.png` when packaging this source tree.
+Although located under `docs/`, OmniGibson reads this original logo during simulator
+startup and copies it into the Isaac Sim apps directory. Removing documentation
+images indiscriminately prevents every BEHAVIOR task from starting. The pinned
+resource is 72,191 bytes, SHA-256
+`415480a53ed07ee3b909b4a3510f0aa44c4f44aa23296713ebc07af5a461ec23`.
+This file is an upstream runtime resource, not a replacement scene asset.

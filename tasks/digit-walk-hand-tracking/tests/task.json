@@ -1,0 +1,6 @@
+{
+  "benchmark": "digit",
+  "task": "digit_walk_hand_tracking",
+  "horizon": 700,
+  "scoring_profile": "world-state-v1"
+}

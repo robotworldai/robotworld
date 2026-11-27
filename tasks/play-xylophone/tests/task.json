@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "play_Xylophone",
+  "horizon": 500,
+  "scoring_profile": "native"
+}

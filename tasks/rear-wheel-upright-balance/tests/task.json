@@ -1,0 +1,6 @@
+{
+  "benchmark": "wheeled_quadruped",
+  "task": "rear_wheel_upright_balance",
+  "horizon": 1000,
+  "scoring_profile": "world-state-v1"
+}

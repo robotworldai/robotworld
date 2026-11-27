@@ -1,0 +1,11 @@
+# One shared task, two harnesses, one attempt each. Provider credentials stay external.
+jobs_dir: outputs/harbor
+n_attempts: 1
+n_concurrent_trials: 1
+agents:
+  - import_path: agents.robotworld:RobotWorldClaudeCodeAgent
+    model_name: gpt-6-astra
+  - import_path: agents.robotworld:RobotWorldCodexAgent
+    model_name: gpt-6-astra
+tasks:
+  - path: tasks/close-drawer

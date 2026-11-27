@@ -1,2 +1,0 @@
-"""Aerial-Balance-Bench package."""
-

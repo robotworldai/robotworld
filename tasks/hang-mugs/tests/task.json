@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "hang_mugs",
+  "horizon": 800,
+  "scoring_profile": "native"
+}

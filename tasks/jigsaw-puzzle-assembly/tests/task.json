@@ -1,0 +1,6 @@
+{
+  "benchmark": "bench2dex",
+  "task": "48",
+  "horizon": 1213,
+  "scoring_profile": "native"
+}

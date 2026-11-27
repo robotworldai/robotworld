@@ -1,0 +1,96 @@
+{
+  "id": "T10",
+  "title": "四足机器人行走时抵抗随机外力脉冲",
+  "category": "外力恢复",
+  "source": "Go2 PushRecovery",
+  "native": "Isaac-Velocity-Flat-Unitree-Go2-PushRecovery-v0",
+  "stack": "Isaac Lab 2.1.1 → Isaac Sim 4.5",
+  "commit": "22c0dc900a9a9f38349cc959979e820e41021785",
+  "setting": "原随机脉冲间隔 6–10 s、持续 0.15–0.25 s；力方向随机。课程从最大 30 N 增到 120 N，刚创建环境时不是 120 N。",
+  "new_feedback": "外力造成实际身体速度与支撑脚变化，需要以反馈选择补偿步态，而非重复同一个预排步态。",
+  "deadline": "冲量作用后身体仍在运动，必须在失去可恢复支撑前纠正；脉冲宽度说明事件短，不等于测得的模型反馈截止时间。",
+  "action": "关节位置目标加电机级 PD；agent 的程序负责全身控制，不调用已有 Go2 行走策略。",
+  "evaluation": "原有跌倒终止与速度跟踪。作者另有固定 120 N 的 scheduled-push 评测脚本，不能把该脚本成绩写成随机训练设置成绩。",
+  "caveat": "Play 继承普通平地 Go2 配置，可能没有这些外力；20 s 回合也未必触发 25–40 s 间隔的持续力。只依赖已确认会生效的脉冲。",
+  "media": "读取作者 release 与评测脚本，未播放 release 中的 mp4；作者报告的对比不等于本次亲自观察或复测。",
+  "refs": [
+    {
+      "label": "配置与课程",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/env_cfg.py"
+    },
+    {
+      "label": "施力实现",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/push_events.py"
+    },
+    {
+      "label": "固定推扰评测与原随机环境的差异",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/scripts/play_scheduled_pushes.py"
+    },
+    {
+      "label": "作者发布记录",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/releases/tag/v0.2.0-pushrecovery"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "推扰强度会随训练课程变化，难度不能只看 120 N 宣传数字。保留任务，强度/课程状态必须锁定。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "BrandoUlissi/isaaclab-go2-locomotion",
+  "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.1.1；README: rsl_rl 2.3.3",
+  "install_reference": "使用作者 train_pushrecovery wrapper 导入自定义注册，再在 Isaac Lab 环境运行。不要直接只安装官方 Go2 平地任务。",
+  "entry_note": "随机脉冲版本与作者 scheduled 120 N 演示是两个设置；课程初始最大 30 N，必须记录课程步数/强度。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "Unitree Go2",
+      "kind": "external",
+      "location": "Isaac Lab v2.1.1 的 UNITREE_GO2_CFG → {ISAACLAB_NUCLEUS_DIR}/Robots/Unitree/Go2/go2.usd",
+      "evidence_path": "src/isaaclab_go2_pushrecovery/env_cfg.py",
+      "evidence_url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/env_cfg.py",
+      "note": "Go2 继承官方平地机器人配置；资产路径定义另附 v2.1.1 的 unitree.py。",
+      "binary_in_bundle": false,
+      "upstream_url": "",
+      "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+      "evidence_package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/env_cfg.py"
+    }
+  ],
+  "required_setting_checks": [
+    "原随机脉冲间隔 6–10 s、持续 0.15–0.25 s；力方向随机。课程从最大 30 N 增到 120 N，刚创建环境时不是 120 N。",
+    "Play 继承普通平地 Go2 配置，可能没有这些外力；20 s 回合也未必触发 25–40 s 间隔的持续力。只依赖已确认会生效的脉冲。"
+  ],
+  "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+  "source_snapshots": [
+    "sources/BrandoUlissi/isaaclab-go2-locomotion/README.md",
+    "sources/BrandoUlissi/isaaclab-go2-locomotion/scripts/play_scheduled_pushes.py",
+    "sources/BrandoUlissi/isaaclab-go2-locomotion/scripts/train_pushrecovery.py",
+    "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/__init__.py",
+    "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/curriculum.py",
+    "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/env_cfg.py",
+    "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/push_events.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "配置与课程",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/env_cfg.py",
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/env_cfg.py"
+    },
+    {
+      "label": "施力实现",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/push_events.py",
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/push_events.py"
+    },
+    {
+      "label": "固定推扰评测与原随机环境的差异",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/scripts/play_scheduled_pushes.py",
+      "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/scripts/play_scheduled_pushes.py"
+    },
+    {
+      "label": "作者发布记录",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/releases/tag/v0.2.0-pushrecovery",
+      "package_path": null
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+# For Chat Completions providers set WORLD_HARBOR_CHAT_BASE_URL and WORLD_MODEL_API_KEY.
+jobs_dir: outputs/harbor
+n_attempts: 3
+n_concurrent_trials: 1
+agents:
+  - import_path: agents.robotworld:RobotWorldClaudeCodeAgent
+    model_name: YOUR_MODEL_ID
+tasks:
+  - path: tasks/close-drawer

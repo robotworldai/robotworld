@@ -42,6 +42,7 @@ def main():
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--manifest", type=Path)
+    parser.add_argument("--mode", choices=["legacy","service"],default="legacy")
     parser.add_argument("--model")
     parser.add_argument("--model-catalog", type=Path)
     parser.add_argument("--task", default="general_pickup")
@@ -70,7 +71,7 @@ def main():
         args.manifest = args.manifest.resolve()
     if args.model_catalog is not None:
         args.model_catalog = args.model_catalog.resolve()
-    if not args.probe_only and args.manifest is None:
+    if args.mode != 'service' and not args.probe_only and args.manifest is None:
         parser.error("--manifest is required for Codex execution")
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -214,7 +215,13 @@ def main():
                             scene_initial["surfaces"][0]["authored_vector"],
                             override["authored_surface_velocity"], atol=1e-6):
                         raise RuntimeError("Conveyor graph did not preserve the source physical velocity")
-        if args.probe_only:
+        if args.mode == 'service':
+            from environment.service.robodojo import RoboDojoServiceAdapter
+            from environment.service.http import serve_episode
+            adapter=RoboDojoServiceAdapter(env,output,decode_image_bit,args.task)
+            progress("serving_episode")
+            serve_episode(adapter,adapter.horizon,output)
+        elif args.probe_only:
             progress("capturing_observation")
             adapter = RoboDojoAdapter(env, output_dir=output, decode_image=decode_image_bit,
                                      record_video=bool(args.diagnostic_steps))

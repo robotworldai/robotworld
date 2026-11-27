@@ -1,0 +1,99 @@
+{
+  "id": "T11",
+  "title": "A1 抬起后腿、以前腿支撑并抗扰",
+  "category": "不稳定支撑",
+  "source": "RobotLab HandStand",
+  "native": "RobotLab-Isaac-Velocity-Flat-HandStand-Unitree-A1-v0",
+  "stack": "Isaac Lab 2.0 → Isaac Sim 4.5",
+  "commit": "b868140eeb1459acefef24a865587ec39a5278c3",
+  "setting": "默认 handstand_type=\"back\" 是后腿抬起、前腿支撑。抬脚目标 0.5 m；20 s 回合，继承 10–15 s 随机平面推速 ±0.5。",
+  "new_feedback": "窄支撑下躯干倾角/角速度决定如何调整支撑脚与身体；推扰后需要新姿态反馈。",
+  "deadline": "身体绕有限支撑区域倾倒会失去恢复机会，不能依靠长时间保持旧关节目标；原动作周期 20 ms。",
+  "action": "全身关节位置残差加 PD；没有内置手倒立策略。",
+  "evaluation": "原奖励分别评价抬脚高度、姿态与其他行走项，没有现成“全程手倒立成功率”；不能只用未触发 done 充当完成。",
+  "caveat": "确实继承 push，不把 reset 的力随机化误写成运行中持续力。新 SR 需组合原目标项与跌倒记录并单独披露。",
+  "media": "源码核查；未观看精确 Flat-HandStand 的成功/失败演示。",
+  "refs": [
+    {
+      "label": "倒立姿态和配置继承",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py"
+    },
+    {
+      "label": "平地版本",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py"
+    },
+    {
+      "label": "继承推扰",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py#L362"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "前腿双点支撑比普通静态四足站立更能暴露全身控制；缺少本项目基线分数。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "agilexrobotics/robot_lab",
+  "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.0.0 + Python 3.10",
+  "install_reference": "按 README 安装 source/robot_lab 扩展；作者 scripts/rsl_rl/base 提供训练与可视化入口。",
+  "entry_note": "RobotLab-Isaac-Velocity-Flat-HandStand-Unitree-A1-v0；默认 back 指后腿抬起、以前腿支撑。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "Unitree A1",
+      "kind": "repository",
+      "location": "source/robot_lab/data/Robots/Unitree/A1/a1.usd",
+      "evidence_path": "source/robot_lab/robot_lab/assets/unitree.py",
+      "evidence_url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/assets/unitree.py",
+      "note": "本项目 ISAACLAB_ASSETS_DATA_DIR 指向 source/robot_lab/data，不是线上 Nucleus 根目录。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/data/Robots/Unitree/A1/a1.usd",
+      "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+      "evidence_package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/assets/unitree.py"
+    }
+  ],
+  "required_setting_checks": [
+    "默认 handstand_type=\"back\" 是后腿抬起、前腿支撑。抬脚目标 0.5 m；20 s 回合，继承 10–15 s 随机平面推速 ±0.5。",
+    "确实继承 push，不把 reset 的力随机化误写成运行中持续力。新 SR 需组合原目标项与跌倒记录并单独披露。"
+  ],
+  "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+  "source_snapshots": [
+    "sources/agilexrobotics/robot_lab/README.md",
+    "sources/agilexrobotics/robot_lab/pyproject.toml",
+    "sources/agilexrobotics/robot_lab/scripts/rsl_rl/base/play.py",
+    "sources/agilexrobotics/robot_lab/scripts/rsl_rl/base/train.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/assets/__init__.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/assets/unitree.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/__init__.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/__init__.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/rsl_rl_ppo_cfg.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/env/rewards.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/__init__.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/commands.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/curriculums.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/events.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/observations.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/rewards.py",
+    "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "倒立姿态和配置继承",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py",
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py"
+    },
+    {
+      "label": "平地版本",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py",
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py"
+    },
+    {
+      "label": "继承推扰",
+      "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py#L362",
+      "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py"
+    }
+  ]
+}

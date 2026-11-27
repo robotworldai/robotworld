@@ -1,0 +1,8 @@
+# Run from repository root with WORLD_ROOT, WORLD_ASSETS and WORLD_EPISODE_TOKEN.
+jobs_dir: outputs/harbor
+n_attempts: 1
+n_concurrent_trials: 1
+agents:
+  - import_path: agents.robotworld:RobotWorldProbeAgent
+tasks:
+  - path: tasks/close-drawer

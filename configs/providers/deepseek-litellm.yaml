@@ -1,0 +1,13 @@
+# Claude Code Messages -> third-party Chat Completions; no Codex backend.
+model_list:
+  - model_name: deepseek-v4.1-flash
+    litellm_params:
+      model: openai/deepseek-v4.1-flash
+      api_base: os.environ/WORLD_QWEN_BASE_URL
+      api_key: os.environ/DASHSCOPE_API_KEY
+litellm_settings:
+  drop_params: false
+  num_retries: 0
+  telemetry: false
+general_settings:
+  master_key: os.environ/WORLD_LITELLM_KEY

@@ -1,0 +1,2135 @@
+{
+  "title": "RobotWorld · 17 个快反馈任务｜给智钦的环境接入包",
+  "date": "2026-09-27",
+  "task_count": 17,
+  "primary_repository_count": 15,
+  "tasks": [
+    {
+      "id": "T01",
+      "title": "端托盘行走，同时抵抗物体与身体推扰",
+      "category": "携物与接触",
+      "source": "SteadyTray · G1 Steady Object",
+      "native": "G1-Steady-Object（保留原 robot/object 推扰）",
+      "stack": "作者的 IsaacLab_SteadyTray 分支 → Isaac Sim",
+      "commit": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "setting": "选作者公开 G1-Steady-Object 环境。物体放在托盘上，未被固定；原配置已有身体推扰与物体推扰，均保持开启。论文还单独报告 Push Robot / Push Object 测试；其每 5 秒施力的协议不能与当前公开环境的速度推扰参数混写。 物体每 2–4 s 施加速度扰动，身体每 3–5 s 推扰；20 s 回合。物理 200 Hz、动作 50 Hz。",
+      "new_feedback": "原身体推扰每 3–5 秒重新采样水平速度（x/y 各 ±0.5 m/s）；物体每 2–4 秒重新采样平移和转动速度（x/y 各 ±0.3 m/s，roll/pitch 各 ±0.3 rad/s）。身体受扰后如何跨步、托盘如何补偿，取决于新发生的倾斜、滑移和物体姿态。",
+      "deadline": "受扰后的身体失衡与载物倾倒会继续发展。物体一旦倒下或滑落，事后恢复机器人姿态也不能满足全程保持直立的任务目标。因此不能等一次慢模型调用结束后才处理受扰状态。",
+      "action": "原环境动作是全身关节位置目标，物理 200 Hz、控制 50 Hz。状态版包含本体与托盘/物体状态；student 版以物体位姿历史减少特权信息。训练论文的 residual 架构是作者的解法，不是复用任务时必须附送的控制能力。",
+      "evaluation": "论文 SR 要求物体在整个回合直立并留在托盘上。公开配置记录物体高度低于 0.7 m、倾角超过 0.7 rad；普通配置持续违反 1 秒会触发延迟截断，Play 配置只追踪。应累计这些失败事件，不能只把没有即时 done 当成功。另有速度跟踪误差。",
+      "caveat": "必须保留原生 robot/object 推扰。物体失败项有 track_only=True 与连续失败时间判定，不能把“episode 没结束”算成功。Play 不等于评测设置。",
+      "media": "实际查看官方实机视频片段：走路端杯，以及踢腿/推物对比；约 7.98 s 处可见 baseline 物体倾倒与所提方法保持。仅抽查片段，不等于复现源码版本。",
+      "refs": [
+        {
+          "label": "原生物体推扰、物体反馈与失败记录",
+          "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py#L134"
+        },
+        {
+          "label": "继承的身体推扰与全身动作",
+          "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/locomotion_env_cfg.py#L206"
+        },
+        {
+          "label": "G1-Steady-Object 原任务注册",
+          "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/__init__.py#L37"
+        },
+        {
+          "label": "论文：扰动评测与全程不倾倒、不掉落的成功定义",
+          "url": "https://arxiv.org/html/2603.10306v1#S4.SS1"
+        },
+        {
+          "label": "作者 Isaac Lab 分支：track_only 与延迟截断的区别",
+          "url": "https://github.com/AllenHuangGit/IsaacLab_SteadyTray/blob/3e14846319ac07b5c430c8b6982745a8e7d1d95e/source/isaaclab/isaaclab/managers/termination_manager.py#L196"
+        },
+        {
+          "label": "官方视频与实验",
+          "url": "https://steadytray.github.io/"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "有公开实机失败/成功对比和原始随机扰动配置，是优先级最高的一题；作者 RL 结果不是 coding agent 成绩。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "AllenHuangGit/SteadyTray",
+      "runtime": "Isaac Sim 4.5 + 作者 IsaacLab_SteadyTray 分支；不可直接替换成官方同名版本",
+      "install_reference": "按 README 的作者 fork + Docker 流程安装，再安装 SteadyTray 扩展；依赖 fork 的 termination manager 已附固定版本证据。",
+      "entry_note": "G1-Steady-Object 是原 Stage 3 环境；作者训练 runner 使用残差训练。测试 agent 时，必须记录是接原完整关节动作还是接作者残差 runner，不能混为同一个 setting。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "带托盘支架的 G1",
+          "kind": "repository",
+          "location": "source/steadytray/steadytray/assets/usds/g1_side_tray_holder.usd",
+          "evidence_path": "source/steadytray/steadytray/assets/robots/g1_delay.py",
+          "evidence_url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/assets/robots/g1_delay.py",
+          "note": "这是 env 实际使用的 G1_DELAY_CFG；不要误用同仓库另一份普通 G1 USD。",
+          "binary_in_bundle": false,
+          "companion_files": "保留 assets/usds 整个目录以及 USD 的相对引用",
+          "upstream_url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/assets/usds/g1_side_tray_holder.usd",
+          "availability": "本地为 Git LFS 指针；需 git lfs pull",
+          "file_bytes": 133,
+          "evidence_package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/assets/robots/g1_delay.py"
+        },
+        {
+          "name": "托盘与圆柱负载",
+          "kind": "procedural",
+          "location": "steady_tray_env_cfg.py: CuboidCfg；steady_object_env_cfg.py: CylinderCfg",
+          "evidence_path": "source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py",
+          "evidence_url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py",
+          "note": "尺寸、质量、摩擦与随机化以固定源码为准。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py"
+        },
+        {
+          "name": "作者学生策略（仅复现参考）",
+          "kind": "repository",
+          "location": "model/model_9999.pt",
+          "evidence_path": "README.md",
+          "evidence_url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/README.md",
+          "note": "该模型对应 Stage 4 Distillation，不应直接当作 Stage 3 teacher 权重；不是被测 agent 的免费技能。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/model/model_9999.pt",
+          "availability": "本地为 Git LFS 指针；需 git lfs pull",
+          "file_bytes": 132,
+          "evidence_package_path": "sources/AllenHuangGit/SteadyTray/README.md"
+        }
+      ],
+      "required_setting_checks": [
+        "选作者公开 G1-Steady-Object 环境。物体放在托盘上，未被固定；原配置已有身体推扰与物体推扰，均保持开启。论文还单独报告 Push Robot / Push Object 测试；其每 5 秒施力的协议不能与当前公开环境的速度推扰参数混写。 物体每 2–4 s 施加速度扰动，身体每 3–5 s 推扰；20 s 回合。物理 200 Hz、动作 50 Hz。",
+        "必须保留原生 robot/object 推扰。物体失败项有 track_only=True 与连续失败时间判定，不能把“episode 没结束”算成功。Play 不等于评测设置。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/AllenHuangGit/SteadyTray/README.md",
+        "sources/AllenHuangGit/SteadyTray/pyproject.toml",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/__init__.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/actor_critic.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/adapter.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/distillation.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/encoder.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/env_wrapper.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/on_policy_runner.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/ppo.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/rollout_storage.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/adapter/student_teacher.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/base/__init__.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/base/on_policy_runner.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/base/ppo.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/cli_args.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/play.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/train.py",
+        "sources/AllenHuangGit/SteadyTray/scripts/rsl_rl/utils/inspect_checkpoint.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/assets/robots/g1_delay.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/assets/robots/unitree.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/assets/robots/unitree_actuators.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/__init__.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/locomotion_env_cfg.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/steady_object_distill_env_cfg.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/steady_tray_env_cfg.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/__init__.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/commands.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/curriculums.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/events.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/observations.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/rewards.py",
+        "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/mdp/terminations.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "原生物体推扰、物体反馈与失败记录",
+          "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py#L134",
+          "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/steady_object_env_cfg.py"
+        },
+        {
+          "label": "继承的身体推扰与全身动作",
+          "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/locomotion_env_cfg.py#L206",
+          "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/locomotion_env_cfg.py"
+        },
+        {
+          "label": "G1-Steady-Object 原任务注册",
+          "url": "https://github.com/AllenHuangGit/SteadyTray/blob/ae781f9f43f9505118c2c434733c57ed1c09dbc3/source/steadytray/steadytray/tasks/envs/__init__.py#L37",
+          "package_path": "sources/AllenHuangGit/SteadyTray/source/steadytray/steadytray/tasks/envs/__init__.py"
+        },
+        {
+          "label": "论文：扰动评测与全程不倾倒、不掉落的成功定义",
+          "url": "https://arxiv.org/html/2603.10306v1#S4.SS1",
+          "package_path": null
+        },
+        {
+          "label": "作者 Isaac Lab 分支：track_only 与延迟截断的区别",
+          "url": "https://github.com/AllenHuangGit/IsaacLab_SteadyTray/blob/3e14846319ac07b5c430c8b6982745a8e7d1d95e/source/isaaclab/isaaclab/managers/termination_manager.py#L196",
+          "package_path": "sources/AllenHuangGit/IsaacLab_SteadyTray/source/isaaclab/isaaclab/managers/termination_manager.py"
+        },
+        {
+          "label": "官方视频与实验",
+          "url": "https://steadytray.github.io/",
+          "package_path": null
+        }
+      ]
+    },
+    {
+      "id": "T02",
+      "title": "人形机器人连续接回随机乒乓来球",
+      "category": "动态拦截",
+      "source": "PACE / TTRL · Humanoid Table Tennis",
+      "native": "t1_tt_eval",
+      "stack": "Isaac Lab 2.1 / Isaac Sim 4.5（仓库说明）",
+      "commit": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "setting": "保留原多次发球逻辑与随机来球速度；使用完整的人形机器人关节控制，不能把作者整套乒乓球策略包装成 agent 的工具。",
+      "new_feedback": "同一身体回合内，球落地或球回合超时后只重置球，新球速度重新采样。之后的来球不包含在第一张观测里；需要根据新来球决定移动、挥拍与击球时机。",
+      "deadline": "评测配置的来球 x 方向速度为 −6.5 至 −5.2 m/s；球越过可击区域就错失这一球。挥拍时还要保持身体稳定。等待模型慢慢处理，不能把已经错过的来球补回来。",
+      "action": "直接输出动作关节的位置目标；物理步长 0.002 s，decimation=10，即原策略更新 50 Hz。这个频率是源码配置，不是已实测的最低必要频率。",
+      "evaluation": "reward_table_success 使用“已经碰过球拍”和“刚接触对面球台”；身体过低或越界终止。复用回球成功事件统计每次发球的回球率；不能把 dense reward 直接叫任务成功率。",
+      "caveat": "保留 t1_tt_eval 的来球分布与重发机制。不能把“碰到球”当成回球成功，也不能向 agent 提供现成乒乓 policy。",
+      "media": "找到作者仿真片段和 YouTube 演示入口；本次没有完成视频观看，不将其记作已观测的成功轨迹。",
+      "refs": [
+        {
+          "label": "连续回合中重新采样并发球",
+          "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/tt_env.py#L657"
+        },
+        {
+          "label": "原评测来球速度",
+          "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/t1_tt/t1_tt_config.py#L296"
+        },
+        {
+          "label": "实际回球到对面球台的判定",
+          "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/mdp/rewards.py#L613"
+        },
+        {
+          "label": "作者演示入口",
+          "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "来球在一个身体 episode 中重新采样，反馈截止时间明确；全身平衡与回球耦合。具体难度需要同接口基线验证。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "purdue-tracelab/TTRL-ICRA2026",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.1.0；作者提示升级 Sim 5.0+ 会改变成绩",
+      "install_reference": "按 README 安装 legged_lab 与作者 runner；先核对资产，再用 t1_tt_eval。",
+      "entry_note": "t1_tt_eval 为作者任务名；直接从注册表构造。--predictor 是作者额外预测器，不应悄悄赠送给 agent；若使用需标注观测条件。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "带乒乓配置的 Booster T1",
+          "kind": "repository",
+          "location": "legged_lab/assets/booster/T1_TT/T1_TT.usd",
+          "evidence_path": "legged_lab/assets/booster/booster.py",
+          "evidence_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/booster/booster.py",
+          "note": "t1_tt_eval 使用 BOOSTER_T1_TT_P2_CFG；保留同目录 mesh/material 引用。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/booster/T1_TT/T1_TT.usd",
+          "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+          "file_bytes": 3190,
+          "evidence_package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/booster/booster.py"
+        },
+        {
+          "name": "乒乓球桌",
+          "kind": "repository",
+          "location": "legged_lab/assets/table_tennis/table/pp_table_ver2.usd",
+          "evidence_path": "legged_lab/assets/table_tennis/table.py",
+          "evidence_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/table_tennis/table.py",
+          "note": "",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/assets/table_tennis/table/pp_table_ver2.usd",
+          "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+          "file_bytes": 3743,
+          "evidence_package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/table.py"
+        },
+        {
+          "name": "球及预测位置标记",
+          "kind": "procedural",
+          "location": "SphereCfg / legged_lab/assets/table_tennis/ball.py",
+          "evidence_path": "legged_lab/envs/base/tt_env.py",
+          "evidence_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/tt_env.py",
+          "note": "预测器权重随作者训练 checkpoint 保存；本轮未拿到匹配 checkpoint。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/tt_env.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/tt_env.py"
+        }
+      ],
+      "required_setting_checks": [
+        "保留原多次发球逻辑与随机来球速度；使用完整的人形机器人关节控制，不能把作者整套乒乓球策略包装成 agent 的工具。",
+        "保留 t1_tt_eval 的来球分布与重发机制。不能把“碰到球”当成回球成功，也不能向 agent 提供现成乒乓 policy。"
+      ],
+      "observation_note": "原机器人/球状态及作者 predictor 的使用方式要分别记录；本包不将 cuRobo/球预测器/全身策略自动作为 agent 可用工具。",
+      "source_snapshots": [
+        "sources/purdue-tracelab/TTRL-ICRA2026/LICENSE",
+        "sources/purdue-tracelab/TTRL-ICRA2026/LICENSE.txt",
+        "sources/purdue-tracelab/TTRL-ICRA2026/README.md",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/__init__.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/booster/booster.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/__init__.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/ball.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/assets/table_tennis/table.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/base_config.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/tt_env.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/t1_tt/t1_tt_config.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/__init__.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/curriculums.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/events.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/rewards.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/eval.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/play.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/plot_action.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/preview.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/scripts/train.py",
+        "sources/purdue-tracelab/TTRL-ICRA2026/setup.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "连续回合中重新采样并发球",
+          "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/base/tt_env.py#L657",
+          "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/base/tt_env.py"
+        },
+        {
+          "label": "原评测来球速度",
+          "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/envs/t1_tt/t1_tt_config.py#L296",
+          "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/envs/t1_tt/t1_tt_config.py"
+        },
+        {
+          "label": "实际回球到对面球台的判定",
+          "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026/blob/fdb192f8fff9f5ca54c4ec4a8441fda5174ca078/legged_lab/mdp/rewards.py#L613",
+          "package_path": "sources/purdue-tracelab/TTRL-ICRA2026/legged_lab/mdp/rewards.py"
+        },
+        {
+          "label": "作者演示入口",
+          "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026",
+          "package_path": null
+        }
+      ]
+    },
+    {
+      "id": "T03",
+      "title": "机械臂持杯接住随机发射的球",
+      "category": "动态拦截",
+      "source": "ReflexBench · Ball Catching",
+      "native": "BallCatching-Franka-IK-Abs-v0",
+      "stack": "Isaac Lab → Isaac Sim",
+      "commit": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "setting": "使用原接球事件与发射分布；在发射前不向 agent 暴露内部 launch_pitch、launch_yaw、launch_timer。原 policy 观测没有这些未来发射参数。",
+      "new_feedback": "发射器在回合开始后才发球。发射延迟为 0.3–0.8 秒，俯仰角为 50–65°，偏航偏移为 −15–15°。必须观察实际发射后的球位置与运动方向，才能确定接球位置。",
+      "deadline": "来球在重力作用下经过接球区域后落地；程序不能让球停在空中等待下一次模型回答。速度配置为 3.4 m/s，属于有限飞行窗口的拦截。",
+      "action": "原环境同时提供关节与 EEF/IK 接口；此处选绝对 IK 版本。快速控制程序可以输出 EEF，不需要把“写代码”与“使用 EEF”对立起来。",
+      "evaluation": "原 task_phase 到达 4 判为 task_completed；已发射球低于 0.03 m 判落地。包括接住之后的阶段，不能把整题简化成抓手触碰球。",
+      "caveat": "杯子跟随 EEF 的运动由环境更新，并有捕获区/阻尼逻辑；不是完整自然抓握。原观测含预测拦截量，状态版可能明显简单，不能冒称纯视觉难题。",
+      "media": "实际查看 ReflexVLA 官方真实接球对比视频约 57.62 / 134.91 s 的片段；该真机示例与所选仿真捕获机制不同。",
+      "refs": [
+        {
+          "label": "随机发射、跟踪与捕获事件",
+          "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py#L125"
+        },
+        {
+          "label": "观测与事件绑定",
+          "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py#L88"
+        },
+        {
+          "label": "落地与完成判据",
+          "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py#L39"
+        },
+        {
+          "label": "官方接球演示",
+          "url": "https://reflexvla.github.io/"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "有限飞行时间提供强时限证据；接球程序可能只需快速估计一次再发动作段，不要求每个物理步重新规划。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "LxRoboticsLab/ReflexBench",
+      "runtime": "Isaac Lab → Isaac Sim；README 未锁精确版本，杯子引用 Isaac 5.1 资产，需先做版本探测",
+      "install_reference": "python -m pip install -e source/reflexbench；官方 planning 数据收集另需 cuRobo，不是构造任务的同义条件。",
+      "entry_note": "选择 BallCatching-Franka-IK-Abs-v0；保留运行中新发球。官方异步评估接口可参考，但 RobotWorld adapter 尚未实现。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "Franka Panda",
+          "kind": "external",
+          "location": "isaaclab_assets.robots.franka.FRANKA_PANDA_HIGH_PD_CFG → 当前匹配 Isaac 资产根目录",
+          "evidence_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py",
+          "evidence_url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py",
+          "note": "资产路径由匹配的 Isaac Lab 版本解析，不能把高 PD 伺服误认为接球策略。",
+          "binary_in_bundle": false,
+          "upstream_url": "",
+          "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+          "evidence_package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py"
+        },
+        {
+          "name": "接球杯",
+          "kind": "external",
+          "location": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/Mugs/SM_Mug_A2.usd",
+          "evidence_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py",
+          "evidence_url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py",
+          "note": "固定源码 scale=(0.015,0.015,0.015)，禁重力并有 virtual capture zone；须按原逻辑加载。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Props/Mugs/SM_Mug_A2.usd",
+          "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+          "evidence_package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py"
+        },
+        {
+          "name": "小球、桌面与发射器占位几何",
+          "kind": "procedural",
+          "location": "SphereCfg / CuboidCfg / CylinderCfg",
+          "evidence_path": "source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+          "evidence_url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+          "note": "",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py"
+        }
+      ],
+      "required_setting_checks": [
+        "使用原接球事件与发射分布；在发射前不向 agent 暴露内部 launch_pitch、launch_yaw、launch_timer。原 policy 观测没有这些未来发射参数。",
+        "杯子跟随 EEF 的运动由环境更新，并有捕获区/阻尼逻辑；不是完整自然抓握。原观测含预测拦截量，状态版可能明显简单，不能冒称纯视觉难题。"
+      ],
+      "observation_note": "原 policy 观测含球状态及预测拦截量，不等同于 RGB-only；区分直接给预测量与 agent 从传感器自行估计。",
+      "source_snapshots": [
+        "sources/LxRoboticsLab/ReflexBench/LICENSE",
+        "sources/LxRoboticsLab/ReflexBench/README.md",
+        "sources/LxRoboticsLab/ReflexBench/pyproject.toml",
+        "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/POLICY_SERVER.md",
+        "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/eval.py",
+        "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/policy_client.py",
+        "sources/LxRoboticsLab/ReflexBench/scripts/evaluation/task_profiles.py",
+        "sources/LxRoboticsLab/ReflexBench/scripts/list_envs.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/config/extension.toml",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/README.md",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/__init__.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/__init__.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/__init__.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/data_collection_env_cfg.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_abs_env_cfg.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/ik_rel_env_cfg.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/config/franka/joint_pos_env_cfg.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/__init__.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/observations.py",
+        "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "随机发射、跟踪与捕获事件",
+          "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py#L125",
+          "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/events.py"
+        },
+        {
+          "label": "观测与事件绑定",
+          "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py#L88",
+          "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/ball_catching_env_cfg.py"
+        },
+        {
+          "label": "落地与完成判据",
+          "url": "https://github.com/LxRoboticsLab/ReflexBench/blob/8bb931485093c6d98f8729774ad01bf824964e16/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py#L39",
+          "package_path": "sources/LxRoboticsLab/ReflexBench/source/reflexbench/reflexbench/tasks/manager_based/ball_catching/mdp/terminations.py"
+        },
+        {
+          "label": "官方接球演示",
+          "url": "https://reflexvla.github.io/",
+          "package_path": null
+        }
+      ]
+    },
+    {
+      "id": "T04",
+      "title": "绳牵横梁上的小球抗扰定位",
+      "category": "间接动态操纵",
+      "source": "Aerial-Balance-Bench · Target Position / Disturbance",
+      "native": "environments/configs/template_eval_disturbance.yaml",
+      "stack": "Isaac Lab 1.4 / Isaac Sim 4.2",
+      "commit": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "setting": "选作者已经公开的 external_disturbance_enabled=true 评测 YAML。无人机受限于竖直运动，经绳子改变横梁角度；扰动作用于横梁另一端。不是一般飞行悬停。",
+      "new_feedback": "每个物理步加入新的 OU 随机扰动，使横梁另一端上下运动。实际梁角、球速和球位置决定下一次控制；未来扰动无法在起点编成确定的动作表。",
+      "deadline": "梁的倾斜会持续加速小球，偏差不是等一等就自动消失。纠正太晚会离开目标带甚至越过横梁可行范围，触发失败。",
+      "action": "原 velocity 接口是竖直速度增量；提供球位置/速度、梁角/角速度等 11 维状态。原策略步长约 1/60 s。原 YAML 同时有 15 步动作延迟，必须如实记录。",
+      "evaluation": "原评测报告目标带误差、收敛时间、稳态误差与 success_rate；本设置目标带 0.01 m、回合 10 s。代码 SR 统计未显式排除所有物理提前终止，也没有单独要求在带内至少保持一整秒，不能把它描述成更严格的验收。",
+      "caveat": "仅选 template_eval_disturbance.yaml。源码 evaluator 的目标区判断可能接受末尾单帧，需核对失败标记与持续保持口径；README 的描述不能代替实现。修改评分必须另记为 RobotWorld 评分。",
+      "media": "检查源码、官方说明及评测器；没有实际观看该配置的成功/失败视频。",
+      "refs": [
+        {
+          "label": "作者公开的扰动评测设置",
+          "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_disturbance.yaml#L1"
+        },
+        {
+          "label": "每物理步新采样扰动",
+          "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/robustness/robustness_manager.py#L137"
+        },
+        {
+          "label": "原评分的实际逻辑",
+          "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/evaluation/target_position_evaluator.py#L72"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "OU 扰动持续作用于横梁另一端，有直接的运行中新信息；但一个经典控制器可能就能解决，不能预先称圣杯难题。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "Wenminggong/aerial_balance_bench",
+      "runtime": "Isaac Sim 4.2.0 + Isaac Lab 1.4.0 + Python 3.10（作者 tested stack）",
+      "install_reference": "按 README 安装 conda_env.yml；在配置好的 Isaac Lab Python 中运行。先用 zero_action_policy_eval.py 核查接口。",
+      "entry_note": "不是 Gym ID：使用 environments/configs/template_eval_disturbance.yaml。默认 delay-free 配置不是本清单选择的题。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "无人机—绳—横梁—滚动物块系统",
+          "kind": "repository",
+          "location": "asserts/drone_rope_plank_horizontal_slide_block.usd",
+          "evidence_path": "environments/assets/drone_rope_plank.py",
+          "evidence_url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/assets/drone_rope_plank.py",
+          "note": "上游目录拼写就是 asserts。需保留该 USD 的层级/关节结构；不能用任意 drone+球示例替换。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/asserts/drone_rope_plank_horizontal_slide_block.usd",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/Wenminggong/aerial_balance_bench/environments/assets/drone_rope_plank.py"
+        }
+      ],
+      "required_setting_checks": [
+        "选作者已经公开的 external_disturbance_enabled=true 评测 YAML。无人机受限于竖直运动，经绳子改变横梁角度；扰动作用于横梁另一端。不是一般飞行悬停。",
+        "仅选 template_eval_disturbance.yaml。源码 evaluator 的目标区判断可能接受末尾单帧，需核对失败标记与持续保持口径；README 的描述不能代替实现。修改评分必须另记为 RobotWorld 评分。"
+      ],
+      "observation_note": "原 11 维状态：球位置/速度/加速度、梁角度/角速度/角加速度、drone z 位移/速度/加速度、目标与上一动作。是 state-based 设置。",
+      "source_snapshots": [
+        "sources/Wenminggong/aerial_balance_bench/LICENSE",
+        "sources/Wenminggong/aerial_balance_bench/README.md",
+        "sources/Wenminggong/aerial_balance_bench/baselines/base_policy.py",
+        "sources/Wenminggong/aerial_balance_bench/conda_env.yml",
+        "sources/Wenminggong/aerial_balance_bench/environments/__init__.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/aerial_balance_env.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/assets/__init__.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/assets/drone_rope_plank.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/target_position_balancing.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_15.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_30.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_45.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_60.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_delay_free.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_disturbance.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_gain.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_mass.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/template_train.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/configs/trajectory_tracking.yaml",
+        "sources/Wenminggong/aerial_balance_bench/environments/evaluation/__init__.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/evaluation/target_position_evaluator.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/evaluation/trajectory_tracking_evaluator.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/interfaces/__init__.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/interfaces/position_interface.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/interfaces/thrust_interface.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/interfaces/velocity_interface.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/robustness/__init__.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/robustness/robustness_manager.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/tasks/__init__.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/tasks/target_position_task.py",
+        "sources/Wenminggong/aerial_balance_bench/environments/tasks/trajectory_tracking_task.py",
+        "sources/Wenminggong/aerial_balance_bench/scripts/cpid_policy_eval.py",
+        "sources/Wenminggong/aerial_balance_bench/scripts/zero_action_policy_eval.py",
+        "sources/Wenminggong/aerial_balance_bench/utils/__init__.py",
+        "sources/Wenminggong/aerial_balance_bench/utils/drone_models/__init__.py",
+        "sources/Wenminggong/aerial_balance_bench/utils/drone_models/geometry_se3_controller.py",
+        "sources/Wenminggong/aerial_balance_bench/utils/drone_models/propulsor_model.py",
+        "sources/Wenminggong/aerial_balance_bench/utils/io.py",
+        "sources/Wenminggong/aerial_balance_bench/utils/paths.py",
+        "sources/Wenminggong/aerial_balance_bench/utils/visualization.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "作者公开的扰动评测设置",
+          "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/configs/template_eval_disturbance.yaml#L1",
+          "package_path": "sources/Wenminggong/aerial_balance_bench/environments/configs/template_eval_disturbance.yaml"
+        },
+        {
+          "label": "每物理步新采样扰动",
+          "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/robustness/robustness_manager.py#L137",
+          "package_path": "sources/Wenminggong/aerial_balance_bench/environments/robustness/robustness_manager.py"
+        },
+        {
+          "label": "原评分的实际逻辑",
+          "url": "https://github.com/Wenminggong/aerial_balance_bench/blob/d5bf6eae9f955bc03609d9adaedcc9885b31d6b9/environments/evaluation/target_position_evaluator.py#L72",
+          "package_path": "sources/Wenminggong/aerial_balance_bench/environments/evaluation/target_position_evaluator.py"
+        }
+      ]
+    },
+    {
+      "id": "T05",
+      "title": "无人机一对一排球对抗",
+      "category": "对抗与接球",
+      "source": "VolleyBots · 1 vs 1",
+      "native": "Volleyball1v1",
+      "stack": "Isaac Sim 2023.1.0-hotfix.1 + Orbit",
+      "commit": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "setting": "一个 agent 控制本方无人机，对手独立运行自己的策略；保留原物理与比赛规则。不能让同一个待测 agent 预先指定双方整场配合轨迹。",
+      "new_feedback": "对方击球会改变来球方向和速度；下一个接球位置取决于对手刚刚产生的动作与碰撞结果。需要在每次回球后读取新的球态与对手状态。",
+      "deadline": "来球落到本方场内就丢分，击球窗口过去不能补做。规则还限制单次回球与越网/出界，不允许把球接住后慢慢商量。",
+      "action": "原生默认是旋翼推力；框架还支持 CTBR（总推力+机体角速度）转换。使用 CTBR 时，底层飞控不能额外提供自动接球策略。",
+      "evaluation": "原代码包含落地、出界、触网、错误击球等判定并记录胜负；可直接定义固定对手集的胜率，但必须公开对手版本。",
+      "caveat": "固定对手 checkpoint、场地、动作层级与种子。直接调用作者 Serve/Attack 技能会把小脑交给现成策略。1v1、3v3、6v6 不作为三个不同机制凑数。",
+      "media": "实际打开并播放官网 1v1.mp4（20 s），查看了开场画面；未完整逐回合判读，未取得原始状态日志。论文胜率与分层策略结果属于 RL/多智能体设置，不是本项目结果。",
+      "refs": [
+        {
+          "label": "一对一原生任务配置",
+          "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/cfg/task/Volleyball1v1.yaml#L1"
+        },
+        {
+          "label": "真实接触、轮次与比赛结算",
+          "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py#L944"
+        },
+        {
+          "label": "落地、出界、犯规判据",
+          "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/utils/rules.py#L93"
+        },
+        {
+          "label": "官方任务和视频",
+          "url": "https://volleybots.github.io/"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "对方击球后产生新的球轨迹，存在落地/出界截止；比固定节奏单机颠球的反馈必要性更清楚。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "thu-uav/VolleyBots",
+      "runtime": "Isaac Sim 2023.1.0-hotfix.1 + 作者 Orbit/依赖；独立旧版本容器",
+      "install_reference": "README 提供 jimmyzhangruize/isaac-sim:2023.1.0-hotfix.1 镜像；需按 README mount 克隆目录。镜像未在本机拉取。",
+      "entry_note": "Volleyball1v1；锁定对手与 checkpoint。checkpoint 目录有作者基线，先核对所用文件，不把分层 Serve/Attack 技能接为 agent 免费小脑。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "Iris 无人机",
+          "kind": "repository",
+          "location": "volley_bots/robots/assets/usd/iris.usd",
+          "evidence_path": "volley_bots/robots/drone/iris.py",
+          "evidence_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/robots/drone/iris.py",
+          "note": "Volleyball1v1.yaml 的 drone_model=Iris；不是 IrisRacket 名称的另一个模型。",
+          "binary_in_bundle": false,
+          "companion_files": "同目录 iris.yaml 与 USD 引用的 mesh/material",
+          "upstream_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/robots/assets/usd/iris.usd",
+          "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+          "file_bytes": 37673021,
+          "evidence_package_path": "sources/thu-uav/VolleyBots/volley_bots/robots/drone/iris.py"
+        },
+        {
+          "name": "本地地面背景（启用 use_local_usd 时）",
+          "kind": "repository",
+          "location": "volley_bots/envs/assets/default_environment.usd",
+          "evidence_path": "volley_bots/envs/competitive/volleyball_1v1.py",
+          "evidence_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py",
+          "note": "关闭 use_local_usd 时走 Isaac 的在线 ground-plane 资源。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/assets/default_environment.usd",
+          "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+          "file_bytes": 8957,
+          "evidence_package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/volleyball_1v1.py"
+        },
+        {
+          "name": "排球与球网/场地几何",
+          "kind": "procedural",
+          "location": "volleyball_1v1.py 的 _design_scene 及 helpers",
+          "evidence_path": "volley_bots/envs/competitive/volleyball_1v1.py",
+          "evidence_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py",
+          "note": "对手策略 checkpoint 另从仓库 checkpoints/ 挑选并固定；未替智钦预选对手强度。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/volleyball_1v1.py"
+        }
+      ],
+      "required_setting_checks": [
+        "一个 agent 控制本方无人机，对手独立运行自己的策略；保留原物理与比赛规则。不能让同一个待测 agent 预先指定双方整场配合轨迹。",
+        "固定对手 checkpoint、场地、动作层级与种子。直接调用作者 Serve/Attack 技能会把小脑交给现成策略。1v1、3v3、6v6 不作为三个不同机制凑数。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/thu-uav/VolleyBots/LICENSE",
+        "sources/thu-uav/VolleyBots/README.md",
+        "sources/thu-uav/VolleyBots/cfg/base/env_base.yaml",
+        "sources/thu-uav/VolleyBots/cfg/base/sim_base.yaml",
+        "sources/thu-uav/VolleyBots/cfg/task/Volleyball1v1.yaml",
+        "sources/thu-uav/VolleyBots/scripts/evaluation_shell/volleyball3v3_crossplay.sh",
+        "sources/thu-uav/VolleyBots/scripts/evaluation_shell/volleyball3v3_hier.sh",
+        "sources/thu-uav/VolleyBots/scripts/evaluation_shell/volleyball3v3_psro_br.sh",
+        "sources/thu-uav/VolleyBots/scripts/train.py",
+        "sources/thu-uav/VolleyBots/scripts/train_hier.py",
+        "sources/thu-uav/VolleyBots/scripts/train_psro.py",
+        "sources/thu-uav/VolleyBots/scripts/train_psro_br.py",
+        "sources/thu-uav/VolleyBots/scripts/train_psro_cross_play.py",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/back_and_forth.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/hover.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/multiattack_easy.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/multiattack_hard.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/multijuggle.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/singlehit.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/singlejuggle.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball1v1_psro.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball1v1_sp.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball3v3_psro.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball3v3_sp.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball6v6_psro.sh",
+        "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball6v6_sp.sh",
+        "sources/thu-uav/VolleyBots/setup.py",
+        "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/utils/rules.py",
+        "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/volleyball_1v1.py",
+        "sources/thu-uav/VolleyBots/volley_bots/robots/drone/iris.py",
+        "sources/thu-uav/VolleyBots/volley_bots/robots/drone/iris_racket.py",
+        "sources/thu-uav/VolleyBots/volley_bots/robots/drone/multirotor.py",
+        "sources/thu-uav/VolleyBots/volley_bots/robots/robot.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "一对一原生任务配置",
+          "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/cfg/task/Volleyball1v1.yaml#L1",
+          "package_path": "sources/thu-uav/VolleyBots/cfg/task/Volleyball1v1.yaml"
+        },
+        {
+          "label": "真实接触、轮次与比赛结算",
+          "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py#L944",
+          "package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/volleyball_1v1.py"
+        },
+        {
+          "label": "落地、出界、犯规判据",
+          "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/utils/rules.py#L93",
+          "package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/utils/rules.py"
+        },
+        {
+          "label": "官方任务和视频",
+          "url": "https://volleybots.github.io/",
+          "package_path": null
+        }
+      ]
+    },
+    {
+      "id": "T06",
+      "title": "小车在随机扰动下连续漂移过弯",
+      "category": "车辆动态控制",
+      "source": "WheeledLab",
+      "native": "Isaac-MushrDriftRL-v0 / RSS_DRIFT_CONFIG",
+      "stack": "Isaac Lab 2.0.2 → Isaac Sim 4.5",
+      "commit": "a5017ce0696032805190448b2addb8077e458387",
+      "setting": "原生 DriftEventsRandomCfg：0.1–0.4 s 小幅速度/角速度扰动，0.8–1.2 s 较大 yaw 扰动；摩擦和执行器增益随机化。5 s 回合，物理 200 Hz、动作 50 Hz。",
+      "new_feedback": "转弯时实际侧滑、偏航速度和赛道偏差受运行中扰动改变，预先固定油门与转角不能针对新偏差作修正。",
+      "deadline": "任务速度目标 3 m/s，内外侧赛道约束半径为 0.3 / 2 m；迟到的纠正会使车辆越界或失去漂移状态。50 Hz 是原策略周期，不是已测得的最低频率。",
+      "action": "油门/轮速与转向接口。底层轮速伺服不负责赛道跟踪与侧滑稳定，程序仍需根据车辆状态选择动作。",
+      "evaluation": "原环境越界终止，并用速度、侧滑角、赛道偏差和进展奖励；不能只用存活时间作为成功率，否则停车会作弊。Play 把 rewards/terminations 置空，不能用于评分。",
+      "caveat": "原生 reward 不等于现成二值 SR。接入时保留原指标；另定 SR 需明确披露。固定控制/慢闭环在该设置下的成绩仍未实测。",
+      "media": "实际抽查官网实车漂移、仿真车群以及 baseline 视频：baseline 约 0.17 s 与 3.47 s 两个位置；没有完整数圈或由视频计算成绩。",
+      "refs": [
+        {
+          "label": "原生扰动",
+          "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py#L121"
+        },
+        {
+          "label": "奖励、终止和 Play 差异",
+          "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py#L243"
+        },
+        {
+          "label": "运行配置入口",
+          "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py#L8"
+        },
+        {
+          "label": "官方视频",
+          "url": "https://uwrobotlearning.github.io/WheeledLab/"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "有运行中高频扰动、非零速度和赛道限制；可避免静止保持这一类简单解，是新增的优先任务。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "UWRobotLearning/WheeledLab",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.0.2 + Python 3.10；README 要求 numpy<2",
+      "install_reference": "从 source 目录 pip install -e wheeledlab / wheeledlab_tasks / wheeledlab_assets / wheeledlab_rl，四个扩展分别安装。",
+      "entry_note": "Isaac-MushrDriftRL-v0 / RSS_DRIFT_CONFIG；不要使用取消 reward/termination 的 Play 配置计分。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "后驱悬挂 MuSHR",
+          "kind": "repository",
+          "location": "source/wheeledlab_assets/data/Robots/UWRLL/mushr_nano_v2.usd",
+          "evidence_path": "source/wheeledlab_assets/wheeledlab_assets/mushr.py",
+          "evidence_url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_assets/wheeledlab_assets/mushr.py",
+          "note": "实际为 MUSHR_SUS_2WD_CFG，继承 v2 悬挂模型；不是 UWPRL/mushr_nano.usd。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_assets/data/Robots/UWRLL/mushr_nano_v2.usd",
+          "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+          "file_bytes": 30139111,
+          "evidence_package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/mushr.py"
+        },
+        {
+          "name": "平地与赛道约束",
+          "kind": "procedural",
+          "location": "DriftTerrainImporterCfg + track_radius/straight 参数",
+          "evidence_path": "source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py",
+          "evidence_url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py",
+          "note": "赛道由状态与约束定义；不需要寻找整套室内场景 USD。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py"
+        }
+      ],
+      "required_setting_checks": [
+        "原生 DriftEventsRandomCfg：0.1–0.4 s 小幅速度/角速度扰动，0.8–1.2 s 较大 yaw 扰动；摩擦和执行器增益随机化。5 s 回合，物理 200 Hz、动作 50 Hz。",
+        "原生 reward 不等于现成二值 SR。接入时保留原指标；另定 SR 需明确披露。固定控制/慢闭环在该设置下的成绩仍未实测。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/UWRobotLearning/WheeledLab/LICENSE",
+        "sources/UWRobotLearning/WheeledLab/README.md",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/__init__.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/f1tenth.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/hound.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_assets/wheeledlab_assets/mushr.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_rl/scripts/train_rl.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/common/__init__.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/common/actions.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/common/observations.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/__init__.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/__init__.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/f1tenth/rsl_rl_ppo_cfg.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/config/agents/mushr/rsl_rl_ppo_cfg.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/disable_lidar.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/f1tenth_drift_env_cfg.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/__init__.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mdp/events.py",
+        "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "原生扰动",
+          "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py#L121",
+          "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py"
+        },
+        {
+          "label": "奖励、终止和 Play 差异",
+          "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py#L243",
+          "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_tasks/wheeledlab_tasks/drifting/mushr_drift_env_cfg.py"
+        },
+        {
+          "label": "运行配置入口",
+          "url": "https://github.com/UWRobotLearning/WheeledLab/blob/a5017ce0696032805190448b2addb8077e458387/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py#L8",
+          "package_path": "sources/UWRobotLearning/WheeledLab/source/wheeledlab_rl/wheeledlab_rl/configs/runs/rss_cfgs.py"
+        },
+        {
+          "label": "官方视频",
+          "url": "https://uwrobotlearning.github.io/WheeledLab/",
+          "package_path": null
+        }
+      ]
+    },
+    {
+      "id": "T07",
+      "title": "轮足机器人从近跌倒状态恢复直立",
+      "category": "姿态恢复",
+      "source": "Wheel-Legged-Lab",
+      "native": "Wheel-Legged-Recovery-Flat-v0",
+      "stack": "Isaac Lab → Isaac Sim",
+      "commit": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "setting": "reset 随机倾角/角速度；运行中每 3–6 s 推扰、最大平面速度 0.9 m/s。恢复窗口 2.5 s，启动宽限 0.25 s。",
+      "new_feedback": "实际倾角、角速度、轮速和接触决定该向哪边驱动车轮及如何调节腿长；随机推扰发生后不能沿原动作串继续。",
+      "deadline": "恢复必须在 2.5 s 内完成并连续稳定 0.30 s；倾角超过 1 rad 或高度低于 0.085 m 提前失败。2.5 s 不是每次可以等 2.5 s 再控制。",
+      "action": "6 维腿角/腿长/轮速目标，通过已有 VMC 与伺服执行。已读 action 实现：该层跟踪腿/轮目标，不替 agent 用躯干姿态完成平衡。",
+      "evaluation": "原恢复判据：倾角 <0.25 rad、高度 >0.14 m，保持 0.30 s；超恢复期限或倒地失败。",
+      "caveat": "是近跌倒恢复，不是从完全侧躺地面起身。默认 play 可能移除推扰，作者 --eval_pushes 用于保留推扰。",
+      "media": "查到 README 的行走/跳跃 demo；未观看精确 Recovery 设置的完整成功失败轨迹，因此不拿跳跃视频当它的验证。",
+      "refs": [
+        {
+          "label": "恢复判据",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py#L197"
+        },
+        {
+          "label": "恢复环境配置",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py#L297"
+        },
+        {
+          "label": "底层 VMC/动作职责",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py#L199"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "原设置有恢复期限与连续稳定判据，比“保持不倒”更可解释；暂未测简单 LQR/PD 能达到多高。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "zyicome/Wheel-Legged-Lab",
+      "runtime": "作者开发版本：Isaac Sim 5.1.0 + Isaac Lab 2.3.2",
+      "install_reference": "在 Isaac Lab Python 内 python -m pip install -e source/wheel_legged_robot；URDF 在首次构造时转换。",
+      "entry_note": "Recovery 与 Terrain-Reactive 共用资产。若使用作者 play.py，核对 --eval_pushes 是否保留了原推扰；不是新建两个独立场景。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "开链轮足机器人 URDF",
+          "kind": "repository",
+          "location": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/urdf/wl_dealed.urdf",
+          "evidence_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+          "evidence_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+          "note": "Isaac URDF importer 转换；两个任务共享同一资产。",
+          "binary_in_bundle": false,
+          "companion_files": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/ 与 ASSET_LICENSE.md",
+          "upstream_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/urdf/wl_dealed.urdf",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py"
+        },
+        {
+          "name": "恢复任务平面",
+          "kind": "procedural",
+          "location": "WheelLeggedRecoveryFlatEnvCfg",
+          "evidence_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+          "evidence_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+          "note": "",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+        }
+      ],
+      "required_setting_checks": [
+        "reset 随机倾角/角速度；运行中每 3–6 s 推扰、最大平面速度 0.9 m/s。恢复窗口 2.5 s，启动宽限 0.25 s。",
+        "是近跌倒恢复，不是从完全侧躺地面起身。默认 play 可能移除推扰，作者 --eval_pushes 用于保留推扰。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/zyicome/Wheel-Legged-Lab/README.md",
+        "sources/zyicome/Wheel-Legged-Lab/pyproject.toml",
+        "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/cli_args.py",
+        "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/play.py",
+        "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/train.py",
+        "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/train_staged.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/config/extension.toml",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/__init__.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/cusrl_ppo_cfg.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/rsl_rl_ppo_cfg.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/__init__.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/ASSET_LICENSE.md",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/__init__.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/commonds.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/curriculums.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/events.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/jump.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/observations.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/power_on.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/rewards.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_flat_env_cfg.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_jump_env_cfg.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "恢复判据",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py#L197",
+          "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+        },
+        {
+          "label": "恢复环境配置",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py#L297",
+          "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+        },
+        {
+          "label": "底层 VMC/动作职责",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py#L199",
+          "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py"
+        }
+      ]
+    },
+    {
+      "id": "T08",
+      "title": "轮足机器人在起伏与台阶地形中抗扰行进",
+      "category": "地形与动态接触",
+      "source": "Wheel-Legged-Lab",
+      "native": "Wheel-Legged-Terrain-Reactive-v0",
+      "stack": "Isaac Lab → Isaac Sim",
+      "commit": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "setting": "使用 Reactive 原生地形设置；actor 没有前方高度扫描。推扰间隔 5–9 s、最大平面速度 0.55；速度命令前后 ±0.6、转向 ±1.2。",
+      "new_feedback": "台阶/斜坡接触后的姿态与轮腿受力需由即时本体反馈反映；运行中推扰进一步改变接触和速度。",
+      "deadline": "双轮支撑在离地、落地和倾斜时会继续失稳，等模型下一轮可能已触发倾倒。配置的动作频率不能当成延迟实测。",
+      "action": "与 Recovery 相同 VMC 目标接口；程序承担动态平衡和轮腿协同，不能提供现成全身行走 policy。",
+      "evaluation": "原倾角 >1 rad 或高度 <0.09 m 失败；同时评速度跟踪/位移，存活并不等于完成行进。",
+      "caveat": "与恢复题共用平台，不能称两个独立资产；需求区别是“限时恢复”与“通过接触变化的地形”。若最后缩题，可二选一。",
+      "media": "源代码核查；未实际观看该精确配置的 rollout。",
+      "refs": [
+        {
+          "label": "Reactive 地形、推扰和动作",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py#L377"
+        },
+        {
+          "label": "任务注册",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py"
+        },
+        {
+          "label": "执行层实现",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "保留不同需求，但与其他 locomotion 题相关性高；不是靠换机器人型号增加独立覆盖。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "zyicome/Wheel-Legged-Lab",
+      "runtime": "作者开发版本：Isaac Sim 5.1.0 + Isaac Lab 2.3.2",
+      "install_reference": "在 Isaac Lab Python 内 python -m pip install -e source/wheel_legged_robot；URDF 在首次构造时转换。",
+      "entry_note": "Recovery 与 Terrain-Reactive 共用资产。若使用作者 play.py，核对 --eval_pushes 是否保留了原推扰；不是新建两个独立场景。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "开链轮足机器人 URDF",
+          "kind": "repository",
+          "location": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/urdf/wl_dealed.urdf",
+          "evidence_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+          "evidence_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+          "note": "Isaac URDF importer 转换；两个任务共享同一资产。",
+          "binary_in_bundle": false,
+          "companion_files": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/meshes/ 与 ASSET_LICENSE.md",
+          "upstream_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/urdf/wl_dealed.urdf",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py"
+        },
+        {
+          "name": "Reactive 斜坡/起伏/台阶",
+          "kind": "procedural",
+          "location": "WheelLeggedTerrainReactiveEnvCfg 中 terrain generator",
+          "evidence_path": "source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+          "evidence_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+          "note": "地形难度与随机种子是评测 setting 的一部分。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+        }
+      ],
+      "required_setting_checks": [
+        "使用 Reactive 原生地形设置；actor 没有前方高度扫描。推扰间隔 5–9 s、最大平面速度 0.55；速度命令前后 ±0.6、转向 ±1.2。",
+        "与恢复题共用平台，不能称两个独立资产；需求区别是“限时恢复”与“通过接触变化的地形”。若最后缩题，可二选一。"
+      ],
+      "observation_note": "选 Reactive 版本：actor 无前方地形高度扫描，不要混成 Perceptive 版本。其余 proprioception 按原配置。",
+      "source_snapshots": [
+        "sources/zyicome/Wheel-Legged-Lab/README.md",
+        "sources/zyicome/Wheel-Legged-Lab/pyproject.toml",
+        "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/cli_args.py",
+        "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/play.py",
+        "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/train.py",
+        "sources/zyicome/Wheel-Legged-Lab/scripts/rsl_rl/train_staged.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/config/extension.toml",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/__init__.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/cusrl_ppo_cfg.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/agents/rsl_rl_ppo_cfg.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/__init__.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/assets/wheellegged_description/ASSET_LICENSE.md",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/__init__.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/commonds.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/curriculums.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/events.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/jump.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/observations.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/power_on.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/rewards.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_flat_env_cfg.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_jump_env_cfg.py",
+        "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "Reactive 地形、推扰和动作",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py#L377",
+          "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/wheel_legged_terrain_env_cfg.py"
+        },
+        {
+          "label": "任务注册",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py",
+          "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/__init__.py"
+        },
+        {
+          "label": "执行层实现",
+          "url": "https://github.com/zyicome/Wheel-Legged-Lab/blob/e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py",
+          "package_path": "sources/zyicome/Wheel-Legged-Lab/source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_legged_robot/mdp/actions.py"
+        }
+      ]
+    },
+    {
+      "id": "T09",
+      "title": "四足机器人以后两轮直立并抵抗随机推扰",
+      "category": "不稳定支撑",
+      "source": "Wheeled Quadruped · Balance",
+      "native": "Wheeled-Quadruped-Balance-v0（非 Play）",
+      "stack": "Isaac Lab → Isaac Sim",
+      "commit": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "setting": "选原普通 Balance 配置，不选会关闭推扰的 Balance-Play。任务是机器人像平衡车一样在两只后轮上直立，不是四轮着地行驶。",
+      "new_feedback": "回合运行 10–15 秒时会触发新的水平速度推扰，x/y 各在 −0.5 至 0.5 m/s 范围采样。推扰后的倾角和角速度决定需要朝哪边、多快地移动轮子。",
+      "deadline": "两轮直立缺少四足支撑，倾倒会继续发展；超过 60° 或身体高度低于 0.4 m 就结束。保持上一条轮速命令、等待模型再回答，并不能保持受扰后的平衡。",
+      "action": "2 个前腿关节位置目标 + 2 个后轮速度目标。原物理 200 Hz、动作更新 50 Hz；actor 输入包括角速度、重力方向、关节状态与上次动作。",
+      "evaluation": "原实现是存活/姿态/高度等奖励与摔倒终止，回合 20 秒；没有发布 RobotWorld 所需的统一二元成功率。可复用终止事件，但二元成功口径应明确为我们的评测定义。",
+      "caveat": "原 Balance 的推扰必须保留；Balance-Play 将 push 关闭。前腿姿态与后轮配合，不是已有底盘平衡器上的 move_to。",
+      "media": "找到官方 pretrained 与 balance demo 入口；本次未实际观看完整视频。",
+      "refs": [
+        {
+          "label": "运行中推扰及后续终止/动作设置",
+          "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/balance_env_cfg.py#L185"
+        },
+        {
+          "label": "普通与 Play 任务注册",
+          "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/__init__.py#L18"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "机构本身不稳定且有运行中推扰；可能被较短经典控制器解决，仍需测难度。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "MickyasTA/wheeled_quadruped_robot",
+      "runtime": "Isaac Sim 5.1.0 + Isaac Lab 2.3.2.post1 + Python 3.11；README 另列 torch/rsl-rl 依赖",
+      "install_reference": "按 README pip 安装匹配的 Isaac Lab，再 pip install -e source/wheeled_quadruped。",
+      "entry_note": "必须 Wheeled-Quadruped-Balance-v0，非 Balance-Play-v0；后者移除 push。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "以后轮支撑的四足轮式机器人",
+          "kind": "repository",
+          "location": "source/wheeled_quadruped/wheeled_quadruped/assets/quadruped_robot.usd",
+          "evidence_path": "source/wheeled_quadruped/wheeled_quadruped/assets/__init__.py",
+          "evidence_url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/assets/__init__.py",
+          "note": "前轮固定、后轮+前大腿共四个动作；不要当作四条自由腿。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/assets/quadruped_robot.usd",
+          "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+          "file_bytes": 18298310,
+          "evidence_package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/assets/__init__.py"
+        },
+        {
+          "name": "作者 balance checkpoint（仅复现参考）",
+          "kind": "repository",
+          "location": "pretrained/balance",
+          "evidence_path": "README.md",
+          "evidence_url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/README.md",
+          "note": "保留基线来源，不自动接为 agent 工具。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/pretrained/balance",
+          "availability": "已核对本地目录；未递归验证每个 USD 引用",
+          "evidence_package_path": "sources/MickyasTA/wheeled_quadruped_robot/README.md"
+        }
+      ],
+      "required_setting_checks": [
+        "选原普通 Balance 配置，不选会关闭推扰的 Balance-Play。任务是机器人像平衡车一样在两只后轮上直立，不是四轮着地行驶。",
+        "原 Balance 的推扰必须保留；Balance-Play 将 push 关闭。前腿姿态与后轮配合，不是已有底盘平衡器上的 move_to。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/MickyasTA/wheeled_quadruped_robot/LICENSE",
+        "sources/MickyasTA/wheeled_quadruped_robot/README.md",
+        "sources/MickyasTA/wheeled_quadruped_robot/scripts/rsl_rl/cli_args.py",
+        "sources/MickyasTA/wheeled_quadruped_robot/scripts/rsl_rl/play.py",
+        "sources/MickyasTA/wheeled_quadruped_robot/scripts/rsl_rl/train.py",
+        "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/assets/__init__.py",
+        "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/__init__.py",
+        "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/__init__.py",
+        "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rl_games_ppo_cfg.yaml",
+        "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/rsl_rl_ppo_cfg.py",
+        "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/sb3_ppo_cfg.yaml",
+        "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/agents/skrl_ppo_cfg.yaml",
+        "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/balance_env_cfg.py",
+        "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/rough_env_cfg.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "运行中推扰及后续终止/动作设置",
+          "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/balance_env_cfg.py#L185",
+          "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/balance_env_cfg.py"
+        },
+        {
+          "label": "普通与 Play 任务注册",
+          "url": "https://github.com/MickyasTA/wheeled_quadruped_robot/blob/bcb4ec233927beb6e8b1806fad4703f52131dcbb/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/__init__.py#L18",
+          "package_path": "sources/MickyasTA/wheeled_quadruped_robot/source/wheeled_quadruped/wheeled_quadruped/tasks/balance/__init__.py"
+        }
+      ]
+    },
+    {
+      "id": "T10",
+      "title": "四足机器人行走时抵抗随机外力脉冲",
+      "category": "外力恢复",
+      "source": "Go2 PushRecovery",
+      "native": "Isaac-Velocity-Flat-Unitree-Go2-PushRecovery-v0",
+      "stack": "Isaac Lab 2.1.1 → Isaac Sim 4.5",
+      "commit": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "setting": "原随机脉冲间隔 6–10 s、持续 0.15–0.25 s；力方向随机。课程从最大 30 N 增到 120 N，刚创建环境时不是 120 N。",
+      "new_feedback": "外力造成实际身体速度与支撑脚变化，需要以反馈选择补偿步态，而非重复同一个预排步态。",
+      "deadline": "冲量作用后身体仍在运动，必须在失去可恢复支撑前纠正；脉冲宽度说明事件短，不等于测得的模型反馈截止时间。",
+      "action": "关节位置目标加电机级 PD；agent 的程序负责全身控制，不调用已有 Go2 行走策略。",
+      "evaluation": "原有跌倒终止与速度跟踪。作者另有固定 120 N 的 scheduled-push 评测脚本，不能把该脚本成绩写成随机训练设置成绩。",
+      "caveat": "Play 继承普通平地 Go2 配置，可能没有这些外力；20 s 回合也未必触发 25–40 s 间隔的持续力。只依赖已确认会生效的脉冲。",
+      "media": "读取作者 release 与评测脚本，未播放 release 中的 mp4；作者报告的对比不等于本次亲自观察或复测。",
+      "refs": [
+        {
+          "label": "配置与课程",
+          "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/env_cfg.py"
+        },
+        {
+          "label": "施力实现",
+          "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/push_events.py"
+        },
+        {
+          "label": "固定推扰评测与原随机环境的差异",
+          "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/scripts/play_scheduled_pushes.py"
+        },
+        {
+          "label": "作者发布记录",
+          "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/releases/tag/v0.2.0-pushrecovery"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "推扰强度会随训练课程变化，难度不能只看 120 N 宣传数字。保留任务，强度/课程状态必须锁定。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "BrandoUlissi/isaaclab-go2-locomotion",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.1.1；README: rsl_rl 2.3.3",
+      "install_reference": "使用作者 train_pushrecovery wrapper 导入自定义注册，再在 Isaac Lab 环境运行。不要直接只安装官方 Go2 平地任务。",
+      "entry_note": "随机脉冲版本与作者 scheduled 120 N 演示是两个设置；课程初始最大 30 N，必须记录课程步数/强度。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "Unitree Go2",
+          "kind": "external",
+          "location": "Isaac Lab v2.1.1 的 UNITREE_GO2_CFG → {ISAACLAB_NUCLEUS_DIR}/Robots/Unitree/Go2/go2.usd",
+          "evidence_path": "src/isaaclab_go2_pushrecovery/env_cfg.py",
+          "evidence_url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/env_cfg.py",
+          "note": "Go2 继承官方平地机器人配置；资产路径定义另附 v2.1.1 的 unitree.py。",
+          "binary_in_bundle": false,
+          "upstream_url": "",
+          "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+          "evidence_package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/env_cfg.py"
+        }
+      ],
+      "required_setting_checks": [
+        "原随机脉冲间隔 6–10 s、持续 0.15–0.25 s；力方向随机。课程从最大 30 N 增到 120 N，刚创建环境时不是 120 N。",
+        "Play 继承普通平地 Go2 配置，可能没有这些外力；20 s 回合也未必触发 25–40 s 间隔的持续力。只依赖已确认会生效的脉冲。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/BrandoUlissi/isaaclab-go2-locomotion/README.md",
+        "sources/BrandoUlissi/isaaclab-go2-locomotion/scripts/play_scheduled_pushes.py",
+        "sources/BrandoUlissi/isaaclab-go2-locomotion/scripts/train_pushrecovery.py",
+        "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/__init__.py",
+        "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/curriculum.py",
+        "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/env_cfg.py",
+        "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/push_events.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "配置与课程",
+          "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/env_cfg.py",
+          "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/env_cfg.py"
+        },
+        {
+          "label": "施力实现",
+          "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/src/isaaclab_go2_pushrecovery/push_events.py",
+          "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/src/isaaclab_go2_pushrecovery/push_events.py"
+        },
+        {
+          "label": "固定推扰评测与原随机环境的差异",
+          "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/blob/22c0dc900a9a9f38349cc959979e820e41021785/scripts/play_scheduled_pushes.py",
+          "package_path": "sources/BrandoUlissi/isaaclab-go2-locomotion/scripts/play_scheduled_pushes.py"
+        },
+        {
+          "label": "作者发布记录",
+          "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion/releases/tag/v0.2.0-pushrecovery",
+          "package_path": null
+        }
+      ]
+    },
+    {
+      "id": "T11",
+      "title": "A1 抬起后腿、以前腿支撑并抗扰",
+      "category": "不稳定支撑",
+      "source": "RobotLab HandStand",
+      "native": "RobotLab-Isaac-Velocity-Flat-HandStand-Unitree-A1-v0",
+      "stack": "Isaac Lab 2.0 → Isaac Sim 4.5",
+      "commit": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "setting": "默认 handstand_type=\"back\" 是后腿抬起、前腿支撑。抬脚目标 0.5 m；20 s 回合，继承 10–15 s 随机平面推速 ±0.5。",
+      "new_feedback": "窄支撑下躯干倾角/角速度决定如何调整支撑脚与身体；推扰后需要新姿态反馈。",
+      "deadline": "身体绕有限支撑区域倾倒会失去恢复机会，不能依靠长时间保持旧关节目标；原动作周期 20 ms。",
+      "action": "全身关节位置残差加 PD；没有内置手倒立策略。",
+      "evaluation": "原奖励分别评价抬脚高度、姿态与其他行走项，没有现成“全程手倒立成功率”；不能只用未触发 done 充当完成。",
+      "caveat": "确实继承 push，不把 reset 的力随机化误写成运行中持续力。新 SR 需组合原目标项与跌倒记录并单独披露。",
+      "media": "源码核查；未观看精确 Flat-HandStand 的成功/失败演示。",
+      "refs": [
+        {
+          "label": "倒立姿态和配置继承",
+          "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py"
+        },
+        {
+          "label": "平地版本",
+          "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py"
+        },
+        {
+          "label": "继承推扰",
+          "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py#L362"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "前腿双点支撑比普通静态四足站立更能暴露全身控制；缺少本项目基线分数。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "agilexrobotics/robot_lab",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.0.0 + Python 3.10",
+      "install_reference": "按 README 安装 source/robot_lab 扩展；作者 scripts/rsl_rl/base 提供训练与可视化入口。",
+      "entry_note": "RobotLab-Isaac-Velocity-Flat-HandStand-Unitree-A1-v0；默认 back 指后腿抬起、以前腿支撑。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "Unitree A1",
+          "kind": "repository",
+          "location": "source/robot_lab/data/Robots/Unitree/A1/a1.usd",
+          "evidence_path": "source/robot_lab/robot_lab/assets/unitree.py",
+          "evidence_url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/assets/unitree.py",
+          "note": "本项目 ISAACLAB_ASSETS_DATA_DIR 指向 source/robot_lab/data，不是线上 Nucleus 根目录。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/data/Robots/Unitree/A1/a1.usd",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/assets/unitree.py"
+        }
+      ],
+      "required_setting_checks": [
+        "默认 handstand_type=\"back\" 是后腿抬起、前腿支撑。抬脚目标 0.5 m；20 s 回合，继承 10–15 s 随机平面推速 ±0.5。",
+        "确实继承 push，不把 reset 的力随机化误写成运行中持续力。新 SR 需组合原目标项与跌倒记录并单独披露。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/agilexrobotics/robot_lab/README.md",
+        "sources/agilexrobotics/robot_lab/pyproject.toml",
+        "sources/agilexrobotics/robot_lab/scripts/rsl_rl/base/play.py",
+        "sources/agilexrobotics/robot_lab/scripts/rsl_rl/base/train.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/assets/__init__.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/assets/unitree.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/__init__.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/__init__.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/agents/rsl_rl_ppo_cfg.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/env/rewards.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/__init__.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/commands.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/curriculums.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/events.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/observations.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/mdp/rewards.py",
+        "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "倒立姿态和配置继承",
+          "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py",
+          "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/rough_env_cfg.py"
+        },
+        {
+          "label": "平地版本",
+          "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py",
+          "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/config/quadruped/unitree_a1_handstand/flat_env_cfg.py"
+        },
+        {
+          "label": "继承推扰",
+          "url": "https://github.com/agilexrobotics/robot_lab/blob/b868140eeb1459acefef24a865587ec39a5278c3/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py#L362",
+          "package_path": "sources/agilexrobotics/robot_lab/source/robot_lab/robot_lab/tasks/locomotion/velocity/velocity_env_cfg.py"
+        }
+      ]
+    },
+    {
+      "id": "T12",
+      "title": "人形机器人抗扰平衡并踢移动足球",
+      "category": "球体交互与全身控制",
+      "source": "HumanoidSoccer / PAiD",
+      "native": "Tracking-Flat-G1-SoccerMoving-RNN-v0",
+      "stack": "Isaac Lab 2.1.1 → Isaac Sim",
+      "commit": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "setting": "移动球初速度 x/y ±0.3 m/s；继承每 1–3 s 身体推扰，平面速度 ±0.5 与角速度扰动。不是只看到“移动球”三个字就入选。",
+      "new_feedback": "球的实际位置与身体被推后的姿态共同改变支撑腿和踢球脚所需动作。慢球本身可等，受扰全身支撑不能一直等。",
+      "deadline": "失衡恢复与单脚支撑/触球有物理时限；若给现成稳定行走+踢球策略，agent 只做调度，就不再测试这层能力。",
+      "action": "关节目标的全身策略接口；参考动作数据作为参考，不是直接提供作者训练好的控制器。",
+      "evaluation": "源码 kick_success 检测足球接触，未单独保证球朝目标飞出。应保留原接触指标，同时明确最终踢球结果和不跌倒，不能用接触数伪装任务成功率。",
+      "caveat": "不能把作者真机成功率直接当成该 sim 配置/该接触判据的成功率。推扰继承已查，资产/运动数据未 GPU 加载。",
+      "media": "实际抽查官网 “Kick moving soccer” 两段实机片段，约 0.08 s 与 3.08/3.44 s，看到来球和踢出阶段；未从视频反推运行频率。",
+      "refs": [
+        {
+          "label": "移动球配置",
+          "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py#L393"
+        },
+        {
+          "label": "继承的推扰",
+          "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/tracking_env_cfg.py#L207"
+        },
+        {
+          "label": "接触成功指标",
+          "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/kick_detection.py#L262"
+        },
+        {
+          "label": "作者实机演示",
+          "url": "https://soccer-humanoid.github.io/"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "全身支撑、外力和触球耦合，有较高研究价值；如果改成已有全身 policy 的高层命令接口，结论会改变。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "TeleHuman/HumanoidSoccer",
+      "runtime": "Isaac Lab 2.1.1；对应 Isaac Sim 4.5 系列，按作者 README 安装",
+      "install_reference": "安装 whole_body_tracking 扩展；资产 URDF 在线转换，另准备 motions/soccer-standard。本地只有源码/目录核查，未运行转换。",
+      "entry_note": "Tracking-Flat-G1-SoccerMoving-RNN-v0；--motion_path motions/soccer-standard；作者 ONNX 是复现参考，不能直接作为被测 agent 的动作工具。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "G1 URDF",
+          "kind": "repository",
+          "location": "source/whole_body_tracking/soccer/assets/unitree_description/urdf/g1/main.urdf",
+          "evidence_path": "source/whole_body_tracking/soccer/robots/g1.py",
+          "evidence_url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/robots/g1.py",
+          "note": "原作者使用 UrdfFileCfg，首次加载需转换；保留 unitree_description 的 meshes/。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/assets/unitree_description/urdf/g1/main.urdf",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/robots/g1.py"
+        },
+        {
+          "name": "足球 USD",
+          "kind": "repository",
+          "location": "source/whole_body_tracking/soccer/assets/soccer/soccer.usda",
+          "evidence_path": "source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py",
+          "evidence_url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py",
+          "note": "",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/assets/soccer/soccer.usda",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py"
+        },
+        {
+          "name": "踢球参考动作",
+          "kind": "repository",
+          "location": "motions/soccer-standard",
+          "evidence_path": "README.md",
+          "evidence_url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/README.md",
+          "note": "已在固定源码目录列表核到 10 个 npz；本包未复制 npz。作者 ckp/policy_30000.onnx 是另一个可选复现模型。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/motions/soccer-standard",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/TeleHuman/HumanoidSoccer/README.md"
+        }
+      ],
+      "required_setting_checks": [
+        "移动球初速度 x/y ±0.3 m/s；继承每 1–3 s 身体推扰，平面速度 ±0.5 与角速度扰动。不是只看到“移动球”三个字就入选。",
+        "不能把作者真机成功率直接当成该 sim 配置/该接触判据的成功率。推扰继承已查，资产/运动数据未 GPU 加载。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/TeleHuman/HumanoidSoccer/LICENSE.md",
+        "sources/TeleHuman/HumanoidSoccer/README.md",
+        "sources/TeleHuman/HumanoidSoccer/pyproject.toml",
+        "sources/TeleHuman/HumanoidSoccer/scripts/rsl_rl/play_multi.py",
+        "sources/TeleHuman/HumanoidSoccer/scripts/rsl_rl/train_multi.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/__init__.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/assets/__init__.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/robots/actuator.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/robots/g1.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/robots/smpl.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/__init__.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/__init__.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/__init__.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/__init__.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/agents/__init__.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/agents/rsl_rl_ppo_cfg.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/flat_env_cfg.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/__init__.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/commands.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/commands_multi_motion.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/commands_multi_motion_soccer.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/events.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/kick_detection.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/observations.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/rewards.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/terminations.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/tracking_env_cfg.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/utils/__init__.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/utils/exporter.py",
+        "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/utils/my_on_policy_runner.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "移动球配置",
+          "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py#L393",
+          "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/config/g1/soccer_flat_env_cfg.py"
+        },
+        {
+          "label": "继承的推扰",
+          "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/tracking_env_cfg.py#L207",
+          "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/tracking_env_cfg.py"
+        },
+        {
+          "label": "接触成功指标",
+          "url": "https://github.com/TeleHuman/HumanoidSoccer/blob/e72e470230047dedaf66df0983f1d0ab746faeb5/source/whole_body_tracking/soccer/tasks/tracking/mdp/kick_detection.py#L262",
+          "package_path": "sources/TeleHuman/HumanoidSoccer/source/whole_body_tracking/soccer/tasks/tracking/mdp/kick_detection.py"
+        },
+        {
+          "label": "作者实机演示",
+          "url": "https://soccer-humanoid.github.io/",
+          "package_path": null
+        }
+      ]
+    },
+    {
+      "id": "T13",
+      "title": "Digit 行走时同时跟踪双手目标",
+      "category": "行走与上肢协调",
+      "source": "Isaac Lab",
+      "native": "Isaac-Tracking-LocoManip-Digit-v0",
+      "stack": "Isaac Sim 生态；精确依赖见固定版本源码",
+      "commit": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "setting": "14 s 回合，双手目标每 1–3 s 更新；继承身体推扰间隔 10–15 s，因此不是每个回合都保证被推。",
+      "new_feedback": "双手到达误差、脚接触与躯干状态共同影响下一步全身动作。手臂移动本身扰动平衡。",
+      "deadline": "双足动态支撑要在失衡前纠正；不能让机器人维持不稳定支撑等待秒级模型回答。",
+      "action": "全身关节目标；底层电机伺服不等于已经解决全身平衡。",
+      "evaluation": "原身体接触/姿态失败与行走、手目标跟踪指标；没有等价于“搬箱成功”的终局判据。",
+      "caveat": "原题没有被手握住的货物，不能写成端箱行走；代码里未绑定的手部随机施力不算生效事件。",
+      "media": "已核查原始源码；本次未实际观看该固定版本的完整成功/失败视频。",
+      "refs": [
+        {
+          "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+          "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py"
+        },
+        {
+          "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+          "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py"
+        },
+        {
+          "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+          "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "保留全身协调机制，先验证手目标与行走都达标；不应仅凭名字 LocoManip 宣称复杂物体接触。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "isaac-sim/IsaacLab",
+      "runtime": "固定源码 VERSION=2.3.2；README 支持 Sim 4.5/5.0/5.1，建议单独记录实际运行版本",
+      "install_reference": "按该 commit README 安装 Isaac Lab；任务随 isaaclab_tasks 注册，无额外第三方任务包。",
+      "entry_note": "Isaac-Tracking-LocoManip-Digit-v0；保持原全身动作接口，不调用外部训练好的 Digit walking controller。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "Digit v4",
+          "kind": "external",
+          "location": "{NUCLEUS_ASSET_ROOT_DIR}/Isaac/Robots/Agility/Digit/digit_v4.usd",
+          "evidence_path": "source/isaaclab_assets/isaaclab_assets/robots/agility.py",
+          "evidence_url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_assets/isaaclab_assets/robots/agility.py",
+          "note": "NUCLEUS_ASSET_ROOT_DIR 由 /persistent/isaac/asset_root/cloud 设置决定；补充的 assets.py 给出解析位置。",
+          "binary_in_bundle": false,
+          "upstream_url": "",
+          "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+          "evidence_package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/agility.py"
+        },
+        {
+          "name": "平地与双手目标",
+          "kind": "procedural",
+          "location": "DigitRoughEnvCfg → loco_manip_env_cfg.py 的目标/场景覆盖",
+          "evidence_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+          "evidence_url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+          "note": "无被手握住的货物；这是双手目标跟踪，不是搬箱。",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py"
+        }
+      ],
+      "required_setting_checks": [
+        "14 s 回合，双手目标每 1–3 s 更新；继承身体推扰间隔 10–15 s，因此不是每个回合都保证被推。",
+        "原题没有被手握住的货物，不能写成端箱行走；代码里未绑定的手部随机施力不算生效事件。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/__init__.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/__init__.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/__init__.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/__init__.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/flat_env_cfg.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+        "sources/isaac-sim/IsaacLab/LICENSE",
+        "sources/isaac-sim/IsaacLab/README.md",
+        "sources/isaac-sim/IsaacLab/VERSION",
+        "sources/isaac-sim/IsaacLab/source/isaaclab/isaaclab/utils/assets.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/unitree.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/franka.py",
+        "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/agility.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+          "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+          "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py"
+        },
+        {
+          "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+          "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+          "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py"
+        },
+        {
+          "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+          "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+          "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py"
+        }
+      ]
+    },
+    {
+      "id": "T14",
+      "title": "四足崎岖地形行走并抵抗推扰",
+      "category": "地形与动态接触",
+      "source": "OmniIsaacGymEnvs",
+      "native": "AnymalTerrain",
+      "stack": "Isaac Sim 生态；精确依赖见固定版本源码",
+      "commit": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "setting": "AnymalTerrain 原配置为 20 s episode；运行中每 15 s 改变水平基座速度，地形影响落脚与身体状态。",
+      "new_feedback": "脚与地形接触及推扰后的速度必须进入下一步关节控制；预设步态不能对运行中新扰动反应。",
+      "deadline": "走动中的支撑变化与失衡存在时间窗口；如果 agent 获得作者训练好的 gait，快反馈已经被外包。",
+      "action": "关节位置目标与 PD；不是“前进一米”这种已含行走控制的 API。",
+      "evaluation": "身体/膝部接触等终止项，另有速度跟踪奖励；站住不倒并不完成行走任务。",
+      "caveat": "旧 OmniIsaacGymEnvs 基于 Isaac Sim，区别于独立旧 IsaacGymEnvs。需按旧依赖容器复现，不能直接假定兼容当前 Isaac Lab。",
+      "media": "已核查原始源码；本次未实际观看该固定版本的完整成功/失败视频。",
+      "refs": [
+        {
+          "label": "omniisaacgymenvs/tasks/anymal_terrain.py",
+          "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/anymal_terrain.py"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "机制清楚但属于成熟 locomotion 问题；和轮足地形题需控制权重，避免排行榜被步态题主导。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "isaac-sim/OmniIsaacGymEnvs",
+      "runtime": "固定 README 要求 Isaac Sim 4.0.0；不是旧独立 Isaac Gym",
+      "install_reference": "使用 Isaac Sim 自带 python.sh；pip install -e .；按 README 的 rlgames_train 入口运行。",
+      "entry_note": "task=AnymalTerrain；保留原每 15 s push 与地形，20 s episode，记录是否发生推扰。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "ANYmal",
+          "kind": "external",
+          "location": "get_assets_root_path() + /Isaac/Robots/ANYbotics/anymal_instanceable.usd",
+          "evidence_path": "omniisaacgymenvs/robots/articulations/anymal.py",
+          "evidence_url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/robots/articulations/anymal.py",
+          "note": "使用 Isaac Sim 4.0 的资产服务或缓存根，保留 instanceable 引用。",
+          "binary_in_bundle": false,
+          "upstream_url": "",
+          "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+          "evidence_package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/robots/articulations/anymal.py"
+        },
+        {
+          "name": "崎岖地形",
+          "kind": "procedural",
+          "location": "AnymalTerrain 配置与 terrain_utils",
+          "evidence_path": "omniisaacgymenvs/tasks/anymal_terrain.py",
+          "evidence_url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/anymal_terrain.py",
+          "note": "",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/anymal_terrain.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/anymal_terrain.py"
+        }
+      ],
+      "required_setting_checks": [
+        "AnymalTerrain 原配置为 20 s episode；运行中每 15 s 改变水平基座速度，地形影响落脚与身体状态。",
+        "旧 OmniIsaacGymEnvs 基于 Isaac Sim，区别于独立旧 IsaacGymEnvs。需按旧依赖容器复现，不能直接假定兼容当前 Isaac Lab。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/cfg/task/AnymalTerrain.yaml",
+        "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/anymal_terrain.py",
+        "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/base/rl_task.py",
+        "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/utils/anymal_terrain_generator.py",
+        "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/utils/usd_utils.py",
+        "sources/isaac-sim/OmniIsaacGymEnvs/README.md",
+        "sources/isaac-sim/OmniIsaacGymEnvs/LICENSE.txt",
+        "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/robots/articulations/anymal.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "omniisaacgymenvs/tasks/anymal_terrain.py",
+          "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs/blob/f8f91bcf73cfd8ede2eab70e19dd70162abf9775/omniisaacgymenvs/tasks/anymal_terrain.py",
+          "package_path": "sources/isaac-sim/OmniIsaacGymEnvs/omniisaacgymenvs/tasks/anymal_terrain.py"
+        }
+      ]
+    },
+    {
+      "id": "T15",
+      "title": "双轮足机器人按指令跳起、落地并继续平衡",
+      "category": "跳跃与接触切换",
+      "source": "Flamingo TrackJump",
+      "native": "Isaac-TrackJUMP-Flat-Flamingo-v1-ppo",
+      "stack": "Isaac Lab 2.0 → Isaac Sim",
+      "commit": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "setting": "原跳跃事件命令每 3–5 s 更新，事件持续 1.2 s；20 s episode，13–15 s 身体速度推扰。物理 200 Hz、动作 50 Hz。",
+      "new_feedback": "实际起跳速度、空中姿态和落地时刻决定伸缩腿与轮速的切换；推扰和接触差异不能由一个固定跳跃时序覆盖。",
+      "deadline": "飞行与落地不等待模型，错过接地控制会倒地。不是仅按节拍伸缩腿的动画。",
+      "action": "髋/腿关节位置与轮速度目标；下层是执行器控制，程序承担跳跃和姿态协调。",
+      "evaluation": "原奖励包含事件内上升速度和蹬地，身体/髋肩腿触地等失败；没有现成完整“跳跃+稳定落地”二值 SR。",
+      "caveat": "Play 把推扰幅度全置 0，即使 interval 仍存在。必须用非 Play 原配置；不能把已知跳跃时序当作必须闭环的唯一理由。",
+      "media": "检查官方 README 动图入口与配置，未实际观看精确 TrackJump 的完整 rollout。",
+      "refs": [
+        {
+          "label": "跳跃目标与运行推扰",
+          "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py#L190"
+        },
+        {
+          "label": "Play 推扰为零",
+          "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py#L253"
+        },
+        {
+          "label": "动作与时钟",
+          "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/velocity_env_cfg.py"
+        },
+        {
+          "label": "任务注册",
+          "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/__init__.py#L102"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "保留起跳/飞行/落地转换；与轮足恢复题相关，正式集应报告机制家族而不只报任务数量。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "runtime": "Isaac Sim 4.5 + Isaac Lab 2.0.0 + Python 3.10（README）",
+      "install_reference": "按 README 安装 lab.flamingo，手动解压指定资产 ZIP。不要按 README 示例下载另一个 rev 的机器人。",
+      "entry_note": "Isaac-TrackJUMP-Flat-Flamingo-v1-ppo；非 Play；TrackJump 使用 rev01_5_2，而不是 README 安装示例中的 rev01_4_1。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "Flamingo rev01_5_2 资产 ZIP",
+          "kind": "repository",
+          "location": "lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev01_5_2/flamingo_rev01_5_2_merge_joints.zip",
+          "evidence_path": "lab/flamingo/assets/flamingo/flamingo_rev01_5_2.py",
+          "evidence_url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/assets/flamingo/flamingo_rev01_5_2.py",
+          "note": "按 README 在原目录解压，目标为同名 .usd；同时保留 USD 引用。",
+          "binary_in_bundle": false,
+          "companion_files": "lab/flamingo/assets/data/ActuatorNets/Flamingo/kan/wheel/symbolic_formula.txt（按所选 actuator 配置检查）",
+          "upstream_url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/assets/data/Robots/Flamingo/flamingo_rev01_5_2/flamingo_rev01_5_2_merge_joints.zip",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/assets/flamingo/flamingo_rev01_5_2.py"
+        }
+      ],
+      "required_setting_checks": [
+        "原跳跃事件命令每 3–5 s 更新，事件持续 1.2 s；20 s episode，13–15 s 身体速度推扰。物理 200 Hz、动作 50 Hz。",
+        "Play 把推扰幅度全置 0，即使 interval 仍存在。必须用非 Play 原配置；不能把已知跳跃时序当作必须闭环的唯一理由。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/README.md",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/__init__.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/__init__.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/jump_rewards.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/velocity_env_cfg.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/__init__.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/curriculums.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/event_command.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/events.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/observations.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/position_command.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/rewards.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/terminations.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/velocity_command.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/mdp/yk_command.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/assets/flamingo/__init__.py",
+        "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/assets/flamingo/flamingo_rev01_5_2.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "跳跃目标与运行推扰",
+          "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py#L190",
+          "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py"
+        },
+        {
+          "label": "Play 推扰为零",
+          "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py#L253",
+          "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/flat_env/track_jump/flat_env_track_jump_cfg.py"
+        },
+        {
+          "label": "动作与时钟",
+          "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/velocity_env_cfg.py",
+          "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/velocity_env_cfg.py"
+        },
+        {
+          "label": "任务注册",
+          "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/blob/d922cce9e07a8877c37e12b2cb39dfdcf34b9d40/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/__init__.py#L102",
+          "package_path": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/lab/flamingo/tasks/manager_based/locomotion/velocity/flamingo_env/__init__.py"
+        }
+      ]
+    },
+    {
+      "id": "T16",
+      "title": "无人机吊载悬停并抑制受扰摆动",
+      "category": "吊载耦合控制",
+      "source": "OmniDrones",
+      "native": "Payload/PayloadHover.yaml",
+      "stack": "Isaac Sim 生态；精确依赖见固定版本源码",
+      "commit": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "setting": "原 PayloadHover 存在运行中载荷随机力；push_interval 参数按实现解释，不能直接读成“固定每 2 秒”。",
+      "new_feedback": "载荷新受力后的摆角/速度与机体状态决定推力分配；仅稳定机体不足以保证载荷稳定。",
+      "deadline": "负载与机体的耦合运动持续发展，失高/大幅摆动需要在碰地前处理。",
+      "action": "选原 action_transform=null 的转子动作；配置里出现 Lee 控制器名字，不代表已自动调用悬停控制器。",
+      "evaluation": "机体或载荷高度 <0.2 m 失败，另有悬停与载荷状态奖励；完整任务达标不能只判断没落地。",
+      "caveat": "属于空中任务，但与排球、梁球系统有不同受控对象；同系列不同机型不额外计数。",
+      "media": "已核查原始源码；本次未实际观看该固定版本的完整成功/失败视频。",
+      "refs": [
+        {
+          "label": "omni_drones/envs/payload/payload_hover.py",
+          "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/payload_hover.py"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "运行中新随机载荷力明确，经典耦合控制能否轻松通过尚未验证。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "btx0424/OmniDrones",
+      "runtime": "固定 README 当前分支 Isaac Sim 4.1.0；不是旧 release 分支的 2022.2.0",
+      "install_reference": "按固定 README 和 docs 安装 OmniDrones；两个 task 共享 Hummingbird 模型与同一容器。",
+      "entry_note": "Hydra task=Payload/PayloadHover 或 task=InvPendulum/InvPendulumTrack；action_transform=null 为本次选择接口。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "Hummingbird 四旋翼",
+          "kind": "repository",
+          "location": "omni_drones/robots/assets/usd/hummingbird.usd",
+          "evidence_path": "omni_drones/robots/drone/hummingbird.py",
+          "evidence_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/drone/hummingbird.py",
+          "note": "两个原 task 都配置 Hummingbird，不是 Iris；local cache 本次主要为代码，需从原仓库拿完整 USD。",
+          "binary_in_bundle": false,
+          "companion_files": "同目录 hummingbird.yaml 以及 referenced assets",
+          "upstream_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/assets/usd/hummingbird.usd",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/btx0424/OmniDrones/omni_drones/robots/drone/hummingbird.py"
+        },
+        {
+          "name": "吊杆、载荷与关节",
+          "kind": "procedural",
+          "location": "omni_drones/envs/payload/utils.py: attach_payload",
+          "evidence_path": "omni_drones/envs/payload/utils.py",
+          "evidence_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/utils.py",
+          "note": "",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/utils.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/btx0424/OmniDrones/omni_drones/envs/payload/utils.py"
+        }
+      ],
+      "required_setting_checks": [
+        "原 PayloadHover 存在运行中载荷随机力；push_interval 参数按实现解释，不能直接读成“固定每 2 秒”。",
+        "属于空中任务，但与排球、梁球系统有不同受控对象；同系列不同机型不额外计数。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/btx0424/OmniDrones/cfg/base/env_base.yaml",
+        "sources/btx0424/OmniDrones/cfg/base/randomization_base.yaml",
+        "sources/btx0424/OmniDrones/cfg/base/sim_base.yaml",
+        "sources/btx0424/OmniDrones/cfg/task/InvPendulum/InvPendulumTrack.yaml",
+        "sources/btx0424/OmniDrones/cfg/task/Payload/PayloadHover.yaml",
+        "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/inv_pendulum_track.py",
+        "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/utils.py",
+        "sources/btx0424/OmniDrones/omni_drones/envs/payload/payload_hover.py",
+        "sources/btx0424/OmniDrones/omni_drones/envs/payload/utils.py",
+        "sources/btx0424/OmniDrones/omni_drones/robots/assets/usd/hummingbird.yaml",
+        "sources/btx0424/OmniDrones/omni_drones/robots/drone/hummingbird.py",
+        "sources/btx0424/OmniDrones/omni_drones/robots/drone/multirotor.py",
+        "sources/btx0424/OmniDrones/omni_drones/robots/robot.py",
+        "sources/btx0424/OmniDrones/LICENSE",
+        "sources/btx0424/OmniDrones/README.md",
+        "sources/btx0424/OmniDrones/scripts/play.py",
+        "sources/btx0424/OmniDrones/scripts/train.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "omni_drones/envs/payload/payload_hover.py",
+          "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/payload/payload_hover.py",
+          "package_path": "sources/btx0424/OmniDrones/omni_drones/envs/payload/payload_hover.py"
+        }
+      ]
+    },
+    {
+      "id": "T17",
+      "title": "无人机托举倒立摆并跟踪轨迹",
+      "category": "不稳定负载",
+      "source": "OmniDrones",
+      "native": "InvPendulum/InvPendulumTrack.yaml",
+      "stack": "Isaac Sim 生态；精确依赖见固定版本源码",
+      "commit": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "setting": "原 InvPendulumTrack：1 m 上置杆、600 step 回合；参考轨迹已知并有未来参考采样。没有额外添加风扰。",
+      "new_feedback": "上置摆的实际偏角和角速度必须决定机体纠偏，已知期望轨迹不等于已知实际摆状态。",
+      "deadline": "摆杆偏离会继续倾倒；杆向上分量 <0.2、机体过低或轨迹误差 >0.8 即失败。",
+      "action": "原生飞行动作入口，不能先接上完整倒立摆稳定策略再仅评高层指令。",
+      "evaluation": "沿用原终止与跟踪误差；同时检查杆姿态，不能只评机体到达轨迹点。",
+      "caveat": "没有运行中新随机力的强证据，分类依赖不稳定动力学；确定初始状态下的短时开环轨迹究竟能撑多久，必须跑对照。",
+      "media": "已核查原始源码；本次未实际观看该固定版本的完整成功/失败视频。",
+      "refs": [
+        {
+          "label": "omni_drones/envs/inv_pendulum/inv_pendulum_track.py",
+          "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/inv_pendulum/inv_pendulum_track.py"
+        }
+      ],
+      "verdict": "保留",
+      "hardness": "保留控制机制；证据强度低于带明确随机推扰的任务，不承诺每个 seed 都无法开环通过。",
+      "source_review": true,
+      "simulation_run": false,
+      "hold_baseline_run": false,
+      "open_loop_baseline_run": false,
+      "latency_sweep_run": false,
+      "repository": "btx0424/OmniDrones",
+      "runtime": "固定 README 当前分支 Isaac Sim 4.1.0；不是旧 release 分支的 2022.2.0",
+      "install_reference": "按固定 README 和 docs 安装 OmniDrones；两个 task 共享 Hummingbird 模型与同一容器。",
+      "entry_note": "Hydra task=Payload/PayloadHover 或 task=InvPendulum/InvPendulumTrack；action_transform=null 为本次选择接口。",
+      "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+      "assets": [
+        {
+          "name": "Hummingbird 四旋翼",
+          "kind": "repository",
+          "location": "omni_drones/robots/assets/usd/hummingbird.usd",
+          "evidence_path": "omni_drones/robots/drone/hummingbird.py",
+          "evidence_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/drone/hummingbird.py",
+          "note": "两个原 task 都配置 Hummingbird，不是 Iris；local cache 本次主要为代码，需从原仓库拿完整 USD。",
+          "binary_in_bundle": false,
+          "companion_files": "同目录 hummingbird.yaml 以及 referenced assets",
+          "upstream_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/robots/assets/usd/hummingbird.usd",
+          "availability": "配置/上游目录指向该位置；本轮未下载资产本体",
+          "evidence_package_path": "sources/btx0424/OmniDrones/omni_drones/robots/drone/hummingbird.py"
+        },
+        {
+          "name": "上置摆杆、摆球与关节",
+          "kind": "procedural",
+          "location": "omni_drones/envs/inv_pendulum/utils.py: create_pendulum",
+          "evidence_path": "omni_drones/envs/inv_pendulum/utils.py",
+          "evidence_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/inv_pendulum/utils.py",
+          "note": "",
+          "binary_in_bundle": false,
+          "upstream_url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/inv_pendulum/utils.py",
+          "availability": "运行时由所列源码生成，没有独立资产包",
+          "evidence_package_path": "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/utils.py"
+        }
+      ],
+      "required_setting_checks": [
+        "原 InvPendulumTrack：1 m 上置杆、600 step 回合；参考轨迹已知并有未来参考采样。没有额外添加风扰。",
+        "没有运行中新随机力的强证据，分类依赖不稳定动力学；确定初始状态下的短时开环轨迹究竟能撑多久，必须跑对照。"
+      ],
+      "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+      "source_snapshots": [
+        "sources/btx0424/OmniDrones/cfg/base/env_base.yaml",
+        "sources/btx0424/OmniDrones/cfg/base/randomization_base.yaml",
+        "sources/btx0424/OmniDrones/cfg/base/sim_base.yaml",
+        "sources/btx0424/OmniDrones/cfg/task/InvPendulum/InvPendulumTrack.yaml",
+        "sources/btx0424/OmniDrones/cfg/task/Payload/PayloadHover.yaml",
+        "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/inv_pendulum_track.py",
+        "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/utils.py",
+        "sources/btx0424/OmniDrones/omni_drones/envs/payload/payload_hover.py",
+        "sources/btx0424/OmniDrones/omni_drones/envs/payload/utils.py",
+        "sources/btx0424/OmniDrones/omni_drones/robots/assets/usd/hummingbird.yaml",
+        "sources/btx0424/OmniDrones/omni_drones/robots/drone/hummingbird.py",
+        "sources/btx0424/OmniDrones/omni_drones/robots/drone/multirotor.py",
+        "sources/btx0424/OmniDrones/omni_drones/robots/robot.py",
+        "sources/btx0424/OmniDrones/LICENSE",
+        "sources/btx0424/OmniDrones/README.md",
+        "sources/btx0424/OmniDrones/scripts/play.py",
+        "sources/btx0424/OmniDrones/scripts/train.py"
+      ],
+      "source_entry_files": [
+        {
+          "label": "omni_drones/envs/inv_pendulum/inv_pendulum_track.py",
+          "url": "https://github.com/btx0424/OmniDrones/blob/9ce7c2028b71be64d7e748c31f685cd3b54afe27/omni_drones/envs/inv_pendulum/inv_pendulum_track.py",
+          "package_path": "sources/btx0424/OmniDrones/omni_drones/envs/inv_pendulum/inv_pendulum_track.py"
+        }
+      ]
+    }
+  ],
+  "repositories": [
+    {
+      "repo": "AllenHuangGit/SteadyTray",
+      "runtime": "Isaac Sim 4.5 + 作者 IsaacLab_SteadyTray 分支；不可直接替换成官方同名版本",
+      "install_reference": "按 README 的作者 fork + Docker 流程安装，再安装 SteadyTray 扩展；依赖 fork 的 termination manager 已附固定版本证据。",
+      "entry_note": "G1-Steady-Object 是原 Stage 3 环境；作者训练 runner 使用残差训练。测试 agent 时，必须记录是接原完整关节动作还是接作者残差 runner，不能混为同一个 setting。",
+      "commit": "ae781f9f43f9505118c2c434733c57ed1c09dbc3",
+      "url": "https://github.com/AllenHuangGit/SteadyTray",
+      "readme": "sources/AllenHuangGit/SteadyTray/README.md"
+    },
+    {
+      "repo": "purdue-tracelab/TTRL-ICRA2026",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.1.0；作者提示升级 Sim 5.0+ 会改变成绩",
+      "install_reference": "按 README 安装 legged_lab 与作者 runner；先核对资产，再用 t1_tt_eval。",
+      "entry_note": "t1_tt_eval 为作者任务名；直接从注册表构造。--predictor 是作者额外预测器，不应悄悄赠送给 agent；若使用需标注观测条件。",
+      "commit": "fdb192f8fff9f5ca54c4ec4a8441fda5174ca078",
+      "url": "https://github.com/purdue-tracelab/TTRL-ICRA2026",
+      "readme": "sources/purdue-tracelab/TTRL-ICRA2026/README.md"
+    },
+    {
+      "repo": "LxRoboticsLab/ReflexBench",
+      "runtime": "Isaac Lab → Isaac Sim；README 未锁精确版本，杯子引用 Isaac 5.1 资产，需先做版本探测",
+      "install_reference": "python -m pip install -e source/reflexbench；官方 planning 数据收集另需 cuRobo，不是构造任务的同义条件。",
+      "entry_note": "选择 BallCatching-Franka-IK-Abs-v0；保留运行中新发球。官方异步评估接口可参考，但 RobotWorld adapter 尚未实现。",
+      "commit": "8bb931485093c6d98f8729774ad01bf824964e16",
+      "url": "https://github.com/LxRoboticsLab/ReflexBench",
+      "readme": "sources/LxRoboticsLab/ReflexBench/README.md"
+    },
+    {
+      "repo": "Wenminggong/aerial_balance_bench",
+      "runtime": "Isaac Sim 4.2.0 + Isaac Lab 1.4.0 + Python 3.10（作者 tested stack）",
+      "install_reference": "按 README 安装 conda_env.yml；在配置好的 Isaac Lab Python 中运行。先用 zero_action_policy_eval.py 核查接口。",
+      "entry_note": "不是 Gym ID：使用 environments/configs/template_eval_disturbance.yaml。默认 delay-free 配置不是本清单选择的题。",
+      "commit": "d5bf6eae9f955bc03609d9adaedcc9885b31d6b9",
+      "url": "https://github.com/Wenminggong/aerial_balance_bench",
+      "readme": "sources/Wenminggong/aerial_balance_bench/README.md"
+    },
+    {
+      "repo": "thu-uav/VolleyBots",
+      "runtime": "Isaac Sim 2023.1.0-hotfix.1 + 作者 Orbit/依赖；独立旧版本容器",
+      "install_reference": "README 提供 jimmyzhangruize/isaac-sim:2023.1.0-hotfix.1 镜像；需按 README mount 克隆目录。镜像未在本机拉取。",
+      "entry_note": "Volleyball1v1；锁定对手与 checkpoint。checkpoint 目录有作者基线，先核对所用文件，不把分层 Serve/Attack 技能接为 agent 免费小脑。",
+      "commit": "10e3701e480b518041c8be6a40efee7bdcb69283",
+      "url": "https://github.com/thu-uav/VolleyBots",
+      "readme": "sources/thu-uav/VolleyBots/README.md"
+    },
+    {
+      "repo": "UWRobotLearning/WheeledLab",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.0.2 + Python 3.10；README 要求 numpy<2",
+      "install_reference": "从 source 目录 pip install -e wheeledlab / wheeledlab_tasks / wheeledlab_assets / wheeledlab_rl，四个扩展分别安装。",
+      "entry_note": "Isaac-MushrDriftRL-v0 / RSS_DRIFT_CONFIG；不要使用取消 reward/termination 的 Play 配置计分。",
+      "commit": "a5017ce0696032805190448b2addb8077e458387",
+      "url": "https://github.com/UWRobotLearning/WheeledLab",
+      "readme": "sources/UWRobotLearning/WheeledLab/README.md"
+    },
+    {
+      "repo": "zyicome/Wheel-Legged-Lab",
+      "runtime": "作者开发版本：Isaac Sim 5.1.0 + Isaac Lab 2.3.2",
+      "install_reference": "在 Isaac Lab Python 内 python -m pip install -e source/wheel_legged_robot；URDF 在首次构造时转换。",
+      "entry_note": "Recovery 与 Terrain-Reactive 共用资产。若使用作者 play.py，核对 --eval_pushes 是否保留了原推扰；不是新建两个独立场景。",
+      "commit": "e61bfe1fb05aac638ba33e41f91b4eddf3c3c1e7",
+      "url": "https://github.com/zyicome/Wheel-Legged-Lab",
+      "readme": "sources/zyicome/Wheel-Legged-Lab/README.md"
+    },
+    {
+      "repo": "MickyasTA/wheeled_quadruped_robot",
+      "runtime": "Isaac Sim 5.1.0 + Isaac Lab 2.3.2.post1 + Python 3.11；README 另列 torch/rsl-rl 依赖",
+      "install_reference": "按 README pip 安装匹配的 Isaac Lab，再 pip install -e source/wheeled_quadruped。",
+      "entry_note": "必须 Wheeled-Quadruped-Balance-v0，非 Balance-Play-v0；后者移除 push。",
+      "commit": "bcb4ec233927beb6e8b1806fad4703f52131dcbb",
+      "url": "https://github.com/MickyasTA/wheeled_quadruped_robot",
+      "readme": "sources/MickyasTA/wheeled_quadruped_robot/README.md"
+    },
+    {
+      "repo": "BrandoUlissi/isaaclab-go2-locomotion",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.1.1；README: rsl_rl 2.3.3",
+      "install_reference": "使用作者 train_pushrecovery wrapper 导入自定义注册，再在 Isaac Lab 环境运行。不要直接只安装官方 Go2 平地任务。",
+      "entry_note": "随机脉冲版本与作者 scheduled 120 N 演示是两个设置；课程初始最大 30 N，必须记录课程步数/强度。",
+      "commit": "22c0dc900a9a9f38349cc959979e820e41021785",
+      "url": "https://github.com/BrandoUlissi/isaaclab-go2-locomotion",
+      "readme": "sources/BrandoUlissi/isaaclab-go2-locomotion/README.md"
+    },
+    {
+      "repo": "agilexrobotics/robot_lab",
+      "runtime": "Isaac Sim 4.5.0 + Isaac Lab 2.0.0 + Python 3.10",
+      "install_reference": "按 README 安装 source/robot_lab 扩展；作者 scripts/rsl_rl/base 提供训练与可视化入口。",
+      "entry_note": "RobotLab-Isaac-Velocity-Flat-HandStand-Unitree-A1-v0；默认 back 指后腿抬起、以前腿支撑。",
+      "commit": "b868140eeb1459acefef24a865587ec39a5278c3",
+      "url": "https://github.com/agilexrobotics/robot_lab",
+      "readme": "sources/agilexrobotics/robot_lab/README.md"
+    },
+    {
+      "repo": "TeleHuman/HumanoidSoccer",
+      "runtime": "Isaac Lab 2.1.1；对应 Isaac Sim 4.5 系列，按作者 README 安装",
+      "install_reference": "安装 whole_body_tracking 扩展；资产 URDF 在线转换，另准备 motions/soccer-standard。本地只有源码/目录核查，未运行转换。",
+      "entry_note": "Tracking-Flat-G1-SoccerMoving-RNN-v0；--motion_path motions/soccer-standard；作者 ONNX 是复现参考，不能直接作为被测 agent 的动作工具。",
+      "commit": "e72e470230047dedaf66df0983f1d0ab746faeb5",
+      "url": "https://github.com/TeleHuman/HumanoidSoccer",
+      "readme": "sources/TeleHuman/HumanoidSoccer/README.md"
+    },
+    {
+      "repo": "isaac-sim/IsaacLab",
+      "runtime": "固定源码 VERSION=2.3.2；README 支持 Sim 4.5/5.0/5.1，建议单独记录实际运行版本",
+      "install_reference": "按该 commit README 安装 Isaac Lab；任务随 isaaclab_tasks 注册，无额外第三方任务包。",
+      "entry_note": "Isaac-Tracking-LocoManip-Digit-v0；保持原全身动作接口，不调用外部训练好的 Digit walking controller。",
+      "commit": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+      "url": "https://github.com/isaac-sim/IsaacLab",
+      "readme": "sources/isaac-sim/IsaacLab/README.md"
+    },
+    {
+      "repo": "isaac-sim/OmniIsaacGymEnvs",
+      "runtime": "固定 README 要求 Isaac Sim 4.0.0；不是旧独立 Isaac Gym",
+      "install_reference": "使用 Isaac Sim 自带 python.sh；pip install -e .；按 README 的 rlgames_train 入口运行。",
+      "entry_note": "task=AnymalTerrain；保留原每 15 s push 与地形，20 s episode，记录是否发生推扰。",
+      "commit": "f8f91bcf73cfd8ede2eab70e19dd70162abf9775",
+      "url": "https://github.com/isaac-sim/OmniIsaacGymEnvs",
+      "readme": "sources/isaac-sim/OmniIsaacGymEnvs/README.md"
+    },
+    {
+      "repo": "jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "runtime": "Isaac Sim 4.5 + Isaac Lab 2.0.0 + Python 3.10（README）",
+      "install_reference": "按 README 安装 lab.flamingo，手动解压指定资产 ZIP。不要按 README 示例下载另一个 rev 的机器人。",
+      "entry_note": "Isaac-TrackJUMP-Flat-Flamingo-v1-ppo；非 Play；TrackJump 使用 rev01_5_2，而不是 README 安装示例中的 rev01_4_1。",
+      "commit": "d922cce9e07a8877c37e12b2cb39dfdcf34b9d40",
+      "url": "https://github.com/jaykorea/Isaac-RL-Two-wheel-Legged-Bot",
+      "readme": "sources/jaykorea/Isaac-RL-Two-wheel-Legged-Bot/README.md"
+    },
+    {
+      "repo": "btx0424/OmniDrones",
+      "runtime": "固定 README 当前分支 Isaac Sim 4.1.0；不是旧 release 分支的 2022.2.0",
+      "install_reference": "按固定 README 和 docs 安装 OmniDrones；两个 task 共享 Hummingbird 模型与同一容器。",
+      "entry_note": "Hydra task=Payload/PayloadHover 或 task=InvPendulum/InvPendulumTrack；action_transform=null 为本次选择接口。",
+      "commit": "9ce7c2028b71be64d7e748c31f685cd3b54afe27",
+      "url": "https://github.com/btx0424/OmniDrones",
+      "readme": "sources/btx0424/OmniDrones/README.md"
+    }
+  ],
+  "status": "源码与配置交接，未完成GPU安装、资产加载、任务运行或adapter实现。",
+  "binary_assets_included": false,
+  "scope": "仅上一轮保留的 T01–T17；不含两个校准题和被剔除的 Broomy。"
+}

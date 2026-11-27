@@ -1,0 +1,149 @@
+{
+  "id": "T05",
+  "title": "无人机一对一排球对抗",
+  "category": "对抗与接球",
+  "source": "VolleyBots · 1 vs 1",
+  "native": "Volleyball1v1",
+  "stack": "Isaac Sim 2023.1.0-hotfix.1 + Orbit",
+  "commit": "10e3701e480b518041c8be6a40efee7bdcb69283",
+  "setting": "一个 agent 控制本方无人机，对手独立运行自己的策略；保留原物理与比赛规则。不能让同一个待测 agent 预先指定双方整场配合轨迹。",
+  "new_feedback": "对方击球会改变来球方向和速度；下一个接球位置取决于对手刚刚产生的动作与碰撞结果。需要在每次回球后读取新的球态与对手状态。",
+  "deadline": "来球落到本方场内就丢分，击球窗口过去不能补做。规则还限制单次回球与越网/出界，不允许把球接住后慢慢商量。",
+  "action": "原生默认是旋翼推力；框架还支持 CTBR（总推力+机体角速度）转换。使用 CTBR 时，底层飞控不能额外提供自动接球策略。",
+  "evaluation": "原代码包含落地、出界、触网、错误击球等判定并记录胜负；可直接定义固定对手集的胜率，但必须公开对手版本。",
+  "caveat": "固定对手 checkpoint、场地、动作层级与种子。直接调用作者 Serve/Attack 技能会把小脑交给现成策略。1v1、3v3、6v6 不作为三个不同机制凑数。",
+  "media": "实际打开并播放官网 1v1.mp4（20 s），查看了开场画面；未完整逐回合判读，未取得原始状态日志。论文胜率与分层策略结果属于 RL/多智能体设置，不是本项目结果。",
+  "refs": [
+    {
+      "label": "一对一原生任务配置",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/cfg/task/Volleyball1v1.yaml#L1"
+    },
+    {
+      "label": "真实接触、轮次与比赛结算",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py#L944"
+    },
+    {
+      "label": "落地、出界、犯规判据",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/utils/rules.py#L93"
+    },
+    {
+      "label": "官方任务和视频",
+      "url": "https://volleybots.github.io/"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "对方击球后产生新的球轨迹，存在落地/出界截止；比固定节奏单机颠球的反馈必要性更清楚。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "thu-uav/VolleyBots",
+  "runtime": "Isaac Sim 2023.1.0-hotfix.1 + 作者 Orbit/依赖；独立旧版本容器",
+  "install_reference": "README 提供 jimmyzhangruize/isaac-sim:2023.1.0-hotfix.1 镜像；需按 README mount 克隆目录。镜像未在本机拉取。",
+  "entry_note": "Volleyball1v1；锁定对手与 checkpoint。checkpoint 目录有作者基线，先核对所用文件，不把分层 Serve/Attack 技能接为 agent 免费小脑。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "Iris 无人机",
+      "kind": "repository",
+      "location": "volley_bots/robots/assets/usd/iris.usd",
+      "evidence_path": "volley_bots/robots/drone/iris.py",
+      "evidence_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/robots/drone/iris.py",
+      "note": "Volleyball1v1.yaml 的 drone_model=Iris；不是 IrisRacket 名称的另一个模型。",
+      "binary_in_bundle": false,
+      "companion_files": "同目录 iris.yaml 与 USD 引用的 mesh/material",
+      "upstream_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/robots/assets/usd/iris.usd",
+      "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+      "file_bytes": 37673021,
+      "evidence_package_path": "sources/thu-uav/VolleyBots/volley_bots/robots/drone/iris.py"
+    },
+    {
+      "name": "本地地面背景（启用 use_local_usd 时）",
+      "kind": "repository",
+      "location": "volley_bots/envs/assets/default_environment.usd",
+      "evidence_path": "volley_bots/envs/competitive/volleyball_1v1.py",
+      "evidence_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py",
+      "note": "关闭 use_local_usd 时走 Isaac 的在线 ground-plane 资源。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/assets/default_environment.usd",
+      "availability": "已核对本地仓库文件；未在 Isaac 中加载",
+      "file_bytes": 8957,
+      "evidence_package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/volleyball_1v1.py"
+    },
+    {
+      "name": "排球与球网/场地几何",
+      "kind": "procedural",
+      "location": "volleyball_1v1.py 的 _design_scene 及 helpers",
+      "evidence_path": "volley_bots/envs/competitive/volleyball_1v1.py",
+      "evidence_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py",
+      "note": "对手策略 checkpoint 另从仓库 checkpoints/ 挑选并固定；未替智钦预选对手强度。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py",
+      "availability": "运行时由所列源码生成，没有独立资产包",
+      "evidence_package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/volleyball_1v1.py"
+    }
+  ],
+  "required_setting_checks": [
+    "一个 agent 控制本方无人机，对手独立运行自己的策略；保留原物理与比赛规则。不能让同一个待测 agent 预先指定双方整场配合轨迹。",
+    "固定对手 checkpoint、场地、动作层级与种子。直接调用作者 Serve/Attack 技能会把小脑交给现成策略。1v1、3v3、6v6 不作为三个不同机制凑数。"
+  ],
+  "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+  "source_snapshots": [
+    "sources/thu-uav/VolleyBots/LICENSE",
+    "sources/thu-uav/VolleyBots/README.md",
+    "sources/thu-uav/VolleyBots/cfg/base/env_base.yaml",
+    "sources/thu-uav/VolleyBots/cfg/base/sim_base.yaml",
+    "sources/thu-uav/VolleyBots/cfg/task/Volleyball1v1.yaml",
+    "sources/thu-uav/VolleyBots/scripts/evaluation_shell/volleyball3v3_crossplay.sh",
+    "sources/thu-uav/VolleyBots/scripts/evaluation_shell/volleyball3v3_hier.sh",
+    "sources/thu-uav/VolleyBots/scripts/evaluation_shell/volleyball3v3_psro_br.sh",
+    "sources/thu-uav/VolleyBots/scripts/train.py",
+    "sources/thu-uav/VolleyBots/scripts/train_hier.py",
+    "sources/thu-uav/VolleyBots/scripts/train_psro.py",
+    "sources/thu-uav/VolleyBots/scripts/train_psro_br.py",
+    "sources/thu-uav/VolleyBots/scripts/train_psro_cross_play.py",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/back_and_forth.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/hover.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/multiattack_easy.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/multiattack_hard.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/multijuggle.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/singlehit.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/singlejuggle.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball1v1_psro.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball1v1_sp.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball3v3_psro.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball3v3_sp.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball6v6_psro.sh",
+    "sources/thu-uav/VolleyBots/scripts/training_shell/volleyball6v6_sp.sh",
+    "sources/thu-uav/VolleyBots/setup.py",
+    "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/utils/rules.py",
+    "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/volleyball_1v1.py",
+    "sources/thu-uav/VolleyBots/volley_bots/robots/drone/iris.py",
+    "sources/thu-uav/VolleyBots/volley_bots/robots/drone/iris_racket.py",
+    "sources/thu-uav/VolleyBots/volley_bots/robots/drone/multirotor.py",
+    "sources/thu-uav/VolleyBots/volley_bots/robots/robot.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "一对一原生任务配置",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/cfg/task/Volleyball1v1.yaml#L1",
+      "package_path": "sources/thu-uav/VolleyBots/cfg/task/Volleyball1v1.yaml"
+    },
+    {
+      "label": "真实接触、轮次与比赛结算",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/volleyball_1v1.py#L944",
+      "package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/volleyball_1v1.py"
+    },
+    {
+      "label": "落地、出界、犯规判据",
+      "url": "https://github.com/thu-uav/VolleyBots/blob/10e3701e480b518041c8be6a40efee7bdcb69283/volley_bots/envs/competitive/utils/rules.py#L93",
+      "package_path": "sources/thu-uav/VolleyBots/volley_bots/envs/competitive/utils/rules.py"
+    },
+    {
+      "label": "官方任务和视频",
+      "url": "https://volleybots.github.io/",
+      "package_path": null
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+[
+  {
+    "path": "Assets/omnidrones/isaac41-ground/Materials/Textures/WireframeBlur_basecolor.png",
+    "bytes": 436257,
+    "sha256": "deab39088eaf39ed7be951966c5e6bd5e58b90ab64743b0cdc8e5579fd5a99d9",
+    "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.1/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_basecolor.png"
+  },
+  {
+    "path": "Assets/omnidrones/isaac41-ground/Materials/Textures/WireframeBlur_blue.png",
+    "bytes": 1474958,
+    "sha256": "44fc0e82007bb0bd94631cd7ec45986a71ed74b9413899fbffac13efe151be4b",
+    "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.1/Isaac/Environments/Grid/Materials/Textures/WireframeBlur_blue.png"
+  },
+  {
+    "path": "Assets/omnidrones/isaac41-ground/Materials/Textures/Wireframe_blue.png",
+    "bytes": 111895,
+    "sha256": "940b96ee8c8e53bd1acbc770d4ca0ac98bed9c96439ab386d1b27dbc9790cc4e",
+    "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.1/Isaac/Environments/Grid/Materials/Textures/Wireframe_blue.png"
+  },
+  {
+    "path": "Assets/omnidrones/isaac41-ground/default_environment.usd",
+    "bytes": 9119,
+    "sha256": "e6d9de28cebb4d646f6f311502d4bc2ae2a5a3a96a1006334b562b214eba39c4",
+    "source_url": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.1/Isaac/Environments/Grid/default_environment.usd",
+    "external": true
+  },
+  {
+    "path": "Assets/robolab/data/materials/2023_1/Base/Plastics/Rubber_Textured.mdl",
+    "bytes": 1572,
+    "sha256": "c9bcb7378897899c987f1629470929bf2e857196d3342c773f45c689f6e935d7",
+    "source_url": "https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Base/Plastics/Rubber_Textured.mdl",
+    "external": true
+  },
+  {
+    "path": "Assets/robolab/data/materials/2023_1/Base/Plastics/Rubber_Textured/Rubber_Textured_BaseColor.png",
+    "bytes": 16903,
+    "sha256": "25e715d7c65ba33a1c920d0e5c8ba119f3737c0dec183bc1cbec67b25fa19054",
+    "source_url": "https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Base/Plastics/Rubber_Textured/Rubber_Textured_BaseColor.png",
+    "external": true
+  },
+  {
+    "path": "Assets/robolab/data/materials/2023_1/Base/Plastics/Rubber_Textured/Rubber_Textured_Normal.png",
+    "bytes": 5161841,
+    "sha256": "c9897ec963a360ff3c62b15013c88a8f7aa7534bbfea92251bf80e2a0933ff6a",
+    "source_url": "https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Base/Plastics/Rubber_Textured/Rubber_Textured_Normal.png",
+    "external": true
+  },
+  {
+    "path": "Assets/robolab/data/materials/2023_1/Base/Plastics/Rubber_Textured/Rubber_Textured_ORM.png",
+    "bytes": 1155371,
+    "sha256": "e6368c9d99e2759151dc6205f107e6a87516884ab084ed3264efe4f63536b199",
+    "source_url": "https://omniverse-content-production.s3.us-west-2.amazonaws.com/Materials/2023_1/Base/Plastics/Rubber_Textured/Rubber_Textured_ORM.png",
+    "external": true
+  }
+]

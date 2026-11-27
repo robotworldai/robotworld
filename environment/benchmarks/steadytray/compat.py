@@ -29,7 +29,10 @@ def launch_app(experience):
             settings.set_bool('/physics/fabricUpdateTransformations', self._rendering_enabled())
             print('[World SteadyTray compatibility] Kit removed legacy backward-compatibility check setting; retained four original render/fabric flags.')
 
-    return Isaac6Launcher(headless=True, enable_cameras=True, experience=experience).app
+    # The full Kit experience can replace SimulationApp's stage on the first
+    # viewport frame, after the author fork has already created PhysX views.
+    kit_args = '--/isaac/startup/create_new_stage=false --/isaac/startup/ros_bridge_extension='
+    return Isaac6Launcher(headless=True, enable_cameras=True, experience=experience, kit_args=kit_args).app
 
 
 def install(lab_root):

@@ -1,0 +1,6 @@
+{
+  "benchmark": "robocasa",
+  "task": "LoadDishwasher",
+  "horizon": 1800,
+  "scoring_profile": "native"
+}

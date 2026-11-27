@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "insert_tubes",
+  "horizon": 500,
+  "scoring_profile": "native"
+}

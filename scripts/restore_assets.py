@@ -25,20 +25,42 @@ def link_atomically(target,source):
   os.replace(temporary,source)
  finally:
   if temporary.exists():temporary.unlink()
+def restore_directory_link(source, target, apply=False):
+ """Use checkout-relative links so bind-mount relocation preserves asset paths."""
+ source, target = Path(source), Path(target)
+ if not target.is_dir(): return 'missing'
+ # The OS follows relative links from their physical parent. Keep Assets in the target path for bind mounts.
+ relative = os.path.relpath(target, source.parent.resolve())
+ if source.is_symlink():
+  if source.resolve() != target.resolve(): return 'dangling_or_different_symlink'
+  if os.readlink(source) == relative: return 'ready'
+  if apply:
+   temporary=source.with_name(source.name+f'.world-relative-{os.getpid()}')
+   try:
+    temporary.symlink_to(relative,target_is_directory=True)
+    temporary.replace(source)
+   finally:
+    if temporary.is_symlink():temporary.unlink()
+  return 'relativized' if apply else 'would_relativize'
+ if source.exists():
+  if source.is_dir() and not any(source.iterdir()):
+   if apply:
+    source.rmdir()
+    source.symlink_to(relative,target_is_directory=True)
+   return 'linked_empty_directory' if apply else 'would_link_empty_directory'
+  return 'existing_legacy_directory_requires_migration'
+ if apply:
+  source.parent.mkdir(parents=True,exist_ok=True)
+  source.symlink_to(relative,target_is_directory=True)
+ return 'linked' if apply else 'would_link'
+
 def main():
  p=argparse.ArgumentParser();p.add_argument('--apply',action='store_true');p.add_argument('--bench',help='Only restore one benchmark; default all');p.add_argument('--include-shared',action='store_true',help='With --bench, also restore shared dependency resources');a=p.parse_args();rows=[]
  layout=json.loads((ROOT/'environment/datasets/asset-layout.json').read_text())
  for item in layout['external']:
   source=ROOT/item['source'];target=ROOT/item['target'];bench=Path(item['target']).parts[1]
   if a.bench and a.bench!=bench:continue
-  if not target.is_dir():rows.append({'path':item['target'],'status':'missing'});continue
-  if source.is_symlink() and source.resolve()==target.resolve():rows.append({'path':item['source'],'status':'ready'});continue
-  if source.exists():rows.append({'path':item['source'],'status':'existing_legacy_directory_requires_migration'});continue
-  if source.is_symlink():
-   rows.append({'path':item['source'],'status':'dangling_or_different_symlink'})
-   continue
-  if a.apply:source.parent.mkdir(parents=True,exist_ok=True);source.symlink_to(target.resolve(),target_is_directory=True)
-  rows.append({'path':item['source'],'status':'linked' if a.apply else 'would_link'})
+  rows.append({'path':item['source'],'status':restore_directory_link(source,target,a.apply)})
  manifest=json.loads((ROOT/layout['embedded_manifest']).read_text())
  for item in manifest['files']:
   if a.bench and item['benchmark']!=a.bench and not (a.include_shared and item['benchmark']=='_shared'):continue

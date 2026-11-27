@@ -1,1 +1,0 @@
-jupytext --to notebook *.py

@@ -88,11 +88,13 @@ def install(app):
 
 
 class Simulator(native.Simulator):
-    def __init__(self,task_id,seed,output,headless=True):
+    def __init__(self,task_id,seed,output,headless=True,*,skip_review_video=False):
         from isaacsim import SimulationApp
         app=SimulationApp({'headless':headless,'hide_ui':True,'physics_gpu':0,'width':640,'height':480})
         install(app)
-        super().__init__(task_id,seed,output,headless)
+        super().__init__(task_id,seed,output,headless,skip_review_video=skip_review_video)
+        if skip_review_video:
+            return
         # Review light is a persistent nonphysical prim, hidden outside capture.
         import carb
         carb.settings.get_settings().set_bool('/rtx/useViewLightingMode',False)
@@ -120,6 +122,8 @@ class Simulator(native.Simulator):
         },indent=2))
 
     def _capture(self):
+        if self.skip_review_video:
+            return
         from environment.benchmarks.native_project.review_scene import ReviewBackdrop
         if not hasattr(self,'review_backdrop'):
             position=self.task._anymals.get_world_poses()[0][0].detach().cpu().tolist()
@@ -166,10 +170,10 @@ class Simulator(native.Simulator):
         super()._capture()
 
 
-def create_sim(task_id,seed,output,headless=True):
+def create_sim(task_id,seed,output,headless=True,*,skip_review_video=False):
     root=native.SOURCE.parent/'compat'
     for row in json.loads((root/'vendor-provenance.json').read_text())['files']:
         path=root/row['path']
         if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=row['sha256']:
             raise RuntimeError('Missing/modified legacy runtime extension; run compat/extract_gym.py: '+str(path))
-    return Simulator(task_id,seed,output,headless)
+    return Simulator(task_id,seed,output,headless,skip_review_video=skip_review_video)

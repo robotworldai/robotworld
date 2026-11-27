@@ -23,10 +23,15 @@ def main():
     p.add_argument('--seed',type=int,required=True)
     p.add_argument('--timeout',type=int,default=7200)
     p.add_argument('--manifest',type=Path)
+    p.add_argument('--service-host',default='0.0.0.0')
+    p.add_argument('--service-port',type=int,default=8765)
     p.add_argument('--disable-coding-control',action='store_true')
+    p.add_argument('--skip-review-video',action='store_true',help='Run an episode service probe without the external review camera')
     p.add_argument('--runtime-profile',default='default')
     p.add_argument('--scoring-profile',choices=['native','audit-state','world-state-v1'],default='native')
     a = p.parse_args()
+    if a.skip_review_video and a.mode != 'service':
+        p.error('--skip-review-video requires service mode')
     import os
     os.environ['WORLD_SCORING_PROFILE']=a.scoring_profile
     faulthandler.enable()
@@ -66,7 +71,8 @@ def main():
     try:
         project = importlib.import_module(config.get('adapter','environment.benchmarks.'+a.project+'.project'))
         if config.get('engine','isaaclab')=='custom':
-            sim = project.create_sim(a.task,a.seed,out,headless=True)
+            options = {'skip_review_video': True} if a.skip_review_video and a.project in {'omnidrones', 'omniisaacgymenvs', 'ttrl'} else {}
+            sim = project.create_sim(a.task,a.seed,out,headless=True,**options)
         else:
             from isaaclab.app import AppLauncher
             import isaacsim
@@ -74,7 +80,14 @@ def main():
             if hasattr(project, 'launch_app'):
                 app = project.launch_app(experience)
             else:
-                app = AppLauncher(headless=True,enable_cameras=True,experience=experience).app
+                cameras = not a.skip_review_video or hasattr(project, 'policy_images')
+                launcher_options = {}
+                if Path(experience).name == 'isaacsim.exp.full.kit':
+                    # SimulationApp already creates the initial stage. Kit's
+                    # deferred replacement invalidates PhysX views on first render.
+                    launcher_options['kit_args'] = ('--/isaac/startup/create_new_stage=false '
+                                                    '--/isaac/startup/ros_bridge_extension=')
+                app = AppLauncher(headless=True,enable_cameras=cameras,experience=experience,**launcher_options).app
             import numpy as np
             import torch
             random.seed(a.seed)
@@ -139,7 +152,7 @@ def main():
             (out/'physics-parameter-audit.json').write_text(json.dumps(parameter_audit,default=str,indent=2))
         (out/'action-metadata.json').write_text(json.dumps(sim.action_metadata,default=str,indent=2))
         (out/'observation-metadata.json').write_text(json.dumps(getattr(sim,'observation_metadata',{}),default=str,indent=2))
-        if config.get('engine','isaaclab')!='custom':
+        if config.get('engine','isaaclab')!='custom' and not a.skip_review_video:
             from environment.benchmarks.native_project.camera import Camera
             sim.case = a.task
             sim.camera = Camera(sim,out/'video')
@@ -153,7 +166,13 @@ def main():
             instructions += '\n\n'+world_instruction(attached_profile)
         print('[World] Observation and review interfaces ready; starting '+a.mode,flush=True)
         faulthandler.cancel_dump_traceback_later()
-        if a.mode=='codex':
+        if a.mode=='service':
+            from environment.service.native_project import NativeProjectAdapter
+            from environment.service.http import serve_episode
+            adapter = NativeProjectAdapter(sim,a.project,a.task,instructions,a.steps,out)
+            serve_episode(adapter,a.steps,out,host=a.service_host,port=a.service_port)
+            return
+        elif a.mode=='codex':
             from environment.benchmarks.native_project.policy import Agent
             from environment.runtime.nonaction_budget import run_bounded, apply_result
             interaction_stop=run_bounded(Agent(sim,out,a.manifest,a.model,a.steps,a.timeout,instructions,not a.disable_coding_control,task_id=a.task))
@@ -194,7 +213,7 @@ def main():
         raise
     finally:
         try:
-            if sim:
+            if sim and not getattr(sim, '_world_service_closed', False):
                 sim.close()
         finally:
             if app:

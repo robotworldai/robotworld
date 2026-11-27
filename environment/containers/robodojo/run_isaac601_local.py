@@ -110,8 +110,6 @@ def main():
         "LD_LIBRARY_PATH": ("/opt/world-system-libs" if args.image else "/probe-libs") + ":/usr/local/nvidia/lib:/usr/local/nvidia/lib64",
         "NVIDIA_DRIVER_CAPABILITIES": "all", "OMNI_KIT_ACCEPT_EULA": "YES",
         "PYTHONDONTWRITEBYTECODE": "1", "PYTHONUNBUFFERED": "1",
-        "VK_ICD_FILENAMES": "/etc/vulkan/icd.d/nvidia_icd.json",
-        "VK_DRIVER_FILES": "/etc/vulkan/icd.d/nvidia_icd.json",
         "PYTHONPATH": f"{world}:" + ("/opt/world-control-libs" if args.image else f"{world}/var/isaac6-deps") + f":{root}:{root}/XPolicyLab",
         "TORCH_EXTENSIONS_DIR": "/root/.cache/torch_extensions",
     }.items():
@@ -119,6 +117,11 @@ def main():
     if os.environ.get('WORLD_DRIVER_LIBS'):
         from environment.runtime.local_gpu import adapt_docker_command
         command = adapt_docker_command(command, world=world)
+    else:
+        from scripts.harbor_gpu_runtime import gpu_runtime
+        runtime_name = gpu_runtime()
+        if runtime_name:
+            command += ["--runtime", runtime_name]
     image_index = len(command)
     if args.cuda_launch_blocking:
         if args.mode != 'probe':

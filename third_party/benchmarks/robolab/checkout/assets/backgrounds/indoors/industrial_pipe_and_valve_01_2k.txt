@@ -1,1 +1,0 @@
-workshop,lamp,industrial,warehouse,indoor,urban,high contrast,artificial light

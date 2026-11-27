@@ -52,7 +52,7 @@ def fixed_improved_friction(value):
     return None
 
 def launch_app(experience):
-    """Retain original Lab2.1 AppLauncher; skip only a removed legacy PhysX UI setting."""
+    """Launch with the original Lab 2.1 class and the Isaac 6 startup settings."""
     from isaaclab.app import AppLauncher
 
     class Isaac6Launcher(AppLauncher):
@@ -71,7 +71,9 @@ def launch_app(experience):
             settings.set_bool('/physics/fabricUpdateTransformations', self._rendering_enabled())
             print('[World TTRL Isaac6 compatibility] Kit removed legacy backward-compatibility check setting; retained four original render/fabric flags.')
 
-    return Isaac6Launcher(headless=True, enable_cameras=True, experience=experience).app
+    # SimulationApp already creates the stage before TTEnv binds its PhysX views.
+    kit_args = '--/isaac/startup/create_new_stage=false --/isaac/startup/ros_bridge_extension='
+    return Isaac6Launcher(headless=True, enable_cameras=True, experience=experience, kit_args=kit_args).app
 
 
 def install(lab_root):

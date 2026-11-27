@@ -20,6 +20,7 @@ def main():
    restore_submodules(dest)
    continue
   cache=a.cache_dir or ROOT/'var/source-snapshots';cache.mkdir(parents=True,exist_ok=True)
+  dest.parent.mkdir(parents=True,exist_ok=True)
   if cache.stat().st_dev!=dest.parent.stat().st_dev:raise RuntimeError('Snapshot cache must share the checkout filesystem; use --cache-dir')
   temp=Path(tempfile.mkdtemp(prefix=r['id']+'-',dir=cache))
   try:

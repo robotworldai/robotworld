@@ -6,9 +6,10 @@ ASSETS=['source/wheeled_quadruped/wheeled_quadruped/assets/quadruped_robot.usd']
 
 def verify():
     lock=json.loads((ROOT/'project.json').read_text());src=ROOT/'checkout'
-    head=subprocess.check_output(['git','-C',str(src),'rev-parse','HEAD'],text=True).strip()
-    if head!=lock['commit']:raise RuntimeError('Wrong checkout revision: '+head)
-    if subprocess.check_output(['git','-C',str(src),'status','--porcelain'],text=True).strip():raise RuntimeError('Expected unmodified upstream checkout')
+    import importlib.util
+    module_spec=importlib.util.spec_from_file_location('world_source_integrity', ROOT.parents[2]/'environment/runtime/source_integrity.py')
+    module=importlib.util.module_from_spec(module_spec);module_spec.loader.exec_module(module)
+    provenance=module.verify_source(ROOT);head=provenance['commit']
     rows=[]
     for relative in ASSETS:
         path=src/relative
@@ -19,7 +20,7 @@ def verify():
             blob=f.read_bytes()
             if blob.startswith(b'version https://git-lfs.github.com/spec'):raise RuntimeError('Unresolved LFS pointer: '+str(f))
             rows.append({'path':str(f.relative_to(src)),'bytes':len(blob),'sha256':hashlib.sha256(blob).hexdigest()})
-    return {'repository':lock['repository'],'commit':head,'files':rows,'upstream_modified':False}
+    return {'repository':lock['repository'],'commit':head,'files':rows,**provenance}
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--write-manifest',action='store_true');a=p.parse_args()

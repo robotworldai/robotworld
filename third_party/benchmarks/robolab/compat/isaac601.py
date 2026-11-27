@@ -1,4 +1,23 @@
 """Opt-in external API aliases; original RoboLab scene/physics settings are unchanged."""
+from pathlib import Path
+
+
+def use_local_materials(asset_dir):
+    """Resolve authored NVIDIA material URLs to matching files in the snapshot."""
+    import omni.client
+
+    materials = Path(asset_dir).resolve() / 'materials'
+    hosts = ('omniverse-content-production.s3-us-west-2.amazonaws.com',
+             'omniverse-content-production.s3.us-west-2.amazonaws.com')
+    for path in sorted(materials.rglob('*')):
+        if not path.is_file():
+            continue
+        relative = path.relative_to(materials).as_posix()
+        for host in hosts:
+            for scheme in ('https', 'http'):
+                omni.client.set_alias(f'{scheme}://{host}/Materials/{relative}', str(path))
+
+
 def install(*, exact_contact_paths=False):
     import importlib.metadata, pathlib
     if importlib.metadata.version('isaacsim')!='6.0.1.0':raise RuntimeError('Requires Isaac Sim 6.0.1')

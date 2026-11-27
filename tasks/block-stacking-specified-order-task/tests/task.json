@@ -1,0 +1,6 @@
+{
+  "benchmark": "robolab",
+  "task": "BlockStackingSpecifiedOrderTask",
+  "horizon": 1350,
+  "scoring_profile": "native"
+}

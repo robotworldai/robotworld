@@ -1,0 +1,6 @@
+{
+  "benchmark": "robocasa",
+  "task": "ResetCabinetDoors",
+  "horizon": 3300,
+  "scoring_profile": "native"
+}

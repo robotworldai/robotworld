@@ -1,0 +1,28 @@
+{
+  "benchmark": "robodojo",
+  "task": "make_toast",
+  "task_key": "make_toast",
+  "name": "make-toast",
+  "title": "make_toast",
+  "budget_override_reason": null,
+  "native_steps": 1400,
+  "horizon": 1400,
+  "scoring_profile": "native",
+  "budget_source": "third_party/benchmarks/RoboDojo/task/RoboDojo/tasks/make_toast.py: self.step_lim",
+  "runtime_profile": "default",
+  "seed": 0,
+  "scene_selection": {
+    "seed": 0,
+    "layout": 0
+  },
+  "scene_seed_fixed": true,
+  "harbor_status": "adapter_ready",
+  "runtime_validation": "not_verified",
+  "validation_evidence": null,
+  "reason": "Episode adapter implemented; runtime validation tracked separately.",
+  "assets_validation": "not_checked_at_export",
+  "code_control": false,
+  "legacy_code_control_supported": false,
+  "template": "tasks/robocasa-close-drawer",
+  "schema_version": "robotworld.harbor-task.v1"
+}

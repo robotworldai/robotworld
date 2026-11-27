@@ -5,10 +5,12 @@ from pathlib import Path
 def main():
     from environment.benchmarks.wheeledlab.catalog import CASES
     p=argparse.ArgumentParser();p.add_argument('--case',choices=CASES,required=True);p.add_argument('--output',type=Path,required=True)
-    p.add_argument('--mode',choices=['probe','zero','codex'],default='codex');p.add_argument('--steps',type=int,required=True)
+    p.add_argument('--mode',choices=['probe','zero','codex','service'],default='codex');p.add_argument('--steps',type=int,required=True)
     p.add_argument('--seed',type=int,default=7);p.add_argument('--model',default='gpt-6-astra');p.add_argument('--manifest',type=Path)
     p.add_argument('--timeout',type=int,default=7200);p.add_argument('--disable-coding-control',action='store_true')
+    p.add_argument('--skip-review-video',action='store_true',help='Run an episode service probe without the external review camera')
     p.add_argument('--scoring-profile',choices=['native','audit-state','world-state-v1'],default='native');a=p.parse_args()
+    if a.skip_review_video and a.mode!='service':p.error('--skip-review-video requires service mode')
     import os
     os.environ['WORLD_SCORING_PROFILE']=a.scoring_profile
     from environment.evaluation.world_success.profiles import get_profile
@@ -19,7 +21,10 @@ def main():
     faulthandler.enable();faulthandler.dump_traceback_later(180,repeat=True)
     from isaaclab.app import AppLauncher
     import isaacsim
-    launcher=AppLauncher(headless=True,enable_cameras=True,experience=str(Path(isaacsim.__file__).parent/'apps/isaacsim.exp.full.kit'))
+    # SimulationApp creates the initial stage before the vehicle is spawned.
+    kit_args='--/isaac/startup/create_new_stage=false --/isaac/startup/ros_bridge_extension='
+    launcher=AppLauncher(headless=True,enable_cameras=True,kit_args=kit_args,
+                         experience=str(Path(isaacsim.__file__).parent/'apps/isaacsim.exp.full.kit'))
     app=launcher.app;env=None;camera=None;onboard=None;rear=None
     try:
         W=Path(__file__).resolve().parents[2];source=W/'third_party/benchmarks/wheeledlab'
@@ -83,11 +88,20 @@ def main():
             from third_party.benchmarks.wheeledlab.robotworld.onboard import OnboardCamera
             onboard=sim.policy_sensor=OnboardCamera(sim,a.output/'video')
             if spec.get('rear_camera'):rear=sim.rear_sensor=OnboardCamera(sim,a.output/'video',facing='rear')
-        if a.mode!='probe':
+        if a.mode!='probe' and not a.skip_review_video:
             faulthandler.dump_traceback_later(60,repeat=True)
             from environment.benchmarks.wheeledlab.camera import Camera
             camera=sim.camera=Camera(sim,a.output/'video');camera.capture()
         faulthandler.cancel_dump_traceback_later()
+        if a.mode=='service':
+            from environment.service.wheeledlab import WheeledLabAdapter
+            from environment.service.http import serve_episode
+            adapter=WheeledLabAdapter(sim,a.output,a.steps)
+            try:
+                serve_episode(adapter,a.steps,a.output)
+            finally:
+                adapter.close();camera=None;onboard=None;rear=None
+            return
         if a.mode=='codex':
             from environment.benchmarks.wheeledlab.policy import Agent
             from environment.runtime.nonaction_budget import run_bounded, apply_result

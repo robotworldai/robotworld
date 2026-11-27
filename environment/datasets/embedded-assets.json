@@ -516,14 +516,6 @@
       "redistribution": "requires source license compliance"
     },
     {
-      "benchmark": "bench2dex",
-      "source": "third_party/benchmarks/bench2dex/checkout/assets/wechat.png",
-      "asset": "Assets/bench2dex/upstream/checkout/assets/wechat.png",
-      "bytes": 354279,
-      "sha256": "c6e8087ad90fe486b96f048ef66015029f5c74b7a0a1fa97689dfedcdb2d4284",
-      "redistribution": "requires source license compliance"
-    },
-    {
       "benchmark": "behavior_1k",
       "source": "third_party/benchmarks/behavior_1k/checkout/OmniGibson/omnigibson/materials/omnigibson_vray_mtl.mdl",
       "asset": "Assets/behavior_1k/upstream/checkout/OmniGibson/omnigibson/materials/omnigibson_vray_mtl.mdl",
@@ -20505,22 +20497,6 @@
       "asset": "Assets/_shared/upstream/dependencies/xpolicylab/policy/GalaxeaVLA/GalaxeaVLA/assets/teaser.png",
       "bytes": 830212,
       "sha256": "19e2e43d919841b3ccc89cda0b055167b041a02a333eb038c5e663c7f0cbb4ab",
-      "redistribution": "requires source license compliance"
-    },
-    {
-      "benchmark": "_shared",
-      "source": "third_party/dependencies/xpolicylab/checkout/policy/H_RDT/H_RDT/assets/personal_wechat_qr.jpg",
-      "asset": "Assets/_shared/upstream/dependencies/xpolicylab/policy/H_RDT/H_RDT/assets/personal_wechat_qr.jpg",
-      "bytes": 216221,
-      "sha256": "bb628485918d9d2e2328eeacf2f47cac4850546dd1d641d305a5cd256be8b3e1",
-      "redistribution": "requires source license compliance"
-    },
-    {
-      "benchmark": "_shared",
-      "source": "third_party/dependencies/xpolicylab/checkout/policy/H_RDT/H_RDT/assets/wechat_group_qr.jpg",
-      "asset": "Assets/_shared/upstream/dependencies/xpolicylab/policy/H_RDT/H_RDT/assets/wechat_group_qr.jpg",
-      "bytes": 247314,
-      "sha256": "75d4fb1abfa666b8376c3e03cd5188502e7ebd7c67d1aceabb3688dd45575104",
       "redistribution": "requires source license compliance"
     },
     {

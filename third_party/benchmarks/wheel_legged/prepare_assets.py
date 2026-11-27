@@ -14,11 +14,10 @@ ASSET = 'source/wheel_legged_robot/wheel_legged_robot/tasks/manager_based/wheel_
 def verify():
     source = ROOT / 'checkout'
     lock = json.loads((ROOT / 'project.json').read_text())
-    head = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], text=True).strip()
-    if head != lock['commit']:
-        raise RuntimeError(f'Expected {lock["commit"]}, found {head}')
-    if subprocess.check_output(['git', '-C', str(source), 'status', '--porcelain'], text=True).strip():
-        raise RuntimeError('Upstream checkout must remain unchanged')
+    import importlib.util
+    module_spec=importlib.util.spec_from_file_location('world_source_integrity', ROOT.parents[2]/'environment/runtime/source_integrity.py')
+    module=importlib.util.module_from_spec(module_spec);module_spec.loader.exec_module(module)
+    provenance=module.verify_source(ROOT);head=provenance['commit']
     urdf = source / ASSET / 'urdf/wl_dealed.urdf'
     for mesh in ET.parse(urdf).iter('mesh'):
         dependency = (urdf.parent / mesh.attrib['filename']).resolve()

@@ -1,0 +1,6 @@
+{
+  "benchmark": "robodojo",
+  "task": "make_toast",
+  "horizon": 1400,
+  "scoring_profile": "native"
+}

@@ -1,0 +1,6 @@
+{
+  "benchmark": "robocasa",
+  "task": "SortingCleanup",
+  "horizon": 3000,
+  "scoring_profile": "native"
+}

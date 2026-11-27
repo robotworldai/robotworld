@@ -1,0 +1,107 @@
+{
+  "id": "T13",
+  "title": "Digit 行走时同时跟踪双手目标",
+  "category": "行走与上肢协调",
+  "source": "Isaac Lab",
+  "native": "Isaac-Tracking-LocoManip-Digit-v0",
+  "stack": "Isaac Sim 生态；精确依赖见固定版本源码",
+  "commit": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+  "setting": "14 s 回合，双手目标每 1–3 s 更新；继承身体推扰间隔 10–15 s，因此不是每个回合都保证被推。",
+  "new_feedback": "双手到达误差、脚接触与躯干状态共同影响下一步全身动作。手臂移动本身扰动平衡。",
+  "deadline": "双足动态支撑要在失衡前纠正；不能让机器人维持不稳定支撑等待秒级模型回答。",
+  "action": "全身关节目标；底层电机伺服不等于已经解决全身平衡。",
+  "evaluation": "原身体接触/姿态失败与行走、手目标跟踪指标；没有等价于“搬箱成功”的终局判据。",
+  "caveat": "原题没有被手握住的货物，不能写成端箱行走；代码里未绑定的手部随机施力不算生效事件。",
+  "media": "已核查原始源码；本次未实际观看该固定版本的完整成功/失败视频。",
+  "refs": [
+    {
+      "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py"
+    },
+    {
+      "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py"
+    },
+    {
+      "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py"
+    }
+  ],
+  "verdict": "保留",
+  "hardness": "保留全身协调机制，先验证手目标与行走都达标；不应仅凭名字 LocoManip 宣称复杂物体接触。",
+  "source_review": true,
+  "simulation_run": false,
+  "hold_baseline_run": false,
+  "open_loop_baseline_run": false,
+  "latency_sweep_run": false,
+  "repository": "isaac-sim/IsaacLab",
+  "runtime": "固定源码 VERSION=2.3.2；README 支持 Sim 4.5/5.0/5.1，建议单独记录实际运行版本",
+  "install_reference": "按该 commit README 安装 Isaac Lab；任务随 isaaclab_tasks 注册，无额外第三方任务包。",
+  "entry_note": "Isaac-Tracking-LocoManip-Digit-v0；保持原全身动作接口，不调用外部训练好的 Digit walking controller。",
+  "adapter_status": "本包未实现或验证 RoboWorld_Scaffold adapter；提供原生任务接入材料。",
+  "assets": [
+    {
+      "name": "Digit v4",
+      "kind": "external",
+      "location": "{NUCLEUS_ASSET_ROOT_DIR}/Isaac/Robots/Agility/Digit/digit_v4.usd",
+      "evidence_path": "source/isaaclab_assets/isaaclab_assets/robots/agility.py",
+      "evidence_url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_assets/isaaclab_assets/robots/agility.py",
+      "note": "NUCLEUS_ASSET_ROOT_DIR 由 /persistent/isaac/asset_root/cloud 设置决定；补充的 assets.py 给出解析位置。",
+      "binary_in_bundle": false,
+      "upstream_url": "",
+      "availability": "外部资产；需由目标 Isaac 安装解析/下载，未验证远端下载",
+      "evidence_package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/agility.py"
+    },
+    {
+      "name": "平地与双手目标",
+      "kind": "procedural",
+      "location": "DigitRoughEnvCfg → loco_manip_env_cfg.py 的目标/场景覆盖",
+      "evidence_path": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+      "evidence_url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+      "note": "无被手握住的货物；这是双手目标跟踪，不是搬箱。",
+      "binary_in_bundle": false,
+      "upstream_url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+      "availability": "运行时由所列源码生成，没有独立资产包",
+      "evidence_package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py"
+    }
+  ],
+  "required_setting_checks": [
+    "14 s 回合，双手目标每 1–3 s 更新；继承身体推扰间隔 10–15 s，因此不是每个回合都保证被推。",
+    "原题没有被手握住的货物，不能写成端箱行走；代码里未绑定的手部随机施力不算生效事件。"
+  ],
+  "observation_note": "保留原生观测定义；源码配置中可能包含 simulator state。原生 state 条件与 RGB/RGB-D 条件需分开记录，本包不擅自宣称纯视觉。",
+  "source_snapshots": [
+    "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/__init__.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/__init__.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/__init__.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/__init__.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/flat_env_cfg.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+    "sources/isaac-sim/IsaacLab/LICENSE",
+    "sources/isaac-sim/IsaacLab/README.md",
+    "sources/isaac-sim/IsaacLab/VERSION",
+    "sources/isaac-sim/IsaacLab/source/isaaclab/isaaclab/utils/assets.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/unitree.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/franka.py",
+    "sources/isaac-sim/IsaacLab/source/isaaclab_assets/isaaclab_assets/robots/agility.py"
+  ],
+  "source_entry_files": [
+    {
+      "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py",
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomanipulation/tracking/config/digit/loco_manip_env_cfg.py"
+    },
+    {
+      "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py",
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/digit/rough_env_cfg.py"
+    },
+    {
+      "label": "source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+      "url": "https://github.com/isaac-sim/IsaacLab/blob/b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py",
+      "package_path": "sources/isaac-sim/IsaacLab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py"
+    }
+  ]
+}
