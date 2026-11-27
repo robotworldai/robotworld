@@ -2,6 +2,12 @@
 
 [项目主页](https://robotworldai.github.io/) · [任务录像](https://robotworldai.github.io/zh/#gallery) · [论文](https://arxiv.org/abs/2610.10409) · [English](README.md)
 
+## 社区交流
+
+扫码加入 RobotWorld 社区微信群。此群码在 2026 年 12 月 4 日前有效。
+
+<a href="docs/images/robotworld-community.png"><img src="docs/images/robotworld-community.png" width="300" alt="RobotWorld 社区微信群二维码"></a>
+
 RobotWorld 将 20 个仿真环境中的 84 个机器人控制任务封装为 Harbor 任务。智能体通过 MCP 获取观测并发出动作，模拟器记录轨迹和终止原因，Harbor 在独立容器中评分。
 
 ## 安装
@@ -73,12 +79,6 @@ bash scripts/harbor_run.sh --config var/jobs/two-tasks.yaml
 Harbor 使用 [tasks/](tasks/) 下的目录名作为任务 ID，可用 `ls tasks` 列出任务。每个目录的 `instruction.md` 说明机器人接口和原生步数上限。智能体思考时仿真暂停，任务成功后可提前终止。检查试验目录中的 `result.json` 可确认是否发生异常，`artifacts/simulation/episode.json` 记录实际步数和终止原因。
 
 使用已生成的任务包时，安装该任务的运行依赖即可。重新生成任务包前需恢复对应的上游源码。[开发指南](docs/HARBOR_DEVELOPMENT.zh-CN.md) 介绍任务生成与验证。模拟器代码和数据各自遵循上游许可。
-
-## 社区交流
-
-扫码加入 RobotWorld 社区微信群。此群码在 2026 年 12 月 4 日前有效。
-
-<a href="docs/images/robotworld-community.png"><img src="docs/images/robotworld-community.png" width="300" alt="RobotWorld 社区微信群二维码"></a>
 
 ## 引用
 

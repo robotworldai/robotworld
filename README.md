@@ -2,6 +2,12 @@
 
 [Project](https://robotworldai.github.io/) · [Task videos](https://robotworldai.github.io/#gallery) · [Paper](https://arxiv.org/abs/2610.10409) · [简体中文](README.zh-CN.md)
 
+## Community
+
+Scan to join the RobotWorld WeChat group. This invitation is valid before December 4, 2026.
+
+<a href="docs/images/robotworld-community.png"><img src="docs/images/robotworld-community.png" width="300" alt="RobotWorld community invitation QR code"></a>
+
 RobotWorld packages 84 robot-control tasks from 20 simulators for Harbor. An agent observes the scene and sends robot commands over MCP. The simulator advances the episode and records the outcome. Harbor runs a separate verifier to score the trajectory.
 
 ## Installation
@@ -79,12 +85,6 @@ ls tasks
 Each task specifies the robot interface and native step limit in `instruction.md`. Simulation pauses between actions. A successful episode can end before its limit. Check the trial's `result.json` for exceptions, then read `artifacts/simulation/episode.json` for the control-step count and termination reason.
 
 The task packages are ready to run once their runtime dependencies are installed. To regenerate a package from an upstream benchmark, restore its pinned sources first. The [development guide](docs/HARBOR_DEVELOPMENT.md) covers generation and verification. Simulator code and data retain their upstream licenses.
-
-## Community
-
-Scan to join the RobotWorld WeChat group. This invitation is valid before December 4, 2026.
-
-<a href="docs/images/robotworld-community.png"><img src="docs/images/robotworld-community.png" width="300" alt="RobotWorld community invitation QR code"></a>
 
 ## Citation
 

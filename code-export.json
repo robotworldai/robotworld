@@ -19,12 +19,12 @@
     },
     {
       "path": "README.md",
-      "sha256": "d487aa777c388cf2ec7c45b2f15c446af38ccdcb679a3ead739816477d64ffa5",
+      "sha256": "7f29bd572e918b9cf73980030d5b0e569839773c80aef76cfee4e1bad8e55fc3",
       "bytes": 6274
     },
     {
       "path": "README.zh-CN.md",
-      "sha256": "cdd8bd5a64527900cb8af954933ee52d158416c2e7c4903ff9829178c30ad463",
+      "sha256": "fa9fcbf92970c72f71816c8c3f4ee00bc2646af1e5806d9ef09ebed06592f206",
       "bytes": 5877
     },
     {
@@ -464,8 +464,8 @@
     },
     {
       "path": "docs/images/robotworld-community.png",
-      "bytes": 290484,
-      "sha256": "112f9b93e7f543e70c54396a8c3da0ce5c48ae59d2cbb4a54bd30480f2cdcb75"
+      "bytes": 233043,
+      "sha256": "36cb11843d38cececb05e0f05d972af218a1b66273c2d5ca8b2e5ddba579b658"
     },
     {
       "path": "docs/native17/ASSETS.md",
